@@ -1002,6 +1002,21 @@ function getItemAndLotnumFifo() {
 	});
 }
 
+function checkExpDate(exp) {
+	today = new Date().setHours(0,0,0,0);
+	expDate = new Date(exp).setHours(0,0,0,0);
+
+
+
+	console.log(parseInt(expDate)+' >= '+parseInt(today));
+
+	if (parseInt(expDate) >= parseInt(today)) {
+		return false;
+	}
+
+	return true;
+}
+
 function getFifoTable(data) {
 	var tbl_fifo_body = '';
 	$('#tbl_fifo_body').html('');
@@ -1015,7 +1030,7 @@ function getFifoTable(data) {
 		var color = '';
 		var font = '';
 
-		if (getDate() > x.receive_date) {
+		if (checkExpDate(x.receive_date)) {
 			color = '#F3565D';
 			font = '#fff';
 		}

@@ -45,18 +45,19 @@ class WBSMaterialReceivingController extends Controller
     protected $common;
     protected $barcode;
     protected $ppscon;
+    protected $com;
 
     public function __construct()
     {
         $this->middleware('auth');
-        $com = new CommonController;
+        $this->com = new CommonController;
 
         if (Auth::user() != null) {
-            $this->mysql = $com->userDBcon(Auth::user()->productline,'wbs');
-            $this->mssql = $com->userDBcon(Auth::user()->productline,'mssql');
-            $this->common = $com->userDBcon(Auth::user()->productline,'common');
-            $this->barcode = $com->userDBcon(Auth::user()->productline,'barcode');
-            $this->ppscon = $com->userDBcon(Auth::user()->productline,'pps_invoice');
+            $this->mysql = $this->com->userDBcon(Auth::user()->productline,'wbs');
+            $this->mssql = $this->com->userDBcon(Auth::user()->productline,'mssql');
+            $this->common = $this->com->userDBcon(Auth::user()->productline,'common');
+            $this->barcode = $this->com->userDBcon(Auth::user()->productline,'barcode');
+            $this->ppscon = $this->com->userDBcon(Auth::user()->productline,'pps_invoice');
         } else {
             return redirect('/');
         }
@@ -175,8 +176,7 @@ class WBSMaterialReceivingController extends Controller
             $summarydata = json_decode($req->summarydata);
             $notForIQC = json_decode($req->notForIQC);
 
-            $com = new CommonController();
-            $receive_no = $com->getTransCode('MAT_RCV');
+            $receive_no = $this->com->getTransCode('MAT_RCV');
 
             DB::connection($this->mysql)->table('tbl_wbs_material_receiving')->insert([
                 'receive_no' => $receive_no,
@@ -335,7 +335,7 @@ class WBSMaterialReceivingController extends Controller
                                 'box_qty' => str_replace(',','', $batchdata->box_qty[$key]),
                                 'lot_no' => $batchdata->lot_no[$key],
                                 'supplier' => strtoupper($batchdata->supplier[$key]),
-                                'exp_date' => $batchdata->exp_date[$key],
+                                'exp_date' => $this->convertExpDate($batchdata->exp_date[$key]),
                                 'update_user' => Auth::user()->user_id,
                                 'updated_at' => date('Y-m-d h:i:s a')
                             ]);
@@ -348,7 +348,7 @@ class WBSMaterialReceivingController extends Controller
                                 'box_qty' => str_replace(',','',$batchdata->box_qty[$key]),
                                 'lot_no' => $batchdata->lot_no[$key],
                                 'supplier' => strtoupper($batchdata->supplier[$key]),
-                                'exp_date' => $batchdata->exp_date[$key],
+                                'exp_date' => $this->convertExpDate($batchdata->exp_date[$key]),
                                 'update_user' => Auth::user()->user_id,
                                 'updated_at' => date('Y-m-d h:i:s a')
                             ]);
@@ -381,7 +381,7 @@ class WBSMaterialReceivingController extends Controller
                                             'lot_no' => $batchdata->lot_no[$key],
                                             'location' => $batchdata->location[$key],
                                             'supplier' => strtoupper($batchdata->supplier[$key]),
-                                            'exp_date' => $batchdata->exp_date[$key],
+                                            'exp_date' => $this->convertExpDate($batchdata->exp_date[$key]),
                                             'drawing_num' => $this->getDrawingNum($item),
                                             'iqc_status' => $check,
                                             'is_printed' => $printed,
@@ -406,7 +406,7 @@ class WBSMaterialReceivingController extends Controller
                             'lot_no' => $batchdata->lot_no[$key],
                             'location' => $batchdata->location[$key],
                             'supplier' => strtoupper($batchdata->supplier[$key]),
-                            'exp_date' => $batchdata->exp_date[$key],
+                            'exp_date' => $this->convertExpDate($batchdata->exp_date[$key]),
                             'drawing_num' => $this->getDrawingNum($item),
                             'iqc_status' => $check,
                             'is_printed' => $printed,
@@ -455,6 +455,18 @@ class WBSMaterialReceivingController extends Controller
                     'msg' => "Saving Failed."
                 ];
         }
+    }
+
+    public function convertExpDate($date)
+    {
+        if (preg_match('~[0-9]~', $date)) {
+            $time = strtotime($date);
+            $newdate = date('Y-m-d',$time);
+            return $newdate;
+        }
+
+        return $date;
+        
     }
 
     private function CheckInvoiceNo($invoiceno)
@@ -1924,7 +1936,7 @@ class WBSMaterialReceivingController extends Controller
                                         $iqc_status,
                                         $for_kitting,
                                         $field['received_date'],
-                                        $field['exp_date']);
+                                        $this->convertExpDate($field['exp_date']));
                         }
                     }
                 // } else {
@@ -2280,7 +2292,7 @@ class WBSMaterialReceivingController extends Controller
                 'not_for_iqc' => 0,
                 'iqc_result' => '',
                 'received_date' => $req->received_date,
-                'exp_date' => $req->exp_date,
+                'exp_date' => $this->convertExpDate($req->exp_date),
                 'create_user' => Auth::user()->user_id,
                 'created_at' =>  date('m/d/Y h:i A'),
                 'update_user' => Auth::user()->user_id,
@@ -2305,7 +2317,7 @@ class WBSMaterialReceivingController extends Controller
                 'not_for_iqc' => 0,
                 'iqc_result' => '',
                 'received_date' => $req->received_date,
-                'exp_date' => $req->exp_date,
+                'exp_date' => $this->convertExpDate($req->exp_date),
                 'create_user' => Auth::user()->user_id,
                 'created_at' =>  date('m/d/Y h:i A'),
                 'update_user' => Auth::user()->user_id,

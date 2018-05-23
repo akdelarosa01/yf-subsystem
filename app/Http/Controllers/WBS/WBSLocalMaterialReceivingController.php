@@ -54,6 +54,18 @@ class WBSLocalMaterialReceivingController extends Controller
         }
     }
 
+    public function convertExpDate($date)
+    {
+        if (preg_match('~[0-9]~', $date) {
+            $time = strtotime($date);
+            $newdate = date('Y-m-d',$time);
+            return $newdate;
+        }
+
+        return $date;
+        
+    }
+
     public function postSaveLocRec(Request $req)
     {
         $data = [
