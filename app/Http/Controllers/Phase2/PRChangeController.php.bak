@@ -1,0 +1,333 @@
+<?php
+namespace App\Http\Controllers\Phase2;
+
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\CommonController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; #Auth facade
+use App\Http\Requests;
+use App\pr_orig;
+use App\pr_change;
+use Carbon\Carbon;
+use Config;
+use Excel;
+use DB;
+
+class PRChangeController extends Controller
+{
+	public $mysql;
+    public $mssql;
+    public $common;
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $com = new CommonController;
+
+        if (Auth::user() != null) {
+            $this->mysql = $com->userDBcon(Auth::user()->productline,'mysql');
+            $this->mssql = $com->userDBcon(Auth::user()->productline,'mssql');
+            $this->common = $com->userDBcon(Auth::user()->productline,'common');
+        } else {
+            return redirect('/');
+        }
+    }
+
+
+    public function getPRChange()
+    {
+    	$common = new CommonController;
+        if(!$common->getAccessRights(Config::get('constants.MODULE_CODE_PRCHANGE'), $userProgramAccess))
+        {
+            return redirect('/home');
+        }
+        else
+        {
+            $sss = DB::connection($this->common)->table('muserprograms as U')
+                                    ->join('mprograms as P', 'P.program_code', '=', 'U.program_code')
+                                    ->select('P.program_name', 'U.program_code','U.user_id','U.read_write')
+                                    ->where('U.user_id', Auth::user()->user_id)
+                                    ->where('U.delete_flag', 0)
+                                    ->where('P.program_class','SSS')
+                                    ->orderBy('U.id','asc')->get();
+
+            $wbs = DB::connection($this->common)->table('muserprograms as U')
+                                    ->join('mprograms as P', 'P.program_code', '=', 'U.program_code')
+                                    ->select('P.program_name', 'U.program_code','U.user_id','U.read_write')
+                                    ->where('U.user_id', Auth::user()->user_id)
+                                    ->where('U.delete_flag', 0)
+                                    ->where('P.program_class','WBS')
+                                    ->orderBy('U.id','asc')->get();
+            $qcdb = DB::connection($this->common)->table('muserprograms as U')
+                                    ->join('mprograms as P', 'P.program_code', '=', 'U.program_code')
+                                    ->select('P.program_name', 'U.program_code','U.user_id','U.read_write')
+                                    ->where('U.user_id', Auth::user()->user_id)
+                                    ->where('U.delete_flag', 0)
+                                    ->where('P.program_class','QCDB')
+                                    ->orderBy('U.id','asc')->get();
+
+            $qcmld = DB::connection($this->common)->table('muserprograms as U')
+                                    ->join('mprograms as P', 'P.program_code', '=', 'U.program_code')
+                                    ->select('P.program_name', 'U.program_code','U.user_id','U.read_write')
+                                    ->where('U.user_id', Auth::user()->user_id)
+                                    ->where('U.delete_flag', 0)
+                                    ->where('P.program_class','QCMLD')
+                                    ->orderBy('U.id','asc')->get();
+            return view('phase2.PRChange',['userProgramAccess' => $userProgramAccess,'ssss' => $sss,
+                'wbss' => $wbs,
+                'qcdbs' => $qcdb,
+                'qcmlds' => $qcmld]);
+        }
+    }
+
+    public function postOrigPR(Request $request)
+    {
+        // for getting extension getClientOriginalExtension()
+        // for getting path getPathName();
+        // get the mime type getMimeType()
+        // get the max file size set from php.ini getMaxFilesize()
+
+        $pr_orig = $request->file('originalpr');
+
+		if (empty($pr_orig)) {
+			$message = "No file was uploaded.";
+			return redirect(url('/prchange'))->with(['prorig_modal' => $message]);
+		} else {
+			if ($pr_orig->getClientOriginalExtension() != 'xls') {
+	            $message = "File must be .xls file.";
+	            return redirect(url('/prchange'))->with(['err_message' => $message]);
+	        } else {
+	            try {
+	                $this->truncateTable('pr_orig');
+
+	                $ok = Excel::load($pr_orig, function ($reader) {
+	                        $reader->formatDates(false);
+	                        foreach ($reader->toArray() as $key => $col) {
+	                            //Insert xls file data to pr_orig(MYSQL TABLE)
+	                            if (array_key_exists("salesno",$col)) {
+	                                $this->insertDataToOrigPR($col);
+	                            }
+	                        }
+	                    });
+	                if ($ok == true) {
+	                    $message = "TS PR data imported successfully.";
+	                    return redirect(url('/prchange'))->with(['prorig_modal' => $message]);
+	                } else {
+	                    $message = "TS PR data imported failed.";
+	                    return redirect(url('/prchange'))->with(['prorig_modal' => $message]);
+	                }
+
+	            } catch (Exception $e) {
+
+	            }
+	        }
+		}
+
+    }
+
+    public function postChangePR(Request $request)
+    {
+        // for getting extension getClientOriginalExtension()
+        // for getting path getPathName();
+        // get the mime type getMimeType()
+        // get the max file size set from php.ini getMaxFilesize()
+
+        $pr_change = $request->file('changepr');
+
+		if (empty($pr_change)) {
+			$message = "No file was uploaded.";
+			return redirect(url('/prchange'))->with(['prchange_modal' => $message]);
+		} else {
+			if ($pr_change->getClientOriginalExtension() != 'xls') {
+	            $message = "File must be .xls file.";
+	            return redirect(url('/prchange'))->with(['err_message' => $message]);
+	        } else {
+	            try {
+	                $this->truncateTable('pr_change');
+
+	                $ok = Excel::load($pr_change, function ($reader) {
+	                        $reader->formatDates(false);
+	                        foreach ($reader->toArray() as $key => $col) {
+	                            //Insert xls file data to pr_orig(MYSQL TABLE)
+	                            if (array_key_exists("0",$col)) {
+	                                $this->insertDataToChangePR($col);
+	                            }
+	                        }
+	                    });
+	                if ($ok == true) {
+	                    $this->PR_output();
+	                    $message = "PR Change imported successfully";
+	                    return redirect(url('/prchange'))->with(['prchange_modal' => $message]);
+	                } else {
+	                    $message = "PR Change imported failed";
+	                    return redirect(url('/prchange'))->with(['prchange_modal' => $message]);
+	                }
+
+	            } catch (Exception $e) {
+
+	            }
+	        }
+		}
+
+    }
+
+    private function truncateTable($table)
+    {
+        return DB::connection($this->mysql)->table($table)->truncate();
+    }
+
+    private function insertDataToOrigPR($data)
+    {
+        try {
+            //$pr_orig = new pr_orig;
+
+            $po = substr($data['purchaseorderno'], 16);
+            $ponum = substr($po, 0,-4);
+
+            return DB::connection($this->mysql)
+                ->table('pr_orig')->insert([
+                        'sales_no' => $data['salesno'],
+                        'sales_type' => $data['salestype'],
+                        'sales_org' => $data['salesorg'],
+                        'commercial' => $data['commercial'],
+                        'sales_org' => $data['section'],
+                        'sales_branch' => $data['salesbranch'],
+                        'sales_g' => $data['salesg'],
+                        'supplier' => $data['supplier'],
+                        'destination' => $data['destination'],
+                        'player' => $data['payer'],
+                        'assistant' => $data['assistant'],
+                        'po_num' => $ponum,
+                        'issued_date' => $data['issuedate'],
+                        'flight_need_date' => $data['flightneeddate'],
+                        'headertext' => $data['headertext'],
+                        'pcode' => $data['code'],
+                        'itemtext' => $data['itemtext'],
+                        'orderqty' => $data['orderquantity'],
+                        'unit' => $data['unit'],
+                ]);
+        } catch (Exception $e) {
+
+        }
+    }
+
+    private function insertDataToChangePR($data)
+    {
+        try {
+            //$pr_change = new pr_change;
+            $po = substr($data['purchaseorderno'], 16);
+            $ponum = substr($po, 0,-4);
+
+            return DB::connection($this->mysql)->table('pr_change')
+                ->insert([
+                    'sales_no' => $data['salesno'],
+                    'sales_type' => $data['salestype'],
+                    'sales_org' => $data['salesorg'],
+                    'commercial' => $data['commercial'],
+                    'sales_org' => $data['section'],
+                    'sales_branch' => $data['salesbranch'],
+                    'sales_g' => $data['salesg'],
+                    'supplier' => $data['supplier'],
+                    'destination' => $data['destination'],
+                    'player' => $data['payer'],
+                    'assistant' => $data['assistant'],
+                    'po_num' => $ponum,
+                    'issued_date' => $data['issuedate'],
+                    'flight_need_date' => $data['flightneeddate'],
+                    'headertext' => $data['headertext'],
+                    'pcode' => $data['code'],
+                    'itemtext' => $data['itemtext'],
+                    'orderqty' => $data['orderquantity'],
+                    'unit' => $data['unit'],
+                    'classification' => $data['0']
+                ]);
+        } catch (Exception $e) {
+
+        }
+    }
+
+    private function PR_output()
+    {
+        $output = DB::connection($this->mysql)->table('pr_orig as po')
+                    ->join('pr_change as pc','po.po_num','=','pc.po_num')
+                    ->select(
+                        DB::raw('po.po_num as OrderNo'),
+                        DB::raw('po.issued_date as issuedate'),
+                        DB::raw('po.pcode as CODE'),
+                        DB::raw('po.orderqty as OriginalQty'),
+                        DB::raw('sum(pc.orderqty) as NewQty'),
+                        DB::raw('sum(pc.orderqty) - po.orderqty as MOQExcess')
+                    )
+                    ->groupBy('pc.po_num')
+                    ->get();
+
+        $msDB = [];
+        foreach ($output as $key => $mysql) {
+            $check = DB::connection('sqlsrvbu')
+                        ->table('XHEAD as h')
+                        ->join('XTANK as u','h.CODE','=','u.CODE')
+                        ->select('h.NAME','u.PRICE','h.CODE')
+                        ->where('h.CODE',$mysql->CODE)
+                        ->get();
+            $msDB[] = $check;
+            //echo "<pre>",print_r($check),"</pre>";
+        }
+
+        try {
+            $dt = Carbon::now();
+            $date = substr($dt->format('Ymd'), 2);
+            $time = $dt->format('his');
+            $path = public_path().'/PR_Change_Output/';
+            // File::makeDirectory($path, 0777, true, true);
+            // if (!File::exists($path)) {
+            //     File::makeDirectory($path, 0777, true, true);
+            // }
+
+            Excel::create('PR_Change_'.$date, function($excel) use($output,$msDB){
+                $excel->sheet('PR_Change_Output', function($sheet) use($output,$msDB){
+                    $sheet->cell('A1', "OrderNo");
+                    $sheet->cell('B1', "issuedate");
+                    $sheet->cell('C1', "CODE");
+                    $sheet->cell('D1', "Part Name");
+                    $sheet->cell('E1', "UnitPrice");
+                    $sheet->cell('F1', "OriginalQty");
+                    $sheet->cell('G1', "NewQty");
+                    $sheet->cell('H1', "MOQ Excess");
+                    $sheet->cell('I1', "Amount");
+                    $sheet->cell('J1', "BIKOU");
+
+                    $row = 2;
+                    $cnt = 0;
+                    foreach ($msDB as $key => $ms) {
+                        if (isset($ms[0])) {
+                            $amt = $ms[0]->PRICE * $output[$cnt]->MOQExcess;
+                            if ($amt == 0) {
+                                $amt = "0.0";
+                            }
+                            if ($output[$cnt]->MOQExcess == 0) {
+                                $output[$cnt]->MOQExcess = "0.0";
+                            }
+
+                            $sheet->cell('A'.$row, $output[$cnt]->OrderNo);
+                            $sheet->cell('B'.$row, $output[$cnt]->issuedate);
+                            $sheet->cell('C'.$row, $output[$cnt]->CODE);
+                            $sheet->cell('D'.$row, $ms[0]->NAME);
+                            $sheet->cell('E'.$row, $ms[0]->PRICE);
+                            $sheet->cell('F'.$row, $output[$cnt]->OriginalQty);
+                            $sheet->cell('G'.$row, $output[$cnt]->NewQty);
+                            $sheet->cell('H'.$row, $output[$cnt]->MOQExcess);
+                            $sheet->cell('I'.$row, $amt);
+                            $sheet->cell('J'.$row, "");
+                            $row++;
+                            $cnt++;
+                        }
+
+                    }
+                });
+            })->download('xls');
+
+        } catch (Exception $e) {
+            return redirect(url('/prchange'))->with(['err_message' => $e]);
+        }
+    }
+}
