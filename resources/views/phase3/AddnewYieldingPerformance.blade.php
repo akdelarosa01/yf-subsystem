@@ -15,410 +15,401 @@
           @endif
      @endforeach
 
+     
+    <div class="page-content">
 
-    <div class="clearfix"></div>
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                @include('includes.message-block')
+                    <div class="portlet box blue" >
+                        <div class="portlet-title">
+                            <div class="caption">
+                                 <i class="fa fa-navicon"></i>  Yield Performance
+                            </div>
+                            <div class="tools">
+                                 <button onclick="javascript:back();" id="btnback" class="btn btn-sm red">Back</button>
+                            </div>
+                        </div>
 
-    <!-- BEGIN CONTAINER -->
-    <div class="page-container">
-        @include('includes.sidebar')
-        <!-- BEGIN CONTENT -->
-        <div class="page-content-wrapper">
-            <div class="page-content">
-
-                <!-- BEGIN PAGE CONTENT-->
-                <div class="row">
-                    <div class="col-sm-12">
-                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                        @include('includes.message-block')
-                            <div class="portlet box blue" >
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                         <i class="fa fa-navicon"></i>  Yield Performance
-                                    </div>
-                                    <div class="tools">
-                                         <button onclick="javascript:back();" id="btnback" class="btn btn-sm red">Back</button>
-                                    </div>
-                                </div>
-
-                                <div class="portlet-body">
-                                   
+                        <div class="portlet-body">
+                           
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="row">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    
-                                                    <div class="portlet box">
+                                        <div class="col-sm-12">
+                                            
+                                            <div class="portlet box">
 
-                                                        <div class="portlet-body">
-                                                            <div class="row">
-                                                                <div class="col-sm-12">  
-                                                                    <form class="form-horizontal">
-                                                                        {!! csrf_field() !!}
-                                                                        <div class="col-sm-4">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label col-sm-3">Control No</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <input class="form-control input-sm" size="16" type="hidden" value="<?php if(isset($count)){
-                                                                                            echo $count->yieldingno + 1;
-                                                                                        } else {
-                                                                                            echo $count + 1;
-                                                                                        } ?>" name="hdyieldingno" id="hdyieldingno" />
-                                                                                    <input placeholder="Search by Control#/PO#" class="form-control input-sm" size="16" type="text"  name="yieldingno" id="yieldingno" />  
-                                                                                </div>   
-                                                                            </div>
+                                                <div class="portlet-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">  
+                                                            <form class="form-horizontal">
+                                                                {!! csrf_field() !!}
+                                                                <div class="col-sm-4">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-sm-3">Control No</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input class="form-control input-sm" size="16" type="hidden" value="<?php if(isset($count)){
+                                                                                    echo $count->yieldingno + 1;
+                                                                                } else {
+                                                                                    echo $count + 1;
+                                                                                } ?>" name="hdyieldingno" id="hdyieldingno" />
+                                                                            <input placeholder="Search by Control#/PO#" class="form-control input-sm" size="16" type="text"  name="yieldingno" id="yieldingno" />  
+                                                                        </div>   
+                                                                    </div>
 
-                                                                            <div class="form-group">
-                                                                                <label class="control-label col-sm-3">PO No.</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <input type="text" value="@foreach($msrecords as $msrec){{$msrec->PO}}@endforeach" class="form-control input-sm" id="pono" name="pono"/>
-                                                                                    <div id="er1"></div>
-    
-                                                                                </div>
-                                                                                <div class="col-sm-3">
-                                                                                    <button type="button" onclick="javascript:searchpo();" name="search-task"  class="btn btn-circle input-sm green load-task"  id="btnload">
-                                                                                       <i class="fa fa-arrow-circle-down"></i> 
-                                                                                    </button>
-                                                                                </div>                                                           
-                                                                             </div>
-
-                                                                             <div class="form-group">
-                                                                                <label class="control-label col-sm-3">PO Qty</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <input class="form-control input-sm" size="16" type="text" name="poqty" value="@foreach($msrecords as $msrec){{$msrec->POqty}} @endforeach" id="poqty" disabled="disabled"/> 
-                                                                                    <div id="error1"></div>  
-                                                                                </div>
-                                                                            </div> 
-
-                                                                            <div class="form-group">
-                                                                                <label class="control-label col-sm-3">Device</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <input type="text" class="form-control input-sm" id="device" name="device" value="@foreach($msrecords as $msrec){{$msrec->devicename}}@endforeach" disabled="disabled"/>
-                                                                                    <div id="error2"></div>   
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="form-group">
-                                                                                <label class="control-label col-sm-3">Family</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <Select class="form-control input-sm" id="family" name="family">
-                                                                                        <option value=""></option>
-                                                                                        @foreach ($family as $fam)
-                                                                                            <option value="{{$fam->family}}">{{$fam->family}}</option>
-                                                                                        @endforeach
-                                                                                    </Select>
-                                                                                    <div id="er2"></div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="form-group">
-                                                                                <label class="control-label col-sm-3">Series</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <Select class="form-control input-sm" id="series" name="series" required>
-                                                                                        <option value=""></option>
-                                                                                        @foreach ($devreg as $serie)
-                                                                                           <option value="{{$serie->series}}">{{$serie->series}}
-                                                                                           </option>
-                                                                                        @endforeach
-                                                                                    </Select>
-                                                                                    <div id="er3"></div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label class="control-label col-sm-3">Product Type</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <Select class="form-control input-sm" id="prodtype" name="prodtype" required>
-                                                                                        <option value=""></option>
-                                                                                        <option value="Test Socket">Test Socket</option>
-                                                                                        <option value="Burn In">Burn In</option>
-                                                                                    </Select>
-                                                                                    <div id="erprodtype"></div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="col-sm-4">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label col-sm-4">Production Date</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <input type="text" class="form-control datepicker input-sm" id="productiondate" name="productiondate"/>
-                                                                                </div>
-                                                                                  
-                                                                            </div>
-
-                                                                            <div class="form-group">
-                                                                                <label class="control-label col-sm-4">Yielding Station</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <Select class="form-control input-sm" id="yieldingstation" name="yieldingstation">
-                                                                                        <option value=""></option>
-                                                                                        @foreach($yieldstation as $ys)
-                                                                                            <option value="{{$ys->description}}">{{$ys->description}}
-                                                                                            </option>
-                                                                                        @endforeach
-                                                                                    </Select>
-                                                                                    <div id="er6"></div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                             <div class="form-group">
-                                                                                <label class="control-label col-sm-4">Accumulated Output</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <input type="text" class="form-control input-sm" id="accumulatedoutput" name="accumulatedoutput" />
-                                                                                    <div id="er7"></div>
-                                                                                </div>
-                                                                                <div class="col-sm-2">
-                                                                                    <button type="button" onclick="javascript:addpya();" name="search-task"  class="btn btn-circle input-sm green load-task"  id="btnloadpya">
-                                                                                    <i class="fa fa-plus"></i> 
-                                                                                    </button>
-                                                                                </div>     
-                                                                            </div>
-
-                                                                            <div class="form-group">
-                                                                                <label class="control-label col-sm-4">Classification</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <Select class="form-control input-sm" id="classification" name="classification">
-                                                                                        <option value=""></option>
-                                                                                        <option value="NDF">NDF</option>
-                                                                                        <option value="Material NG (MNG)">Material NG (MNG)</option>
-                                                                                        <option value="Production NG (PNG)">Production NG (PNG)</option>   
-                                                                                    </Select>
-                                                                                    <div id="er4"></div>
-                                                                                </div>   
-                                                                            </div>
-
-                                                                            <div class="form-group">
-                                                                                <label class="control-label col-sm-4">Mode of Defect</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <Select class="form-control input-sm mod" id="mod" name="mod">
-                                                                                        
-                                                                                    </Select>
-                                                                                    <div id="er5"></div>
-                                                                                </div>   
-                                                                            </div>
-
-                                                                            <div class="form-group">
-                                                                                <label class="control-label col-sm-4">Qty</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <input type="text" class="form-control input-sm" id="qty" name="qty" />
-                                                                                    <div id="er10"></div>
-                                                                                </div>
-                                                                                <div class="col-sm-2">
-                                                                                    <button type="button" onclick="javascript:addcmq();" name="search-task"  class="btn btn-circle input-sm green load-task"  id="btnloadcmq">
-                                                                                    <i class="fa fa-plus"></i> 
-                                                                                    </button>
-                                                                                </div>       
-                                                                             </div>
-                                                                        </div>
-
-                                                                        <div class="col-sm-4">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label col-sm-4">Total Output</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <input type="text" class="form-control input-sm" id="toutput" name="toutput"  />
-                                                                                    <div id="er8"></div>
-                                                                                  </div>
-                                                                            </div>
-
-                                                                            <div class="form-group">
-                                                                                <label class="control-label col-sm-4">Total Reject</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <input type="text" class="form-control input-sm" id="treject" name="treject"/>
-                                                                                    <div id="er9"></div>
-                                                                                </div>
-                                                                             </div>
-                                                                            <div class="form-group">
-                                                                                <label class="control-label col-sm-4">Total MNG</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <input type="text" class="form-control input-sm" id="tmng" name="tmng"  disabled="disabled" />
-                                                                                </div>
-                                                                             </div>
-                                                                            <div class="form-group">
-                                                                                <label class="control-label col-sm-4">Total PNG</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <input type="text" class="form-control input-sm" id="tpng" name="tpng"  disabled="disabled" />
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label class="control-label col-sm-4">% Yield w/o MNG</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <input type="text" class="form-control input-sm" id="ywomng" name="ywomng"  disabled="disabled" />
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <label class="control-label col-sm-4">Total Yield</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <input type="text" class="form-control input-sm" id="twoyield" name="twoyield"  disabled="disabled" />
-                                                                                    <input type="hidden" class="form-control input-sm" id="counter" name="counter"  disabled="disabled" />
-                                                                                </div>
-                                                                             </div>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-sm-3">PO No.</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="text" value="@foreach($msrecords as $msrec){{$msrec->PO}}@endforeach" class="form-control input-sm" id="pono" name="pono"/>
+                                                                            <div id="er1"></div>
 
                                                                         </div>
-                                                                    </form>
+                                                                        <div class="col-sm-3">
+                                                                            <button type="button" onclick="javascript:searchpo();" name="search-task"  class="btn btn-circle input-sm green load-task"  id="btnload">
+                                                                               <i class="fa fa-arrow-circle-down"></i> 
+                                                                            </button>
+                                                                        </div>                                                           
+                                                                     </div>
+
+                                                                     <div class="form-group">
+                                                                        <label class="control-label col-sm-3">PO Qty</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input class="form-control input-sm" size="16" type="text" name="poqty" value="@foreach($msrecords as $msrec){{$msrec->POqty}} @endforeach" id="poqty" disabled="disabled"/> 
+                                                                            <div id="error1"></div>  
+                                                                        </div>
+                                                                    </div> 
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-sm-3">Device</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="text" class="form-control input-sm" id="device" name="device" value="@foreach($msrecords as $msrec){{$msrec->devicename}}@endforeach" disabled="disabled"/>
+                                                                            <div id="error2"></div>   
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-sm-3">Family</label>
+                                                                        <div class="col-sm-6">
+                                                                            <Select class="form-control input-sm" id="family" name="family">
+                                                                                <option value=""></option>
+                                                                                @foreach ($family as $fam)
+                                                                                    <option value="{{$fam->family}}">{{$fam->family}}</option>
+                                                                                @endforeach
+                                                                            </Select>
+                                                                            <div id="er2"></div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-sm-3">Series</label>
+                                                                        <div class="col-sm-6">
+                                                                            <Select class="form-control input-sm" id="series" name="series" required>
+                                                                                <option value=""></option>
+                                                                                @foreach ($devreg as $serie)
+                                                                                   <option value="{{$serie->series}}">{{$serie->series}}
+                                                                                   </option>
+                                                                                @endforeach
+                                                                            </Select>
+                                                                            <div id="er3"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-sm-3">Product Type</label>
+                                                                        <div class="col-sm-6">
+                                                                            <Select class="form-control input-sm" id="prodtype" name="prodtype" required>
+                                                                                <option value=""></option>
+                                                                                <option value="Test Socket">Test Socket</option>
+                                                                                <option value="Burn In">Burn In</option>
+                                                                            </Select>
+                                                                            <div id="erprodtype"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-sm-4">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-sm-4">Production Date</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="text" class="form-control datepicker input-sm" id="productiondate" name="productiondate"/>
+                                                                        </div>
+                                                                          
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-sm-4">Yielding Station</label>
+                                                                        <div class="col-sm-6">
+                                                                            <Select class="form-control input-sm" id="yieldingstation" name="yieldingstation">
+                                                                                <option value=""></option>
+                                                                                @foreach($yieldstation as $ys)
+                                                                                    <option value="{{$ys->description}}">{{$ys->description}}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </Select>
+                                                                            <div id="er6"></div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                     <div class="form-group">
+                                                                        <label class="control-label col-sm-4">Accumulated Output</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="text" class="form-control input-sm" id="accumulatedoutput" name="accumulatedoutput" />
+                                                                            <div id="er7"></div>
+                                                                        </div>
+                                                                        <div class="col-sm-2">
+                                                                            <button type="button" onclick="javascript:addpya();" name="search-task"  class="btn btn-circle input-sm green load-task"  id="btnloadpya">
+                                                                            <i class="fa fa-plus"></i> 
+                                                                            </button>
+                                                                        </div>     
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-sm-4">Classification</label>
+                                                                        <div class="col-sm-6">
+                                                                            <Select class="form-control input-sm" id="classification" name="classification">
+                                                                                <option value=""></option>
+                                                                                <option value="NDF">NDF</option>
+                                                                                <option value="Material NG (MNG)">Material NG (MNG)</option>
+                                                                                <option value="Production NG (PNG)">Production NG (PNG)</option>   
+                                                                            </Select>
+                                                                            <div id="er4"></div>
+                                                                        </div>   
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-sm-4">Mode of Defect</label>
+                                                                        <div class="col-sm-6">
+                                                                            <Select class="form-control input-sm mod" id="mod" name="mod">
+                                                                                
+                                                                            </Select>
+                                                                            <div id="er5"></div>
+                                                                        </div>   
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-sm-4">Qty</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="text" class="form-control input-sm" id="qty" name="qty" />
+                                                                            <div id="er10"></div>
+                                                                        </div>
+                                                                        <div class="col-sm-2">
+                                                                            <button type="button" onclick="javascript:addcmq();" name="search-task"  class="btn btn-circle input-sm green load-task"  id="btnloadcmq">
+                                                                            <i class="fa fa-plus"></i> 
+                                                                            </button>
+                                                                        </div>       
+                                                                     </div>
+                                                                </div>
+
+                                                                <div class="col-sm-4">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-sm-4">Total Output</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="text" class="form-control input-sm" id="toutput" name="toutput"  />
+                                                                            <div id="er8"></div>
+                                                                          </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-sm-4">Total Reject</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="text" class="form-control input-sm" id="treject" name="treject"/>
+                                                                            <div id="er9"></div>
+                                                                        </div>
+                                                                     </div>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-sm-4">Total MNG</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="text" class="form-control input-sm" id="tmng" name="tmng"  disabled="disabled" />
+                                                                        </div>
+                                                                     </div>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-sm-4">Total PNG</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="text" class="form-control input-sm" id="tpng" name="tpng"  disabled="disabled" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-sm-4">% Yield w/o MNG</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="text" class="form-control input-sm" id="ywomng" name="ywomng"  disabled="disabled" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label col-sm-4">Total Yield</label>
+                                                                        <div class="col-sm-6">
+                                                                            <input type="text" class="form-control input-sm" id="twoyield" name="twoyield"  disabled="disabled" />
+                                                                            <input type="hidden" class="form-control input-sm" id="counter" name="counter"  disabled="disabled" />
+                                                                        </div>
+                                                                     </div>
 
                                                                 </div>
-                                                            </div>
-                                                            <br>
-                                                            <div class="form-group pull-right">
-                                                                <label class="control-label col-sm-2">DPPM</label>
-                                                                <div class="col-sm-10">
-                                                                    <input type="text" class="form-control input-sm" id="dppm" name="dppm" disabled="disabled">
-                                                                    <input type="hidden" class="form-control input-sm " name="hdstatus" id="hdstatus"></input>
-                                                                </div>    
-                                                            </div>
-                                                            <!-- Action Buttons -->
-                                                            <br/>
-                                                            <div class="row">
-                                                                <div class="col-sm-12 text-center">
-                                                                    <button type="button" style="font-size:12px;" onclick="javascript:addnew();" class="btn green input-sm" id="btnadd">
-                                                                       <i class="fa fa-plus"></i> Add New
-                                                                    </button>
-                                                                    <button type="button" style="font-size:12px;" onclick="javascript: setcontrol('DIS'); " class="btn red-intense input-sm" id="btndiscard">
-                                                                       <i class="fa fa-pencil"></i> Discard Changes
-                                                                    </button>
-                                                                    <button type="button" style="font-size:12px;" onclick="javascript:save();" class="btn green input-sm" id="btnsave">
-                                                                       <i class="fa fa-save"></i> Save
-                                                                    </button>
-                                                                    <button type="button" style="font-size:12px;" class="btn blue-steel input-sm" id="btnsearch" onclick="javascript:searchrecord();">
-                                                                       <i class="fa fa-search"></i> Search
-                                                                    </button>
-                                                                </div>
-                                                            </div>
+                                                            </form>
+
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group pull-right">
+                                                        <label class="control-label col-sm-2">DPPM</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control input-sm" id="dppm" name="dppm" disabled="disabled">
+                                                            <input type="hidden" class="form-control input-sm " name="hdstatus" id="hdstatus"></input>
+                                                        </div>    
+                                                    </div>
+                                                    <!-- Action Buttons -->
+                                                    <br/>
+                                                    <div class="row">
+                                                        <div class="col-sm-12 text-center">
+                                                            <button type="button" style="font-size:12px;" onclick="javascript:addnew();" class="btn green input-sm" id="btnadd">
+                                                               <i class="fa fa-plus"></i> Add New
+                                                            </button>
+                                                            <button type="button" style="font-size:12px;" onclick="javascript: setcontrol('DIS'); " class="btn red-intense input-sm" id="btndiscard">
+                                                               <i class="fa fa-pencil"></i> Discard Changes
+                                                            </button>
+                                                            <button type="button" style="font-size:12px;" onclick="javascript:save();" class="btn green input-sm" id="btnsave">
+                                                               <i class="fa fa-save"></i> Save
+                                                            </button>
+                                                            <button type="button" style="font-size:12px;" class="btn blue-steel input-sm" id="btnsearch" onclick="javascript:searchrecord();">
+                                                               <i class="fa fa-search"></i> Search
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                                                          
-                                            <div class="row">
-                                                <div class="col-sm-5 col-sm-offset-1">
-                                                    <label class="control-label col-sm-12">
-                                                        <h4>Table for (Production Date,Yielding Station and Accumulated Data)</h4>
-                                                    </label>
-                                                </div>
-                                                <div class="col-sm-5">
-                                                    <label class="control-label col-sm-12">
-                                                        <h4>Table for (Classification,Mode of Defect/s and Quantity)</h4>
-                                                    </label>
-                                                </div>
+                                        </div>
+                                    </div>
+                                                                  
+                                    <div class="row">
+                                        <div class="col-sm-5 col-sm-offset-1">
+                                            <label class="control-label col-sm-12">
+                                                <h4>Table for (Production Date,Yielding Station and Accumulated Data)</h4>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <label class="control-label col-sm-12">
+                                                <h4>Table for (Classification,Mode of Defect/s and Quantity)</h4>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-5 col-sm-offset-1">
+                                            <div class="scroller" style="height: 200px" id="tblforpya">
+                                                <table id="results1" class="table table-striped table-bordered table-hover"style="font-size:13px">
+                                                    <thead id="thead1">
+                                                        <tr>
+                                                            <td class="table-checkbox" style="width: 5%">
+                                                                <input type="checkbox" class="group-checkable checkAllitemsPYA" name="checkAllitemPYA" data-set="#sample_3 .checkboxes"/>
+                                                            </td>
+                                                            <td>Production Date</td>
+                                                            <td>Yielding Station</td>
+                                                            <td>Accumulated Output</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tbody1">
+                                                        <!-- tablebody1 row here! -->  
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-sm-5 col-sm-offset-1">
-                                                    <div class="scroller" style="height: 200px" id="tblforpya">
-                                                        <table id="results1" class="table table-striped table-bordered table-hover"style="font-size:13px">
-                                                            <thead id="thead1">
-                                                                <tr>
-                                                                    <td class="table-checkbox" style="width: 5%">
-                                                                        <input type="checkbox" class="group-checkable checkAllitemsPYA" name="checkAllitemPYA" data-set="#sample_3 .checkboxes"/>
-                                                                    </td>
-                                                                    <td>Production Date</td>
-                                                                    <td>Yielding Station</td>
-                                                                    <td>Accumulated Output</td>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="tbody1">
-                                                                <!-- tablebody1 row here! -->  
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                    <button style="margin-top: 20px;" type="button" onclick="javascript:deletepya();" name="delete-taskPYA" class="btn btn-mg btn-danger delete-taskPYA" id="delete-taskPYA">Delete
-                                                         <i class="fa fa-trash"></i> 
-                                                    
-                                                    </button>
-                                                </div>
-                                                <div class="col-sm-5">
-                                                    <div class="scroller" style="height: 200px" id="tblforcmq">
-                                                        <table id="results2" class="table table-striped table-bordered table-hover" style="font-size:13px">
-                                                            <thead id="thead2">
-                                                                <tr>
-                                                                    <td class="table-checkbox" style="width: 5%">
-                                                                        <input type="checkbox" class="group-checkable checkAllitemsCMQ" name="checkAllitemCMQ" data-set="#sample_3 .checkboxes"/>
-                                                                    </td>
-                                                                    <td>Classification</td>
-                                                                    <td>Mode of Defects</td>
-                                                                    <td>Quantity</td>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="tbody2">
-                                                                <!-- tablebody2 row here! -->  
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                    <button style="margin-top:20px;" type="button" onclick="javascript:deletecmq();" name="delete-taskCMQ" class="btn btn-mg btn-danger delete-taskCMQ" id="delete-taskCMQ">Delete
-                                                        <i class="fa fa-trash"></i> 
-                                                    </button>
-                                                </div>
+                                            <button style="margin-top: 20px;" type="button" onclick="javascript:deletepya();" name="delete-taskPYA" class="btn btn-mg btn-danger delete-taskPYA" id="delete-taskPYA">Delete
+                                                 <i class="fa fa-trash"></i> 
+                                            
+                                            </button>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="scroller" style="height: 200px" id="tblforcmq">
+                                                <table id="results2" class="table table-striped table-bordered table-hover" style="font-size:13px">
+                                                    <thead id="thead2">
+                                                        <tr>
+                                                            <td class="table-checkbox" style="width: 5%">
+                                                                <input type="checkbox" class="group-checkable checkAllitemsCMQ" name="checkAllitemCMQ" data-set="#sample_3 .checkboxes"/>
+                                                            </td>
+                                                            <td>Classification</td>
+                                                            <td>Mode of Defects</td>
+                                                            <td>Quantity</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tbody2">
+                                                        <!-- tablebody2 row here! -->  
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                            <br>
+                                            <button style="margin-top:20px;" type="button" onclick="javascript:deletecmq();" name="delete-taskCMQ" class="btn btn-mg btn-danger delete-taskCMQ" id="delete-taskCMQ">Delete
+                                                <i class="fa fa-trash"></i> 
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <br>
 
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <div class="tabbable-custom">
-                                                        <ul class="nav nav-tabs nav-tabs-lg" id="tabslist" role="tablist">
-                                                            <li class="active">
-                                                                <a href="#details" data-toggle="tab" data-toggle="tab" aria-expanded="true">Details</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#summary" data-toggle="tab" data-toggle="tab" aria-expanded="true">Summary</a>
-                                                            </li>   
-                                                        </ul>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="tabbable-custom">
+                                                <ul class="nav nav-tabs nav-tabs-lg" id="tabslist" role="tablist">
+                                                    <li class="active">
+                                                        <a href="#details" data-toggle="tab" data-toggle="tab" aria-expanded="true">Details</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#summary" data-toggle="tab" data-toggle="tab" aria-expanded="true">Summary</a>
+                                                    </li>   
+                                                </ul>
 
-                                                        <!-- Details Tab -->
-                                                        <div class="tab-content" id="tab-subcontents">
-                                                            <div class="tab-pane fade in active" id="details">
-                                                                <div class="row">
-                                                                    <div class="col-sm-10 col-sm-offset-1">
-                                                                        <table class="table table-striped table-bordered table-hover" style="font-size:13px">
-                                                                              <thead >
-                                                                                   <tr>
-                                                                                   <td class="table-checkbox" style="widtd: 5%">
-                                                                                        <input type="checkbox" class="group-checkable checkAllitems" name="checkAllitem" data-set="#sample_3 .checkboxes"/>
-                                                                                   </td>
-                                                                                   <td>Date</td>
-                                                                                   <td>Yield Station</td>
-                                                                                   <td>Output</td>
-                                                                                   <td>Classification</td>
-                                                                                   <td>MOD</td>
-                                                                                   <td>Qty</td>
-                                                                                   <td>PO No.</td>
-                                                                                   <td>PO Qty</td>
-                                                                                   <td>Device</td>
-                                                                                   <td>Family</td>
-                                                                                   <td>Series</td>
-                                                                                   </tr>
-                                                                              </thead>
-                                                                              <tbody id="tbldetails">
-                                                                                   
-                                                                              </tbody>
-                                                                        </table>
-                                                                        </div>
-                                                                      <!--   <div class="col-sm-12 text-center">
-                                                                             <button type="button" style="font-size:12px;" class="btn red input-sm remove-task" id="btnremove_detail">
-                                                                                  <i class="fa fa-trash remove-task"></i> Remove
-                                                                             </button>
-                                                                        </div> -->
-                                                                    </div>
+                                                <!-- Details Tab -->
+                                                <div class="tab-content" id="tab-subcontents">
+                                                    <div class="tab-pane fade in active" id="details">
+                                                        <div class="row">
+                                                            <div class="col-sm-10 col-sm-offset-1">
+                                                                <table class="table table-striped table-bordered table-hover" style="font-size:13px">
+                                                                      <thead >
+                                                                           <tr>
+                                                                           <td class="table-checkbox" style="widtd: 5%">
+                                                                                <input type="checkbox" class="group-checkable checkAllitems" name="checkAllitem" data-set="#sample_3 .checkboxes"/>
+                                                                           </td>
+                                                                           <td>Date</td>
+                                                                           <td>Yield Station</td>
+                                                                           <td>Output</td>
+                                                                           <td>Classification</td>
+                                                                           <td>MOD</td>
+                                                                           <td>Qty</td>
+                                                                           <td>PO No.</td>
+                                                                           <td>PO Qty</td>
+                                                                           <td>Device</td>
+                                                                           <td>Family</td>
+                                                                           <td>Series</td>
+                                                                           </tr>
+                                                                      </thead>
+                                                                      <tbody id="tbldetails">
+                                                                           
+                                                                      </tbody>
+                                                                </table>
                                                                 </div>
-                                                                <!-- Summary Tab -->
-                                                                <div class="tab-pane fade" id="summary">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-10 col-sm-offset-1">
-                                                                            <table class="table table-striped table-bordered table-hover summary" id="summary-table" style="font-size:13px">
-                                                                                <thead>
-                                                                                    <tr>
-                                                                                        <td>PO No.</td>
-                                                                                        <td>PO Qty</td>
-                                                                                        <td>Device Name</td>
-                                                                                        <td>Series</td>
-                                                                                        <td>Family</td>
-                                                                                        <td>Total Output</td>
-                                                                                        <td>Total Reject</td>
-                                                                                        <td>Total Yield</td>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody id="tblsummary">
-                                                                               
-                                                                                </tbody>   
-                                                                            </table>
-                                                                        </div>
-                                                                    </div>
+                                                              <!--   <div class="col-sm-12 text-center">
+                                                                     <button type="button" style="font-size:12px;" class="btn red input-sm remove-task" id="btnremove_detail">
+                                                                          <i class="fa fa-trash remove-task"></i> Remove
+                                                                     </button>
+                                                                </div> -->
+                                                            </div>
+                                                        </div>
+                                                        <!-- Summary Tab -->
+                                                        <div class="tab-pane fade" id="summary">
+                                                            <div class="row">
+                                                                <div class="col-sm-10 col-sm-offset-1">
+                                                                    <table class="table table-striped table-bordered table-hover summary" id="summary-table" style="font-size:13px">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <td>PO No.</td>
+                                                                                <td>PO Qty</td>
+                                                                                <td>Device Name</td>
+                                                                                <td>Series</td>
+                                                                                <td>Family</td>
+                                                                                <td>Total Output</td>
+                                                                                <td>Total Reject</td>
+                                                                                <td>Total Yield</td>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody id="tblsummary">
+                                                                       
+                                                                        </tbody>   
+                                                                    </table>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -429,15 +420,15 @@
                                     </div>
                                 </div>
                             </div>
-                        <!-- END EXAMPLE TABLE PORTLET-->
+                        </div>
                     </div>
-                </div>
-                <!-- END PAGE CONTENT-->
+                <!-- END EXAMPLE TABLE PORTLET-->
             </div>
         </div>
-        <!-- END CONTENT -->
+        <!-- END PAGE CONTENT-->
     </div>
-    <!-- END CONTAINER -->
+
+
 
      <!-- Success Message Modal -->
     <div id="confirmModal" class="modal fade" role="dialog">

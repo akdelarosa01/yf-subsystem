@@ -58,211 +58,204 @@
 	@endforeach
 
 
-	<div class="clearfix"></div>
 
-    <!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
+    
+	<div class="page-content">
 
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-12">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						@include('includes.message-block')
-						<div class="portlet box blue" >
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-navicon"></i>  WBS Local Material Receiving
-								</div>
-							</div>
-                			<div class="portlet-body">
-                                <div class="row">
-                                    <form action="" class="form-horizontal">
-                                    	<div class="col-md-4">
-                                    		<div class="form-group">
-                                    			<label class="control-label col-md-3">Control No.</label>
-	                                            <div class="col-md-9">
-	                                                <input type="hidden" class="form-control input-sm" id="loc_info_id" name="loc_info_id"/>
-	                                                <div class="input-group">
-	                                                    <input type="text" class="form-control input-sm clear" id="controlno" name="controlno">
-
-	                                                    <span class="input-group-btn">
-	                                                        <a href="javascript:navigate('first');" id="btn_min" class="btn blue input-sm"><i class="fa fa-fast-backward"></i></a>
-	                                                        <a href="javascript:navigate('prev');" id="btn_prv" class="btn blue input-sm"><i class="fa fa-backward"></i></a>
-	                                                        <a href="javascript:navigate('next');" id="btn_nxt" class="btn blue input-sm"><i class="fa fa-forward"></i></a>
-	                                                        <a href="javascript:navigate('last');" id="btn_max" class="btn blue input-sm"><i class="fa fa-fast-forward"></i></a>
-	                                                    </span>
-	                                                </div>
-
-	                                                
-	                                            </div>
-                                    		</div>
-                                            <div class="form-group">
-                                                <label for="" class="control-label col-sm-3">Invoice No.</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control input-sm clear" id="invoice_no" name="invoice_no">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="" class="control-label col-sm-3">Orig. Invoice</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control input-sm clear" id="orig_invoice" name="orig_invoice">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="control-label col-md-3">Invoice Date</label>
-                                                <div class="col-md-9">
-                                                    <input class="form-control clear clearinv input-sm date-picker" size="16" type="text" name="invoicedate" id="invoicedate"/>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-3">Receive Date</label>
-                                                <div class="col-md-9">
-                                                    <input class="form-control clear clearinv input-sm date-picker" size="16" type="text" name="receivingdate" id="receivingdate"/>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="" class="control-label col-sm-3">Total Qty</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control input-sm clear" id="total" name="total" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                    		<div class="form-group">
-                                                <label for="" class="control-label col-sm-3">Created By</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="clear form-control input-sm" id="create_user" name="create_user" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="" class="control-label col-sm-3">Created Date</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="clear form-control input-sm" id="created_at" name="created_at" readonly>
-                                                </div>
-                                            </div>
-                                    		<div class="form-group">
-                                    			<label for="" class="control-label col-sm-3">Updated By</label>
-                                    			<div class="col-sm-9">
-                                    				<input type="text" class="clear form-control input-sm" id="update_user" name="update_user" readonly>
-                                    			</div>
-                                    		</div>
-                                			<div class="form-group">
-                                    			<label for="" class="control-label col-sm-3">Updated Date</label>
-                                    			<div class="col-sm-9">
-                                    				<input type="text" class="clear form-control input-sm" id="updated_at" name="updated_at" readonly>
-                                    			</div>
-                                    		</div>
-                                		</div>
-                                    </form>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-8 col-md-offset-2">
-                                        <form class="form-horizontal" method="POST" enctype="multipart/form-data" id="uploadbatchfiles" action="{{ url('/wbsuploadlocmat') }}">
-                                           <div class="form-group">
-                                                <label class="control-label col-sm-3">Upload Batch Items</label>
-                                                <div class="col-sm-6">
-                                                    {{ csrf_field() }}
-                                                    <input type="file" class="filestyle" data-buttonName="btn-primary" name="localitems" id="localitems" {{$readonly}}>
-                                                    {{-- batchfiles --}}
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <button type="submit" id="btn_upload" class="btn btn-success" <?php echo($state); ?>>
-                                                        <i class="fa fa-upload"></i> Upload
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                	<div class="col-md-12">
-                                		<table class="table table-bordered table-fixedheader table-striped" id="tbl_batch" style="font-size:10px;">
-                                            <thead id="th_batch">
-                                                <tr>
-                                                    <td class="table-checkbox" width="2.66%">
-                                                        <input type="checkbox" class="group-checkable"/>
-                                                    </td>
-                                                    <td width="4.66%"></td>
-                                                    <td width="3.66%">ID</td>
-                                                    <td width="8.66%">Item No.</td>
-                                                    <td width="16.66%">Item Description</td>
-                                                    <td width="5.66%">Quantity</td>
-                                                    <td width="6.66%">Pckg. Category</td>
-                                                    <td width="5.66%">Pckg. Qty.</td>
-                                                    <td width="10.66%">Lot No.</td>
-                                                    <td width="7.66%">Location</td>
-                                                    <td width="7.66%">Supplier</td>
-                                                    <td width="6.66%">Exp. Date</td>
-                                                    <td width="4.66%">Not Reqd</td>
-                                                    <td width="3.66%">Printed</td>
-                                                    <td width="4.66%"></td>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tbl_batch_body"></tbody>
-                                        </table>
-                                        <input type="hidden" name="save_type" id="save_type">
-                                	</div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <button type="button" class="btn btn-sm green" id="btn_addDetails">
-                                            <i class="fa fa-plus"></i> Add Batch Item
-                                        </button>
-                                        <button type="button" class="btn btn-sm red" id="btn_deleteDetails">
-                                            <i class="fa fa-trash"></i> Delete Batch Item
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <hr>
-
-                                <div class="row">
-                                	<div class="col-md-12 text-center">
-                                		<button type="button" onclick="javascript:addstate();" class="btn btn-sm green" id="btn_add">
-											<i class="fa fa-plus"></i> Add
-										</button>
-										<button type="button" onclick="javascript:editstate();" class="btn btn-sm blue" id="btn_edit">
-											<i class="fa fa-pencil"></i> Edit
-										</button>
-										<button type="button" class="btn btn-sm green" id="btn_save">
-											<i class="fa fa-floppy-o"></i> Save
-										</button>
-										<button type="button" onclick="javascript:getLocalMaterialData();" class="btn btn-sm red" id="btn_back">
-											<i class="fa fa-times"></i> Back
-										</button>
-                                        <button type="submit" class="btn grey-gallery input-sm" id="btn_print_iqc">
-                                            <i class="fa fa-print"></i> Apply to IQC
-                                        </button>
-										<button type="button" class="btn btn-sm green-jungle" id="btn_excel">
-											<i class="fa fa-file-excel-o"></i> Export To Excel
-										</button>
-
-									</div>
-                                </div>
-                			</div>
-                                        
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				@include('includes.message-block')
+				<div class="portlet box blue" >
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-navicon"></i>  WBS Local Material Receiving
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
 					</div>
+        			<div class="portlet-body">
+                        <div class="row">
+                            <form action="" class="form-horizontal">
+                            	<div class="col-md-4">
+                            		<div class="form-group">
+                            			<label class="control-label col-md-3">Control No.</label>
+                                        <div class="col-md-9">
+                                            <input type="hidden" class="form-control input-sm" id="loc_info_id" name="loc_info_id"/>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control input-sm clear" id="controlno" name="controlno">
+
+                                                <span class="input-group-btn">
+                                                    <a href="javascript:navigate('first');" id="btn_min" class="btn blue input-sm"><i class="fa fa-fast-backward"></i></a>
+                                                    <a href="javascript:navigate('prev');" id="btn_prv" class="btn blue input-sm"><i class="fa fa-backward"></i></a>
+                                                    <a href="javascript:navigate('next');" id="btn_nxt" class="btn blue input-sm"><i class="fa fa-forward"></i></a>
+                                                    <a href="javascript:navigate('last');" id="btn_max" class="btn blue input-sm"><i class="fa fa-fast-forward"></i></a>
+                                                </span>
+                                            </div>
+
+                                            
+                                        </div>
+                            		</div>
+                                    <div class="form-group">
+                                        <label for="" class="control-label col-sm-3">Invoice No.</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control input-sm clear" id="invoice_no" name="invoice_no">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="control-label col-sm-3">Orig. Invoice</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control input-sm clear" id="orig_invoice" name="orig_invoice">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Invoice Date</label>
+                                        <div class="col-md-9">
+                                            <input class="form-control clear clearinv input-sm date-picker" size="16" type="text" name="invoicedate" id="invoicedate"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Receive Date</label>
+                                        <div class="col-md-9">
+                                            <input class="form-control clear clearinv input-sm date-picker" size="16" type="text" name="receivingdate" id="receivingdate"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="" class="control-label col-sm-3">Total Qty</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control input-sm clear" id="total" name="total" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                            		<div class="form-group">
+                                        <label for="" class="control-label col-sm-3">Created By</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="clear form-control input-sm" id="create_user" name="create_user" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="control-label col-sm-3">Created Date</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="clear form-control input-sm" id="created_at" name="created_at" readonly>
+                                        </div>
+                                    </div>
+                            		<div class="form-group">
+                            			<label for="" class="control-label col-sm-3">Updated By</label>
+                            			<div class="col-sm-9">
+                            				<input type="text" class="clear form-control input-sm" id="update_user" name="update_user" readonly>
+                            			</div>
+                            		</div>
+                        			<div class="form-group">
+                            			<label for="" class="control-label col-sm-3">Updated Date</label>
+                            			<div class="col-sm-9">
+                            				<input type="text" class="clear form-control input-sm" id="updated_at" name="updated_at" readonly>
+                            			</div>
+                            		</div>
+                        		</div>
+                            </form>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                                <form class="form-horizontal" method="POST" enctype="multipart/form-data" id="uploadbatchfiles" action="{{ url('/wbsuploadlocmat') }}">
+                                   <div class="form-group">
+                                        <label class="control-label col-sm-3">Upload Batch Items</label>
+                                        <div class="col-sm-6">
+                                            {{ csrf_field() }}
+                                            <input type="file" class="filestyle" data-buttonName="btn-primary" name="localitems" id="localitems" {{$readonly}}>
+                                            {{-- batchfiles --}}
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type="submit" id="btn_upload" class="btn btn-success" <?php echo($state); ?>>
+                                                <i class="fa fa-upload"></i> Upload
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                        	<div class="col-md-12">
+                        		<table class="table table-bordered table-fixedheader table-striped" id="tbl_batch" style="font-size:10px;">
+                                    <thead id="th_batch">
+                                        <tr>
+                                            <td class="table-checkbox" width="2.66%">
+                                                <input type="checkbox" class="group-checkable"/>
+                                            </td>
+                                            <td width="4.66%"></td>
+                                            <td width="3.66%">ID</td>
+                                            <td width="8.66%">Item No.</td>
+                                            <td width="16.66%">Item Description</td>
+                                            <td width="5.66%">Quantity</td>
+                                            <td width="6.66%">Pckg. Category</td>
+                                            <td width="5.66%">Pckg. Qty.</td>
+                                            <td width="10.66%">Lot No.</td>
+                                            <td width="7.66%">Location</td>
+                                            <td width="7.66%">Supplier</td>
+                                            <td width="6.66%">Exp. Date</td>
+                                            <td width="4.66%">Not Reqd</td>
+                                            <td width="3.66%">Printed</td>
+                                            <td width="4.66%"></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbl_batch_body"></tbody>
+                                </table>
+                                <input type="hidden" name="save_type" id="save_type">
+                        	</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <button type="button" class="btn btn-sm green" id="btn_addDetails">
+                                    <i class="fa fa-plus"></i> Add Batch Item
+                                </button>
+                                <button type="button" class="btn btn-sm red" id="btn_deleteDetails">
+                                    <i class="fa fa-trash"></i> Delete Batch Item
+                                </button>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row">
+                        	<div class="col-md-12 text-center">
+                        		<button type="button" onclick="javascript:addstate();" class="btn btn-sm green" id="btn_add">
+									<i class="fa fa-plus"></i> Add
+								</button>
+								<button type="button" onclick="javascript:editstate();" class="btn btn-sm blue" id="btn_edit">
+									<i class="fa fa-pencil"></i> Edit
+								</button>
+								<button type="button" class="btn btn-sm green" id="btn_save">
+									<i class="fa fa-floppy-o"></i> Save
+								</button>
+								<button type="button" onclick="javascript:getLocalMaterialData();" class="btn btn-sm red" id="btn_back">
+									<i class="fa fa-times"></i> Back
+								</button>
+                                <button type="submit" class="btn grey-gallery input-sm" id="btn_print_iqc">
+                                    <i class="fa fa-print"></i> Apply to IQC
+                                </button>
+								<button type="button" class="btn btn-sm green-jungle" id="btn_excel">
+									<i class="fa fa-file-excel-o"></i> Export To Excel
+								</button>
+
+							</div>
+                        </div>
+        			</div>
+                                
 				</div>
-				<!-- END PAGE CONTENT-->
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
-    <!-- END CONTAINER -->
+
+
+
     @include('includes.localreceiving-modal')
     @include('includes.modals')
 @endsection

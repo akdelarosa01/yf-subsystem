@@ -22,100 +22,90 @@
 
 @section('content')
 	@include('includes.header')
-		<?php $state = ""; $readonly = ""; ?>
-		@foreach ($userProgramAccess as $access)
-			@if ($access->program_code == Config::get('constants.MODULE_CODE_INVOICE'))
-				@if ($access->read_write == "2")
-					<?php $state = "disabled"; $readonly = "readonly"; ?>
-				@endif
+	<?php $state = ""; $readonly = ""; ?>
+	@foreach ($userProgramAccess as $access)
+		@if ($access->program_code == Config::get('constants.MODULE_CODE_INVOICE'))
+			@if ($access->read_write == "2")
+				<?php $state = "disabled"; $readonly = "readonly"; ?>
 			@endif
-		@endforeach
-	<div class="clearfix"></div>
+		@endif
+	@endforeach
 
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
+		
+	<div class="page-content">
 
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-offset-2 col-md-8">
-						@include('includes.message-block')
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8">
+				@include('includes.message-block')
 
 
-						<div class="portlet box blue">
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-file"></i> INVOICE DATA CHECK / GENERATE LOADING DATA
-								</div>
-							</div>
-							<div class="portlet-body">
-
-								<form method="POST" action="{{url('/readfile')}}" class="form-horizontal" enctype="multipart/form-data" id="formReadfile">
-									<input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
-									<div class="form-body">
-										<div class="form-group">
-											<label class="control-label col-md-3">Imported Data</label>
-											<div class="col-md-5">
-												<input type="file" class="filestyle" data-buttonName="btn-primary" name="importedData" id="importedData" {{$readonly}}>
-											</div>
-											<div class="col-md-2">
-												<button type="submit" class="btn green pull-right btn-md" {{$state}}>
-													<i class="fa fa-refresh"></i> Generate
-												</button>
-											</div>
-										</div>
-
-										<div class="form-group">
-											<label class="control-label col-md-3">INVOICE No.</label>
-											<div class="col-md-5">
-												<input type="text" class="form-control input-md" name="invoice" id="invoice" disabled />
-											</div>
-											<div class="col-md-2">
-												<a href="javascript:;" id="calculate" class="btn yellow pull-right btn-md calculate" {{$state}}>
-													<i class="fa fa-calculator"></i> Calculate
-												</a>
-											</div>
-										</div>
-
-										<!-- <div class="form-group">
-											<label class="control-label col-md-4">Designated Directory</label>
-											<div class="col-md-5">
-												<input type="text" class="form-control input-md" value="/var/www/html/pmi-subsystem/public/Invoice_Data_Check/" disabled/>
-											</div>
-										</div> -->
-
-										<div class="form-group">
-											<div class="col-md-12">
-												<button class="btn blue btn-sm" disabled>ORIGINAL INVOICE QTY:</button>
-												<strong id="origqty"></strong>
-											</div>
-										</div>
-
-										<div class="form-group">
-											<div class="col-md-12">
-												<button class="btn blue btn-sm" disabled>DATA GENERATED QTY: </button>
-												<strong id="genqty"></strong>
-											</div>
-										</div>
-
-									</div>
-								</form>
-
-							</div>
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-file"></i> INVOICE DATA CHECK / GENERATE LOADING DATA
 						</div>
+					</div>
+					<div class="portlet-body">
+
+						<form method="POST" action="{{url('/readfile')}}" class="form-horizontal" enctype="multipart/form-data" id="formReadfile">
+							<input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+							<div class="form-body">
+								<div class="form-group">
+									<label class="control-label col-md-3">Imported Data</label>
+									<div class="col-md-5">
+										<input type="file" class="filestyle" data-buttonName="btn-primary" name="importedData" id="importedData" {{$readonly}}>
+									</div>
+									<div class="col-md-2">
+										<button type="submit" class="btn green pull-right btn-md" {{$state}}>
+											<i class="fa fa-refresh"></i> Generate
+										</button>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-md-3">INVOICE No.</label>
+									<div class="col-md-5">
+										<input type="text" class="form-control input-md" name="invoice" id="invoice" disabled />
+									</div>
+									<div class="col-md-2">
+										<a href="javascript:;" id="calculate" class="btn yellow pull-right btn-md calculate" {{$state}}>
+											<i class="fa fa-calculator"></i> Calculate
+										</a>
+									</div>
+								</div>
+
+								<!-- <div class="form-group">
+									<label class="control-label col-md-4">Designated Directory</label>
+									<div class="col-md-5">
+										<input type="text" class="form-control input-md" value="/var/www/html/pmi-subsystem/public/Invoice_Data_Check/" disabled/>
+									</div>
+								</div> -->
+
+								<div class="form-group">
+									<div class="col-md-12">
+										<button class="btn blue btn-sm" disabled>ORIGINAL INVOICE QTY:</button>
+										<strong id="origqty"></strong>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-md-12">
+										<button class="btn blue btn-sm" disabled>DATA GENERATED QTY: </button>
+										<strong id="genqty"></strong>
+									</div>
+								</div>
+
+							</div>
+						</form>
 
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
 
 	<!-- AJAX LOADER -->
 	<div id="loading" class="modal fade" role="dialog" data-backdrop="static">

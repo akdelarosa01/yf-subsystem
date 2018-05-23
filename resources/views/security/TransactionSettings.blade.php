@@ -15,95 +15,89 @@
 		@endif
 	@endforeach
 
-	<div class="clearfix"></div>
 
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
+	
+	<div class="page-content">
 
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-sm-12">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						@include('includes.message-block')
-						<div class="portlet box blue" >
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-exchange"></i>  Transactions Settings
-								</div>
-							</div>
-							<div class="portlet-body">
-								<div class="row">
-									<div class="col-sm-12 table-responsive" >
-										<table class="table table-striped table-bordered table-hover" id="sample_3">
-												<thead>
-													<tr>
-														<th class="table-checkbox" style="width: 5%">
-															<input type="checkbox" class="group-checkable checkAllitems" data-set="#sample_3 .checkboxes"/>
-														</th>										
-														<th></th>													
-														<th>Code</th>
-														<th>Description</th>
-														<th>Prefix</th>
-														<th >Prefix Format</th>
-														<th >Next No.</th>
-														<th>Next No. Length</th>
-													</tr>
-												</thead>
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-sm-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				@include('includes.message-block')
+				<div class="portlet box blue" >
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-exchange"></i>  Transactions Settings
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div class="row">
+							<div class="col-sm-12 table-responsive" >
+								<table class="table table-striped table-bordered table-hover" id="sample_3">
+										<thead>
+											<tr>
+												<th class="table-checkbox" style="width: 5%">
+													<input type="checkbox" class="group-checkable checkAllitems" data-set="#sample_3 .checkboxes"/>
+												</th>										
+												<th></th>													
+												<th>Code</th>
+												<th>Description</th>
+												<th>Prefix</th>
+												<th >Prefix Format</th>
+												<th >Next No.</th>
+												<th>Next No. Length</th>
+											</tr>
+										</thead>
 
-												<tbody>
-													@foreach ($tableData as $dest)
-														<tr>
-															
-															<td style="width: 5%">
+										<tbody>
+											@foreach ($tableData as $dest)
+												<tr>
+													
+													<td style="width: 5%">
 
-									                           <input type="checkbox" class="form-control input-sm checkboxes" name="checkitem" id="checkitem'.{{$dest->id}}" value="{{$dest->id}}"></input>
-								            				</td>
-								   															
-															<td style="width: 7%">
-									                           
-									                            <button type="button" name="edit-task" class="btn btn-sm btn-primary edit-task" value="{{$dest->id . '|' . $dest->code. '|' .$dest->description. '|' .$dest->prefix. '|' .$dest->prefixformat. '|' .$dest->nextno. '|' .$dest->nextnolength}}">
-								                						<i class="fa fa-edit"></i> 
-								            					</button>
-								            				</td>
-								            				<td>{{$dest->code}}</td>
-															<td>{{$dest->description}}</td>
-															<td>{{$dest->prefix}}</td>
-															<td>{{$dest->prefixformat}}</td>
-															<td>{{$dest->nextno}}</td>
-															<td>{{$dest->nextnolength}}</td>
-														</tr>
-													@endforeach
-												</tbody>
-											</table>									
-										
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-sm-4 col-sm-offset-5" style="margin-top: 30px;">
-										<a href="#" id="add" class="btn btn-success btn-lg">
-											<i class="fa fa-plus-square-o"></i> Add
-										</a>
-										<button type="button" class="btn btn-danger btn-lg deleteAll-task">
-											<i class="fa fa-trash"></i> Delete
-										</button>
-									</div>
-								</div>
+							                           <input type="checkbox" class="form-control input-sm checkboxes" name="checkitem" id="checkitem'.{{$dest->id}}" value="{{$dest->id}}"></input>
+						            				</td>
+						   															
+													<td style="width: 7%">
+							                           
+							                            <button type="button" name="edit-task" class="btn btn-sm btn-primary edit-task" value="{{$dest->id . '|' . $dest->code. '|' .$dest->description. '|' .$dest->prefix. '|' .$dest->prefixformat. '|' .$dest->nextno. '|' .$dest->nextnolength}}">
+						                						<i class="fa fa-edit"></i> 
+						            					</button>
+						            				</td>
+						            				<td>{{$dest->code}}</td>
+													<td>{{$dest->description}}</td>
+													<td>{{$dest->prefix}}</td>
+													<td>{{$dest->prefixformat}}</td>
+													<td>{{$dest->nextno}}</td>
+													<td>{{$dest->nextnolength}}</td>
+												</tr>
+											@endforeach
+										</tbody>
+									</table>									
+								
 							</div>
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
+
+						<div class="row">
+							<div class="col-sm-4 col-sm-offset-5" style="margin-top: 30px;">
+								<a href="#" id="add" class="btn btn-success btn-lg">
+									<i class="fa fa-plus-square-o"></i> Add
+								</a>
+								<button type="button" class="btn btn-danger btn-lg deleteAll-task">
+									<i class="fa fa-trash"></i> Delete
+								</button>
+							</div>
+						</div>
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
+
+
+
 
 	<div id="transetModal" class="modal fade" role="dialog" data-backdrop="static">
 		<div class="modal-dialog gray-gallery">

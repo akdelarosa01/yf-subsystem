@@ -14,442 +14,429 @@
 			@endif
 		@endif
 	@endforeach
+	
+	<div class="page-content">
 
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				@include('includes.message-block')
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-bars"></i>  PACKING LIST SYSTEM
+						</div>
+					</div>
+					<div class="portlet-body">
 
-	<div class="clearfix"></div>
-
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
-
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-12">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						@include('includes.message-block')
-						<div class="portlet box blue">
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-bars"></i>  PACKING LIST SYSTEM
+						{{-- <div class="row">
+							<div class="col-md-12">
+								<div class="portlet box">
+									<div class="portlet-body">
+										
+									</div>
 								</div>
 							</div>
-							<div class="portlet-body">
+						</div> --}}
 
-								{{-- <div class="row">
-									<div class="col-md-12">
-										<div class="portlet box">
-											<div class="portlet-body">
-												
+						<div class="row">
+							<div class="col-md-12">
+								<div class="portlet box">
+									<div class="portlet-body">
+										<!-- <form class="form-horizontal" role="form" method="POST" action="{{ url('/packinglistsystem-save') }}">
+										{!! csrf_field() !!} -->
+											<div class="row">
+												<div class="col-md-12">
+													<!-- <a href="#" id="lnk_masterreport" class="btn btn-success pull-right">
+														<i class="fa fa-file-o"></i> Master File Report
+													</a> -->
+													<a href="#" onclick="javascript: addDetails();" id="lnk_addnew" class="btn btn-primary pull-right input-sm" <?php echo($state); ?> >
+														<i class="fa fa-plus"></i> Add New
+													</a>
+												</div>
 											</div>
-										</div>
-									</div>
-								</div> --}}
 
-								<div class="row">
-									<div class="col-md-12">
-										<div class="portlet box">
-											<div class="portlet-body">
-												<!-- <form class="form-horizontal" role="form" method="POST" action="{{ url('/packinglistsystem-save') }}">
-												{!! csrf_field() !!} -->
-													<div class="row">
+											<div class="row">
+												<!-- LEFT SIDE -->
+												<div class="col-md-6">
+
+													<div class="form-group">
 														<div class="col-md-12">
-															<!-- <a href="#" id="lnk_masterreport" class="btn btn-success pull-right">
-																<i class="fa fa-file-o"></i> Master File Report
-															</a> -->
-															<a href="#" onclick="javascript: addDetails();" id="lnk_addnew" class="btn btn-primary pull-right input-sm" <?php echo($state); ?> >
-																<i class="fa fa-plus"></i> Add New
-															</a>
+															<h3>PACKING LIST</h3>
+														</div>
+													</div>
+														<?php $id = "";?>
+                                          				@if(isset($packinglist))
+															@foreach($packinglist as $packingInfo)
+																<?php if(isset($packinglist)){$id = $packingInfo->id; } ?>
+                      											<input type="hidden" class="form-control" id="edittbl" name="edittbl" value="<?php if(count($packingdetails) > 0){ echo '1' ;} else{ echo '0';} ?>" />
+															@endforeach
+                                          				@endif
+                                          				<input type="hidden" class="form-control" id="recid" name="recid" value="<?php echo $id; ?>" />
+													<div class="form-group">
+														<label class="col-md-12 input-sm">Sold To:</label>
+														<div class="col-md-12">
+																<select id="ddl_soldto" name="soldtoid" class="form-control input-sm" <?php echo($state); ?> >
+																	<option selected="selected" value="NA">-- Select --</option>
+																	<?php
+																	 $yec = '';
+																	?>
+                                          							@if(isset($soldto))
+                                              							@if (isset($packingInfo))
+                                              								@foreach($soldto as $value)
+																				<option value="{{ $value->description . '|' .$value->code}}"
+																					<?php if(isset($packingInfo)){ if($packingInfo->sold_to_id == $value->code){ echo 'selected';}}?> >
+																					{{ $value->companyname }}
+																				</option>
+																			@endforeach
+																		@else
+																			@foreach($soldto as $value)
+																				<option value="{{ $value->description . '|' .$value->code}}"
+																					<?php if($value->code == '10029'){ echo 'selected'; $yec = $value->description;}?> >
+																					{{ $value->companyname }}
+																				</option>
+																			@endforeach
+                                              							@endif
+																		
+                                          							@endif
+																</select>
+														</div>
+														<div class="col-md-12">
+															<textarea id="txa_soldto" name="soldto" class="form-control input-sm" rows="6" maxlength="200" style="resize:none;"><?php if(isset($packinglist)){echo $packinglist[0]->sold_to; } else { echo $yec; } ?></textarea>
 														</div>
 													</div>
 
-													<div class="row">
-														<!-- LEFT SIDE -->
-														<div class="col-md-6">
-
-															<div class="form-group">
+													<div class="form-group">
+														<div class="row">
+															<div class="col-md-6">
+																<label class="col-md-12 input-sm">Carrier:</label>
 																<div class="col-md-12">
-																	<h3>PACKING LIST</h3>
-																</div>
-															</div>
-																<?php $id = "";?>
-                                                  				@if(isset($packinglist))
-																	@foreach($packinglist as $packingInfo)
-																		<?php if(isset($packinglist)){$id = $packingInfo->id; } ?>
-                              											<input type="hidden" class="form-control" id="edittbl" name="edittbl" value="<?php if(count($packingdetails) > 0){ echo '1' ;} else{ echo '0';} ?>" />
-																	@endforeach
-                                                  				@endif
-                                                  				<input type="hidden" class="form-control" id="recid" name="recid" value="<?php echo $id; ?>" />
-															<div class="form-group">
-																<label class="col-md-12 input-sm">Sold To:</label>
-																<div class="col-md-12">
-																		<select id="ddl_soldto" name="soldtoid" class="form-control input-sm" <?php echo($state); ?> >
-																			<option selected="selected" value="NA">-- Select --</option>
-																			<?php
-																			 $yec = '';
-																			?>
-                                                  							@if(isset($soldto))
-	                                                  							@if (isset($packingInfo))
-	                                                  								@foreach($soldto as $value)
-																						<option value="{{ $value->description . '|' .$value->code}}"
-																							<?php if(isset($packingInfo)){ if($packingInfo->sold_to_id == $value->code){ echo 'selected';}}?> >
-																							{{ $value->companyname }}
-																						</option>
-																					@endforeach
-																				@else
-																					@foreach($soldto as $value)
-																						<option value="{{ $value->description . '|' .$value->code}}"
-																							<?php if($value->code == '10029'){ echo 'selected'; $yec = $value->description;}?> >
-																							{{ $value->companyname }}
-																						</option>
-																					@endforeach
-	                                                  							@endif
-																				
-                                                  							@endif
-																		</select>
-																</div>
-																<div class="col-md-12">
-																	<textarea id="txa_soldto" name="soldto" class="form-control input-sm" rows="6" maxlength="200" style="resize:none;"><?php if(isset($packinglist)){echo $packinglist[0]->sold_to; } else { echo $yec; } ?></textarea>
-																</div>
-															</div>
-
-															<div class="form-group">
-																<div class="row">
-																	<div class="col-md-6">
-																		<label class="col-md-12 input-sm">Carrier:</label>
-																		<div class="col-md-12">
-																			<select id="ddl_carrier" class="form-control input-sm" name="carrier" <?php echo($state); ?> >
-																				<option value="NA">NA</option>
-	                                                  							@if(isset($carrier))
-																					@foreach($carrier as $value)
-																						<option value="{{$value->id}}"
-																						<?php if(isset($packingInfo)){ if($packingInfo->carrier == $value->id){ echo 'selected';}}?> >
-																						{{ $value->description }}
-																						</option>
-																					@endforeach
-	                                                  							@endif
-																			</select>
-																		</div>
-																	</div>
-																	<div class="col-md-6">
-																		<label class="col-md-12 input-sm">Date Ship:</label>
-																		<div class="col-md-12">
-																			<input id="dtp_dateship" class="form-control date-picker" readonly="true" size="16" type="text" name="dateship" value="<?php if(isset($packinglist)){echo $packingInfo->date_ship; } ?>" <?php echo($state); ?> >
-																		</div>
-																	</div>
-																</div>
-															</div>
-
-															<div class="form-group">
-																<div class="row">
-																	<div class="col-md-6">
-																		<label class="col-md-12 input-sm">Port of Loading:</label>
-																		<div class="col-md-12">
-																			<input id="txa_portloading" type="text" name="portloading" maxlength="100" class="form-control input-sm" value="<?php if(isset($packinglist)){echo $packingInfo->port_loading; } else {echo "MANILA, PHILIPPINES";}?>" <?php echo($readonly); ?> >
-																		</div>
-																	</div>
-																	<div class="col-md-6">
-																		<label class="col-md-12 input-sm">Port of Destination:</label>
-																		<div class="col-md-12">
-																			<select id="ddl_portdes" class="form-control input-sm" name="portdes" <?php echo($state); ?> >
-																				<option value="NA">NA</option>
-	                                                  							@if(isset($portOfDestination))
-																					@foreach($portOfDestination as $value)
-																						<option value="{{$value->id}}"
-																						<?php if(isset($packingInfo)){ if($packingInfo->port_destination == $value->id){ echo 'selected';}}?> >
-																						{{ $value->description }}
-																						</option>
-																					@endforeach
-	                                                  							@endif
-																			</select>
-																		</div>
-																	</div>
-																</div>
-															</div>
-
-															<div class="form-group">
-																<div class="row">
-																	<div class="col-md-12">
-																		<label class="col-md-4 input-sm">Gross Weight (For Invoicing):</label>
-																		<div class="col-md-4">
-																			<input id="tx_gweight" type="text" name="gweight" class="form-control input-sm" value="<?php if(isset($packinglist)){echo $packingInfo->grossweight_invoicing; } ?>" <?php echo($readonly); ?> >
-																		</div>
-																	</div>
-																</div>
-															</div>
-
-														</div>
-
-														<!-- RIGHT SIDE -->
-														<div class="col-md-6">
-															<div class="form-group">
-																<div class="row">
-																	<div class="col-md-2">
-																	</div>
-																	<label class="col-md-10 input-sm">Ctrl #:</label>
-																	<div class="col-md-2">
-																	</div>
-																	<div class="col-md-10">
-																		<input id="txt_controlno" type="text" class="form-control input-sm" name="controlno" maxlength="20" value="<?php if(isset($packinglist)){echo $packingInfo->control_no; } ?>" <?php echo($readonly); ?> >
-																	</div>
-																	<label class="col-md-12 input-sm">No. and Date of Invoice #:</label>
-																	<div class="col-md-12">
-																		<input id="dtp_invoice" class="form-control date-picker input-sm" readonly="true" size="16" type="text" name="invoicedate" value="<?php if(isset($packinglist)){echo $packingInfo->invoice_date; }else{echo date('m/d/Y');} ?>" <?php echo($state); ?> >
-																	</div>
-																	<label class="col-md-12 input-sm">Remarks:</label>
-																	<div class="form-group">
-																		<div class="row">
-																			<div class="col-md-1">
-																			</div>
-																			<div class="col-md-3">
-																				<label class="col-md-12 input-sm">Time:</label>
-																			</div>
-																			<div class="col-md-6">
-																				<input id="dtp_remarkstime" name="remarkstime" class="form-control input-sm" size="16" type="text" value="<?php if(isset($packinglist)){echo $packingInfo->remarks_time; } ?>" <?php echo($state); ?> >
-																			</div>
-																		</div>
-																		<div class="row">
-																			<div class="col-md-1">
-																			</div>
-																			<div class="col-md-3">
-																				<label class="col-md-12 input-sm">Pick-Up Date:</label>
-																			</div>
-																			<div class="col-md-6">
-																				<input id="dtp_remarkspickupdate" name="remarkspickupdate" class="form-control date-picker input-sm" size="16" type="text" data-date="<?php echo date("m/d/Y"); ?>" data-date-format="mm/dd/yyyy" value="<?php if(isset($packinglist)){echo $packingInfo->remarks_pickupdate; } ?>" <?php echo($state); ?> >
-																			</div>
-																			<div class="col-md-2">
-																			</div>
-																		</div>
-																		<div class="row">
-																			<div class="col-md-1">
-																			</div>
-																			<div class="col-md-3">
-																				<label class="col-md-12 input-sm">S / No.:</label>
-																			</div>
-																			<div class="col-md-6">
-																				<input id="txt_s_no" type="text" class="form-control input-sm" name="sno" maxlength="50" value="<?php if(isset($packinglist)){echo $packingInfo->remarks_s_no; } ?>" <?php echo($readonly); ?> >
-																			</div>
-																			<div class="col-md-2">
-																			</div>
-																		</div>
-																	</div>
-																	<label class="col-md-12 input-sm">Ship To:</label>
-																	<div class="col-md-12">
-																		<textarea id="txa_shipto" name="shipto" class="form-control input-sm" rows="6" maxlength="200" style="resize:none;" <?php echo($readonly); ?> ><?php 
-																			if(isset($packinglist)){
-																				echo $packinglist[0]->ship_to;
-																			} else {
-																				$ship = 'Nittsu NEC Logistics., LTD. Narita Sakura Branch'."\n";
-																				$ship .= '1-4-1 Osaku, Sakura-shi'."\n";
-																				$ship .= 'Chiba-ken 285-0802, JAPAN';
-
-																				echo $ship;
-																			}
-																		?></textarea>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-
-													<div class="row">
-														<div class="col-md-12">
-															<div class="form-group">
-																<label class="col-md-12 input-sm">Description of Goods:</label>
-																<div class="col-md-6">
-																	<select id="ddl_shipinstruction" name="shipinstruction" class="form-control input-sm" <?php echo($state); ?> >
+																	<select id="ddl_carrier" class="form-control input-sm" name="carrier" <?php echo($state); ?> >
 																		<option value="NA">NA</option>
-                                                  							@if(isset($descOfGoods))
-                                                  								@if (isset($packingInfo))
-                                                  									@foreach($descOfGoods as $value)
-																						<option value="{{$value->id}}"
-																							<?php if(isset($packingInfo)){ if($packingInfo->description_of_goods == $value->id){ echo 'selected';}}?> >
-																							{{ $value->description }}
-																						</option>
-																					@endforeach
-																				@else
-																					@foreach($descOfGoods as $value)
-																						<option value="{{$value->id}}"
-																							<?php if($value->id == '122'){ echo 'selected';}?> >
-																							{{ $value->description }}
-																						</option>
-																					@endforeach
-                                                  								@endif
-																				
-                                                  							@endif
+                                              							@if(isset($carrier))
+																			@foreach($carrier as $value)
+																				<option value="{{$value->id}}"
+																				<?php if(isset($packingInfo)){ if($packingInfo->carrier == $value->id){ echo 'selected';}}?> >
+																				{{ $value->description }}
+																				</option>
+																			@endforeach
+                                              							@endif
 																	</select>
 																</div>
-																<div class="col-md-1">
+															</div>
+															<div class="col-md-6">
+																<label class="col-md-12 input-sm">Date Ship:</label>
+																<div class="col-md-12">
+																	<input id="dtp_dateship" class="form-control date-picker" readonly="true" size="16" type="text" name="dateship" value="<?php if(isset($packinglist)){echo $packingInfo->date_ship; } ?>" <?php echo($state); ?> >
 																</div>
-																<label class="col-md-5 input-sm">Special Instruction / Shipping Instruction</label>
 															</div>
 														</div>
 													</div>
 
-
-													<div class="row">
-														<div class="col-md-4">
-															<div class="form-group">
-																<label class="col-md-12 input-sm">Case Marks:</label>
+													<div class="form-group">
+														<div class="row">
+															<div class="col-md-6">
+																<label class="col-md-12 input-sm">Port of Loading:</label>
 																<div class="col-md-12">
-																	<textarea id="txa_casemarks" name="casemarks" class="form-control input-sm" maxlength="200" style="resize:none;" rows="6" <?php echo($readonly); ?> ><?php if(isset($packinglist)){echo $packinglist[0]->case_marks; } else {
-																				$ship = 'Nittsu NEC Logistics., LTD. Narita Sakura Branch'."\n";
-																				$ship .= '1-4-1 Osaku, Sakura-shi'."\n";
-																				$ship .= 'Chiba-ken 285-0802, JAPAN'."\n";
-																				$ship .= 'C/NO:';
-
-																				echo $ship;
-																			} ?></textarea>
+																	<input id="txa_portloading" type="text" name="portloading" maxlength="100" class="form-control input-sm" value="<?php if(isset($packinglist)){echo $packingInfo->port_loading; } else {echo "MANILA, PHILIPPINES";}?>" <?php echo($readonly); ?> >
+																</div>
+															</div>
+															<div class="col-md-6">
+																<label class="col-md-12 input-sm">Port of Destination:</label>
+																<div class="col-md-12">
+																	<select id="ddl_portdes" class="form-control input-sm" name="portdes" <?php echo($state); ?> >
+																		<option value="NA">NA</option>
+                                              							@if(isset($portOfDestination))
+																			@foreach($portOfDestination as $value)
+																				<option value="{{$value->id}}"
+																				<?php if(isset($packingInfo)){ if($packingInfo->port_destination == $value->id){ echo 'selected';}}?> >
+																				{{ $value->description }}
+																				</option>
+																			@endforeach
+                                              							@endif
+																	</select>
 																</div>
 															</div>
 														</div>
-														<div class="col-md-4">
-															<div class="form-group">
-																<label class="col-md-12 input-sm">Note / Highlight:</label>
-																<div class="col-md-12">
-																	<textarea id="txa_note" name="note" class="form-control input-sm" maxlength="200" style="resize:none;" rows="6" <?php echo($readonly); ?> ><?php if(isset($packinglist)){echo $packinglist[0]->note; } ?></textarea>
+													</div>
+
+													<div class="form-group">
+														<div class="row">
+															<div class="col-md-12">
+																<label class="col-md-4 input-sm">Gross Weight (For Invoicing):</label>
+																<div class="col-md-4">
+																	<input id="tx_gweight" type="text" name="gweight" class="form-control input-sm" value="<?php if(isset($packinglist)){echo $packingInfo->grossweight_invoicing; } ?>" <?php echo($readonly); ?> >
 																</div>
 															</div>
 														</div>
-														<div class="col-md-4">
+													</div>
+
+												</div>
+
+												<!-- RIGHT SIDE -->
+												<div class="col-md-6">
+													<div class="form-group">
+														<div class="row">
+															<div class="col-md-2">
+															</div>
+															<label class="col-md-10 input-sm">Ctrl #:</label>
+															<div class="col-md-2">
+															</div>
+															<div class="col-md-10">
+																<input id="txt_controlno" type="text" class="form-control input-sm" name="controlno" maxlength="20" value="<?php if(isset($packinglist)){echo $packingInfo->control_no; } ?>" <?php echo($readonly); ?> >
+															</div>
+															<label class="col-md-12 input-sm">No. and Date of Invoice #:</label>
+															<div class="col-md-12">
+																<input id="dtp_invoice" class="form-control date-picker input-sm" readonly="true" size="16" type="text" name="invoicedate" value="<?php if(isset($packinglist)){echo $packingInfo->invoice_date; }else{echo date('m/d/Y');} ?>" <?php echo($state); ?> >
+															</div>
+															<label class="col-md-12 input-sm">Remarks:</label>
 															<div class="form-group">
 																<div class="row">
+																	<div class="col-md-1">
+																	</div>
 																	<div class="col-md-3">
-																		<label class="col-md-12 input-sm">From:</label>
-																		<label class="col-md-12 input-sm">To:</label>
-																		<label class="col-md-12 input-sm">Freight:</label>
+																		<label class="col-md-12 input-sm">Time:</label>
 																	</div>
-																	<div class="col-md-9">
-																		<label class="col-md-12 input-sm"><strong>PRICON</strong></label>
-																		<div class="col-md-12">
-																			<input id="txt_to" type="text" class="form-control input-sm" name="sno" maxlength="50" value="<?php if(isset($packinglist)){echo $packingInfo->to; } else { echo "JAPAN";} ?>" <?php echo($readonly); ?> >
-																			<input id="txt_freight" type="text" class="form-control input-sm" name="sno" maxlength="50" value="<?php if(isset($packinglist)){echo $packingInfo->freight; }else { echo "COLLECT";} ?>" <?php echo($readonly); ?> >
-																		</div>
+																	<div class="col-md-6">
+																		<input id="dtp_remarkstime" name="remarkstime" class="form-control input-sm" size="16" type="text" value="<?php if(isset($packinglist)){echo $packingInfo->remarks_time; } ?>" <?php echo($state); ?> >
 																	</div>
 																</div>
-															</div>
-														</div>
-													</div>
-
-													<div class="row">
-														<div class="col-md-4">
-															<div class="form-group">
-																<label class="col-md-12 input-sm">Prepared By:</label>
-																<div class="col-md-12">
-																	<select id="preparedby" name="preparedby" class="form-control input-sm" <?php echo($state); ?> >
-																		<option value=""></option>
-																		@if(isset($preparedby))
-																			@foreach($preparedby as $prep)
-																				<option value="{{$prep->user}}"
-																					<?php if(isset($packingInfo)){ if($packingInfo->preparedby == $prep->user){ echo 'selected';}}?> >
-																					{{ $prep->user }}
-																				</option>
-																			@endforeach
-																		@endif
-																	</select>
+																<div class="row">
+																	<div class="col-md-1">
+																	</div>
+																	<div class="col-md-3">
+																		<label class="col-md-12 input-sm">Pick-Up Date:</label>
+																	</div>
+																	<div class="col-md-6">
+																		<input id="dtp_remarkspickupdate" name="remarkspickupdate" class="form-control date-picker input-sm" size="16" type="text" data-date="<?php echo date("m/d/Y"); ?>" data-date-format="mm/dd/yyyy" value="<?php if(isset($packinglist)){echo $packingInfo->remarks_pickupdate; } ?>" <?php echo($state); ?> >
+																	</div>
+																	<div class="col-md-2">
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="col-md-1">
+																	</div>
+																	<div class="col-md-3">
+																		<label class="col-md-12 input-sm">S / No.:</label>
+																	</div>
+																	<div class="col-md-6">
+																		<input id="txt_s_no" type="text" class="form-control input-sm" name="sno" maxlength="50" value="<?php if(isset($packinglist)){echo $packingInfo->remarks_s_no; } ?>" <?php echo($readonly); ?> >
+																	</div>
+																	<div class="col-md-2">
+																	</div>
 																</div>
 															</div>
-														</div>
-														<div class="col-md-4">
-															<div class="form-group">
-																<label class="col-md-12 input-sm">Checked By:</label>
-																<div class="col-md-12">
-																	<select id="checkedby" name="checkedby" class="form-control input-sm" <?php echo($state); ?> multiple="multiple">
-																		<option value=""></option>
-																		@if(isset($checkedby))
-																			@foreach($checkedby as $checkd)
-																				<option value="{{$checkd->user}}"
-																					<?php if(isset($packingInfo)){
-																						$chcks = explode(" / ",$packingInfo->checkedby);
-																						foreach ($chcks as $key => $chck) {
-																							if($chck == $checkd->user){ 
-																								echo 'selected';
-																								}
-																							}
-																						}
-																					?> >
-																					{{ $checkd->user }}
-																				</option>
-																			@endforeach
-																		@endif
-																	</select>
-																</div>
-															</div>
-														</div>
-														<div class="col-md-4">
-															<a href="javascript:;" id="bu2" class="btn btn-primary pull-right input-sm" <?php echo($state); ?> >
-																<i class="fa fa-cubes"></i>
-																Packing List Details
-															</a>
-														</div>
-													</div>
+															<label class="col-md-12 input-sm">Ship To:</label>
+															<div class="col-md-12">
+																<textarea id="txa_shipto" name="shipto" class="form-control input-sm" rows="6" maxlength="200" style="resize:none;" <?php echo($readonly); ?> ><?php 
+																	if(isset($packinglist)){
+																		echo $packinglist[0]->ship_to;
+																	} else {
+																		$ship = 'Nittsu NEC Logistics., LTD. Narita Sakura Branch'."\n";
+																		$ship .= '1-4-1 Osaku, Sakura-shi'."\n";
+																		$ship .= 'Chiba-ken 285-0802, JAPAN';
 
-													<br/>
-
-													<div class="row">
-														<div class="col-md-12">
-															<div class="scroller" style="height:300px">
-																<div class="table-responsive">
-																	<table class="table table-striped table-bordered table-hover" id="tbl_viewtable" style="font-size:10px">
-																		<thead>
-																			<tr>
-																				<td>Box No</td>
-																				<td>PO No.</td>
-																				<td>Description / Model No.</td>
-																				<td>Product Code</td>
-																				<td>Price</td>
-																				<td>Quantity</td>
-																				<td>Unit of measurement</td>
-																			</tr>
-																		</thead>
-																		<tbody id="view_tbl_body_row">
-			                                                  				@if(isset($packingdetails))
-																				@foreach($packingdetails as $details)
-																				<tr>
-																					<td>{{ $details->box_no }}</td>
-																					<td>{{ $details->po }}</td>
-																					<td>{{ $details->description }}</td>
-																					<td>{{ $details->item_code }}</td>
-																					<td>{{ $details->price }}</td>
-																					<td>{{ $details->qty }}</td>
-																					<td>{{ $details->gross_weight }}</td>
-																				</tr>
-																				@endforeach
-																			@endif
-																		</tbody>
-																	</table>
-																</div>
+																		echo $ship;
+																	}
+																?></textarea>
 															</div>
 														</div>
 													</div>
-													<div class="row">
-														<div class="col-md-12">
-															<div class=" text-center">
-																	<button type="submit" onclick="javascript: save();" id="btn_save" class="btn btn-primary input-sm" <?php echo($state); ?> ><i class="fa fa-save"></i>Save</button>
-																	<a href="javascript:;" class="btn purple input-sm" id="btn_printModal"><i class="fa fa-print"></i> Print Details</a>
-															</div>
-															<a href="{{url('/packinglistsystem')}}" class="btn grey-gallery pull-right input-sm"><i class="glyphicon glyphicon-chevron-left"></i>Back</a>
-														</div>
-													</div>
-												<!-- </form> -->
+												</div>
 											</div>
-										</div>
+
+											<div class="row">
+												<div class="col-md-12">
+													<div class="form-group">
+														<label class="col-md-12 input-sm">Description of Goods:</label>
+														<div class="col-md-6">
+															<select id="ddl_shipinstruction" name="shipinstruction" class="form-control input-sm" <?php echo($state); ?> >
+																<option value="NA">NA</option>
+                                          							@if(isset($descOfGoods))
+                                          								@if (isset($packingInfo))
+                                          									@foreach($descOfGoods as $value)
+																				<option value="{{$value->id}}"
+																					<?php if(isset($packingInfo)){ if($packingInfo->description_of_goods == $value->id){ echo 'selected';}}?> >
+																					{{ $value->description }}
+																				</option>
+																			@endforeach
+																		@else
+																			@foreach($descOfGoods as $value)
+																				<option value="{{$value->id}}"
+																					<?php if($value->id == '122'){ echo 'selected';}?> >
+																					{{ $value->description }}
+																				</option>
+																			@endforeach
+                                          								@endif
+																		
+                                          							@endif
+															</select>
+														</div>
+														<div class="col-md-1">
+														</div>
+														<label class="col-md-5 input-sm">Special Instruction / Shipping Instruction</label>
+													</div>
+												</div>
+											</div>
+
+
+											<div class="row">
+												<div class="col-md-4">
+													<div class="form-group">
+														<label class="col-md-12 input-sm">Case Marks:</label>
+														<div class="col-md-12">
+															<textarea id="txa_casemarks" name="casemarks" class="form-control input-sm" maxlength="200" style="resize:none;" rows="6" <?php echo($readonly); ?> ><?php if(isset($packinglist)){echo $packinglist[0]->case_marks; } else {
+																		$ship = 'Nittsu NEC Logistics., LTD. Narita Sakura Branch'."\n";
+																		$ship .= '1-4-1 Osaku, Sakura-shi'."\n";
+																		$ship .= 'Chiba-ken 285-0802, JAPAN'."\n";
+																		$ship .= 'C/NO:';
+
+																		echo $ship;
+																	} ?></textarea>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
+														<label class="col-md-12 input-sm">Note / Highlight:</label>
+														<div class="col-md-12">
+															<textarea id="txa_note" name="note" class="form-control input-sm" maxlength="200" style="resize:none;" rows="6" <?php echo($readonly); ?> ><?php if(isset($packinglist)){echo $packinglist[0]->note; } ?></textarea>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
+														<div class="row">
+															<div class="col-md-3">
+																<label class="col-md-12 input-sm">From:</label>
+																<label class="col-md-12 input-sm">To:</label>
+																<label class="col-md-12 input-sm">Freight:</label>
+															</div>
+															<div class="col-md-9">
+																<label class="col-md-12 input-sm"><strong>PRICON</strong></label>
+																<div class="col-md-12">
+																	<input id="txt_to" type="text" class="form-control input-sm" name="sno" maxlength="50" value="<?php if(isset($packinglist)){echo $packingInfo->to; } else { echo "JAPAN";} ?>" <?php echo($readonly); ?> >
+																	<input id="txt_freight" type="text" class="form-control input-sm" name="sno" maxlength="50" value="<?php if(isset($packinglist)){echo $packingInfo->freight; }else { echo "COLLECT";} ?>" <?php echo($readonly); ?> >
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-md-4">
+													<div class="form-group">
+														<label class="col-md-12 input-sm">Prepared By:</label>
+														<div class="col-md-12">
+															<select id="preparedby" name="preparedby" class="form-control input-sm" <?php echo($state); ?> >
+																<option value=""></option>
+																@if(isset($preparedby))
+																	@foreach($preparedby as $prep)
+																		<option value="{{$prep->user}}"
+																			<?php if(isset($packingInfo)){ if($packingInfo->preparedby == $prep->user){ echo 'selected';}}?> >
+																			{{ $prep->user }}
+																		</option>
+																	@endforeach
+																@endif
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
+														<label class="col-md-12 input-sm">Checked By:</label>
+														<div class="col-md-12">
+															<select id="checkedby" name="checkedby" class="form-control input-sm" <?php echo($state); ?> multiple="multiple">
+																<option value=""></option>
+																@if(isset($checkedby))
+																	@foreach($checkedby as $checkd)
+																		<option value="{{$checkd->user}}"
+																			<?php if(isset($packingInfo)){
+																				$chcks = explode(" / ",$packingInfo->checkedby);
+																				foreach ($chcks as $key => $chck) {
+																					if($chck == $checkd->user){ 
+																						echo 'selected';
+																						}
+																					}
+																				}
+																			?> >
+																			{{ $checkd->user }}
+																		</option>
+																	@endforeach
+																@endif
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<a href="javascript:;" id="bu2" class="btn btn-primary pull-right input-sm" <?php echo($state); ?> >
+														<i class="fa fa-cubes"></i>
+														Packing List Details
+													</a>
+												</div>
+											</div>
+
+											<br/>
+
+											<div class="row">
+												<div class="col-md-12">
+													<div class="scroller" style="height:300px">
+														<div class="table-responsive">
+															<table class="table table-striped table-bordered table-hover" id="tbl_viewtable" style="font-size:10px">
+																<thead>
+																	<tr>
+																		<td>Box No</td>
+																		<td>PO No.</td>
+																		<td>Description / Model No.</td>
+																		<td>Product Code</td>
+																		<td>Price</td>
+																		<td>Quantity</td>
+																		<td>Unit of measurement</td>
+																	</tr>
+																</thead>
+																<tbody id="view_tbl_body_row">
+	                                                  				@if(isset($packingdetails))
+																		@foreach($packingdetails as $details)
+																		<tr>
+																			<td>{{ $details->box_no }}</td>
+																			<td>{{ $details->po }}</td>
+																			<td>{{ $details->description }}</td>
+																			<td>{{ $details->item_code }}</td>
+																			<td>{{ $details->price }}</td>
+																			<td>{{ $details->qty }}</td>
+																			<td>{{ $details->gross_weight }}</td>
+																		</tr>
+																		@endforeach
+																	@endif
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12">
+													<div class=" text-center">
+															<button type="submit" onclick="javascript: save();" id="btn_save" class="btn btn-primary input-sm" <?php echo($state); ?> ><i class="fa fa-save"></i>Save</button>
+															<a href="javascript:;" class="btn purple input-sm" id="btn_printModal"><i class="fa fa-print"></i> Print Details</a>
+													</div>
+													<a href="{{url('/packinglistsystem')}}" class="btn grey-gallery pull-right input-sm"><i class="glyphicon glyphicon-chevron-left"></i>Back</a>
+												</div>
+											</div>
+										<!-- </form> -->
 									</div>
 								</div>
 							</div>
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
 
 	<!--Print Modal-->
 	<div id="PrintModal" class="modal fade" role="dialog" data-backdrop="static">

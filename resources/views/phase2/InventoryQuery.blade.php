@@ -17,100 +17,89 @@
 	@endforeach
 
 
-	<div class="clearfix"></div>
+	<div class="page-content">
 
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				@include('includes.message-block')
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-cubes"></i>  YPICS STOCKS QUERY
+						</div>
+					</div>
+					<div class="portlet-body">
 
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-12">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						@include('includes.message-block')
-						<div class="portlet box blue">
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-cubes"></i>  YPICS STOCKS QUERY
-								</div>
-							</div>
-							<div class="portlet-body">
-
-								<div class="row">
-									<div class="col-md-10 col-md-offset-1">
-										<div class="portlet box blue-hoki">
-											<div class="portlet-body">
-												<div class="row">
-													<div class="col-md-2 col-md-offset-1">
-														<div class="form-group">
-															<a href="{{url('/inventoryquerybyparts')}}" id="byparts" class="btn btn-md btn-warning btn-lg" {{$state}}>
-																BY PARTS
-															</a>
-														</div>
-													</div>
-													<div class="col-md-2">
-														<div class="form-group">
-															<a href="{{url('/inventoryquerybybom')}}" id="bybom" class="btn btn-md btn-primary btn-lg" {{$state}}>
-																BY BOM
-															</a>
-														</div>
-													</div>
-													<div class="col-md-2">
-														<div class="form-group">
-															<a href="{{url('/inventoryqueryrebom')}}" id="rebom" class="btn btn-md btn-success btn-lg" {{$state}}>
-																REBOM
-															</a>
-														</div>
-													</div>
-													<div class="col-md-2">
-														<div class="form-group">
-															<button id="btn_extract" class="btn btn-md btn-danger btn-lg" {{$state}}>
-																EXTRACT
-															</button>
-														</div>
-													</div>
-													<div class="col-md-2">
-														<div class="form-group">
-															<form class="" action="{{ url('/updatestock') }}" method="post" id="frm">
-																{{ csrf_field() }}
-																<a href="javascript:;" id="update" class="btn btn-md yellow btn-lg" {{$state}}>
-																	UPDATE
-																</a>
-															</form>
-
-														</div>
-
-													</div>
+						<div class="row">
+							<div class="col-md-10 col-md-offset-1">
+								<div class="portlet box blue-hoki">
+									<div class="portlet-body">
+										<div class="row">
+											<div class="col-md-2 col-md-offset-1">
+												<div class="form-group">
+													<a href="{{url('/inventoryquerybyparts')}}" id="byparts" class="btn btn-md btn-warning btn-lg" {{$state}}>
+														BY PARTS
+													</a>
 												</div>
-												<br/>
-												<div class="row">
-													<div class="col-md-12" style="height:30px">
-														<div class="progress">
-															<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
-														</div>
-													</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<a href="{{url('/inventoryquerybybom')}}" id="bybom" class="btn btn-md btn-primary btn-lg" {{$state}}>
+														BY BOM
+													</a>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<a href="{{url('/inventoryqueryrebom')}}" id="rebom" class="btn btn-md btn-success btn-lg" {{$state}}>
+														REBOM
+													</a>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<button id="btn_extract" class="btn btn-md btn-danger btn-lg" {{$state}}>
+														EXTRACT
+													</button>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="form-group">
+													<form class="" action="{{ url('/updatestock') }}" method="post" id="frm">
+														{{ csrf_field() }}
+														<a href="javascript:;" id="update" class="btn btn-md yellow btn-lg" {{$state}}>
+															UPDATE
+														</a>
+													</form>
+
+												</div>
+
+											</div>
+										</div>
+										<br/>
+										<div class="row">
+											<div class="col-md-12" style="height:30px">
+												<div class="progress">
+													<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
 												</div>
 											</div>
 										</div>
 									</div>
-
 								</div>
-
 							</div>
+
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
+
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
+	
 
 	<!-- AJAX LOADER -->
 		<div id="loading" class="modal fade" role="dialog" data-backdrop="static">

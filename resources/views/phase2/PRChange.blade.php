@@ -17,92 +17,80 @@
 	@endforeach
 
 	
-	<div class="clearfix"></div>
+	<div class="page-content">
+		
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				@include('includes.message-block')
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-file-o"></i>  PR CHANGE
+						</div>
+					</div>
+					<div class="portlet-body">
 
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
-				
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-10 col-md-offset-1">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						@include('includes.message-block')
-						<div class="portlet box blue">
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-file-o"></i>  PR CHANGE
-								</div>
-							</div>
-							<div class="portlet-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="portlet box blue-hoki">
+									<div class="portlet-body">
+										<div class="row">
+											<div class="col-md-12">
+												<form method="POST" method="POST" action="{{ url('/uploadOrigPR') }}" accept-charset="UTF-8" enctype="multipart/form-data" class="form-horizontal" id="origPRform" >
+													{{ csrf_field() }}
 
-								<div class="row">
-									<div class="col-md-12">
-										<div class="portlet box blue-hoki">
-											<div class="portlet-body">
-												<div class="row">
-													<div class="col-md-12">
-														<form method="POST" method="POST" action="{{ url('/uploadOrigPR') }}" accept-charset="UTF-8" enctype="multipart/form-data" class="form-horizontal" id="origPRform" >
-															{{ csrf_field() }}
-
-															<div class="form-group">
-																<label class="control-label col-md-2">ORIGINAL PR</label>
-																<div class="col-md-7">
-																	<input type="file" class="filestyle" data-buttonName="btn-primary" name="originalpr" id="originalpr" {{$readonly}}>
-																</div>
-																<div class="col-md-3">
-																	<button type="submit" id="origpr" class="btn btn-md btn-warning" {{$state}}>
-																		<i class="fa fa-upload"></i> Upload Original PR
-																	</button> <!-- type="submit" -->
-																</div>
-															</div>
-														</form>
-														<form method="POST" method="POST" action="{{ url('/uploadChangePR') }}" accept-charset="UTF-8" enctype="multipart/form-data" class="form-horizontal" id="changePRform" >
-															{{ csrf_field() }}
-
-															<div class="form-group">
-																<label class="control-label col-md-2">CHANGE PR</label>
-																<div class="col-md-7">
-																	<input type="file" class="filestyle" data-buttonName="btn-primary" name="changepr" id="changepr" {{$readonly}}>
-																</div>
-																<div class="col-md-3">
-																	<button type="submit" id="chpr" class="btn btn-md btn-warning" {{$state}}>
-																		<i class="fa fa-upload"></i> Upload Extract Change PR
-																	</button> <!-- type="submit" -->
-																</div>
-															</div>
-														</form>
-													</div>
-												</div>
-
-												@if (Session::has('download'))
-													<div class="row">
-														<div class="col-md-3 col-md-offset-4">
-															<a href="{{ url('/download-pr-output') }}" class="btn btn-success">Download Output File</a>
+													<div class="form-group">
+														<label class="control-label col-md-2">ORIGINAL PR</label>
+														<div class="col-md-7">
+															<input type="file" class="filestyle" data-buttonName="btn-primary" name="originalpr" id="originalpr" {{$readonly}}>
+														</div>
+														<div class="col-md-3">
+															<button type="submit" id="origpr" class="btn btn-md btn-warning" {{$state}}>
+																<i class="fa fa-upload"></i> Upload Original PR
+															</button> <!-- type="submit" -->
 														</div>
 													</div>
-												@endif
+												</form>
+												<form method="POST" method="POST" action="{{ url('/uploadChangePR') }}" accept-charset="UTF-8" enctype="multipart/form-data" class="form-horizontal" id="changePRform" >
+													{{ csrf_field() }}
+
+													<div class="form-group">
+														<label class="control-label col-md-2">CHANGE PR</label>
+														<div class="col-md-7">
+															<input type="file" class="filestyle" data-buttonName="btn-primary" name="changepr" id="changepr" {{$readonly}}>
+														</div>
+														<div class="col-md-3">
+															<button type="submit" id="chpr" class="btn btn-md btn-warning" {{$state}}>
+																<i class="fa fa-upload"></i> Upload Extract Change PR
+															</button> <!-- type="submit" -->
+														</div>
+													</div>
+												</form>
 											</div>
 										</div>
+
+										@if (Session::has('download'))
+											<div class="row">
+												<div class="col-md-3 col-md-offset-4">
+													<a href="{{ url('/download-pr-output') }}" class="btn btn-success">Download Output File</a>
+												</div>
+											</div>
+										@endif
 									</div>
-
 								</div>
-
 							</div>
+
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
+
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
 
 	<!-- ORIG PR -->
 	

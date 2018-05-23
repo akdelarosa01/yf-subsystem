@@ -16,153 +16,144 @@
 	@endforeach
 
 
-	<div class="clearfix"></div>
+	<div class="page-content">
 
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				@include('includes.message-block')
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-bars"></i>  PACKING LIST SYSTEM
+						</div>
+					</div>
+					<div class="portlet-body">
 
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-12">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						@include('includes.message-block')
-						<div class="portlet box blue">
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-bars"></i>  PACKING LIST SYSTEM
-								</div>
-							</div>
-							<div class="portlet-body">
+						<div class="row">
+							<div class="col-md-12">
 
 								<div class="row">
-									<div class="col-md-12">
+									<div class="col-sm-12">
+										<form class="form-inline">
+											{!! csrf_field() !!}
+	                                        <div class="form-group">
+												<label for="inputcode" class="col-sm-3 control-label">Invoice Date</label>
+	                                            <div class="col-sm-3 col-xs-4">
+	                                                <div class="input-group input-large date-picker input-daterange" data-date="<?php echo date("m/d/Y"); ?>" data-date-format="mm/dd/yyyy">
+	                                                    <input type="text" class="form-control input-sm" name="srch_from" id="srch_from" value="<?php if(isset($srchfrom)){ echo $srchfrom;} ?>"/>
+	                                                    <span class="input-group-addon input-sm">to </span>
+	                                                    <input type="text" class="form-control input-sm" name="srch_to" id="srch_to" value="<?php if(isset($srchto)){ echo $srchto;} ?>"/>
+	                                                </div>
+	                                            </div>
+	                                            
+	                                        </div>
 
-										<div class="row">
-											<div class="col-sm-12">
-												<form class="form-inline">
-													{!! csrf_field() !!}
-			                                        <div class="form-group">
-														<label for="inputcode" class="col-sm-3 control-label">Invoice Date</label>
-			                                            <div class="col-sm-3 col-xs-4">
-			                                                <div class="input-group input-large date-picker input-daterange" data-date="<?php echo date("m/d/Y"); ?>" data-date-format="mm/dd/yyyy">
-			                                                    <input type="text" class="form-control input-sm" name="srch_from" id="srch_from" value="<?php if(isset($srchfrom)){ echo $srchfrom;} ?>"/>
-			                                                    <span class="input-group-addon input-sm">to </span>
-			                                                    <input type="text" class="form-control input-sm" name="srch_to" id="srch_to" value="<?php if(isset($srchto)){ echo $srchto;} ?>"/>
-			                                                </div>
-			                                            </div>
-			                                            
-			                                        </div>
-
-			                                        <div class="form-group">
-			                                        	<div class="col-sm-1">
-															<a href="javascript:search();" class="btn btn-primary"><i class="fa fa-filter"></i>view</a>
-														</div>
-			                                        </div>
-												</form>
-											</div>
-										</div>
-
-
-										<div class="row">
-											<div class="col-sm-12">
-												<table class="table table-striped table-bordered table-hover" id="tbl_packinglist" style="font-size:10px">
-													<thead>
-														<tr>
-															<td width="1.69%"></td>
-															<td width="7.69%">CTR #</td>
-															<td width="3.69%">Invoice Date</td>
-															<td width="10.69%">Remarks</td>
-															<td width="10.69%">Sold To</td>
-															<td width="12.69%">Ship To</td>
-															<td width="7.69%">Carrier</td>
-															<td width="4.69%">Date Ship</td>
-															<td width="7.69%">Port of Loading</td>
-															<td width="7.69%">Port of Destination</td>
-															<td width="9.69%">Shipping Instruction</td>
-															<td width="7.69%">Case Marks</td>
-															<td width="7.69%">Note</td>
-														</tr>
-													</thead>
-													<tbody id="tbl_packinglist_body"></tbody>
-												</table>
-											</div>
-										</div>
-
-										<div class="row">
-											<div class="col-md-offset-4 col-sm-1" style="width:80px">
-												<a href="#" onclick="javascript: addDetails();" class="btn green" id="addDetails" <?php echo($state); ?> >
-													<i class="fa fa-plus"></i> Add
-												</a>
-											</div>
-
-											<div class="col-sm-1" style="width:80px">
-												<button type="button" onclick="javascript:actionRecords('EDIT');" class="btn blue-madison">
-													<i class="fa fa-pencil"></i> Edit
-												</button>
-											</div>
-
-											<div class="col-sm-1" style="width:95px">
-												<button type="button" onclick="javascript:actionRecords('DEL');" class="btn btn-danger" <?php echo($state); ?> >
-													<i class="fa fa-trash-o"></i> DELETE</button>
-											</div>
-
-											<div class="col-sm-1" style="width:90px">
-													<form class="form-horizontal" role="form" method="POST" action="{{ url('/packinglistsystem-exportxls') }}">
-														{!! csrf_field() !!}
-														<input type="hidden" name="from" id="dateFromXls"/>
-														<input type="hidden" name="to" id="dateToXls"/>
-														<button type="submit" onclick="setDate();" class="btn purple-plum" <?php echo($state); ?> ><i class="fa fa-file-excel-o"></i> Excel</button>
-													</form>
-											</div>
-
-											<div class="col-sm-1" style="width:80px">
-												<form class="form-horizontal" role="form" method="POST" action="{{ url('/packinglistsystem-exportpdf') }}" target="_blank">
-													{!! csrf_field() !!}
-														<input type="hidden" name="from" id="dateFromPdf"/>
-														<input type="hidden" name="to" id="dateToPdf"/>
-													<button type="submit" onclick="setDate();" formtarget="_blank" class="btn purple-plum" <?php echo($state); ?> >
-														<i class="fa fa-file-pdf-o"></i> PDF
-													</button>
-												</form>
-											</div>
-
-										</div>
+	                                        <div class="form-group">
+	                                        	<div class="col-sm-1">
+													<a href="javascript:search();" class="btn btn-primary"><i class="fa fa-filter"></i>view</a>
+												</div>
+	                                        </div>
+										</form>
 									</div>
 								</div>
 
+
+								<div class="row">
+									<div class="col-sm-12">
+										<table class="table table-striped table-bordered table-hover" id="tbl_packinglist" style="font-size:10px">
+											<thead>
+												<tr>
+													<td width="1.69%"></td>
+													<td width="7.69%">CTR #</td>
+													<td width="3.69%">Invoice Date</td>
+													<td width="10.69%">Remarks</td>
+													<td width="10.69%">Sold To</td>
+													<td width="12.69%">Ship To</td>
+													<td width="7.69%">Carrier</td>
+													<td width="4.69%">Date Ship</td>
+													<td width="7.69%">Port of Loading</td>
+													<td width="7.69%">Port of Destination</td>
+													<td width="9.69%">Shipping Instruction</td>
+													<td width="7.69%">Case Marks</td>
+													<td width="7.69%">Note</td>
+												</tr>
+											</thead>
+											<tbody id="tbl_packinglist_body"></tbody>
+										</table>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-offset-4 col-sm-1" style="width:80px">
+										<a href="#" onclick="javascript: addDetails();" class="btn green" id="addDetails" <?php echo($state); ?> >
+											<i class="fa fa-plus"></i> Add
+										</a>
+									</div>
+
+									<div class="col-sm-1" style="width:80px">
+										<button type="button" onclick="javascript:actionRecords('EDIT');" class="btn blue-madison">
+											<i class="fa fa-pencil"></i> Edit
+										</button>
+									</div>
+
+									<div class="col-sm-1" style="width:95px">
+										<button type="button" onclick="javascript:actionRecords('DEL');" class="btn btn-danger" <?php echo($state); ?> >
+											<i class="fa fa-trash-o"></i> DELETE</button>
+									</div>
+
+									<div class="col-sm-1" style="width:90px">
+											<form class="form-horizontal" role="form" method="POST" action="{{ url('/packinglistsystem-exportxls') }}">
+												{!! csrf_field() !!}
+												<input type="hidden" name="from" id="dateFromXls"/>
+												<input type="hidden" name="to" id="dateToXls"/>
+												<button type="submit" onclick="setDate();" class="btn purple-plum" <?php echo($state); ?> ><i class="fa fa-file-excel-o"></i> Excel</button>
+											</form>
+									</div>
+
+									<div class="col-sm-1" style="width:80px">
+										<form class="form-horizontal" role="form" method="POST" action="{{ url('/packinglistsystem-exportpdf') }}" target="_blank">
+											{!! csrf_field() !!}
+												<input type="hidden" name="from" id="dateFromPdf"/>
+												<input type="hidden" name="to" id="dateToPdf"/>
+											<button type="submit" onclick="setDate();" formtarget="_blank" class="btn purple-plum" <?php echo($state); ?> >
+												<i class="fa fa-file-pdf-o"></i> PDF
+											</button>
+										</form>
+									</div>
+
+								</div>
 							</div>
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
+
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
+		<!-- END PAGE CONTENT-->
+	</div>
 
-		<div id="deleteModal" class="modal fade" role="dialog">
-			<div class="modal-dialog modal-sm blue">
-				<form role="form" method="POST" action="{{ url('/packinglistsystem-delete') }}">
-					<div class="modal-content ">
-						<div class="modal-body">
-							<p>Are you sure you want to delete the selected record?</p>
-							{!! csrf_field() !!}
-							<input type="hidden" name="id" id="delete_inputId"/>
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-primary" id="delete">Delete</button>
-							<button type="button" data-dismiss="modal" class="btn">Cancel</button>
-						</div>
+			
+
+	<div id="deleteModal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-sm blue">
+			<form role="form" method="POST" action="{{ url('/packinglistsystem-delete') }}">
+				<div class="modal-content ">
+					<div class="modal-body">
+						<p>Are you sure you want to delete the selected record?</p>
+						{!! csrf_field() !!}
+						<input type="hidden" name="id" id="delete_inputId"/>
 					</div>
-				</form>
-			</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary" id="delete">Delete</button>
+						<button type="button" data-dismiss="modal" class="btn">Cancel</button>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
-	<!-- END CONTAINER -->
 
 
 @endsection

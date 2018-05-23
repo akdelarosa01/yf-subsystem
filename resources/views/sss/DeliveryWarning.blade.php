@@ -58,136 +58,123 @@
 			@endif
 		@endif
 	@endforeach
+	
+	<div class="page-content">
 
-	<div class="clearfix">
-	</div>
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class=""></div>
+			<div class="">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				<div class="portlet box blue">
 
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
-
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class=""></div>
-					<div class="">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						<div class="portlet box blue">
-
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-bar-chart-o"></i> Scheduling Support System (Delivery Warning)
-								</div>
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-bar-chart-o"></i> Scheduling Support System (Delivery Warning)
+						</div>
+					</div>
+					<div class="portlet-body portlet-empty">
+						<dv class="row">
+							<div class="col-md-12">
+								<h4>PARTS DELIVERY WARNING CHECK</h4>
 							</div>
-							<div class="portlet-body portlet-empty">
-								<dv class="row">
-									<div class="col-md-12">
-										<h4>PARTS DELIVERY WARNING CHECK</h4>
-									</div>
-								</dv>
-								<br>
-								<br>
-								<div class="row">
-									<div class="col-md-12">
-										<form action="#" class="form-horizontal form-bordered">
-											<div class="form-body">
-												<div class="form-group">
-													<label class="control-label col-md-1">From:</label>
-													<div class="col-md-3">
-														<input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="" name="from" id="from"/>
-													</div>
-
-													<label class="control-label col-md-1">To:</label>
-													<div class="col-md-3">
-														<input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="" name="to" id ="to"  />
-													</div>
-
-													<div class="btn-group">
-														<button type="button" onclick="loadDeliveryWarning(10);"  class="btn btn-sm btn-success " ><i class="fa fa-search"></i> Search</button>
-
-													</div>
-
-												</div>
+						</dv>
+						<br>
+						<br>
+						<div class="row">
+							<div class="col-md-12">
+								<form action="#" class="form-horizontal form-bordered">
+									<div class="form-body">
+										<div class="form-group">
+											<label class="control-label col-md-1">From:</label>
+											<div class="col-md-3">
+												<input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="" name="from" id="from"/>
 											</div>
-										</form>
-										<div class="" data-rail-visible="1" >
-											<div class="table-responsive">
-												<table class="table table-striped table-bordered table-hover table-fixedheader" style="font-size: 9px;"><!--id = "sample_3" -->
-													<thead>
-														<tr>
-															<td width="10%">ORDER DATE</td>
-															<td width="10%">PO</td>
-															<td width="10%">CODE</td>
-															<td width="20%">NAME</td>
-															<td width="5%">ORDER QTY</td>
-															<td width="20%">CUSTOMER</td>
-															<td width="5%">SCHED QTY</td>
-															<td width="10%">PARTS COMPLETION</td>
-															<td width="5%">YEC</td>
-															<td width="5%">PMI</td>
-														</tr>
-													</thead>
 
-
-													<tbody id="table"></tbody>
-												</table>
-
-											<!-- <div class="row" id="loading" style="display: none">
-												<div class="col-sm-6"></div>
-												<div class="col-sm-6">
-													<img src="assets/global/img/loading-spinner-blue.gif" class="img-responsive">
-												</div>
-											</div> -->
+											<label class="control-label col-md-1">To:</label>
+											<div class="col-md-3">
+												<input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="" name="to" id ="to"  />
 											</div>
-											<p>Count: <span id="count"></span></p>
+
+											<div class="btn-group">
+												<button type="button" onclick="loadDeliveryWarning(10);"  class="btn btn-sm btn-success " ><i class="fa fa-search"></i> Search</button>
+
+											</div>
+
 										</div>
 									</div>
-								</div>
-								
+								</form>
+								<div class="" data-rail-visible="1" >
+									<div class="table-responsive">
+										<table class="table table-striped table-bordered table-hover table-fixedheader" style="font-size: 9px;"><!--id = "sample_3" -->
+											<thead>
+												<tr>
+													<td width="10%">ORDER DATE</td>
+													<td width="10%">PO</td>
+													<td width="10%">CODE</td>
+													<td width="20%">NAME</td>
+													<td width="5%">ORDER QTY</td>
+													<td width="20%">CUSTOMER</td>
+													<td width="5%">SCHED QTY</td>
+													<td width="10%">PARTS COMPLETION</td>
+													<td width="5%">YEC</td>
+													<td width="5%">PMI</td>
+												</tr>
+											</thead>
 
-								<br/>
-								<div class="row">
-									<div class="col-md-12">
-									<form style ="margin-top: 15px;" method="post" target="_blank" enctype="multipart/form-data"  action="{{ url('/postDeliveryWarningPDF') }}" >
-									{!! csrf_field() !!}
 
-										<input type="hidden" name="fd_pdf" id = "fd_pdf">
-										<input type="hidden" name="td_pdf" id = "td_pdf">
-										<button class="btn blue btn-sm pull-right">
-											<i class="fa fa-print"></i> Print
-										</button>
-										</form>
-										<!--<button type="button" id="excel" onclick="deliveryWarningExcel();" class="btn green btn-lg pull-right">
-											<i class="fa fa-file-excel-o"></i> Excel
-										</button> -->
+											<tbody id="table"></tbody>
+										</table>
 
-										<form method="post" enctype="multipart/form-data"  action="{{ url('/postDeliveryWarningExcel') }}" >
-										{!! csrf_field() !!}
-										<input type="hidden" name="fd" id = "fd">
-										<input type="hidden" name="td" id = "td">
-										<button class="btn green btn-sm pull-right">
-											<i class="fa fa-file-excel-o"></i> Excel
-										</button>
-										</form>
+									<!-- <div class="row" id="loading" style="display: none">
+										<div class="col-sm-6"></div>
+										<div class="col-sm-6">
+											<img src="assets/global/img/loading-spinner-blue.gif" class="img-responsive">
+										</div>
+									</div> -->
 									</div>
+									<p>Count: <span id="count"></span></p>
 								</div>
-
-
 							</div>
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
-					</div>
-					<div class="col-md-2"></div>
-				</div>
-				<!-- END PAGE CONTENT-->
-			</div>
-		</div>
-		<!-- END CONTENT -->
+						
 
+						<br/>
+						<div class="row">
+							<div class="col-md-12">
+							<form style ="margin-top: 15px;" method="post" target="_blank" enctype="multipart/form-data"  action="{{ url('/postDeliveryWarningPDF') }}" >
+							{!! csrf_field() !!}
+
+								<input type="hidden" name="fd_pdf" id = "fd_pdf">
+								<input type="hidden" name="td_pdf" id = "td_pdf">
+								<button class="btn blue btn-sm pull-right">
+									<i class="fa fa-print"></i> Print
+								</button>
+								</form>
+								<!--<button type="button" id="excel" onclick="deliveryWarningExcel();" class="btn green btn-lg pull-right">
+									<i class="fa fa-file-excel-o"></i> Excel
+								</button> -->
+
+								<form method="post" enctype="multipart/form-data"  action="{{ url('/postDeliveryWarningExcel') }}" >
+								{!! csrf_field() !!}
+								<input type="hidden" name="fd" id = "fd">
+								<input type="hidden" name="td" id = "td">
+								<button class="btn green btn-sm pull-right">
+									<i class="fa fa-file-excel-o"></i> Excel
+								</button>
+								</form>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+				<!-- END EXAMPLE TABLE PORTLET-->
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
 
 	<!-- AJAX LOADER -->
 	<div id="loading" class="modal fade" role="dialog" data-backdrop="static">

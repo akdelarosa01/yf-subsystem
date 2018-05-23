@@ -17,108 +17,100 @@
 	@endforeach
 
 
-	<div class="clearfix"></div>
+    
+	<div class="page-content">
 
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-        @include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
-
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-12">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						@include('includes.message-block')
-						<div class="portlet box grey-gallery" >
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-search"></i>  QC Database Molding
-								</div>
-							</div>
-							<div class="portlet-body">
-								<div class="row">
-									
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                
-                                                    <div class="portlet-body">
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                                <table class="table table-hover table-bordered table-striped" id="packingdatatable">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <td class="table-checkbox" style="width: 5%">
-                                                                                <input type="checkbox" class="group-checkable checkAllitems" />
-                                                                            </td>
-                                                                            <td></td>
-                                                                            <td>Date Inspected</td>
-                                                                            <td>Shipment Date</td>
-                                                                            <td>Series Name</td>
-                                                                            <td>P.O. #</td>
-                                                                            <td>Packing Operator</td>
-                                                                            <td>Inspector</td>
-                                                                            <td>Packing Type</td>
-                                                                            <td>Unit Condition</td>
-                                                                            <td>Packing Code(per Series)</td>
-                                                                            <td>Carton #</td>
-                                                                            <td>Packing Code</td>
-                                                                            <td>Qty</td>
-                                                                            <td>Judgement</td>
-                                                                            <td>Remarks</td>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody id="tblforpacking">
-                                                                          
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                              
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-12 text-center">
-                                                <a href="javascript:;" class="btn green" id="btn_add">
-                                                    <i class="fa fa-plus"></i> Add New
-                                                </a>
-                                                <a href="javascript:;" class="btn grey-gallery" id="btn_groupby">
-                                                    <i class="fa fa-group"></i> Group By
-                                                </a>
-                                                <button type="button" onclick="javascript:packingDelete();" class="btn red" id="btn_delete">
-                                                    <i class="fa fa-trash"></i> Delete
-                                                </button>
-                                                <a href="javascript:;" class="btn purple" id="btn_search">
-                                                    <i class="fa fa-search"></i> Search
-                                                </a>
-                                                <button type="button" class="btn yellow-gold" id="btn_pdf">
-                                                    <i class="fa fa-file-text-o"></i> Print to Pdf
-                                                </button>
-                                                <button type="button" class="btn green-jungle" id="btn_excel">
-                                                    <i class="fa fa-file-text-o"></i> Print to Excel
-                                                </button>
-                                                <input class="form-control input-sm" type="hidden" value="" name="hd_report_status" id="hd_report_status"/>
-                                            </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-							</div>
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				@include('includes.message-block')
+				<div class="portlet box grey-gallery" >
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-search"></i>  QC Database Molding
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
+					</div>
+					<div class="portlet-body">
+						<div class="row">
+							
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        
+                                            <div class="portlet-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <table class="table table-hover table-bordered table-striped" id="packingdatatable">
+                                                            <thead>
+                                                                <tr>
+                                                                    <td class="table-checkbox" style="width: 5%">
+                                                                        <input type="checkbox" class="group-checkable checkAllitems" />
+                                                                    </td>
+                                                                    <td></td>
+                                                                    <td>Date Inspected</td>
+                                                                    <td>Shipment Date</td>
+                                                                    <td>Series Name</td>
+                                                                    <td>P.O. #</td>
+                                                                    <td>Packing Operator</td>
+                                                                    <td>Inspector</td>
+                                                                    <td>Packing Type</td>
+                                                                    <td>Unit Condition</td>
+                                                                    <td>Packing Code(per Series)</td>
+                                                                    <td>Carton #</td>
+                                                                    <td>Packing Code</td>
+                                                                    <td>Qty</td>
+                                                                    <td>Judgement</td>
+                                                                    <td>Remarks</td>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="tblforpacking">
+                                                                  
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                      
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <a href="javascript:;" class="btn green" id="btn_add">
+                                            <i class="fa fa-plus"></i> Add New
+                                        </a>
+                                        <a href="javascript:;" class="btn grey-gallery" id="btn_groupby">
+                                            <i class="fa fa-group"></i> Group By
+                                        </a>
+                                        <button type="button" onclick="javascript:packingDelete();" class="btn red" id="btn_delete">
+                                            <i class="fa fa-trash"></i> Delete
+                                        </button>
+                                        <a href="javascript:;" class="btn purple" id="btn_search">
+                                            <i class="fa fa-search"></i> Search
+                                        </a>
+                                        <button type="button" class="btn yellow-gold" id="btn_pdf">
+                                            <i class="fa fa-file-text-o"></i> Print to Pdf
+                                        </button>
+                                        <button type="button" class="btn green-jungle" id="btn_excel">
+                                            <i class="fa fa-file-text-o"></i> Print to Excel
+                                        </button>
+                                        <input class="form-control input-sm" type="hidden" value="" name="hd_report_status" id="hd_report_status"/>
+                                    </div>
+                                    </div>
+                                </div>
+
+                            </div>
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
+
+
+
 
 	<!-- ADD NEW MODAL -->
     <div id="AddNewModal" class="modal fade" role="dialog" data-backdrop="static">

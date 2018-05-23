@@ -16,105 +16,95 @@
 		@endif
 	@endforeach
 
+	
+	<div class="page-content">
 
-	<div class="clearfix"></div>
-
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
-
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-12">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						@include('includes.message-block')
-						<div class="portlet box blue" >
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-navicon"></i>  WBS Reports
-								</div>
-							</div>
-							<div class="portlet-body">
-								<div class="row">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <div class="row">
-											<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-												<a class="more showmodal" href="javascript:;" data-sub="MAT_KIT">
-													<div class="dashboard-stat yellow-gold">
-														<div class="visual">
-															<i class="fa fa-clipboard"></i>
-														</div>
-														<div class="details">
-															<div class="number">
-																Material Kitting & Issuance
-															</div>
-														</div>
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				@include('includes.message-block')
+				<div class="portlet box blue" >
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-navicon"></i>  WBS Reports
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="row">
+									<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+										<a class="more showmodal" href="javascript:;" data-sub="MAT_KIT">
+											<div class="dashboard-stat yellow-gold">
+												<div class="visual">
+													<i class="fa fa-clipboard"></i>
+												</div>
+												<div class="details">
+													<div class="number">
+														Material Kitting & Issuance
 													</div>
-												</a>
+												</div>
 											</div>
-											<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-												<a class="more showmodal" href="javascript:;" data-sub="SAK_ISS">
-													<div class="dashboard-stat yellow-casablanca">
-														<div class="visual">
-															<i class="glyphicon glyphicon-paste"></i>
-														</div>
-														<div class="details">
-															<div class="number">
-																Sakidashi Issuance
-															</div>
-														</div>
-													</div>
-												</a>
-											</div>
-											<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-												<a class="more showmodal" href="javascript:;" data-sub="PHY_IN">
-													<div class="dashboard-stat green">
-														<div class="visual">
-															<i class="glyphicon glyphicon-list-alt"></i>
-														</div>
-														<div class="details">
-															<div class="number">
-																Physical Inventory
-															</div>
-														</div>
-													</div>
-												</a>
-											</div>
-											<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-												<a class="more showmodal" href="javascript:;" data-sub="WMI">
-													<div class="dashboard-stat red-flamingo">
-														<div class="visual">
-															<i class="glyphicon glyphicon glyphicon-th-large"></i>
-														</div>
-														<div class="details">
-															<div class="number">
-																Material Issuance Request
-															</div>
-														</div>
-													</div>
-												</a>
-											</div>
-
-										</div>
-
+										</a>
 									</div>
+									<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+										<a class="more showmodal" href="javascript:;" data-sub="SAK_ISS">
+											<div class="dashboard-stat yellow-casablanca">
+												<div class="visual">
+													<i class="glyphicon glyphicon-paste"></i>
+												</div>
+												<div class="details">
+													<div class="number">
+														Sakidashi Issuance
+													</div>
+												</div>
+											</div>
+										</a>
+									</div>
+									<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+										<a class="more showmodal" href="javascript:;" data-sub="PHY_IN">
+											<div class="dashboard-stat green">
+												<div class="visual">
+													<i class="glyphicon glyphicon-list-alt"></i>
+												</div>
+												<div class="details">
+													<div class="number">
+														Physical Inventory
+													</div>
+												</div>
+											</div>
+										</a>
+									</div>
+									<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+										<a class="more showmodal" href="javascript:;" data-sub="WMI">
+											<div class="dashboard-stat red-flamingo">
+												<div class="visual">
+													<i class="glyphicon glyphicon glyphicon-th-large"></i>
+												</div>
+												<div class="details">
+													<div class="number">
+														Material Issuance Request
+													</div>
+												</div>
+											</div>
+										</a>
+									</div>
+
 								</div>
 
 							</div>
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
+
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
+
+
 
 	<!-- Material Kitting Modal -->
 	<div id="matkitModal" class="modal fade" role="dialog">

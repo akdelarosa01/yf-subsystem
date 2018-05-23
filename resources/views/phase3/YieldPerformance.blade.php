@@ -16,168 +16,158 @@
      @endforeach
 
 
-     <div class="clearfix"></div>
+     <div class="page-content">
 
-     <!-- BEGIN CONTAINER -->
-     <div class="page-container">
-          @include('includes.sidebar')
-          <!-- BEGIN CONTENT -->
-          <div class="page-content-wrapper">
-               <div class="page-content">
+          <!-- BEGIN PAGE CONTENT-->
+          <div class="row">
+               <div class="col-sm-12">
+                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                    @include('includes.message-block')
+                    <div class="portlet box blue" >
+                         <div class="portlet-title">
+                              <div class="caption">
+                                   <i class="fa fa-navicon"></i>  Yield Performance
+                              </div>
+                         </div>
+                         <div class="portlet-body">
 
-                    <!-- BEGIN PAGE CONTENT-->
-                    <div class="row">
-                         <div class="col-sm-12">
-                              <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                              @include('includes.message-block')
-                              <div class="portlet box blue" >
-                                   <div class="portlet-title">
-                                        <div class="caption">
-                                             <i class="fa fa-navicon"></i>  Yield Performance
+                              <div class="row">
+                                   <div class="col-sm-3">
+                                        <div class="form-group row" style="margin-top:60px;;margin-left:20px;">
+                                             <div class="col-sm-10" >
+                                                  <button type="button" style="font-size:10px;" class="btn col-sm-8 btn-success" id="btnaddnew">
+                                                       <i class="fa fa-plus"></i> New Transaction
+                                                  </button>
+                                             </div>
+                                        </div>
+                                        <div class="form-group row" style="margin-left:20px;">
+                                             <div class="col-sm-10" >
+                                                  <button type="button" style="font-size:10px;" class="btn col-sm-8 blue-soft" id="btn_poreg" >
+                                                  <i class="fa fa-save"></i>PO Registration
+                                                  </button>
+                                             </div>
+                                        </div>
+                                        <div class="form-group row" style="margin-left:20px;">
+                                             <div class="col-sm-10">
+                                                  <button type="button" style="font-size:10px;" class="btn col-sm-8 blue-soft" id="btn_devicereg" ><i class="fa fa-desktop"></i>Device Registration</button>
+                                             </div>
+                                        </div>
+                                        <div class="form-group row" style="margin-left:20px;">
+                                             <div class="col-sm-10">
+                                                  <button type="button" style="font-size:10px;" class="btn col-sm-8 blue-soft" id="btn_seriesreg" ><i class="fa fa-list-alt"></i>Series Registration</button>
+                                             </div>
+                                        </div>
+                                        <div class="form-group row" style="margin-left:20px;">
+                                             <div class="col-sm-10">
+                                                  <button type="button" style="font-size:10px;" class="btn col-sm-8 blue-soft" id="btn_modreg" ><i class="fa fa-chain-broken"></i>Mode of Defect Registration</button>
+                                             </div>
+                                        </div>
+                                        <div class="form-group row" style="margin-left:20px;">
+                                             <div class="col-sm-10">
+                                                  <button type="button" style="font-size:10px;" class="btn col-sm-8 blue-soft" id="btn_target" ><i class="fa fa-line-chart"></i>Target Yield</button>
+                                             </div>
+                                        </div>
+                                        <div class="form-group row" style="margin-left:20px;">
+                                             <div class="col-sm-10">
+                                                  <button type="button" style="font-size:10px;" onclick="javascript:deleteAllcheckeditems();" class="btn  red col-sm-8 remove-task" id="btnremove_detail">
+                                                       <i class="fa fa-trash remove-task"></i> Remove
+                                                  </button>
+                                             </div>
                                         </div>
                                    </div>
-                                   <div class="portlet-body">
 
-                                        <div class="row">
-                                             <div class="col-sm-3">
-                                                  <div class="form-group row" style="margin-top:60px;;margin-left:20px;">
-                                                       <div class="col-sm-10" >
-                                                            <button type="button" style="font-size:10px;" class="btn col-sm-8 btn-success" id="btnaddnew">
-                                                                 <i class="fa fa-plus"></i> New Transaction
+                                   <div class="col-xs-9 col-md-pull-1"">
+                                        <table class="table table-striped table-bordered table-hover" id="sample_3" style="font-size:13px">
+                                             <thead >
+                                                  <tr>
+                                                       <td class="table-checkbox" style="width: 5%">
+                                                            <input type="checkbox" class="group-checkable checkAllitems" name="checkAllitem" data-set="#sample_3 .checkboxes"/>
+                                                       </td>
+                                                       <td>
+                                                       </td>
+                                                       <td>PO Number</td>
+                                                       <td>PO Qty</td>
+                                                       <td>Device Name</td>
+                                                       <td>Series</td>
+                                                       <td>Family</td>
+                                                       <td>Total Output</td>
+                                                       <td>Total Reject</td>
+                                                       <td>Total Yield</td>
+                                                  </tr>
+                                             </thead>
+                                             <tbody>
+                                                  @foreach($records as $rec)
+                                                  <?php 
+                                                  $x = $rec->accumulatedoutput + $rec->qty;
+                                                  $y = $rec->accumulatedoutput / $x;
+                                                  $twoyield = $y * 100.;
+                                                  ?>
+                                                  <tr>
+                                                       <td style="width: 2%">
+                                                            <input type="checkbox" class="form-control input-sm checkboxes" value="{{$rec->id}}" name="checkitem" id="checkitem"></input> 
+                                                       </td>                        
+                                                       <td style="width: 5%">           
+                                                          <button type="button" name="edit-task" class="btn btn-sm btn-primary edit-task" value="{{$rec->id . '|' . $rec->pono . '|' .$rec->poqty. '|' .$rec->device. '|' . $rec->series . '|' .$rec->family. '|' .$rec->toutput. '|' . $rec->treject . '|' .$rec->twoyield}}" id="editTask{{$rec->id}}">
+                                                                 <i class="fa fa-edit"></i> 
                                                             </button>
-                                                       </div>
-                                                  </div>
-                                                  <div class="form-group row" style="margin-left:20px;">
-                                                       <div class="col-sm-10" >
-                                                            <button type="button" style="font-size:10px;" class="btn col-sm-8 blue-soft" id="btn_poreg" >
-                                                            <i class="fa fa-save"></i>PO Registration
-                                                            </button>
-                                                       </div>
-                                                  </div>
-                                                  <div class="form-group row" style="margin-left:20px;">
-                                                       <div class="col-sm-10">
-                                                            <button type="button" style="font-size:10px;" class="btn col-sm-8 blue-soft" id="btn_devicereg" ><i class="fa fa-desktop"></i>Device Registration</button>
-                                                       </div>
-                                                  </div>
-                                                  <div class="form-group row" style="margin-left:20px;">
-                                                       <div class="col-sm-10">
-                                                            <button type="button" style="font-size:10px;" class="btn col-sm-8 blue-soft" id="btn_seriesreg" ><i class="fa fa-list-alt"></i>Series Registration</button>
-                                                       </div>
-                                                  </div>
-                                                  <div class="form-group row" style="margin-left:20px;">
-                                                       <div class="col-sm-10">
-                                                            <button type="button" style="font-size:10px;" class="btn col-sm-8 blue-soft" id="btn_modreg" ><i class="fa fa-chain-broken"></i>Mode of Defect Registration</button>
-                                                       </div>
-                                                  </div>
-                                                  <div class="form-group row" style="margin-left:20px;">
-                                                       <div class="col-sm-10">
-                                                            <button type="button" style="font-size:10px;" class="btn col-sm-8 blue-soft" id="btn_target" ><i class="fa fa-line-chart"></i>Target Yield</button>
-                                                       </div>
-                                                  </div>
-                                                  <div class="form-group row" style="margin-left:20px;">
-                                                       <div class="col-sm-10">
-                                                            <button type="button" style="font-size:10px;" onclick="javascript:deleteAllcheckeditems();" class="btn  red col-sm-8 remove-task" id="btnremove_detail">
-                                                                 <i class="fa fa-trash remove-task"></i> Remove
-                                                            </button>
-                                                       </div>
-                                                  </div>
-                                             </div>
-
-                                             <div class="col-xs-9 col-md-pull-1"">
-                                                  <table class="table table-striped table-bordered table-hover" id="sample_3" style="font-size:13px">
-                                                       <thead >
-                                                            <tr>
-                                                                 <td class="table-checkbox" style="width: 5%">
-                                                                      <input type="checkbox" class="group-checkable checkAllitems" name="checkAllitem" data-set="#sample_3 .checkboxes"/>
-                                                                 </td>
-                                                                 <td>
-                                                                 </td>
-                                                                 <td>PO Number</td>
-                                                                 <td>PO Qty</td>
-                                                                 <td>Device Name</td>
-                                                                 <td>Series</td>
-                                                                 <td>Family</td>
-                                                                 <td>Total Output</td>
-                                                                 <td>Total Reject</td>
-                                                                 <td>Total Yield</td>
-                                                            </tr>
-                                                       </thead>
-                                                       <tbody>
-                                                            @foreach($records as $rec)
-                                                            <?php 
-                                                            $x = $rec->accumulatedoutput + $rec->qty;
-                                                            $y = $rec->accumulatedoutput / $x;
-                                                            $twoyield = $y * 100.;
-                                                            ?>
-                                                            <tr>
-                                                                 <td style="width: 2%">
-                                                                      <input type="checkbox" class="form-control input-sm checkboxes" value="{{$rec->id}}" name="checkitem" id="checkitem"></input> 
-                                                                 </td>                        
-                                                                 <td style="width: 5%">           
-                                                                    <button type="button" name="edit-task" class="btn btn-sm btn-primary edit-task" value="{{$rec->id . '|' . $rec->pono . '|' .$rec->poqty. '|' .$rec->device. '|' . $rec->series . '|' .$rec->family. '|' .$rec->toutput. '|' . $rec->treject . '|' .$rec->twoyield}}" id="editTask{{$rec->id}}">
-                                                                           <i class="fa fa-edit"></i> 
-                                                                      </button>
-                                                                 </td>
-                                                                 <td>{{$rec->pono}}</td>
-                                                                 <td>{{$rec->poqty}}</td>
-                                                                 <td>{{$rec->device}}</td>
-                                                                 <td>{{$rec->series}}</td>
-                                                                 <td>{{$rec->family}}</td>
-                                                                 <td>{{$rec->accumulatedoutput}}</td>
-                                                                 <td>{{$rec->qty}}</td>
-                                                                 <td>{{round($twoyield,2)}}</td>
-                                                            </tr>
-                                                            @endforeach
-                                                       </tbody>
-                                                  </table>
-                                                  <br>
-                                                  <div class="form-group pull-right">
-                                                       <label class="control-label col-sm-2">DPPM</label>
-                                                       <div class="col-sm-10">
-                                                            <input type="text" class="form-control input-sm" id="dppm" name="dppm">
-                                                       </div> 
-                                                  </div>
-                                                  <div class="col-sm-2">
-                                                       <input type="text" class="form-control input-sm" id="datefroms" name="datefroms" > Date From
-                                                  </div>
-                                                   <div class="col-sm-2">
-                                                       <input type="text" class="form-control input-sm" id="datetos" name="datetos" > Date To
-                                                  </div>   
-                                             </div>
-                                        </div>
+                                                       </td>
+                                                       <td>{{$rec->pono}}</td>
+                                                       <td>{{$rec->poqty}}</td>
+                                                       <td>{{$rec->device}}</td>
+                                                       <td>{{$rec->series}}</td>
+                                                       <td>{{$rec->family}}</td>
+                                                       <td>{{$rec->accumulatedoutput}}</td>
+                                                       <td>{{$rec->qty}}</td>
+                                                       <td>{{round($twoyield,2)}}</td>
+                                                  </tr>
+                                                  @endforeach
+                                             </tbody>
+                                        </table>
                                         <br>
-                                        <br>
-                                        <div class="row col-sm-offset-1 col-sm-10">
-                                            <div id="chartContainer" style="height: 300px;"></div>
+                                        <div class="form-group pull-right">
+                                             <label class="control-label col-sm-2">DPPM</label>
+                                             <div class="col-sm-10">
+                                                  <input type="text" class="form-control input-sm" id="dppm" name="dppm">
+                                             </div> 
                                         </div>
-                                        <div class="row">
-                                             <div class="col-sm-12 text-center" style="margin-top:40px;">
-                                                  <a href="{{ url('/export-to-excel') }}" type="button" style="font-size:12px;" class="btn green-jungle input-sm" id="btnXexcel">
-                                                  <i class="fa fa-file-excel-o"></i> Export Summary to Excel
-                                                  </a>
-                                                  <a href="{{ url('/export-to-pdf') }}" type="button" style="font-size:12px;" class="btn yellow-gold input-sm" id="btnXpdf">
-                                                       <i class="fa fa-file-pdf-o"></i> Export Summary to Pdf
-                                                  </a>
-                                                  <button  type="button" style="font-size:12px;" class="btn blue-soft input-sm" id="btnxport">
-                                                       <i class="fa fa-share"></i>Export Files
-                                                  </button>
-                                                  <button  type="button" style="font-size:12px;" class="btn blue-soft input-sm" onclick="javascript:loadchart();" id="btnloadchart">
-                                                       <i class="fa fa-share"></i>Load Chart
-                                                  </button>
-                                                 
-                                             </div>
-                                        </div>              
+                                        <div class="col-sm-2">
+                                             <input type="text" class="form-control input-sm" id="datefroms" name="datefroms" > Date From
+                                        </div>
+                                         <div class="col-sm-2">
+                                             <input type="text" class="form-control input-sm" id="datetos" name="datetos" > Date To
+                                        </div>   
                                    </div>
                               </div>
-                              <!-- END EXAMPLE TABLE PORTLET-->
+                              <br>
+                              <br>
+                              <div class="row col-sm-offset-1 col-sm-10">
+                                  <div id="chartContainer" style="height: 300px;"></div>
+                              </div>
+                              <div class="row">
+                                   <div class="col-sm-12 text-center" style="margin-top:40px;">
+                                        <a href="{{ url('/export-to-excel') }}" type="button" style="font-size:12px;" class="btn green-jungle input-sm" id="btnXexcel">
+                                        <i class="fa fa-file-excel-o"></i> Export Summary to Excel
+                                        </a>
+                                        <a href="{{ url('/export-to-pdf') }}" type="button" style="font-size:12px;" class="btn yellow-gold input-sm" id="btnXpdf">
+                                             <i class="fa fa-file-pdf-o"></i> Export Summary to Pdf
+                                        </a>
+                                        <button  type="button" style="font-size:12px;" class="btn blue-soft input-sm" id="btnxport">
+                                             <i class="fa fa-share"></i>Export Files
+                                        </button>
+                                        <button  type="button" style="font-size:12px;" class="btn blue-soft input-sm" onclick="javascript:loadchart();" id="btnloadchart">
+                                             <i class="fa fa-share"></i>Load Chart
+                                        </button>
+                                       
+                                   </div>
+                              </div>              
                          </div>
                     </div>
-                    <!-- END PAGE CONTENT-->
+                    <!-- END EXAMPLE TABLE PORTLET-->
                </div>
           </div>
-          <!-- END CONTENT -->
+          <!-- END PAGE CONTENT-->
      </div>
-     <!-- END CONTAINER -->   
+     
 
 <!-- Exports Modal -->
      <div id="Export-Modal" class="modal fade" role="dialog">

@@ -36,6 +36,25 @@ $( function() {
 
 	getDatatable('tbl_oqc',oqcDataTableURL,dataColumn,[],0);
 
+	$('body').on('keydown', '.enter', function(e) {
+		var self = $(this)
+			, form = self.parents('form:eq(0)')
+			, focusable
+			, next
+			;
+		if (e.keyCode == 13) {
+			focusable = form.find('.enter').filter(':visible');
+			next = focusable.eq(focusable.index(this)+1);
+
+			if (next.length) {
+				next.focus();
+			} else {
+				form.submit();
+			}
+			return false;
+		}
+	});
+
 	$('#frm_inspection').on('submit', function(e) {
 		e.preventDefault();
 		$.ajax({
@@ -68,6 +87,7 @@ $( function() {
 			dataType: 'JSON',
 			data: $(this).serialize(),
 		}).done(function(data, textStatus, xhr) {
+            getNumOfDefectives($('#ins_id').val());
 			var modUrl = modDataTableURL+'?_token='+token+
 					'&&pono='+$('#po_no').val()+
 					'&&device='+$('#series_name').val()+
@@ -117,11 +137,11 @@ $( function() {
 		$('#remarks').val($(this).attr('data-remarks'));
 		$('#inspection_save_status').val('EDIT');
 
+        getNumOfDefectives($(this).attr('data-id'));
+
 		if ($(this).attr('data-type') == 'PROBE PIN') {
 			$('#is_probe').prop('checked', true);
 		}
-
-		checkLotAccepted($(this).attr('data-lot_accepted'));
 
 		checkAuhtor($(this).attr('data-inspector'));
 
@@ -129,23 +149,28 @@ $( function() {
 	});
 
 	$('#btn_confirm_delete').on('click', function() {
-		if ($('#delete_func').val() == 'INSPECTION') {
+		if ($('#delete_id').val() == 'INSPECTION') {
 			delete_items('.checkboxes',DeleteInspectionURL,oqcDataTableURL,'tbl_oqc',dataColumn);
 		}
 
-		if ($('#delete_func').val() == 'MOD') {
+		if ($('#delete_id').val() == 'MOD') {
 			delete_items('.checkboxes-mod',DeleteModeOfDefectsURL,modDataTableURL,'tbl_mode_of_defects',modColumn);
 		}
 	});
 
-	$('.validate').on('change', function(e) {
+	$('.validate').on('keyup', function(e) {
 		var no_error = $(this).attr('id');
 		InspectionNoErrors(no_error)
 	});
 
-	$('.validateModeOfDefects').on('change', function(e) {
+	$('.validateModeOfDefects').on('keyup', function(e) {
 		var no_error = $(this).attr('id');
 		ModeOfDefectsNoErrors(no_error)
+	});
+
+	$('#app_time').on('change', function() {
+		var time = setTime($(this).val());
+		$(this).val(time);
 	});
 
 	$('#time_ins_from').on('change', function() {
@@ -156,57 +181,19 @@ $( function() {
 	$('#time_ins_to').on('change', function() {
 		var time = setTime($(this).val());
 		$(this).val(time);
+		getShift();
 	});
 
 	$('#lot_accepted').on('change', function() {
 		checkLotAccepted($(this).val())
 	});
 
+	$('#po_no').on('change', function() {
+		getpodetails();
+	});
+
 	$('#btn_getpodetails').on('click', function() {
-		if ($('#po_no').val() == '') {
-
-		} else {
-			openloading();
-			var is_probe = 0;
-            if ($('#is_probe').is(':checked')) {
-                is_probe = 1;
-            }
-
-			var data = {
-				_token: token,
-				is_probe: is_probe,
-				po: $('#po_no').val(),
-			}
-
-			$.ajax({
-				url: getPOdetailsURL,
-				type: 'POST',
-				dataType: 'JSON',
-				data: data,
-				complete: function(xhr, textStatus) {
-					closeloading();
-				},
-				success: function(data, textStatus, xhr) {
-					if (data.length > 0) {
-						console.log(data);
-						if (is_probe > 0) {
-							getProbeProduct(data[0]['device_code']);
-						} else {
-							$('#series_name').val(data[0]['device_name']);
-							$('#series_code').val(data[0]['device_code']);
-							$('#customer').val(data[0]['customer_name']);
-							$('#customer_code').val(data[0]['customer_code']);
-							$('#po_qty').val(data[0]['po_qty']);
-						}
-					} else {
-						msg("P.O. does not exist.","failed");
-					}
-				},
-				error: function(xhr, textStatus, errorThrown) {
-					//called when there is an error
-				}
-			});
-		}
+		getpodetails();
 	});
 
 	$('#tbl_mode_of_defects_body').on('click', '.btn_edit_mod', function() {
@@ -215,38 +202,26 @@ $( function() {
 		$('#mod_device').val($(this).attr('data-device'));
 		$('#mod_lotno').val($(this).attr('data-lotno'));
 		$('#mod_submission').val($(this).attr('data-submission'));
+        $('#ins_id').val($(this).attr('data-ins-id'));
 		$('#mode_of_defects_name').val($(this).attr('data-mod1'));
 		$('#mod_id').val($(this).attr('data-id'));
 		$('#mod_qty').val($(this).attr('data-qty'));
 	});
 
-	$('#field1').on('change',function(){
-		GroupByValues($(this).val(),$('#content1'));
+    $('#severity_of_inspection').on('change', function() {
+    	samplingPLan();
     });
 
-    $('#field2').on('change',function(){
-        GroupByValues($(this).val(),$('#content2'));
+    $('#inspection_lvl').on('change', function() {
+    	samplingPLan();
     });
 
-    $('#field3').on('change',function(){
-        GroupByValues($(this).val(),$('#content3'));
+    $('#aql').on('change', function() {
+    	samplingPLan();
     });
 
-    $('#frm_DPPM').on('submit', function(e) {
-    	e.preventDefault();
-    	openloading();
-    	$.ajax({
-    		url: $(this).attr('action'),
-    		type: 'POST',
-    		dataType: 'JSON',
-    		data: $(this).serialize()
-    	}).done(function(data,xhr,textStatus) {
-    		calculateDPPM(data);
-    	}).fail(function(data,xhr,textStatus) {
-    		msg("There was an error while calculating",'error');
-    	}).always(function() {
-    		closeloading();
-    	});
+    $('#lot_qty').on('keyup', function() {
+    	samplingPLan();
     });
 });
 
@@ -257,7 +232,7 @@ function initialize() {
 
 	$('#accept').val(0);
 	$('#reject').val(1);
-	$('#lot_inspected').val(1);
+	$('#lot_inspected').val('1');
 
 	$('#no_of_defects_div').hide();
 	$('#mode_of_defects_div').hide();
@@ -265,10 +240,79 @@ function initialize() {
 
 function clearControls() {
 	$('.clear').val('');
+
+	$('#accept').val(0);
+	$('#reject').val(1);
+	$('#lot_inspected').val(1);
+	$('#shift').val('Shift A');
 }
 
 function clearMOD() {
 	$('.clear_mod').val('');
+}
+
+function getNumOfDefectives(id) {
+    $.ajax({
+        url: getNumOfDefectivesURL,
+        type: 'GET',
+        dataType: 'JSON',
+        data: {_token:token,id:id}
+    }).done(function(data,xhr,textStatus) {
+        $('#no_of_defects').val(data);
+        if (data > 0) {
+            $('#lot_accepted').val(0);
+        }
+        checkLotAccepted($(this).attr('data-lot_accepted'),data);
+    }).fail(function(data,xhr,textStatus) {
+        msg("There was an error while calculating",'error');
+    });
+}
+
+function getpodetails() {
+	if ($('#po_no').val() == '') {
+
+	} else {
+		openloading();
+		var is_probe = 0;
+        if ($('#is_probe').is(':checked')) {
+            is_probe = 1;
+        }
+
+		var data = {
+			_token: token,
+			is_probe: is_probe,
+			po: $('#po_no').val(),
+		}
+
+		$.ajax({
+			url: getPOdetailsURL,
+			type: 'POST',
+			dataType: 'JSON',
+			data: data,
+			complete: function(xhr, textStatus) {
+				closeloading();
+			},
+			success: function(data, textStatus, xhr) {
+				if (data.length > 0) {
+					console.log(data);
+					if (is_probe > 0) {
+						getProbeProduct(data[0]['device_code']);
+					} else {
+						$('#series_name').val(data[0]['device_name']);
+						$('#series_code').val(data[0]['device_code']);
+						$('#customer').val(data[0]['customer_name']);
+						$('#customer_code').val(data[0]['customer_code']);
+						$('#po_qty').val(data[0]['po_qty']);
+					}
+				} else {
+					msg("P.O. does not exist.","failed");
+				}
+			},
+			error: function(xhr, textStatus, errorThrown) {
+				//called when there is an error
+			}
+		});
+	}
 }
 
 function InspectionErrors(errors) {
@@ -528,6 +572,7 @@ function ModeOfDefects() {
 		$('#mod_device').val($('#series_name').val());
 		$('#mod_lotno').val($('#lot_no').val());
 		$('#mod_submission').val($('#submission').val());
+        $('#ins_id').val($('#inspection_id').val());
 
 		var modUrl = modDataTableURL+'?_token='+token+
 					'&&pono='+$('#po_no').val()+
@@ -571,9 +616,9 @@ function loadSelectInput() {
                 $('#aql').append('<option value="'+x.description+'">'+x.description+'</option>');
             });
 
-            $.each(data.shifts, function(i, x) {
-                $('#shift').append('<option value="'+x.description+'">'+x.description+'</option>');
-            });
+            // $.each(data.shifts, function(i, x) {
+            //     $('#shift').append('<option value="'+x.description+'">'+x.description+'</option>');
+            // });
 
             $.each(data.submissions, function(i, x) {
                 $('#submission').append('<option value="'+x.description+'">'+x.description+'</option>');
@@ -584,7 +629,7 @@ function loadSelectInput() {
                 $('#mode_of_defects_name').append('<option value="'+x.description+'">'+x.description+'</option>');
             });
 
-            $('#shift').val('Shift A');
+            //$('#shift').val('Shift A');
             $('#submission').val('1st');
 		},
 		error: function(xhr, textStatus, errorThrown) {
@@ -628,7 +673,7 @@ function delete_now(deleteUrl,datatableURL,data,table,dataColumn) {
 
 function setTime(time) {
 	var h = time.substring(0,2);
-	var m = time.substring(3,5);
+	var m = time.substring(2,5);
 	var a = time.substring(6,8);
 
 	if (m == undefined || m == '' || m == null) {
@@ -723,7 +768,7 @@ function getWorkWeek() {
 
 function DeleteInspection() {
 	if ($('.checkboxes:checkbox:checked').length > 0) {
-		$('#delete_func').val('INSPECTION');
+		$('#delete_id').val('INSPECTION');
 		$('#delete_modal').modal('show');
 	} else {
 		msg('Select at least 1 inspection.','failed');
@@ -732,14 +777,14 @@ function DeleteInspection() {
 
 function DeleteModeOfDefects() {
 	if ($('.checkboxes-mod:checkbox:checked').length > 0) {
-		$('#delete_func').val('MOD');
+		$('#delete_id').val('MOD');
 		$('#delete_modal').modal('show');
 	} else {
 		msg('Select at least 1 mode of defect.','failed');
 	}
 }
 
-function checkLotAccepted(lot_accepted) {
+function checkLotAccepted(lot_accepted,no_of_defects) {
 	if (lot_accepted == 0) {
 		$('#judgement').val('Reject');
 		$('#no_of_defects_div').show();
@@ -752,6 +797,12 @@ function checkLotAccepted(lot_accepted) {
 		$('#no_of_defects_div').hide();
 		$('#mode_of_defects_div').hide();
 	}
+
+    if (no_of_defects > 0) {
+        $('#judgement').val('Reject');
+		$('#no_of_defects_div').show();
+		$('#mode_of_defects_div').show();
+    }
 }
 
 function Search() {
@@ -763,10 +814,6 @@ function Report() {
 	$('#report_modal').modal('show');
 }
 
-function GroupBy() {
-	$('#groupby_modal').modal('show');
-}
-
 function searchInspection() {
 	var oqcSearchURL = oqcDataTableURL+'?type=search&search_po='+$('#search_po').val()+
 						'&search_from='+$('#search_from').val()+
@@ -775,7 +822,7 @@ function searchInspection() {
 }
 
 function checkAuhtor(inspector) {
-	if (author != inspector || author != 'cnpoblete') {
+	if (author != inspector && author != 'kurt') {
 		$('#btn_savemodal').prop('disabled', true);
 	} else {
 		$('#btn_savemodal').prop('disabled', false);
@@ -802,103 +849,6 @@ function ExcelReport() {
 	"&&to="+$('#rpt_to').val()+"&&submission="+$('#rpt_submission').val();
 }
 
-function GroupByValues(field,element) {
-	element.html('');
-	var data = {
-		_token: token,
-		field: field
-	}
-	$.ajax({
-		url: GroupByURL,
-		type: 'GET',
-		dataType: 'JSON',
-		data: data,
-	}).done(function(data,xhr,textStatus) {
-		$.each(data, function(i, x) {
-			element.append('<option value="'+x.field+'">'+x.field+'</option>');
-		});
-	}).fail(function(data,xhr,textStatus) {
-		msg("There was an error while processing the values.",'error');
-	}).always(function() {
-		console.log("complete");
-	});
-}
-
-function calculateDPPM(data) {
-	var tbl_DPPM_details_body = '';
-	$('#tbl_DPPM_details_body').html(tbl_DPPM_details_body);
-	var tbl_DPPM_body = '';
-	$('#tbl_DPPM_body').html(tbl_DPPM_body);
-
-
-	$.each(data, function(i, x) {
-		var templar = x.lot_accepted / x.lot_inspected;
-		var lar = (templar * 100).toFixed(2);
-
-		var templrr = x.lot_rejected / x.lot_inspected;
-    	var lrr = (templrr * 100).toFixed(2);
-
-    	if(x.num_of_defects == 0 && x.sample_size == 0){
-	        var noddivss = 0;   
-	    }else if(x.sample_size == 0){
-	        var noddivss = 0;
-	    }else if(x.num_of_defects == 0){
-	        var noddivss = 0;
-	    }else{
-	        var noddivss = x.num_of_defects/x.sample_size;
-	    }
-
-	    var dppm = (noddivss * 1000000).toFixed(2);
-
-	    tbl_DPPM_details_body = '<tr>'+  
-	                                '<td></td>'+ 
-	                                '<td>'+x.lot_inspected+'</td>'+
-	                                '<td>'+x.lot_accepted+'</td>'+
-	                                '<td>'+x.lot_rejected+'</td>'+  
-	                                '<td>'+x.sample_size+'</td>'+
-	                                '<td>'+x.num_of_defects+'</td>'+
-	                                '<td>'+lar+'</td>'+
-	                                '<td>'+lrr+'</td>'+
-	                                '<td>'+dppm+'</td>'+
-	                            '</tr>';
-
-	    $('#tbl_DPPM_details_body').append(tbl_DPPM_details_body)
-	});
-
-	$.each(data, function(i, x) {
-		var templar = x.lot_accepted / x.lot_inspected;
-		var lar = (templar * 100).toFixed(2);
-
-		var templrr = x.lot_rejected / x.lot_inspected;
-    	var lrr = (templrr * 100).toFixed(2);
-
-    	if(x.num_of_defects == 0 && x.sample_size == 0){
-	        var noddivss = 0;   
-	    }else if(x.sample_size == 0){
-	        var noddivss = 0;
-	    }else if(x.num_of_defects == 0){
-	        var noddivss = 0;
-	    }else{
-	        var noddivss = x.num_of_defects/x.sample_size;
-	    }
-
-	    var dppm = (noddivss * 1000000).toFixed(2);
-
-        var tbl_DPPM_body = '<tr>'+  
-			                    '<td>'+x.submission+'</td>'+ 
-			                    '<td>'+x.lot_inspected+'</td>'+
-			                    '<td>'+x.lot_accepted+'</td>'+
-			                    '<td>'+x.lot_rejected+'</td>'+  
-			                    '<td>'+x.sample_size+'</td>'+
-			                    '<td>'+x.num_of_defects+'</td>'+
-			                    '<td>'+lar+'</td>'+
-			                    '<td>'+lrr+'</td>'+
-			                    '<td>'+dppm+'</td>'+
-			                '</tr>';
-        $('#tbl_DPPM_body').append(tbl_DPPM_body);
-	});
-}
-
 function getProbeProduct(code) {
 	$('#item_probe').html('');
     var data = {
@@ -919,4 +869,51 @@ function getProbeProduct(code) {
     }).fail(function(data,textStatus,jqXHR) {
         console.log("error");
     });
+}
+
+function samplingPLan() {
+	var data = {
+		_token: token,
+		soi: $('#severity_of_inspection').val(),
+		il: $('#inspection_lvl').val(),
+		lot_qty: $('#lot_qty').val(),
+		aql: $('#aql').val()
+	};
+
+	$.ajax({
+		url: SamplingPlanURL,
+		type: 'GET',
+		dataType: 'JSON',
+		data: data,
+	}).done(function(data, textStatus, jqXHR) {
+		console.log(data);
+		$('#accept').val(data.accept);
+		$('#reject').val(data.reject);
+		$('#sample_size').val(data.size);
+	}).fail(function(data, textStatus, jqXHR) {
+		console.log("error");
+	});
+}
+
+function getShift() {
+	var from = $('#time_ins_from').val();
+	var to = $('#time_ins_to').val();
+
+	var data = {
+		_token: token,
+		from: from,
+		to: to
+	};
+
+	$.ajax({
+		url: getShiftURL,
+		type: 'GET',
+		dataType: 'JSON',
+		data: data
+	}).done( function(data, textStatus,jqXHR) {
+		$("#shift").val(data.shift);
+		console.log(data);
+	}).fail( function(data, textStatus,jqXHR) {
+		console.log(data);
+	});
 }

@@ -15,585 +15,572 @@
 			@endif
 		@endif
 	@endforeach
+	
+	<div class="page-content">
 
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				@include('includes.message-block')
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-clipboard"></i>  ORDER DATA CHECK
+						</div>
+					</div>
+					<div class="portlet-body">
 
-	<div class="clearfix"></div>
+						<div class="row">
 
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
+							<div class="col-md-7">
+								<div class="row">
+									<div class="col-md-12">
 
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-12">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						@include('includes.message-block')
-						<div class="portlet box blue">
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-clipboard"></i>  ORDER DATA CHECK
+										<div class="portlet box blue-hoki">
+
+											<div class="portlet-body">
+												<div class="row">
+													<div class="col-md-12">
+														<form method="POST" enctype="multipart/form-data" action="{{ url('/readfiles') }}" class="form-horizontal" id="readfileform" >
+															{{ csrf_field() }}
+
+															<div class="form-group">
+																<label class="control-label col-md-4">MLP01UF</label>
+																<div class="col-md-5">
+																	<input type="file" class="filestyle" data-buttonName="btn-primary" name="mlp01uf" id="mlp01uf" {{$readonly}}>
+																</div>
+															</div>
+
+															<div class="form-group">
+																<label class="control-label col-md-4">MLP02UF</label>
+																<div class="col-md-5">
+																	<input type="file" class="filestyle" data-buttonName="btn-primary" name="mlp02uf" id="mlp02uf" {{$readonly}}>
+																</div>
+															</div>
+
+															<div class="form-group">
+																<label class="control-label col-md-4">Output Directory</label>
+																<div class="col-md-5">
+																	<input type="text" class="form-control" value="/public/Order_Data_Check/" disabled="disable">
+																</div>
+															</div>
+
+															<div class="form-group">
+																<div class="col-md-9">
+																	<button type="submit" class="btn btn-md btn-warning pull-right" {{$state}}>
+																		<i class="fa fa-refresh"></i> Process
+																	</button>
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="portlet box blue">
+											<div class="portlet-title">
+												<div class="caption">
+													DETAIL SUMMARY
+												</div>
+											</div>
+											<div class="portlet-body">
+												<div class="row">
+													<div class="col-md-6">
+														<table class="table table-hover table-bordered">
+															<thead>
+																<tr style="color: #d6f5f3;background-color: #0ba8e2;">
+																	<td colspan="3">
+																		RECEIVED DATA DETAILS
+																	</td>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td width="100px">TS</td>
+																	<td>TS PO:</td>
+																	@if (Session::has('PO'))
+																		<td style="font-weight: 900">
+																			@if(Session::has('con') && Session::get('con') == 'TS')
+																				{{Session::get('PO')}}
+																			@endif
+																		</td>
+																	@else
+																		<td style="font-weight: 900">0</td>
+																	@endif
+																</tr>
+																<tr>
+																	<td>CN</td>
+																	<td>CN PO:</td>
+																	@if (Session::has('PO'))
+																		<td style="font-weight: 900">
+																			@if(Session::has('con') && Session::get('con') == 'CN')
+																				{{Session::get('PO')}}
+																			@endif
+																		</td>
+																	@else
+																		<td style="font-weight: 900">0</td>
+																	@endif
+																</tr>
+																<tr>
+																	<td>YF</td>
+																	<td>YF PO:</td>
+																	@if (Session::has('PO'))
+																		<td style="font-weight: 900">
+																			@if(Session::has('con') && Session::get('con') == 'YF')
+																				{{Session::get('PO')}}
+																			@endif
+																		</td>
+																	@else
+																		<td style="font-weight: 900">0</td>
+																	@endif
+																</tr>
+																<tr>
+																	<td colspan="2">TOTAL:</td>
+																	@if (Session::has('PO'))
+																		<td style="font-weight: 900">
+																			{{Session::get('PO')}}
+																		</td>
+																	@elseif (Session::has('PO'))
+																		<td style="font-weight: 900">
+																			{{Session::get('PO')}}
+																		</td>
+																	@else
+																		<td style="font-weight: 900">0</td>
+																	@endif
+																</tr>
+															</tbody>
+														</table>
+													</div>
+													<div class="col-md-6">
+														<table class="table table-hover table-bordered">
+															<thead>
+																<tr style="color: #d6f5f3;background-color: #0ba8e2;">
+																	<td colspan="2">
+																		RECEIVED DATA DETAILS
+																	</td>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td width="200px">RS PO</td>
+																	<td style="font-weight: 900">0</td>
+																</tr>
+																<tr>
+																	<td>NORMAL PO</td>
+																	@if (Session::has('NormalPO'))
+																		<?php $NormalPO = Session::get('NormalPO'); ?>
+																		<td style="font-weight: 900">
+																			{{ $NormalPO }}
+																		</td>
+																	@else
+																		<td style="font-weight: 900">0</td>
+																	@endif
+																</tr>
+																<tr>
+																	<td>NEW PRODUCT</td>
+																	@if (Session::has('Products'))
+																		<?php $Products = Session::get('Products'); ?>
+																		<td style="font-weight: 900">{{ $Products['nonexist'] }}</td>
+																	@else
+																		<td style="font-weight: 900">0</td>
+																	@endif
+																</tr>
+																<tr>
+																	<td>RS GENERATED</td>
+																	<td style="font-weight: 900">0</td>
+																</tr>
+																<tr>
+																	<td>FOR ORDER ENTRY</td>
+																	@if (Session::has('PO') && Session::has('Products') && Session::has('Products'))
+																		<?php
+																			$prodExist = Session::get('Products');
+																			$prodNotExist = Session::get('Products');
+																			$orderts = $prodExist['exist'] + $prodNotExist['nonexist'];
+																		?>
+																		<td style="font-weight: 900">
+																			{{$orderts}}
+																		</td>
+																	@else
+																		<td style="font-weight: 900">0</td>
+																	@endif
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="portlet box blue">
+											<div class="portlet-title">
+												<div class="caption">
+													NUMBER OF DATA LOADING TO TPICS
+												</div>
+											</div>
+											<div class="portlet-body">
+												<div class="table-responsive">
+													<table class="table table-hover table-bordered table-condensed">
+														<thead>
+															<tr style="color: #d6f5f3;background-color: #0ba8e2;">
+																<td></td>
+																<td>ITEM NAME MASTER</td>
+																<td>ITEM MASTER</td>
+																<td>UNIT PRICE MASTER</td>
+																<td>PRICE MASTER</td>
+																<td>BOM MASTER</td>
+																<td>ORDER ENTRY</td>
+															</tr>
+														</thead>
+														<tbody>
+															<tr align="right">
+																<td>PART</td>
+															@if (Session::has('ItemNamePartCount') && Session::has('ItemPartCount') && Session::has('UnitCount') && Session::has('BOMCount') && Session::has('Order'))
+																<?php
+																	$BOMCount = Session::get('BOMCount');
+																	$UnitCount = Session::get('UnitCount');
+																	$ItemNamePartCount = Session::get('ItemNamePartCount');
+																	$ItemPartCount = Session::get('ItemPartCount');
+																?>
+																<td style="font-weight: 900">{{ $ItemNamePartCount }}</td>
+																<td style="font-weight: 900">{{ $ItemPartCount }}</td>
+																<td style="font-weight: 900">{{ $UnitCount }}</td>
+																<td style="font-weight: 900"></td>
+																<td style="font-weight: 900">{{ $BOMCount }}</td>
+																<td style="font-weight: 900"></td>
+															@else
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+															@endif
+
+															</tr>
+															<tr align="right">
+																<td>PROD</td>
+															@if (Session::has('ItemNameProdCount') && Session::has('ItemProdCount') && Session::has('PriceCount') && Session::has('Order'))
+																<?php
+																	$PriceCount = Session::get('PriceCount');
+																	$ItemNameProdCount = Session::get('ItemNameProdCount');
+																	$ItemProdCount = Session::get('ItemProdCount');
+																	$prod_order = Session::get('Order');
+																	$orderts = $prod_order['exist'] + $prod_order['non_exist'];
+																?>
+																<td style="font-weight: 900">{{ $ItemNameProdCount }}</td>
+																<td style="font-weight: 900">{{ $ItemProdCount }}</td>
+																<td style="font-weight: 900"></td>
+																<td style="font-weight: 900">{{ $PriceCount }}</td>
+																<td style="font-weight: 900"></td>
+																<td style="font-weight: 900">{{ $orderts }}</td>
+															@else
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+																<td></td>
+															@endif
+
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+
+									</div>
 								</div>
-							</div>
-							<div class="portlet-body">
 
 								<div class="row">
-
-									<div class="col-md-7">
-										<div class="row">
-											<div class="col-md-12">
-
-												<div class="portlet box blue-hoki">
-
-													<div class="portlet-body">
-														<div class="row">
-															<div class="col-md-12">
-																<form method="POST" enctype="multipart/form-data" action="{{ url('/readfiles') }}" class="form-horizontal" id="readfileform" >
-																	{{ csrf_field() }}
-
-																	<div class="form-group">
-																		<label class="control-label col-md-4">MLP01UF</label>
-																		<div class="col-md-5">
-																			<input type="file" class="filestyle" data-buttonName="btn-primary" name="mlp01uf" id="mlp01uf" {{$readonly}}>
-																		</div>
-																	</div>
-
-																	<div class="form-group">
-																		<label class="control-label col-md-4">MLP02UF</label>
-																		<div class="col-md-5">
-																			<input type="file" class="filestyle" data-buttonName="btn-primary" name="mlp02uf" id="mlp02uf" {{$readonly}}>
-																		</div>
-																	</div>
-
-																	<div class="form-group">
-																		<label class="control-label col-md-4">Output Directory</label>
-																		<div class="col-md-5">
-																			<input type="text" class="form-control" value="/public/Order_Data_Check/" disabled="disable">
-																		</div>
-																	</div>
-
-																	<div class="form-group">
-																		<div class="col-md-9">
-																			<button type="submit" class="btn btn-md btn-warning pull-right" {{$state}}>
-																				<i class="fa fa-refresh"></i> Process
-																			</button>
-																		</div>
-																	</div>
-																</form>
-															</div>
-														</div>
-													</div>
-												</div>
-
-												<div class="portlet box blue">
-													<div class="portlet-title">
-														<div class="caption">
-															DETAIL SUMMARY
-														</div>
-													</div>
-													<div class="portlet-body">
-														<div class="row">
-															<div class="col-md-6">
-																<table class="table table-hover table-bordered">
-																	<thead>
-																		<tr style="color: #d6f5f3;background-color: #0ba8e2;">
-																			<td colspan="3">
-																				RECEIVED DATA DETAILS
-																			</td>
-																		</tr>
-																	</thead>
-																	<tbody>
-																		<tr>
-																			<td width="100px">TS</td>
-																			<td>TS PO:</td>
-																			@if (Session::has('PO'))
-																				<td style="font-weight: 900">
-																					@if(Session::has('con') && Session::get('con') == 'TS')
-																						{{Session::get('PO')}}
-																					@endif
-																				</td>
-																			@else
-																				<td style="font-weight: 900">0</td>
-																			@endif
-																		</tr>
-																		<tr>
-																			<td>CN</td>
-																			<td>CN PO:</td>
-																			@if (Session::has('PO'))
-																				<td style="font-weight: 900">
-																					@if(Session::has('con') && Session::get('con') == 'CN')
-																						{{Session::get('PO')}}
-																					@endif
-																				</td>
-																			@else
-																				<td style="font-weight: 900">0</td>
-																			@endif
-																		</tr>
-																		<tr>
-																			<td>YF</td>
-																			<td>YF PO:</td>
-																			@if (Session::has('PO'))
-																				<td style="font-weight: 900">
-																					@if(Session::has('con') && Session::get('con') == 'YF')
-																						{{Session::get('PO')}}
-																					@endif
-																				</td>
-																			@else
-																				<td style="font-weight: 900">0</td>
-																			@endif
-																		</tr>
-																		<tr>
-																			<td colspan="2">TOTAL:</td>
-																			@if (Session::has('PO'))
-																				<td style="font-weight: 900">
-																					{{Session::get('PO')}}
-																				</td>
-																			@elseif (Session::has('PO'))
-																				<td style="font-weight: 900">
-																					{{Session::get('PO')}}
-																				</td>
-																			@else
-																				<td style="font-weight: 900">0</td>
-																			@endif
-																		</tr>
-																	</tbody>
-																</table>
-															</div>
-															<div class="col-md-6">
-																<table class="table table-hover table-bordered">
-																	<thead>
-																		<tr style="color: #d6f5f3;background-color: #0ba8e2;">
-																			<td colspan="2">
-																				RECEIVED DATA DETAILS
-																			</td>
-																		</tr>
-																	</thead>
-																	<tbody>
-																		<tr>
-																			<td width="200px">RS PO</td>
-																			<td style="font-weight: 900">0</td>
-																		</tr>
-																		<tr>
-																			<td>NORMAL PO</td>
-																			@if (Session::has('NormalPO'))
-																				<?php $NormalPO = Session::get('NormalPO'); ?>
-																				<td style="font-weight: 900">
-																					{{ $NormalPO }}
-																				</td>
-																			@else
-																				<td style="font-weight: 900">0</td>
-																			@endif
-																		</tr>
-																		<tr>
-																			<td>NEW PRODUCT</td>
-																			@if (Session::has('Products'))
-																				<?php $Products = Session::get('Products'); ?>
-																				<td style="font-weight: 900">{{ $Products['nonexist'] }}</td>
-																			@else
-																				<td style="font-weight: 900">0</td>
-																			@endif
-																		</tr>
-																		<tr>
-																			<td>RS GENERATED</td>
-																			<td style="font-weight: 900">0</td>
-																		</tr>
-																		<tr>
-																			<td>FOR ORDER ENTRY</td>
-																			@if (Session::has('PO') && Session::has('Products') && Session::has('Products'))
-																				<?php
-																					$prodExist = Session::get('Products');
-																					$prodNotExist = Session::get('Products');
-																					$orderts = $prodExist['exist'] + $prodNotExist['nonexist'];
-																				?>
-																				<td style="font-weight: 900">
-																					{{$orderts}}
-																				</td>
-																			@else
-																				<td style="font-weight: 900">0</td>
-																			@endif
-																		</tr>
-																	</tbody>
-																</table>
-															</div>
-														</div>
-													</div>
-												</div>
-
-												<div class="portlet box blue">
-													<div class="portlet-title">
-														<div class="caption">
-															NUMBER OF DATA LOADING TO TPICS
-														</div>
-													</div>
-													<div class="portlet-body">
-														<div class="table-responsive">
-															<table class="table table-hover table-bordered table-condensed">
-																<thead>
-																	<tr style="color: #d6f5f3;background-color: #0ba8e2;">
-																		<td></td>
-																		<td>ITEM NAME MASTER</td>
-																		<td>ITEM MASTER</td>
-																		<td>UNIT PRICE MASTER</td>
-																		<td>PRICE MASTER</td>
-																		<td>BOM MASTER</td>
-																		<td>ORDER ENTRY</td>
-																	</tr>
-																</thead>
-																<tbody>
-																	<tr align="right">
-																		<td>PART</td>
-																	@if (Session::has('ItemNamePartCount') && Session::has('ItemPartCount') && Session::has('UnitCount') && Session::has('BOMCount') && Session::has('Order'))
-																		<?php
-																			$BOMCount = Session::get('BOMCount');
-																			$UnitCount = Session::get('UnitCount');
-																			$ItemNamePartCount = Session::get('ItemNamePartCount');
-																			$ItemPartCount = Session::get('ItemPartCount');
-																		?>
-																		<td style="font-weight: 900">{{ $ItemNamePartCount }}</td>
-																		<td style="font-weight: 900">{{ $ItemPartCount }}</td>
-																		<td style="font-weight: 900">{{ $UnitCount }}</td>
-																		<td style="font-weight: 900"></td>
-																		<td style="font-weight: 900">{{ $BOMCount }}</td>
-																		<td style="font-weight: 900"></td>
-																	@else
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																	@endif
-
-																	</tr>
-																	<tr align="right">
-																		<td>PROD</td>
-																	@if (Session::has('ItemNameProdCount') && Session::has('ItemProdCount') && Session::has('PriceCount') && Session::has('Order'))
-																		<?php
-																			$PriceCount = Session::get('PriceCount');
-																			$ItemNameProdCount = Session::get('ItemNameProdCount');
-																			$ItemProdCount = Session::get('ItemProdCount');
-																			$prod_order = Session::get('Order');
-																			$orderts = $prod_order['exist'] + $prod_order['non_exist'];
-																		?>
-																		<td style="font-weight: 900">{{ $ItemNameProdCount }}</td>
-																		<td style="font-weight: 900">{{ $ItemProdCount }}</td>
-																		<td style="font-weight: 900"></td>
-																		<td style="font-weight: 900">{{ $PriceCount }}</td>
-																		<td style="font-weight: 900"></td>
-																		<td style="font-weight: 900">{{ $orderts }}</td>
-																	@else
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																		<td></td>
-																	@endif
-
-																	</tr>
-																</tbody>
-															</table>
-														</div>
-													</div>
-												</div>
-
-											</div>
-										</div>
-
-										<div class="row">
-											<div class="col-md-12 text-center">
-												@if (Session::has('PO'))
-													<a href="{{url('/momscheck')}}" class="btn btn-sm blue">MOMS Check</a>
-												@endif
-											</div>
-										</div>
-										<!--<div class="row"></div>
-										<div class="row"></div>-->
+									<div class="col-md-12 text-center">
+										@if (Session::has('PO'))
+											<a href="{{url('/momscheck')}}" class="btn btn-sm blue">MOMS Check</a>
+										@endif
 									</div>
-
-
-
-
-
-									<div class="col-md-5">
-										<div class="row">
-											<div class="col-md-12">
-
-												<div class="portlet box blue">
-													<div class="portlet-body">
-													<!-- MLP01UF -->
-														<table class="table table-hover table-bordered">
-															<thead>
-																<tr style="color: #d6f5f3;background-color: #0ba8e2;">
-																	<td colspan="2">
-																		MLP01UF
-																	</td>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	<td width="100px">
-																		START:
-																	</td>
-																	<td style="font-weight: 900">
-																		@if (Session::has('partStartPO'))
-																			{{Session::get('partStartPO')}}
-																		@endif
-																	</td>
-																</tr>
-																<tr>
-																	<td>
-																		END:
-																	</td>
-																	<td style="font-weight: 900">
-																		@if (Session::has('partEndPO'))
-																			{{Session::get('partEndPO')}}
-																		@endif
-																	</td>
-																</tr>
-															</tbody>
-														</table>
-													<!-- MLP02UF -->
-														<table class="table table-hover table-bordered">
-															<thead>
-																<tr style="color: #d6f5f3;background-color: #0ba8e2;">
-																	<td colspan="2">
-																		MLP02UF
-																	</td>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	<td width="100px">
-																		START:
-																	</td>
-																	<td style="font-weight: 900">
-																		@if (Session::has('prodStartPO'))
-																			{{Session::get('prodStartPO')}}
-																		@endif
-																	</td>
-																</tr>
-																<tr>
-																	<td>
-																		END:
-																	</td>
-																	<td style="font-weight: 900">
-																		@if (Session::has('prodEndPO'))
-																			{{Session::get('prodEndPO')}}
-																		@endif
-																	</td>
-																</tr>
-															</tbody>
-														</table>
-													<!-- MLP DATA COMPARISON -->
-														<table class="table table-hover table-bordered">
-															<thead>
-																<tr style="color: #d6f5f3;background-color: #0ba8e2;">
-																	<td colspan="2">
-																		MLP DATA COMPARISON
-																	</td>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	<td width="100px">
-																		START:
-																	</td>
-																	<td style="font-weight: 900">
-																	<?php
-																		if (Session::has('partStartPO') && Session::has('prodStartPO')) {
-																			if (Session::has('partStartPO') == Session::has('prodStartPO')) {
-																				echo "OK";
-																			} else {
-																				echo "NG";
-																			}
-																		} else {
-
-																		}
-																	?>
-																	</td>
-																</tr>
-																<tr>
-																	<td>
-																		END:
-																	</td>
-																	<td style="font-weight: 900">
-																	<?php
-																		if (Session::has('partEndPO') && Session::has('prodEndPO')) {
-																			if (Session::has('partEndPO') && Session::has('prodEndPO')) {
-																				echo "OK";
-																			} else {
-																				echo "NG";
-																			}
-																		} else {
-
-																		}
-																	?>
-																	</td>
-																</tr>
-															</tbody>
-														</table>
-													</div>
-												</div>
-
-												<div class="portlet box blue">
-													<div class="portlet-title">
-														<div class="caption">
-															DATA UNMATCH YPICS vs R3
-														</div>
-													</div>
-													<div class="portlet-body">
-														<div id="msg" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
-														<table class="table table-hover table-bordered">
-															<thead>
-																<tr style="color: #d6f5f3;background-color: #0ba8e2;">
-																	<td>NAME</td>
-																	<td>QUANTITY</td>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	@if (Session::has('Item') && Session::has('Unit') && Session::has('Price') && Session::has('BOM'))
-																		<?php
-																			$BOM = Session::get('BOM');
-																			$Price = Session::get('Price');
-																			$Item = Session::get('Item');
-																			$Unit = Session::get('Unit');
-																		?>
-																	@endif
-																	@if (Session::has('Price') && $Price['unmatch'] > 0)
-																		<td>SALES PRICE</td>
-																		<td style="font-weight: 900">
-																			<?php $sales = Session::get('uSalescount'); ?>
-																			<a href="{{url('/umSalesexcel')}}" class="btn btn-sm blue">{{ $sales }}</a>
-																		</td>
-																	@else
-																		<td>SALES PRICE</td>
-																		<td style="font-weight: 900">0</td>
-																	@endif
-																</tr>
-																<tr>
-																	@if (Session::has('uUnitcount') && Session::get('uUnitcount') > 0)
-																		<td>UNIT PRICE</td>
-																		<td style="font-weight: 900">
-																			<?php $unit = Session::get('uUnitcount');?>
-																			<a href="{{url('/umUnitexcel')}}" class="btn btn-sm blue">{{ $unit }}</a>
-																		</td>
-																	@else
-																		<td>UNIT PRICE</td>
-																		<td style="font-weight: 900">0</td>
-																	@endif
-																</tr>
-																<tr>
-																	@if (Session::has('BOM') && Session::get('uBOMcount') > 0)
-																		<td>BOM</td>
-																		<td style="font-weight: 900">
-																			<?php $bomcount = Session::get('uBOMcount');?>
-																			<a href="{{url('/umBOMexcel')}}" class="btn btn-sm blue">{{ $bomcount }}</a>
-																		</td>
-																	@else
-																		<td>BOM</td>
-																		<td style="font-weight: 900">0</td>
-																	@endif
-																</tr>
-																<tr>
-																	@if (Session::has('BOM') && Session::get('uUsagecount') > 0)
-																		<td>USAGE</td>
-																		<td style="font-weight: 900">
-																			<?php $usagecount = Session::get('uUsagecount');?>
-																			<a href="{{url('/umUsageexcel')}}" class="btn btn-sm blue">{{ $usagecount }}</a>
-																		</td>
-																	@else
-																		<td>USAGE</td>
-																		<td style="font-weight: 900">0</td>
-																	@endif
-																</tr>
-																<tr>
-																	@if (Session::has('uSuppcount') && Session::get('uSuppcount') > 0)
-																		<td>SUPPLIER</td>
-																		<td style="font-weight: 900">
-																			<?php $supplier = Session::get('uSuppcount'); ?>
-																			<a href="{{url('/umSuppexcel')}}" class="btn btn-sm blue">{{ $supplier }}</a>
-																		</td>
-																	@else
-																		<td>SUPPLIER</td>
-																		<td style="font-weight: 900">0</td>
-																	@endif
-																</tr>
-																<tr>
-																	@if (Session::has('Item') && Session::get('uPartNamecount') > 0)
-																		<td>PART NAME</td>
-																		<td style="font-weight: 900">
-																			<?php $partnamecount = Session::get('uPartNamecount'); ?>
-																			<a href="{{url('/umPartNameexcel')}}" class="btn btn-sm blue">{{ $partnamecount }}</a>
-																		</td>
-																	@else
-																		<td>PART NAME</td>
-																		<td style="font-weight: 900">0</td>
-																	@endif
-																</tr>
-																<tr>
-																	@if (Session::has('uProdNamecount') && Session::get('uProdNamecount') > 0)
-																		<td>PRODUCT NAME</td>
-																		<td style="font-weight: 900">
-																			<?php $prodName = Session::get('uProdNamecount'); ?>
-																			<a href="{{url('/umProdNameexcel')}}" class="btn btn-sm blue">{{ $prodName }}</a>
-																		</td>
-																	@else
-																		<td>PRODUCT NAME</td>
-																		<td style="font-weight: 900">0</td>
-																	@endif
-																</tr>
-																<tr>
-																	@if (Session::has('uProdDNcount') && Session::get('uProdDNcount') > 0)
-																		<td>PRODUCT DN</td>
-																		<td style="font-weight: 900">
-																			<?php $prodDN = Session::get('uProdDNcount'); ?>
-																			<a href="{{url('/umProdDNexcel')}}" class="btn btn-sm blue">{{ $prodDN }}</a>
-																		</td>
-																	@else
-																		<td>PRODUCT DN</td>
-																		<td style="font-weight: 900">0</td>
-																	@endif
-																</tr>
-																<tr>
-																	@if (Session::has('uPartDNcount') && Session::get('uPartDNcount') > 0)
-																		<td>PARTS DN</td>
-																		<td style="font-weight: 900">
-																			<?php $partDN = Session::get('uPartDNcount');?>
-																			<a href="{{url('/umPartDNexcel')}}" class="btn btn-sm blue">{{ $partDN }}</a>
-																		</td>
-																	@else
-																		<td>PARTS DN</td>
-																		<td style="font-weight: 900">0</td>
-																	@endif
-																</tr>
-															</tbody>
-														</table>
-													</div>
-												</div>
-
-											</div>
-										</div>
-										<!--<div class="row"></div>-->
-									</div>
-
 								</div>
-
+								<!--<div class="row"></div>
+								<div class="row"></div>-->
 							</div>
+
+
+
+
+
+							<div class="col-md-5">
+								<div class="row">
+									<div class="col-md-12">
+
+										<div class="portlet box blue">
+											<div class="portlet-body">
+											<!-- MLP01UF -->
+												<table class="table table-hover table-bordered">
+													<thead>
+														<tr style="color: #d6f5f3;background-color: #0ba8e2;">
+															<td colspan="2">
+																MLP01UF
+															</td>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td width="100px">
+																START:
+															</td>
+															<td style="font-weight: 900">
+																@if (Session::has('partStartPO'))
+																	{{Session::get('partStartPO')}}
+																@endif
+															</td>
+														</tr>
+														<tr>
+															<td>
+																END:
+															</td>
+															<td style="font-weight: 900">
+																@if (Session::has('partEndPO'))
+																	{{Session::get('partEndPO')}}
+																@endif
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											<!-- MLP02UF -->
+												<table class="table table-hover table-bordered">
+													<thead>
+														<tr style="color: #d6f5f3;background-color: #0ba8e2;">
+															<td colspan="2">
+																MLP02UF
+															</td>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td width="100px">
+																START:
+															</td>
+															<td style="font-weight: 900">
+																@if (Session::has('prodStartPO'))
+																	{{Session::get('prodStartPO')}}
+																@endif
+															</td>
+														</tr>
+														<tr>
+															<td>
+																END:
+															</td>
+															<td style="font-weight: 900">
+																@if (Session::has('prodEndPO'))
+																	{{Session::get('prodEndPO')}}
+																@endif
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											<!-- MLP DATA COMPARISON -->
+												<table class="table table-hover table-bordered">
+													<thead>
+														<tr style="color: #d6f5f3;background-color: #0ba8e2;">
+															<td colspan="2">
+																MLP DATA COMPARISON
+															</td>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td width="100px">
+																START:
+															</td>
+															<td style="font-weight: 900">
+															<?php
+																if (Session::has('partStartPO') && Session::has('prodStartPO')) {
+																	if (Session::has('partStartPO') == Session::has('prodStartPO')) {
+																		echo "OK";
+																	} else {
+																		echo "NG";
+																	}
+																} else {
+
+																}
+															?>
+															</td>
+														</tr>
+														<tr>
+															<td>
+																END:
+															</td>
+															<td style="font-weight: 900">
+															<?php
+																if (Session::has('partEndPO') && Session::has('prodEndPO')) {
+																	if (Session::has('partEndPO') && Session::has('prodEndPO')) {
+																		echo "OK";
+																	} else {
+																		echo "NG";
+																	}
+																} else {
+
+																}
+															?>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+										<div class="portlet box blue">
+											<div class="portlet-title">
+												<div class="caption">
+													DATA UNMATCH YPICS vs R3
+												</div>
+											</div>
+											<div class="portlet-body">
+												<div id="msg" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
+												<table class="table table-hover table-bordered">
+													<thead>
+														<tr style="color: #d6f5f3;background-color: #0ba8e2;">
+															<td>NAME</td>
+															<td>QUANTITY</td>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															@if (Session::has('Item') && Session::has('Unit') && Session::has('Price') && Session::has('BOM'))
+																<?php
+																	$BOM = Session::get('BOM');
+																	$Price = Session::get('Price');
+																	$Item = Session::get('Item');
+																	$Unit = Session::get('Unit');
+																?>
+															@endif
+															@if (Session::has('Price') && $Price['unmatch'] > 0)
+																<td>SALES PRICE</td>
+																<td style="font-weight: 900">
+																	<?php $sales = Session::get('uSalescount'); ?>
+																	<a href="{{url('/umSalesexcel')}}" class="btn btn-sm blue">{{ $sales }}</a>
+																</td>
+															@else
+																<td>SALES PRICE</td>
+																<td style="font-weight: 900">0</td>
+															@endif
+														</tr>
+														<tr>
+															@if (Session::has('uUnitcount') && Session::get('uUnitcount') > 0)
+																<td>UNIT PRICE</td>
+																<td style="font-weight: 900">
+																	<?php $unit = Session::get('uUnitcount');?>
+																	<a href="{{url('/umUnitexcel')}}" class="btn btn-sm blue">{{ $unit }}</a>
+																</td>
+															@else
+																<td>UNIT PRICE</td>
+																<td style="font-weight: 900">0</td>
+															@endif
+														</tr>
+														<tr>
+															@if (Session::has('BOM') && Session::get('uBOMcount') > 0)
+																<td>BOM</td>
+																<td style="font-weight: 900">
+																	<?php $bomcount = Session::get('uBOMcount');?>
+																	<a href="{{url('/umBOMexcel')}}" class="btn btn-sm blue">{{ $bomcount }}</a>
+																</td>
+															@else
+																<td>BOM</td>
+																<td style="font-weight: 900">0</td>
+															@endif
+														</tr>
+														<tr>
+															@if (Session::has('BOM') && Session::get('uUsagecount') > 0)
+																<td>USAGE</td>
+																<td style="font-weight: 900">
+																	<?php $usagecount = Session::get('uUsagecount');?>
+																	<a href="{{url('/umUsageexcel')}}" class="btn btn-sm blue">{{ $usagecount }}</a>
+																</td>
+															@else
+																<td>USAGE</td>
+																<td style="font-weight: 900">0</td>
+															@endif
+														</tr>
+														<tr>
+															@if (Session::has('uSuppcount') && Session::get('uSuppcount') > 0)
+																<td>SUPPLIER</td>
+																<td style="font-weight: 900">
+																	<?php $supplier = Session::get('uSuppcount'); ?>
+																	<a href="{{url('/umSuppexcel')}}" class="btn btn-sm blue">{{ $supplier }}</a>
+																</td>
+															@else
+																<td>SUPPLIER</td>
+																<td style="font-weight: 900">0</td>
+															@endif
+														</tr>
+														<tr>
+															@if (Session::has('Item') && Session::get('uPartNamecount') > 0)
+																<td>PART NAME</td>
+																<td style="font-weight: 900">
+																	<?php $partnamecount = Session::get('uPartNamecount'); ?>
+																	<a href="{{url('/umPartNameexcel')}}" class="btn btn-sm blue">{{ $partnamecount }}</a>
+																</td>
+															@else
+																<td>PART NAME</td>
+																<td style="font-weight: 900">0</td>
+															@endif
+														</tr>
+														<tr>
+															@if (Session::has('uProdNamecount') && Session::get('uProdNamecount') > 0)
+																<td>PRODUCT NAME</td>
+																<td style="font-weight: 900">
+																	<?php $prodName = Session::get('uProdNamecount'); ?>
+																	<a href="{{url('/umProdNameexcel')}}" class="btn btn-sm blue">{{ $prodName }}</a>
+																</td>
+															@else
+																<td>PRODUCT NAME</td>
+																<td style="font-weight: 900">0</td>
+															@endif
+														</tr>
+														<tr>
+															@if (Session::has('uProdDNcount') && Session::get('uProdDNcount') > 0)
+																<td>PRODUCT DN</td>
+																<td style="font-weight: 900">
+																	<?php $prodDN = Session::get('uProdDNcount'); ?>
+																	<a href="{{url('/umProdDNexcel')}}" class="btn btn-sm blue">{{ $prodDN }}</a>
+																</td>
+															@else
+																<td>PRODUCT DN</td>
+																<td style="font-weight: 900">0</td>
+															@endif
+														</tr>
+														<tr>
+															@if (Session::has('uPartDNcount') && Session::get('uPartDNcount') > 0)
+																<td>PARTS DN</td>
+																<td style="font-weight: 900">
+																	<?php $partDN = Session::get('uPartDNcount');?>
+																	<a href="{{url('/umPartDNexcel')}}" class="btn btn-sm blue">{{ $partDN }}</a>
+																</td>
+															@else
+																<td>PARTS DN</td>
+																<td style="font-weight: 900">0</td>
+															@endif
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+									</div>
+								</div>
+								<!--<div class="row"></div>-->
+							</div>
+
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
+
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
 
 	<div id="processdone" class="modal fade" role="dialog" data-backdrop="static">
 		<div class="modal-dialog modal-sm gray-gallery">

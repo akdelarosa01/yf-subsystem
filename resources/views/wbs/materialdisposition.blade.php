@@ -17,152 +17,143 @@
 	@endforeach
 
 
-	<div class="clearfix"></div>
+	
+	<div class="page-content">
 
-<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				@include('includes.message-block')
+				<div class="portlet box blue" >
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-navicon"></i>  WBS
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	                            <div class="row">
+	                                <form action="" class="form-horizontal">
+	                                	<div class="col-md-6">
+	                                		<div class="form-group">
+	                                			<label for="" class="control-label col-sm-2">Item Code</label>
+	                                			<div class="col-sm-9">
+	                                				<input type="text" class="form-control input-sm clear" id="itemcode" name="itemcode">
+	                                			</div>
+	                                		</div>
+	                                		<div class="form-group">
+	                                			<label for="" class="control-label col-sm-2">Item Name</label>
+	                                			<div class="col-sm-9">
+	                                				<input type="text" class="form-control input-sm clear" id="itemname" name="itemname" readonly>
+	                                			</div>
+	                                		</div>
+	                                		<div class="form-group">
+	                                			<label for="" class="control-label col-sm-2">Lot No.</label>
+	                                			<div class="col-sm-9">
+	                                				<input type="text" class="form-control input-sm clear" id="lotno" name="lotno" readonly>
+	                                			</div>
+	                                		</div>
+	                                		<div class="form-group">
+	                                			<label for="" class="control-label col-sm-2">Lot Qty</label>
+	                                			<div class="col-sm-9">
+	                                				<input type="text" class="form-control input-sm clear" id="lotqty" name="lotqty">
+	                                			</div>
+	                                		</div>
+	                                		<div class="form-group">
+	                                			<label for="" class="control-label col-sm-2">Remarks</label>
+	                                			<div class="col-sm-9">
+	                                				<input type="text" class="form-control input-sm clear" id="disposition" name="disposition">
+	                                			</div>
+	                                		</div>
+	                                	</div>
+	                            		<div class="col-md-6">
+	                            			<div class="form-group">
+	                                			<label for="" class="control-label col-sm-2">Created By</label>
+	                                			<div class="col-sm-9">
+	                                				<input type="text" class="form-control input-sm" id="createdby" name="createdby" readonly>
+	                                			</div>
+	                                		</div>
+	                                		<div class="form-group">
+	                                			<label for="" class="control-label col-sm-2">Created Date</label>
+	                                			<div class="col-sm-9">
+	                                				<input type="text" class="form-control input-sm" value="{{date('Y-m-d')}}" data-date-format="yyyy-mm-dd" id="createddate" name="createddate">
+	                                			</div>
+	                                		</div>
+	                                		<div class="form-group">
+	                                			<label for="" class="control-label col-sm-2">Updated By</label>
+	                                			<div class="col-sm-9">
+	                                				<input type="text" class="form-control input-sm" id="updatedby" name="updatedby" readonly>
+	                                			</div>
+	                                		</div>
+	                                		<div class="form-group">
+	                                			<label for="" class="control-label col-sm-2">Updated Date</label>
+	                                			<div class="col-sm-9">
+	                                				<input type="text" class="form-control input-sm" value="{{date('Y-m-d')}}" data-date-format="yyyy-mm-dd" id="updateddate" name="updateddate">
+	                                				<input type="hidden" id="hd_status" name="hd_status">
+	                                				<input type="hidden" id="hd_id" name="hd_id">
+	                                				<input type="hidden" id="hd_qty" name="hd_qty">
+	                                			</div>
+	                                		</div>
+	                            		</div>
+	                                </form>
+	                            </div>
 
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-12">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						@include('includes.message-block')
-						<div class="portlet box blue" >
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-navicon"></i>  WBS
-								</div>
-							</div>
-							<div class="portlet-body">
-								<div class="row">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <div class="row">
-	                                        <form action="" class="form-horizontal">
-	                                        	<div class="col-md-6">
-	                                        		<div class="form-group">
-	                                        			<label for="" class="control-label col-sm-2">Item Code</label>
-	                                        			<div class="col-sm-9">
-	                                        				<input type="text" class="form-control input-sm clear" id="itemcode" name="itemcode">
-	                                        			</div>
-	                                        		</div>
-	                                        		<div class="form-group">
-	                                        			<label for="" class="control-label col-sm-2">Item Name</label>
-	                                        			<div class="col-sm-9">
-	                                        				<input type="text" class="form-control input-sm clear" id="itemname" name="itemname" readonly>
-	                                        			</div>
-	                                        		</div>
-	                                        		<div class="form-group">
-	                                        			<label for="" class="control-label col-sm-2">Lot No.</label>
-	                                        			<div class="col-sm-9">
-	                                        				<input type="text" class="form-control input-sm clear" id="lotno" name="lotno" readonly>
-	                                        			</div>
-	                                        		</div>
-	                                        		<div class="form-group">
-	                                        			<label for="" class="control-label col-sm-2">Lot Qty</label>
-	                                        			<div class="col-sm-9">
-	                                        				<input type="text" class="form-control input-sm clear" id="lotqty" name="lotqty">
-	                                        			</div>
-	                                        		</div>
-	                                        		<div class="form-group">
-	                                        			<label for="" class="control-label col-sm-2">Remarks</label>
-	                                        			<div class="col-sm-9">
-	                                        				<input type="text" class="form-control input-sm clear" id="disposition" name="disposition">
-	                                        			</div>
-	                                        		</div>
-	                                        	</div>
-                                        		<div class="col-md-6">
-                                        			<div class="form-group">
-	                                        			<label for="" class="control-label col-sm-2">Created By</label>
-	                                        			<div class="col-sm-9">
-	                                        				<input type="text" class="form-control input-sm" id="createdby" name="createdby" readonly>
-	                                        			</div>
-	                                        		</div>
-	                                        		<div class="form-group">
-	                                        			<label for="" class="control-label col-sm-2">Created Date</label>
-	                                        			<div class="col-sm-9">
-	                                        				<input type="text" class="form-control input-sm" value="{{date('Y-m-d')}}" data-date-format="yyyy-mm-dd" id="createddate" name="createddate">
-	                                        			</div>
-	                                        		</div>
-	                                        		<div class="form-group">
-	                                        			<label for="" class="control-label col-sm-2">Updated By</label>
-	                                        			<div class="col-sm-9">
-	                                        				<input type="text" class="form-control input-sm" id="updatedby" name="updatedby" readonly>
-	                                        			</div>
-	                                        		</div>
-	                                        		<div class="form-group">
-	                                        			<label for="" class="control-label col-sm-2">Updated Date</label>
-	                                        			<div class="col-sm-9">
-	                                        				<input type="text" class="form-control input-sm" value="{{date('Y-m-d')}}" data-date-format="yyyy-mm-dd" id="updateddate" name="updateddate">
-	                                        				<input type="hidden" id="hd_status" name="hd_status">
-	                                        				<input type="hidden" id="hd_id" name="hd_id">
-	                                        				<input type="hidden" id="hd_qty" name="hd_qty">
-	                                        			</div>
-	                                        		</div>
-                                        		</div>
-	                                        </form>
-                                        </div>
+	                            <div class="row">
+	                            	<div class="col-md-12">
+	                            		<div class="portlet box">
+	                            			<div class="portlet-body">
+	                            				<table class="table table-bordered table-hover table-striped table-responsive" id="itemtbl">
+	                                    			<thead>
+	                                    				<tr>
+	                                    					<td style="width: 8%;"></td>
+	                                    					<td>Item Code</td>
+	                                    					<td>Item Name</td>
+	                                    					<td>Qty</td>
+	                                    					<td>Lot No.</td>
+	                                    					<td>Expiration</td>
+	                                    					<td>Disposition</td>
+	                                    				</tr>
+	                                    			</thead>
+	                                    			<tbody id="tblfordisposition">
+	                                    				<!-- content here! -->
+	                                    			</tbody>
+	                                    		</table>
+	                            			</div>
+	                            		</div>
+	                            	</div>
+	                            </div>
 
-                                        <div class="row">
-                                        	<div class="col-md-12">
-                                        		<div class="portlet box">
-                                        			<div class="portlet-body">
-                                        				<table class="table table-bordered table-hover table-striped table-responsive" id="itemtbl">
-		                                        			<thead>
-		                                        				<tr>
-		                                        					<td style="width: 8%;"></td>
-		                                        					<td>Item Code</td>
-		                                        					<td>Item Name</td>
-		                                        					<td>Qty</td>
-		                                        					<td>Lot No.</td>
-		                                        					<td>Expiration</td>
-		                                        					<td>Disposition</td>
-		                                        				</tr>
-		                                        			</thead>
-		                                        			<tbody id="tblfordisposition">
-		                                        				<!-- content here! -->
-		                                        			</tbody>
-		                                        		</table>
-                                        			</div>
-                                        		</div>
-                                        	</div>
-                                        </div>
-
-                                        <div class="row">
-                                        	<div class="col-md-12 text-center">
-												<button type="button" onclick="javascript:save();" class="btn btn-sm green" id="btn_add">
-													<i class="fa fa-plus"></i> Add
-												</button>
-												<button type="button" class="btn btn-sm grey-gallery" id="btn_clear">
-													<i class="fa fa-eraser"></i> Clear
-												</button>
-												<button type="button" class="btn btn-sm red" id="btn_disregard">
-													<i class="fa fa-thumbs-o-down"></i> Disregard
-												</button>
-												<button type="button" class="btn btn-sm purple" id="btnexport_excel">
-													<i class="fa fa-print"></i> Export to Excel
-												</button>
-											</div>
-                                        </div>
-										
+	                            <div class="row">
+	                            	<div class="col-md-12 text-center">
+										<button type="button" onclick="javascript:save();" class="btn btn-sm green" id="btn_add">
+											<i class="fa fa-plus"></i> Add
+										</button>
+										<button type="button" class="btn btn-sm grey-gallery" id="btn_clear">
+											<i class="fa fa-eraser"></i> Clear
+										</button>
+										<button type="button" class="btn btn-sm red" id="btn_disregard">
+											<i class="fa fa-thumbs-o-down"></i> Disregard
+										</button>
+										<button type="button" class="btn btn-sm purple" id="btnexport_excel">
+											<i class="fa fa-print"></i> Export to Excel
+										</button>
 									</div>
-								</div>
-
+	                            </div>
+								
 							</div>
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
+
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
+
+
 
 	<!-- DELETE MESSAGE MODAL -->
     <div id="deleteBox" class="modal fade" role="dialog" data-backdrop="static">

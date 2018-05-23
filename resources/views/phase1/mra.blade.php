@@ -23,135 +23,120 @@
 			@endif
 		@endif
 	@endforeach
-
 	
-	
-	<div class="clearfix">
-	</div>
-
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
-				
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-12">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						<div class="portlet box blue">
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-bar-chart-o"></i> MATERIAL REQUIREMENTS ANALYSIS (MRA)
-								</div>
+	<div class="page-content">
+		
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-bar-chart-o"></i> MATERIAL REQUIREMENTS ANALYSIS (MRA)
+						</div>
+					</div>
+					<div class="portlet-body portlet-empty">
+						<dv class="row">
+							<div class="col-md-12">
+								<a href="javascript:;" class="btn green" id="btn_generate">Generate Material Requirements</a>
+								<span class="pull-right" style="color:#cb5a5e">Note: Data will load at least 3-10 minutes.</span >
 							</div>
-							<div class="portlet-body portlet-empty">
-								<dv class="row">
-									<div class="col-md-12">
-										<a href="javascript:;" class="btn green" id="btn_generate">Generate Material Requirements</a>
-										<span class="pull-right" style="color:#cb5a5e">Note: Data will load at least 3-10 minutes.</span >
-									</div>
-								</dv>
-								<br>
-								<div class="row">
-									<div class="col-md-12">
-										<div class="scroller" data-rail-visible="1" style="height: 500px">
-											<table class="table table-striped table-bordered table-hover order-column tbl_scroll" style="font-size: 11px"><!-- id="sample_3"  -->
-												<thead>
-													<tr>
-														<td>
-															ITEM CODE
-														</td>
-														<td width="20%">
-															ITEM NAME
-														</td>
-														<td>
-															BUNR
-														</td>
-														<td>
-															TOTAL REQUIRED
-														</td>
-														<td>
-															TOTAL COMPLETED
-														</td>
-														<td>
-															REQ TO COMPLETE
-														</td>
-														<td>
-															WHS100
-														</td>
-														<td>
-															WHS102
-														</td>
-														<td>
-															WHSNON
-														</td>
-														<td>
-															ASSY100
-														</td>
-														<td>
-															ASSY102
-														</td>
-														<td>
-															WHSSM
-														</td>
-														<td>
-															TOTAL ON HAND
-														</td>
-														<td>
-															ORDER BALANCE
-														</td>
-														<td>
-															FOR ORDERING
-														</td>
-														<td>
-															MAINBUMO
-														</td>
-													</tr>
-												</thead>
-												<tbody id="tblMra">
-													
-												</tbody>
-											</table>
+						</dv>
+						<br>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="scroller" data-rail-visible="1" style="height: 500px">
+									<table class="table table-striped table-bordered table-hover order-column tbl_scroll" style="font-size: 11px"><!-- id="sample_3"  -->
+										<thead>
+											<tr>
+												<td>
+													ITEM CODE
+												</td>
+												<td width="20%">
+													ITEM NAME
+												</td>
+												<td>
+													BUNR
+												</td>
+												<td>
+													TOTAL REQUIRED
+												</td>
+												<td>
+													TOTAL COMPLETED
+												</td>
+												<td>
+													REQ TO COMPLETE
+												</td>
+												<td>
+													WHS100
+												</td>
+												<td>
+													WHS102
+												</td>
+												<td>
+													WHSNON
+												</td>
+												<td>
+													ASSY100
+												</td>
+												<td>
+													ASSY102
+												</td>
+												<td>
+													WHSSM
+												</td>
+												<td>
+													TOTAL ON HAND
+												</td>
+												<td>
+													ORDER BALANCE
+												</td>
+												<td>
+													FOR ORDERING
+												</td>
+												<td>
+													MAINBUMO
+												</td>
+											</tr>
+										</thead>
+										<tbody id="tblMra">
 											
-											{{-- <div class="row" id="loading" style="display: none">
-												<div class="col-sm-6"></div>
-												<div class="col-sm-6">
-													<img src="{{ seet(Config::get('constants.PUBLIC_PATH').'assets/global/img/loading-spinner-blue.gif') }}" class="img-responsive">
-												</div>
-											</div> --}}
-
+										</tbody>
+									</table>
+									
+									{{-- <div class="row" id="loading" style="display: none">
+										<div class="col-sm-6"></div>
+										<div class="col-sm-6">
+											<img src="{{ seet(Config::get('constants.PUBLIC_PATH').'assets/global/img/loading-spinner-blue.gif') }}" class="img-responsive">
 										</div>
-										<span id="count"></span>
-									</div>
-								</div>
-								
-								<br/>
-								<div class="row">
-									<div class="col-md-12">
-										{{-- <form method="GET" action="{{ url('/mraPrint') }}"> --}}
-											<a href="{{ url('/mraPrint') }}" id="btn_excel" class="btn green input-sm pull-right">
-												<i class="fa fa-file-excel-o"></i> Export To Excel
-											</a>
-										{{-- </form> --}}
-										
-									</div>
-								</div>
+									</div> --}}
 
-
+								</div>
+								<span id="count"></span>
 							</div>
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
+						
+						<br/>
+						<div class="row">
+							<div class="col-md-12">
+								{{-- <form method="GET" action="{{ url('/mraPrint') }}"> --}}
+									<a href="{{ url('/mraPrint') }}" id="btn_excel" class="btn green input-sm pull-right">
+										<i class="fa fa-file-excel-o"></i> Export To Excel
+									</a>
+								{{-- </form> --}}
+								
+							</div>
+						</div>
+
+
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
 
 	<!--msg-->
     <div id="msg" class="modal fade" role="dialog" data-backdrop="static">

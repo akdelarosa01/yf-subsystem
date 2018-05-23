@@ -26,111 +26,99 @@
 
 @section('content')
 	@include('includes.header')
-		<?php $state = ""; $readonly = ""; ?>
-		@foreach ($userProgramAccess as $access)
-			@if ($access->program_code == Config::get('constants.MODULE_CODE_MRP'))
-				@if ($access->read_write == "2")
-					<?php $state = "disabled"; $readonly = "readonly"; ?>
-				@endif
+	<?php $state = ""; $readonly = ""; ?>
+	@foreach ($userProgramAccess as $access)
+		@if ($access->program_code == Config::get('constants.MODULE_CODE_MRP'))
+			@if ($access->read_write == "2")
+				<?php $state = "disabled"; $readonly = "readonly"; ?>
 			@endif
-		@endforeach	
-	
+		@endif
+	@endforeach
 
-	<div class="clearfix"></div>
-
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
-				
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-12">
-						@include('includes.message-block')
+		
+	<div class="page-content">
+		
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-12">
+				@include('includes.message-block')
 
 
-						<div class="portlet box blue">
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-calculator"></i> MRP CALCULATION
-								</div>
-							</div>
-							<div class="portlet-body">
-
-								<form method="POST" action="{{url('/mrpreadfiles')}}" class="form-horizontal form-bordered" enctype="multipart/form-data" onsubmit="showLoading()">
-									<input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
-									<div class="form-body">
-										<div class="form-group">
-											<label class="control-label col-md-4">Parts Answer Data(ZYPF0150):</label>
-											<div class="col-md-5">
-												<input type="file" class="filestyle" data-buttonName="btn-primary" name="partsdata">
-											</div>
-										</div>
-
-										<div class="form-group">
-											<label class="control-label col-md-4">PPS Answer Data:</label>
-											<div class="col-md-5">
-												<input type="file" class="filestyle" data-buttonName="btn-primary" name="ppsdata">
-											</div>
-										</div>
-
-										<div class="form-group">
-											<label class="control-label col-md-4">Invoice Data</label>
-											<div class="col-md-5">
-												<input type="file" class="filestyle" data-buttonName="btn-primary" name="invoicedata">
-											</div>
-										</div>
-
-										<div class="form-group">
-											<label class="control-label col-md-4 ">MRP Data Extract To:</label>
-											<div class="col-md-5">
-												<input type="text" class="form-control input-md" value="/var/www/html/pmi-subsystem/public/MRP_data_files_SSS/" disabled="disable"/>
-											</div>
-										</div>
-
-										<div class="form-group">
-											<div class="col-md-4"></div>
-											<div class="col-md-5">
-												<p>1. Set ZYPF0150 data.</p>
-												<p>2. Set PPS answer Data and YEC Invoice Data (Optional)</p>
-												<p>3. Click UPDATE.</p>
-											</div>
-										</div>
-
-										<div class="form-group">
-											<div class="col-md-4"></div>
-											<div class="col-md-5">
-												<p>* Invoice data is should be imported before calculation if invoice data is not loaded to YPICS.</p>
-												<p>* System is asking about data loading of PPS data and Invoice data during calculation</p>
-											</div>
-										</div>
-
-										<div class="form-group">
-											<div class="col-md-4"></div>
-											<div class="col-md-5">
-												<button type="submit" class="btn btn-success pull-right" <?php echo($state); ?> >
-													<i class="fa fa-edit"></i> Update
-												</button>
-											</div>
-										</div>
-
-									</div>
-								</form>
-								
-							</div>
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-calculator"></i> MRP CALCULATION
 						</div>
+					</div>
+					<div class="portlet-body">
+
+						<form method="POST" action="{{url('/mrpreadfiles')}}" class="form-horizontal form-bordered" enctype="multipart/form-data" onsubmit="showLoading()">
+							<input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+							<div class="form-body">
+								<div class="form-group">
+									<label class="control-label col-md-4">Parts Answer Data(ZYPF0150):</label>
+									<div class="col-md-5">
+										<input type="file" class="filestyle" data-buttonName="btn-primary" name="partsdata">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-md-4">PPS Answer Data:</label>
+									<div class="col-md-5">
+										<input type="file" class="filestyle" data-buttonName="btn-primary" name="ppsdata">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-md-4">Invoice Data</label>
+									<div class="col-md-5">
+										<input type="file" class="filestyle" data-buttonName="btn-primary" name="invoicedata">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-md-4 ">MRP Data Extract To:</label>
+									<div class="col-md-5">
+										<input type="text" class="form-control input-md" value="/var/www/html/pmi-subsystem/public/MRP_data_files_SSS/" disabled="disable"/>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-md-4"></div>
+									<div class="col-md-5">
+										<p>1. Set ZYPF0150 data.</p>
+										<p>2. Set PPS answer Data and YEC Invoice Data (Optional)</p>
+										<p>3. Click UPDATE.</p>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-md-4"></div>
+									<div class="col-md-5">
+										<p>* Invoice data is should be imported before calculation if invoice data is not loaded to YPICS.</p>
+										<p>* System is asking about data loading of PPS data and Invoice data during calculation</p>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-md-4"></div>
+									<div class="col-md-5">
+										<button type="submit" class="btn btn-success pull-right" <?php echo($state); ?> >
+											<i class="fa fa-edit"></i> Update
+										</button>
+									</div>
+								</div>
+
+							</div>
+						</form>
 						
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+				
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
 
 	<!-- AJAX LOADER -->
 	<div id="loading" class="modal fade" role="dialog" data-backdrop="static">

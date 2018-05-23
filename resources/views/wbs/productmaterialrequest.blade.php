@@ -56,358 +56,348 @@
 		@endif
 	@endforeach
 
+	
+	<div class="page-content">
 
-	<div class="clearfix"></div>
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				@include('includes.message-block')
+				<div class="portlet box blue" >
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-navicon"></i>  WBS Production Material Request
+						</div>
+					</div>
+					<div class="portlet-body">
 
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
+						<div class="row">
 
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-12">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						@include('includes.message-block')
-						<div class="portlet box blue" >
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-navicon"></i>  WBS Production Material Request
-								</div>
-							</div>
-							<div class="portlet-body">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="tabbable-custom">
+                                    <ul class="nav nav-tabs nav-tabs-lg" id="tabslist" role="tablist">
+                                    	<li class="active" id="requesttab">
+                                            <a href="#request" data-toggle="tab" aria-expanded="true" >Request Form</a>
+                                        </li>
+                                        <li class="" id="issuancetab">
+                                            <a href="#issuancesummary" data-toggle="tab" aria-expanded="true" id="issuancetabtoggle">Issuance Summary</a>
+                                        </li>
 
-								<div class="row">
+                                    </ul>
 
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<div class="tabbable-custom">
-                                            <ul class="nav nav-tabs nav-tabs-lg" id="tabslist" role="tablist">
-                                            	<li class="active" id="requesttab">
-                                                    <a href="#request" data-toggle="tab" aria-expanded="true" >Request Form</a>
-                                                </li>
-                                                <li class="" id="issuancetab">
-                                                    <a href="#issuancesummary" data-toggle="tab" aria-expanded="true" id="issuancetabtoggle">Issuance Summary</a>
-                                                </li>
+                                    <div class="tab-content" id="tab-subcontents">
+                                    	<div class="tab-pane fade in active" id="request">
+                                    		<div class="row">
+	                                    		 <form method="POST" action="{{url('/requestsummaryfrm')}}" class="form-horizontal" id="requestsummaryfrm">
+													 {{ csrf_field() }}
+	                                    			 <div class="col-md-5">
+	                                    				 <div class="form-group row">
+	                                    					 <label class="control-label col-md-3">Request No.</label>
+	                                    					 <div class="col-md-9">
+	                                                            @if(isset($pmr_data))
+	                                                            @foreach($pmr_data as $pmrdata)
+	                                                            @endforeach
+	                                                            @endif
 
-                                            </ul>
+	                                                            <div class="input-group">
+					                                                <input type="hidden" class="form-control input-sm" id="recid" name="recid" value="<?php if(isset($pmrdata)){echo $pmrdata->id; } ?>" />
+		                                                            <input type="hidden" class="form-control input-sm" id="action" name="action" value="<?php if(isset($action)){echo $action; } ?>" />
+		                                                            <input type="hidden" class="form-control input-sm" id="hdnreqnopmr" name="hdnreqnopmr" value="<?php if(isset($pmrdata)){echo $pmrdata->transno; } ?>" />
+		                                    						<input type="text" class="form-control input-sm" id="reqnopmr" name="reqnopmr" value="<?php if(isset($pmrdata)){echo $pmrdata->transno; } ?>" <?php if($action!='VIEW'){ echo "disabled"; } ?>>
 
-                                            <div class="tab-content" id="tab-subcontents">
-                                            	<div class="tab-pane fade in active" id="request">
-                                            		<div class="row">
-			                                    		 <form method="POST" action="{{url('/requestsummaryfrm')}}" class="form-horizontal" id="requestsummaryfrm">
-															 {{ csrf_field() }}
-			                                    			 <div class="col-md-5">
-			                                    				 <div class="form-group row">
-			                                    					 <label class="control-label col-md-3">Request No.</label>
-			                                    					 <div class="col-md-9">
-			                                                            @if(isset($pmr_data))
-			                                                            @foreach($pmr_data as $pmrdata)
-			                                                            @endforeach
-			                                                            @endif
+					                                                <span class="input-group-btn">
+											   					 		<button type="button" style="font-size:12px" onclick="javascript: getrecord('MIN'); " id="btn_min" class="btn blue input-sm" <?php if(isset($pmrdata)){if($pmrdata->id == 1){ echo 'disabled';} } ?> <?php if($action!='VIEW'){ echo "disabled"; } ?>><i class="fa fa-fast-backward"></i></button>
+		                                                                <button type="button" style="font-size:12px" onclick="javascript: getrecord('PRV'); " id="btn_prv" class="btn blue input-sm" <?php if(isset($pmrdata)){if($pmrdata->id == 1){ echo 'disabled';} } ?> <?php if($action!='VIEW'){ echo "disabled"; } ?>><i class="fa fa-backward"></i></button>
+		                                                                <button type="button" style="font-size:12px" onclick="javascript: getrecord('NXT'); " id="btn_nxt" class="btn blue input-sm" <?php if(isset($ismax)){if($ismax){ echo 'disabled';} } ?> <?php if($action!='VIEW'){ echo "disabled"; } ?>><i class="fa fa-forward"></i></button>
+		                                                                <button type="button" style="font-size:12px" onclick="javascript: getrecord('MAX'); " id="btn_max" class="btn blue input-sm" <?php if(isset($ismax)){if($ismax){ echo 'disabled';} } ?> <?php if($action!='VIEW'){ echo "disabled"; } ?>><i class="fa fa-fast-forward"></i></button>
+					                                                </span>
+					                                            </div>
+	                                                            
+	                                    					 </div>
+	                                    				 </div>
+	                                    				 <div class="form-group row">
+	                                    					 <label class="control-label col-md-3">PO No.</label>
+	                                    					 <div class="col-md-7">
+	                                    					 	<div class="input-group">
+					                                                <input type="text" class="form-control input-sm" id="ponopmr" name="ponopmr" disabled="true" value="<?php if(isset($pmrdata)){echo $pmrdata->pono; } ?>" maxlength="15">
 
-			                                                            <div class="input-group">
-							                                                <input type="hidden" class="form-control input-sm" id="recid" name="recid" value="<?php if(isset($pmrdata)){echo $pmrdata->id; } ?>" />
-				                                                            <input type="hidden" class="form-control input-sm" id="action" name="action" value="<?php if(isset($action)){echo $action; } ?>" />
-				                                                            <input type="hidden" class="form-control input-sm" id="hdnreqnopmr" name="hdnreqnopmr" value="<?php if(isset($pmrdata)){echo $pmrdata->transno; } ?>" />
-				                                    						<input type="text" class="form-control input-sm" id="reqnopmr" name="reqnopmr" value="<?php if(isset($pmrdata)){echo $pmrdata->transno; } ?>" <?php if($action!='VIEW'){ echo "disabled"; } ?>>
+					                                                <span class="input-group-btn">
+					                                                    <button type="button" onclick="javascript: searchPo()" class="btn green input-sm" id="btn_ponopmr" <?php if($action=='VIEW'){ echo 'disabled'; } ?> ><i class="fa fa-arrow-circle-down"></i></button>
+					                                                </span>
+					                                            </div>
 
-							                                                <span class="input-group-btn">
-													   					 		<button type="button" style="font-size:12px" onclick="javascript: getrecord('MIN'); " id="btn_min" class="btn blue input-sm" <?php if(isset($pmrdata)){if($pmrdata->id == 1){ echo 'disabled';} } ?> <?php if($action!='VIEW'){ echo "disabled"; } ?>><i class="fa fa-fast-backward"></i></button>
-				                                                                <button type="button" style="font-size:12px" onclick="javascript: getrecord('PRV'); " id="btn_prv" class="btn blue input-sm" <?php if(isset($pmrdata)){if($pmrdata->id == 1){ echo 'disabled';} } ?> <?php if($action!='VIEW'){ echo "disabled"; } ?>><i class="fa fa-backward"></i></button>
-				                                                                <button type="button" style="font-size:12px" onclick="javascript: getrecord('NXT'); " id="btn_nxt" class="btn blue input-sm" <?php if(isset($ismax)){if($ismax){ echo 'disabled';} } ?> <?php if($action!='VIEW'){ echo "disabled"; } ?>><i class="fa fa-forward"></i></button>
-				                                                                <button type="button" style="font-size:12px" onclick="javascript: getrecord('MAX'); " id="btn_max" class="btn blue input-sm" <?php if(isset($ismax)){if($ismax){ echo 'disabled';} } ?> <?php if($action!='VIEW'){ echo "disabled"; } ?>><i class="fa fa-fast-forward"></i></button>
-							                                                </span>
-							                                            </div>
-			                                                            
-			                                    					 </div>
-			                                    				 </div>
-			                                    				 <div class="form-group row">
-			                                    					 <label class="control-label col-md-3">PO No.</label>
-			                                    					 <div class="col-md-7">
-			                                    					 	<div class="input-group">
-							                                                <input type="text" class="form-control input-sm" id="ponopmr" name="ponopmr" disabled="true" value="<?php if(isset($pmrdata)){echo $pmrdata->pono; } ?>" maxlength="15">
+	                                    					 </div>
+	                                    				 </div>
+	                                    				 <div class="form-group row">
+	                                    					 <label class="control-label col-md-3">Product Destination</label>
+	                                    					 <div class="col-md-5">
+	                                                             <select class="form-control input-sm" id="prodes" name="prodes" disabled="true">
+	                                                                 <option value="-1" selected></option>
+																	 @foreach($prod as $prd)
+																	 	<option value="{{$prd->description}}" <?php if(isset($pmrdata)){ if($pmrdata->destination == $prd->description) { echo 'selected'; }} ?> >{{$prd->description}}</option>
+																	 @endforeach
+	                                                             </select>
+	                                                            <input type="hidden" class="form-control input-sm" id="selectedprodes" name="selectedprodes" value="<?php if(isset($pmrdata)){echo $pmrdata->destination; } ?>"/>
+	                                    					 </div>
+	                                    				 </div>
+	                                    				 <div class="form-group row">
+	                                    					 <label class="control-label col-md-3">Line Destination</label>
+	                                    					 <div class="col-md-5">
+	                                                             <select class="form-control input-sm" id="linedes" name="linedes" disabled="true">
+	                                                                 <option value="-1" selected></option>
+																	 @foreach($line as $ln)
+																	 	<option value="{{$ln->description}}" <?php if(isset($pmrdata)){ if($pmrdata->line == $ln->description) { echo 'selected'; }} ?> >{{$ln->description}}</option>
+																	 @endforeach
+	                                                             </select>
+	                                                            <input type="hidden" class="form-control input-sm" id="selectedlinedes" name="selectedlinedes" value="<?php if(isset($pmrdata)){echo $pmrdata->line; } ?>"/>
+	                                    					 </div>
+	                                    				 </div>
+	                                    			 </div>
 
-							                                                <span class="input-group-btn">
-							                                                    <button type="button" onclick="javascript: searchPo()" class="btn green input-sm" id="btn_ponopmr" <?php if($action=='VIEW'){ echo 'disabled'; } ?> ><i class="fa fa-arrow-circle-down"></i></button>
-							                                                </span>
-							                                            </div>
+	                                    			 <div class="col-md-3">
+	                                    				 <div class="form-group row">
+	                                    					 <label class="control-label col-md-4">Status</label>
+	                                    					 <div class="col-md-8">
+	                                    						 <input type="text" class="form-control input-sm" id="statuspmr" name="statuspmr" disabled="true" value="<?php if(isset($pmrdata)){echo $pmrdata->status; } ?>">
+	                                    					 </div>
+	                                    				 </div>
+	                                    				 <div class="form-group row">
+	                                    					 <label class="control-label col-md-4">Remarks</label>
+	                                    					 <div class="col-md-8">
+	                                    						 <textarea class="form-control input-sm" style="resize:none;" id="remarks" disabled="true"></textarea>
+	                                    					 </div>
+	                                    				 </div>
+	                                    			 </div>
 
-			                                    					 </div>
-			                                    				 </div>
-			                                    				 <div class="form-group row">
-			                                    					 <label class="control-label col-md-3">Product Destination</label>
-			                                    					 <div class="col-md-5">
-			                                                             <select class="form-control input-sm" id="prodes" name="prodes" disabled="true">
-			                                                                 <option value="-1" selected></option>
-																			 @foreach($prod as $prd)
-																			 	<option value="{{$prd->description}}" <?php if(isset($pmrdata)){ if($pmrdata->destination == $prd->description) { echo 'selected'; }} ?> >{{$prd->description}}</option>
-																			 @endforeach
-			                                                             </select>
-			                                                            <input type="hidden" class="form-control input-sm" id="selectedprodes" name="selectedprodes" value="<?php if(isset($pmrdata)){echo $pmrdata->destination; } ?>"/>
-			                                    					 </div>
-			                                    				 </div>
-			                                    				 <div class="form-group row">
-			                                    					 <label class="control-label col-md-3">Line Destination</label>
-			                                    					 <div class="col-md-5">
-			                                                             <select class="form-control input-sm" id="linedes" name="linedes" disabled="true">
-			                                                                 <option value="-1" selected></option>
-																			 @foreach($line as $ln)
-																			 	<option value="{{$ln->description}}" <?php if(isset($pmrdata)){ if($pmrdata->line == $ln->description) { echo 'selected'; }} ?> >{{$ln->description}}</option>
-																			 @endforeach
-			                                                             </select>
-			                                                            <input type="hidden" class="form-control input-sm" id="selectedlinedes" name="selectedlinedes" value="<?php if(isset($pmrdata)){echo $pmrdata->line; } ?>"/>
-			                                    					 </div>
-			                                    				 </div>
-			                                    			 </div>
-
-			                                    			 <div class="col-md-3">
-			                                    				 <div class="form-group row">
-			                                    					 <label class="control-label col-md-4">Status</label>
-			                                    					 <div class="col-md-8">
-			                                    						 <input type="text" class="form-control input-sm" id="statuspmr" name="statuspmr" disabled="true" value="<?php if(isset($pmrdata)){echo $pmrdata->status; } ?>">
-			                                    					 </div>
-			                                    				 </div>
-			                                    				 <div class="form-group row">
-			                                    					 <label class="control-label col-md-4">Remarks</label>
-			                                    					 <div class="col-md-8">
-			                                    						 <textarea class="form-control input-sm" style="resize:none;" id="remarks" disabled="true"></textarea>
-			                                    					 </div>
-			                                    				 </div>
-			                                    			 </div>
-
-			                                    			 <div class="col-md-4">
-			                                    				 <div class="form-group row">
-			                                    					 <label class="control-label col-md-4">Created By</label>
-			                                    					 <div class="col-md-8">
-			                                    						 <input type="text" class="form-control input-sm" id="createdbypmr" name="createdbypmr" disabled="true" value="<?php if(isset($pmrdata)){echo $pmrdata->createdby; } ?>">
-			                                    					 </div>
-			                                    				 </div>
-			                                    				 <div class="form-group row">
-			                                    					 <label class="control-label col-md-4">Created Date</label>
-			                                    					 <div class="col-md-8">
-			                                    						 <input class="form-control input-sm date-picker" size="16" type="text" name="createddatepmr" id="createddatepmr" disabled="true" value="<?php if(isset($pmrdata)){echo $pmrdata->created_at; } ?>"/>
-			                                    					 </div>
-			                                    				 </div>
-			                                    				 <div class="form-group row">
-			                                    					 <label class="control-label col-md-4">Updated By</label>
-			                                    					 <div class="col-md-8">
-			                                    						 <input type="text" class="form-control input-sm" id="updatedbypmr" name="updatedbypmr" disabled="true" value="<?php if(isset($pmrdata)){echo $pmrdata->updatedby; } ?>">
-			                                    					 </div>
-			                                    				 </div>
-			                                    				 <div class="form-group row">
-			                                    					 <label class="control-label col-md-4">Updated Date</label>
-			                                    					 <div class="col-md-8">
-			                                    						 <input class="form-control input-sm date-picker" size="16" type="text" name="updateddatepmr" id="updateddatepmr" disabled="true" value="<?php if(isset($pmrdata)){echo $pmrdata->updated_at; } ?>"/>
-			                                    					 </div>
-			                                    				 </div>
-			                                    			 </div>
-															 <span id="inputs1">
-			                                                    @if(isset($pmr_details_data))
-			                                                    <?php $cnt=1;?>
-			                                                    @foreach($pmr_details_data as $pmr_b_data)
-			                                                    <div id="inputData<?php echo $cnt;?>">
-			                                                        <input type="hidden" name="editDetailid[]" class="form-control input-sm" id="detailid<?php echo $cnt;?>" value="{{ $pmr_b_data->id }}">
-			                                                        <input type="hidden" name="editcode[]" class="form-control input-sm" id="code<?php echo $cnt;?>" value="{{ $pmr_b_data->code }}">
-			                                                        <input type="hidden" name="editdesc[]" class="form-control input-sm" id="name<?php echo $cnt;?>" value="{{ $pmr_b_data->name }}">
-			                                                        <input type="hidden" name="editIssuedqty[]" class="form-control input-sm" id="issuedqty<?php echo $cnt;?>" value="{{ $pmr_b_data->issuedqty }}">
-			                                                        <input type="hidden" name="editclassification[]" class="form-control input-sm" id="classival<?php echo $cnt;?>" value="{{ $pmr_b_data->classification }}">
-			                                                        <input type="hidden" name="editRequestqty[]" class="form-control input-sm" id="reqqtyval<?php echo $cnt;?>" required value="{{ $pmr_b_data->requestqty }}">
-			                                                        <input type="hidden" name="editLocation[]" class="form-control input-sm" id="locval<?php echo $cnt;?>"  value="{{ $pmr_b_data->location }}">
-			                                                        <input type="hidden" name="editRemarks[]" class="form-control input-sm" id="rmrks<?php echo $cnt;?>" value="{{ $pmr_b_data->remarks }}">
-			                                                        <input type="hidden" name="editRequestedby[]" class="form-control input-sm" id="reqbyval<?php echo $cnt;?>"  value="{{ $pmr_b_data->requestedby }}">
-			                                                    </div>
-			                                                    <?php $cnt++;?>
-			                                                    @endforeach
-			                                                    @endif
-			                                                 </span>
-														</form>
-			                                    	</div>
+	                                    			 <div class="col-md-4">
+	                                    				 <div class="form-group row">
+	                                    					 <label class="control-label col-md-4">Created By</label>
+	                                    					 <div class="col-md-8">
+	                                    						 <input type="text" class="form-control input-sm" id="createdbypmr" name="createdbypmr" disabled="true" value="<?php if(isset($pmrdata)){echo $pmrdata->createdby; } ?>">
+	                                    					 </div>
+	                                    				 </div>
+	                                    				 <div class="form-group row">
+	                                    					 <label class="control-label col-md-4">Created Date</label>
+	                                    					 <div class="col-md-8">
+	                                    						 <input class="form-control input-sm date-picker" size="16" type="text" name="createddatepmr" id="createddatepmr" disabled="true" value="<?php if(isset($pmrdata)){echo $pmrdata->created_at; } ?>"/>
+	                                    					 </div>
+	                                    				 </div>
+	                                    				 <div class="form-group row">
+	                                    					 <label class="control-label col-md-4">Updated By</label>
+	                                    					 <div class="col-md-8">
+	                                    						 <input type="text" class="form-control input-sm" id="updatedbypmr" name="updatedbypmr" disabled="true" value="<?php if(isset($pmrdata)){echo $pmrdata->updatedby; } ?>">
+	                                    					 </div>
+	                                    				 </div>
+	                                    				 <div class="form-group row">
+	                                    					 <label class="control-label col-md-4">Updated Date</label>
+	                                    					 <div class="col-md-8">
+	                                    						 <input class="form-control input-sm date-picker" size="16" type="text" name="updateddatepmr" id="updateddatepmr" disabled="true" value="<?php if(isset($pmrdata)){echo $pmrdata->updated_at; } ?>"/>
+	                                    					 </div>
+	                                    				 </div>
+	                                    			 </div>
+													 <span id="inputs1">
+	                                                    @if(isset($pmr_details_data))
+	                                                    <?php $cnt=1;?>
+	                                                    @foreach($pmr_details_data as $pmr_b_data)
+	                                                    <div id="inputData<?php echo $cnt;?>">
+	                                                        <input type="hidden" name="editDetailid[]" class="form-control input-sm" id="detailid<?php echo $cnt;?>" value="{{ $pmr_b_data->id }}">
+	                                                        <input type="hidden" name="editcode[]" class="form-control input-sm" id="code<?php echo $cnt;?>" value="{{ $pmr_b_data->code }}">
+	                                                        <input type="hidden" name="editdesc[]" class="form-control input-sm" id="name<?php echo $cnt;?>" value="{{ $pmr_b_data->name }}">
+	                                                        <input type="hidden" name="editIssuedqty[]" class="form-control input-sm" id="issuedqty<?php echo $cnt;?>" value="{{ $pmr_b_data->issuedqty }}">
+	                                                        <input type="hidden" name="editclassification[]" class="form-control input-sm" id="classival<?php echo $cnt;?>" value="{{ $pmr_b_data->classification }}">
+	                                                        <input type="hidden" name="editRequestqty[]" class="form-control input-sm" id="reqqtyval<?php echo $cnt;?>" required value="{{ $pmr_b_data->requestqty }}">
+	                                                        <input type="hidden" name="editLocation[]" class="form-control input-sm" id="locval<?php echo $cnt;?>"  value="{{ $pmr_b_data->location }}">
+	                                                        <input type="hidden" name="editRemarks[]" class="form-control input-sm" id="rmrks<?php echo $cnt;?>" value="{{ $pmr_b_data->remarks }}">
+	                                                        <input type="hidden" name="editRequestedby[]" class="form-control input-sm" id="reqbyval<?php echo $cnt;?>"  value="{{ $pmr_b_data->requestedby }}">
+	                                                    </div>
+	                                                    <?php $cnt++;?>
+	                                                    @endforeach
+	                                                    @endif
+	                                                 </span>
+												</form>
+	                                    	</div>
 
 
-			                                    	<div class="row">
-			                                    		 <div class="col-md-12">
-															 <div class="portlet box" >
-									 							<div class="portlet-body">
+	                                    	<div class="row">
+	                                    		 <div class="col-md-12">
+													 <div class="portlet box" >
+							 							<div class="portlet-body">
 
-																	<div class="row">
-																		<div class="col-md-12">
+															<div class="row">
+																<div class="col-md-12">
 
-																			<div class="scroller" style="height:300px">
+																	<div class="scroller" style="height:300px">
 
-																					<table class="table table-striped table-bordered table-hover table-responsive" style="font-size:10px" id="tblAllDetails">
-									                                    				 <thead>
-									                                    					<tr>
-									                                    						<td class="text-center" colspan="14">Details</td>
-									                                    					</tr>
-									                                    					<tr>
-									                                    						<td></td>
-									                                    						<td></td>
-									                                    						<td>Detail ID</td>
-									                                    						<td>Item/Part No.</td>
-									                                    						<td>Item Description</td>
-									                                    						<td>Classification</td>
-									                                    						<td>Issued Qty.(Kitting)</td>
-									                                    						<td>Request Qty.</td>
-									                                    						<td>Served Qty.</td>
-									                                    						<td style="display:none">Location</td>
-									                                    						<td>Lot No.</td>
-									                                    						<td>Requested By</td>
-									                                    						<td>Last Served By</td>
-									                                    						<td>Last Served Date</td>
-									                                    						<td>Remarks</td>
-									                                    					</tr>
-									                                    				</thead>
-									                                    				<tbody id="tbldetail">
-			                                                                                @if(isset($pmr_details_data))
-			                                                                                <?php $cnt=1;?>
-			                                                                                @foreach($pmr_details_data as $pmr_b_data)
-			                                                                                <tr id="datas<?php echo $cnt;?>" class="datas">
-			                                                                                    <td style="width:10px">
-			                                                                                        <Input type="checkbox" class="checkboxes detailcheck" name="detailid[]" id="check<?php echo $cnt;?>" data-inpt="inputData<?php echo $cnt;?>" data-tr="datas<?php echo $cnt;?>" value="<?php echo $pmr_b_data->id;?>">
-			                                                                                    </td>
-			                                                                                    <td style="width:10px">
-			                                                                                        <a href="javascript:;" id="editmodal<?php echo $cnt;?>" class="btn btn-sm btn-success btn-block editmodal"
-			                                                                                         data-cnt="<?php echo $cnt;?>" data-id="<?php echo $pmr_b_data->id;?>" data-code="<?php echo $pmr_b_data->code;?>" data-name="<?php echo $pmr_b_data->name;?>" data-issuedqty="<?php echo $pmr_b_data->issuedqty;?>" data-locval="<?php echo $pmr_b_data->location;?>" data-cassival="<?php echo $pmr_b_data->classification;?>" data-reqqty="<?php echo $pmr_b_data->requestqty;?>" data-rmrks="<?php echo $pmr_b_data->remarks;?>" data-reqby="{{ $pmr_b_data->requestedby }}">
-			                                                                                        <i class="fa fa-edit"></i>
-			                                                                                        </a>
-			                                                                                    </td>
-			                                                                                    <td class="detailidtd" name="detailidtd" id="detailidtd<?php echo $cnt;?>">{{ $pmr_b_data->id }}</td>
-			                                                                                    <td class="codetd" name="codetd" id="codetd<?php echo $cnt;?>">{{ $pmr_b_data->code }}</td>
-			                                                                                    <td class="nametd" name="nametd" id="nametd<?php echo $cnt;?>">{{ $pmr_b_data->name }}</td>
-			                                                                                    <td class="classsificationtd" name="classsificationtd" id="classsificationtd<?php echo $cnt;?>">{{ $pmr_b_data->classification }}</td>
-			                                                                                    <td class="issuedqtytd" name="issuedqtytd" id="issuedqtytd<?php echo $cnt;?>">{{ $pmr_b_data->issuedqty }}</td>
-			                                                                                    <td class="requestqtytd" name="requestqtytd" id="requestqtytd<?php echo $cnt;?>">{{ $pmr_b_data->requestqty }}</td>
-			                                                                                    <td class="servedqtytd" name="servedqtytd" id="servedqtytd<?php echo $cnt;?>">{{ $pmr_b_data->servedqty }}</td>
-			                                                                                    <td class="locationtd" style="display:none" name="locationtd" id="locationtd<?php echo $cnt;?>">{{ $pmr_b_data->location }}</td>
-			                                                                                    <td class="lotnotd" name="lotnotd" id="lotnotd<?php echo $cnt;?>">{{ $pmr_b_data->lot_no }}</td>
-			                                                                                    <td class="requestedbytd" name="requestedbytd" id="requestedbytd<?php echo $cnt;?>">{{ $pmr_b_data->requestedby }}</td>
-			                                                                                    <td class="lastservedbytd" name="lastservedbytd" id="lastservedbytd<?php echo $cnt;?>">{{ $pmr_b_data->last_served_by }}</td>
-			                                                                                    <td class="lastserveddatetd" name="lastserveddatetd" id="lastserveddatetd<?php echo $cnt;?>">{{ $pmr_b_data->last_served_date }}</td>
-			                                                                                    <td class="itemremarkstd" name="itemremarkstd" id="itemremarkstd<?php echo $cnt;?>">{{ $pmr_b_data->remarks }}</td>
-			                                                                                </tr>
-			                                                                                <?php $cnt++;?>
-			                                                                                @endforeach
-			                                                                                @endif
-									                                    				</tbody>
-									                                    			</table>
+																			<table class="table table-striped table-bordered table-hover table-responsive" style="font-size:10px" id="tblAllDetails">
+							                                    				 <thead>
+							                                    					<tr>
+							                                    						<td class="text-center" colspan="14">Details</td>
+							                                    					</tr>
+							                                    					<tr>
+							                                    						<td></td>
+							                                    						<td></td>
+							                                    						<td>Detail ID</td>
+							                                    						<td>Item/Part No.</td>
+							                                    						<td>Item Description</td>
+							                                    						<td>Classification</td>
+							                                    						<td>Issued Qty.(Kitting)</td>
+							                                    						<td>Request Qty.</td>
+							                                    						<td>Served Qty.</td>
+							                                    						<td style="display:none">Location</td>
+							                                    						<td>Lot No.</td>
+							                                    						<td>Requested By</td>
+							                                    						<td>Last Served By</td>
+							                                    						<td>Last Served Date</td>
+							                                    						<td>Remarks</td>
+							                                    					</tr>
+							                                    				</thead>
+							                                    				<tbody id="tbldetail">
+	                                                                                @if(isset($pmr_details_data))
+	                                                                                <?php $cnt=1;?>
+	                                                                                @foreach($pmr_details_data as $pmr_b_data)
+	                                                                                <tr id="datas<?php echo $cnt;?>" class="datas">
+	                                                                                    <td style="width:10px">
+	                                                                                        <Input type="checkbox" class="checkboxes detailcheck" name="detailid[]" id="check<?php echo $cnt;?>" data-inpt="inputData<?php echo $cnt;?>" data-tr="datas<?php echo $cnt;?>" value="<?php echo $pmr_b_data->id;?>">
+	                                                                                    </td>
+	                                                                                    <td style="width:10px">
+	                                                                                        <a href="javascript:;" id="editmodal<?php echo $cnt;?>" class="btn btn-sm btn-success btn-block editmodal"
+	                                                                                         data-cnt="<?php echo $cnt;?>" data-id="<?php echo $pmr_b_data->id;?>" data-code="<?php echo $pmr_b_data->code;?>" data-name="<?php echo $pmr_b_data->name;?>" data-issuedqty="<?php echo $pmr_b_data->issuedqty;?>" data-locval="<?php echo $pmr_b_data->location;?>" data-cassival="<?php echo $pmr_b_data->classification;?>" data-reqqty="<?php echo $pmr_b_data->requestqty;?>" data-rmrks="<?php echo $pmr_b_data->remarks;?>" data-reqby="{{ $pmr_b_data->requestedby }}">
+	                                                                                        <i class="fa fa-edit"></i>
+	                                                                                        </a>
+	                                                                                    </td>
+	                                                                                    <td class="detailidtd" name="detailidtd" id="detailidtd<?php echo $cnt;?>">{{ $pmr_b_data->id }}</td>
+	                                                                                    <td class="codetd" name="codetd" id="codetd<?php echo $cnt;?>">{{ $pmr_b_data->code }}</td>
+	                                                                                    <td class="nametd" name="nametd" id="nametd<?php echo $cnt;?>">{{ $pmr_b_data->name }}</td>
+	                                                                                    <td class="classsificationtd" name="classsificationtd" id="classsificationtd<?php echo $cnt;?>">{{ $pmr_b_data->classification }}</td>
+	                                                                                    <td class="issuedqtytd" name="issuedqtytd" id="issuedqtytd<?php echo $cnt;?>">{{ $pmr_b_data->issuedqty }}</td>
+	                                                                                    <td class="requestqtytd" name="requestqtytd" id="requestqtytd<?php echo $cnt;?>">{{ $pmr_b_data->requestqty }}</td>
+	                                                                                    <td class="servedqtytd" name="servedqtytd" id="servedqtytd<?php echo $cnt;?>">{{ $pmr_b_data->servedqty }}</td>
+	                                                                                    <td class="locationtd" style="display:none" name="locationtd" id="locationtd<?php echo $cnt;?>">{{ $pmr_b_data->location }}</td>
+	                                                                                    <td class="lotnotd" name="lotnotd" id="lotnotd<?php echo $cnt;?>">{{ $pmr_b_data->lot_no }}</td>
+	                                                                                    <td class="requestedbytd" name="requestedbytd" id="requestedbytd<?php echo $cnt;?>">{{ $pmr_b_data->requestedby }}</td>
+	                                                                                    <td class="lastservedbytd" name="lastservedbytd" id="lastservedbytd<?php echo $cnt;?>">{{ $pmr_b_data->last_served_by }}</td>
+	                                                                                    <td class="lastserveddatetd" name="lastserveddatetd" id="lastserveddatetd<?php echo $cnt;?>">{{ $pmr_b_data->last_served_date }}</td>
+	                                                                                    <td class="itemremarkstd" name="itemremarkstd" id="itemremarkstd<?php echo $cnt;?>">{{ $pmr_b_data->remarks }}</td>
+	                                                                                </tr>
+	                                                                                <?php $cnt++;?>
+	                                                                                @endforeach
+	                                                                                @endif
+							                                    				</tbody>
+							                                    			</table>
 
-																			</div>
-
-																		</div>
-																	</div>
-
-																	<div class="row">
-																		<div class="col-md-7 col-md-offset-5">
-																			<a href="javascript:;"  style="font-size:12px; <?php if($action!='ADD'){ echo 'display:none;'; } ?>" id="btnAddDetails" class="btn btn-success btn-sm btnDetails" disabled><i class="fa fa-plus"></i> Add</a>
-																			<a href="javascript:;"  style="font-size:12px; <?php if($action!='ADD'){ echo 'display:none;'; } ?>" id="btnDeleteDetails" class="btn btn-danger btn-sm btnDetails" disabled><i class="fa fa-trash"></i> Delete</a>
-																		</div>
 																	</div>
 
 																</div>
 															</div>
 
-			                                    		</div>
-			                                    	</div>
+															<div class="row">
+																<div class="col-md-7 col-md-offset-5">
+																	<a href="javascript:;"  style="font-size:12px; <?php if($action!='ADD'){ echo 'display:none;'; } ?>" id="btnAddDetails" class="btn btn-success btn-sm btnDetails" disabled><i class="fa fa-plus"></i> Add</a>
+																	<a href="javascript:;"  style="font-size:12px; <?php if($action!='ADD'){ echo 'display:none;'; } ?>" id="btnDeleteDetails" class="btn btn-danger btn-sm btnDetails" disabled><i class="fa fa-trash"></i> Delete</a>
+																</div>
+															</div>
+
+														</div>
+													</div>
+
+	                                    		</div>
+	                                    	</div>
 
 
-			                                    	<div class="row">
-			                                            <div class="col-md-12 text-center">
-			                                                <button type="button" style="font-size:12px; <?php if($action!='VIEW'){ echo 'display:none;'; } ?>" class="btn green input-sm" id="addpmr" <?php echo($state); ?> >
-			                                                <i class="fa fa-plus"></i> Add New
-			                                                </button>
-			                                              <button type="button" style="font-size:12px; <?php if($action=='VIEW'){ echo 'display:none;'; } ?>" class="btn blue-madison input-sm" id="savepmr" <?php echo($state); ?> >
-			                                                <i class="fa fa-pencil"></i> Save
-			                                              </button>
-			                                              <button type="button" style="font-size:12px; <?php if(isset($prdata)){ if($prdata->status == 'Cancelled') { echo 'display:none;'; } } ?>  <?php if($action!='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: setcontrol('EDIT'); " class="btn blue-madison input-sm" id="editpmr" <?php echo($state); ?> >
-			                                                <i class="fa fa-pencil"></i> Edit
-			                                              </button>
-			                                              <button type="button" style="font-size:12px; <?php if(isset($prdata)){ if($prdata->status == 'Cancelled') { echo 'display:none;'; } } ?> <?php if($action!='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: setcontrol('CNL'); " class="btn red input-sm" id="cancelpmr" <?php echo($state); ?> >
-			                                                <i class="fa fa-trash"></i> Cancel
-			                                              </button>
-			                                              <button type="button" style="font-size:12px; <?php if($action=='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: setcontrol('DIS'); " class="btn red-intense input-sm" id="discardpmr" <?php echo($state); ?> >
-			                                                <i class="fa fa-times"></i> Discard Changes
-			                                              </button>
-			                                              <button type="button" style="font-size:12px; <?php if($action!='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: searchData();" class="btn blue-steel input-sm" id="searchpmr" >
-			                                                <i class="fa fa-search"></i> Search
-			                                              </button>
-			                                              {{--  --}}
-			                                            </div>
-			                                    	</div>
-                                                </div>
-                                                <div class="tab-pane fade in " id="issuancesummary">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="table-responsive">
-                                                                <table class="table table-bordered table-fixedheader table-striped" style="font-size:10px">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <td style="width:6%;"></td>
-                                                                            <td style="width:11%;">Transaction No.</td>
-                                                                            <td style="width:10%;">Date Created</td>
-                                                                            <td style="width:11%;">PO No.</td>
-                                                                            <td style="width:11%;">Destination</td>
-                                                                            <td style="width:10%;">Line</td>
-                                                                            <td style="width:10%;">Status</td>
-                                                                            <td style="width:10%;">Requested By</td>
-                                                                            <td style="width:10%;">Last Served By</td>
-                                                                            <td style="width:11%;">Last Served Date</td>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody id="tblSummary" style="font-size:10px">
+	                                    	<div class="row">
+	                                            <div class="col-md-12 text-center">
+	                                                <button type="button" style="font-size:12px; <?php if($action!='VIEW'){ echo 'display:none;'; } ?>" class="btn green input-sm" id="addpmr" <?php echo($state); ?> >
+	                                                <i class="fa fa-plus"></i> Add New
+	                                                </button>
+	                                              <button type="button" style="font-size:12px; <?php if($action=='VIEW'){ echo 'display:none;'; } ?>" class="btn blue-madison input-sm" id="savepmr" <?php echo($state); ?> >
+	                                                <i class="fa fa-pencil"></i> Save
+	                                              </button>
+	                                              <button type="button" style="font-size:12px; <?php if(isset($prdata)){ if($prdata->status == 'Cancelled') { echo 'display:none;'; } } ?>  <?php if($action!='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: setcontrol('EDIT'); " class="btn blue-madison input-sm" id="editpmr" <?php echo($state); ?> >
+	                                                <i class="fa fa-pencil"></i> Edit
+	                                              </button>
+	                                              <button type="button" style="font-size:12px; <?php if(isset($prdata)){ if($prdata->status == 'Cancelled') { echo 'display:none;'; } } ?> <?php if($action!='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: setcontrol('CNL'); " class="btn red input-sm" id="cancelpmr" <?php echo($state); ?> >
+	                                                <i class="fa fa-trash"></i> Cancel
+	                                              </button>
+	                                              <button type="button" style="font-size:12px; <?php if($action=='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: setcontrol('DIS'); " class="btn red-intense input-sm" id="discardpmr" <?php echo($state); ?> >
+	                                                <i class="fa fa-times"></i> Discard Changes
+	                                              </button>
+	                                              <button type="button" style="font-size:12px; <?php if($action!='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: searchData();" class="btn blue-steel input-sm" id="searchpmr" >
+	                                                <i class="fa fa-search"></i> Search
+	                                              </button>
+	                                              {{--  --}}
+	                                            </div>
+	                                    	</div>
+                                        </div>
+                                        <div class="tab-pane fade in " id="issuancesummary">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered table-fixedheader table-striped" style="font-size:10px">
+                                                            <thead>
+                                                                <tr>
+                                                                    <td style="width:6%;"></td>
+                                                                    <td style="width:11%;">Transaction No.</td>
+                                                                    <td style="width:10%;">Date Created</td>
+                                                                    <td style="width:11%;">PO No.</td>
+                                                                    <td style="width:11%;">Destination</td>
+                                                                    <td style="width:10%;">Line</td>
+                                                                    <td style="width:10%;">Status</td>
+                                                                    <td style="width:10%;">Requested By</td>
+                                                                    <td style="width:10%;">Last Served By</td>
+                                                                    <td style="width:11%;">Last Served Date</td>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="tblSummary" style="font-size:10px">
 
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
-
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="table-responsive">
-                                                                <table class="table table-bordered table-fixedheader table-striped" style="font-size:10px">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <td style="width:6.1%;">Detail ID</td>
-                                                                            <td style="width:11.1%;">Item/Part No.</td>
-                                                                            <td style="width:16.1%;">Item Description</td>
-																			<td style="width:11.1%;">Classification</td>
-                                                                            <td style="width:11.1%;">Issued Qty.(Kitting)</td>
-                                                                            <td style="width:11.1%;">Request Qty.</td>
-                                                                            <td style="width:11.1%;">Served Qty.</td>
-                                                                            <td style="width:11.1%;">Served Date</td>
-                                                                            <td style="width:11.1%;">Acknowledge By</td>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody id="tblViewDetail" style="font-size:10px">
-
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
                                                 </div>
                                             </div>
-                                        </div>
-									</div>
-								</div>
 
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered table-fixedheader table-striped" style="font-size:10px">
+                                                            <thead>
+                                                                <tr>
+                                                                    <td style="width:6.1%;">Detail ID</td>
+                                                                    <td style="width:11.1%;">Item/Part No.</td>
+                                                                    <td style="width:16.1%;">Item Description</td>
+																	<td style="width:11.1%;">Classification</td>
+                                                                    <td style="width:11.1%;">Issued Qty.(Kitting)</td>
+                                                                    <td style="width:11.1%;">Request Qty.</td>
+                                                                    <td style="width:11.1%;">Served Qty.</td>
+                                                                    <td style="width:11.1%;">Served Date</td>
+                                                                    <td style="width:11.1%;">Acknowledge By</td>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="tblViewDetail" style="font-size:10px">
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
 							</div>
 						</div>
 
-						<input type="hidden" name="checkacknowledge" id="checkacknowledge">
-						<!-- END EXAMPLE TABLE PORTLET-->
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+
+				<input type="hidden" name="checkacknowledge" id="checkacknowledge">
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
+
+
 	@include('includes.productrequest-modal')
 @endsection
 

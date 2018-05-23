@@ -79,286 +79,244 @@
 	@endforeach
 
 
-	<div class="clearfix"></div>
+	
+	<div class="page-content">
 
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				@include('includes.message-block')
 
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-12">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						@include('includes.message-block')
+				<input type="text" name="barcodeInput" id="barcodeInput">
 
-						<input type="text" name="barcodeInput" id="barcodeInput">
-
-						<div class="portlet box blue" >
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-navicon"></i>  WBS Physical Inventory
-								</div>
-							</div>
-							<div class="portlet-body">
+				<div class="portlet box blue" >
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-navicon"></i>  WBS Physical Inventory
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<div class="row">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<div class="row">
 
-											<form>
+									<form>
 
-												<div class="col-md-4">
-													<div class="form-group row">
-														<label class="control-label col-md-3 input-sm">Inventory No.</label>
-														<div class="col-md-9">
-															@if(isset($pi_data))
-															@foreach($pi_data as $prdata)
-															@endforeach
-															@endif
+										<div class="col-md-4">
+											<div class="form-group row">
+												<label class="control-label col-md-3 input-sm">Inventory No.</label>
+												<div class="col-md-9">
+													@if(isset($pi_data))
+													@foreach($pi_data as $prdata)
+													@endforeach
+													@endif
 
-															<div class="input-group">
-				                                                <input type="hidden" class="form-control input-sm" id="recid" name="recid" value="<?php if(isset($prdata)){echo $prdata->id; } ?>" />
-																<input type="hidden" class="form-control input-sm" id="action" name="action" value="<?php if(isset($action)){echo $action; } ?>" />
-																<input type="hidden" class="form-control input-sm" id="hdninventoryno" name="hdninventoryno" value="<?php if(isset($prdata)){echo $prdata->inventory_no; } ?>" />
-																<input type="hidden" class="form-control input-sm" id="hdnlocation" name="hdnlocation" value="<?php if(isset($prdata)){echo $prdata->location; } ?>" />
-																<input type="hidden" class="form-control input-sm" id="batchUpdateflag" name="batchUpdateflag" value="<?php if(isset($batchUpdateFlag)){echo $batchUpdateFlag; } ?>" />
-																<input type="text" class="form-control input-sm" id="inventoryno" name="inventoryno" value="<?php if(isset($prdata)){echo $prdata->inventory_no; } ?>" <?php if($action!='VIEW'){ echo "disabled"; } ?>>
+													<div class="input-group">
+		                                                <input type="hidden" class="form-control input-sm" id="recid" name="recid" value="<?php if(isset($prdata)){echo $prdata->id; } ?>" />
+														<input type="hidden" class="form-control input-sm" id="action" name="action" value="<?php if(isset($action)){echo $action; } ?>" />
+														<input type="hidden" class="form-control input-sm" id="hdninventoryno" name="hdninventoryno" value="<?php if(isset($prdata)){echo $prdata->inventory_no; } ?>" />
+														<input type="hidden" class="form-control input-sm" id="hdnlocation" name="hdnlocation" value="<?php if(isset($prdata)){echo $prdata->location; } ?>" />
+														<input type="hidden" class="form-control input-sm" id="batchUpdateflag" name="batchUpdateflag" value="<?php if(isset($batchUpdateFlag)){echo $batchUpdateFlag; } ?>" />
+														<input type="text" class="form-control input-sm" id="inventoryno" name="inventoryno" value="<?php if(isset($prdata)){echo $prdata->inventory_no; } ?>" <?php if($action!='VIEW'){ echo "disabled"; } ?>>
 
-				                                                <span class="input-group-btn">
-										   					 		<button type="button" style="font-size:12px" onclick="javascript: getrecord('MIN'); " id="btn_min" class="btn blue input-sm" <?php if(isset($prdata)){if($prdata->id == 1){ echo 'disabled';} } ?> <?php if($action!='VIEW'){ echo "disabled"; } ?>><i class="fa fa-fast-backward"></i></button>
-																	<button type="button" style="font-size:12px" onclick="javascript: getrecord('PRV'); " id="btn_prv" class="btn blue input-sm" <?php if(isset($prdata)){if($prdata->id == 1){ echo 'disabled';} } ?> <?php if($action!='VIEW'){ echo "disabled"; } ?>><i class="fa fa-backward"></i></button>
-																	<button type="button" style="font-size:12px" onclick="javascript: getrecord('NXT'); " id="btn_nxt" class="btn blue input-sm" <?php if(isset($ismax)){if($ismax){ echo 'disabled';} } ?> <?php if($action!='VIEW'){ echo "disabled"; } ?>><i class="fa fa-forward"></i></button>
-																	<button type="button" style="font-size:12px" onclick="javascript: getrecord('MAX'); " id="btn_max" class="btn blue input-sm" <?php if(isset($ismax)){if($ismax){ echo 'disabled';} } ?> <?php if($action!='VIEW'){ echo "disabled"; } ?>><i class="fa fa-fast-forward"></i></button>
-				                                                </span>
-				                                            </div>
-															
-														</div>
-													</div>
-
-													<div class="form-group row">
-														<label class="control-label col-md-3 input-sm">Location</label>
-														<div class="col-md-7">
-
-															<div class="input-group">
-				                                                <input type="text" class="form-control input-sm" id="location" name="location" value="<?php if(isset($prdata)){echo $prdata->location; } ?>" <?php if($action=='VIEW'){ echo 'disabled'; } ?> >
-
-				                                                <span class="input-group-btn">
-										   					 		<button type="submit" class="btn green input-sm" id="btn_location" <?php if($action=='VIEW'){ echo 'disabled'; } ?> ><i class="fa fa-arrow-circle-down"></i></button>
-				                                                </span>
-				                                            </div>
-															
-														</div>
-														<div class="col-md-5">
-															
-														</div>
-													</div>
-													<div class="form-group row">
-														<label class="control-label col-md-3 input-sm">Inventory Date</label>
-														<div class="col-md-3" style="padding-right: 0px;">
-															<input class="form-control date-picker input-sm" size="16" type="text" id="inventorydate" disabled="disabled" readonly="true" value="<?php if(isset($prdata)){echo $prdata->inventory_date; } ?>"  <?php echo($state); ?>>
-														</div>
-														<div class="col-md-3" style="padding-left: 0px;">
-															<input id="inventorytime" name="inventorytime" class="form-control timepicker timepicker-no-seconds input-sm" disabled="disabled" readonly="true" size="16" type="text" value="<?php if(isset($prdata)){echo $prdata->inventory_time; } ?>" <?php echo($state); ?> >
-														</div>
-													</div>
-													<div class="form-group row">
-														<label class="control-label col-md-3 input-sm">Actual Date</label>
-														<div class="col-md-3" style="padding-right: 0px;">
-															<input class="form-control date-picker input-sm" size="16" type="text" id="actualdate" disabled="disabled" readonly="true" value="<?php if(isset($prdata)){echo $prdata->actual_date; } ?>"<?php if($action=='VIEW'){ echo 'disabled'; } ?>  <?php echo($state); ?>>
-														</div>
-														<div class="col-md-3" style="padding-left: 0px;">
-															<input id="actualtime" name="actualtime" class="form-control timepicker timepicker-no-seconds input-sm" disabled="disabled" readonly="true" size="16" type="text" value="<?php if(isset($prdata)){echo $prdata->actual_time; } ?>" <?php if($action=='VIEW'){ echo 'disabled'; } ?> <?php echo($state); ?> >
-														</div>
-														<div class="col-md-6">
-															<!-- <input class="form-control date-picker input-sm" size="16" type="text" id="actualdate" value="<?php if(isset($prdata)){echo $prdata->actual_date; } ?>"> -->
-														</div>
-													</div>
+		                                                <span class="input-group-btn">
+								   					 		<button type="button" style="font-size:12px" onclick="javascript: getrecord('MIN'); " id="btn_min" class="btn blue input-sm" <?php if(isset($prdata)){if($prdata->id == 1){ echo 'disabled';} } ?> <?php if($action!='VIEW'){ echo "disabled"; } ?>><i class="fa fa-fast-backward"></i></button>
+															<button type="button" style="font-size:12px" onclick="javascript: getrecord('PRV'); " id="btn_prv" class="btn blue input-sm" <?php if(isset($prdata)){if($prdata->id == 1){ echo 'disabled';} } ?> <?php if($action!='VIEW'){ echo "disabled"; } ?>><i class="fa fa-backward"></i></button>
+															<button type="button" style="font-size:12px" onclick="javascript: getrecord('NXT'); " id="btn_nxt" class="btn blue input-sm" <?php if(isset($ismax)){if($ismax){ echo 'disabled';} } ?> <?php if($action!='VIEW'){ echo "disabled"; } ?>><i class="fa fa-forward"></i></button>
+															<button type="button" style="font-size:12px" onclick="javascript: getrecord('MAX'); " id="btn_max" class="btn blue input-sm" <?php if(isset($ismax)){if($ismax){ echo 'disabled';} } ?> <?php if($action!='VIEW'){ echo "disabled"; } ?>><i class="fa fa-fast-forward"></i></button>
+		                                                </span>
+		                                            </div>
+													
 												</div>
+											</div>
 
-												<div class="col-md-4">
-													<div class="form-group row">
-														<label class="control-label col-md-3 input-sm">Counted By</label>
-														<div class="col-md-6">
-															<input type="text" class="form-control input-sm" id="countedby" name="countedby" value="<?php if(isset($prdata)){echo $prdata->counted_by; } ?>"<?php if($action=='VIEW'){ echo 'disabled'; } ?>>
-														</div>
-													</div>
-													<div class="form-group row">
-														<label class="control-label col-md-3 input-sm">Remarks</label>
-														<div class="col-md-6">
-															<textarea class="form-control input-sm" style="resize:none;" id="remarks" name="remarks" <?php if($action=='VIEW'){ echo 'disabled'; } ?> ><?php if(isset($prdata)){echo $prdata->remarks; } ?></textarea>
-														</div>
-													</div>
-													<div class="form-group row">
-														<label class="control-label col-md-3 input-sm">Status</label>
-														<div class="col-md-6">
-															<input type="text" class="form-control input-sm" id="status" name="status" disabled="disable">
-														</div>
-													</div>
+											<div class="form-group row">
+												<label class="control-label col-md-3 input-sm">Location</label>
+												<div class="col-md-7">
+
+													<div class="input-group">
+		                                                <input type="text" class="form-control input-sm" id="location" name="location" value="<?php if(isset($prdata)){echo $prdata->location; } ?>" <?php if($action=='VIEW'){ echo 'disabled'; } ?> >
+
+		                                                <span class="input-group-btn">
+								   					 		<button type="submit" class="btn green input-sm" id="btn_location" <?php if($action=='VIEW'){ echo 'disabled'; } ?> ><i class="fa fa-arrow-circle-down"></i></button>
+		                                                </span>
+		                                            </div>
+													
 												</div>
-
-												<div class="col-md-4">
-													<div class="form-group row">
-														<label class="control-label col-md-3 input-sm">Created By</label>
-														<div class="col-md-6">
-															<input type="text" class="form-control input-sm" id="createdbyph" name="createdbyph" disabled="disable" value="<?php if(isset($prdata)){echo $prdata->create_user; } ?>">
-														</div>
-													</div>
-													<div class="form-group row">
-														<label class="control-label col-md-3 input-sm">Created Date.</label>
-														<div class="col-md-6">
-         													<input class="form-control date-picker input-sm" size="50" type="text" name="createddate" id="createddate" value="<?php if(isset($prdata)){echo $prdata->created_at; } ?>" disabled="disable"/>
-														</div>
-													</div>
-													<div class="form-group row">
-														<label class="control-label col-md-3 input-sm">Updated By</label>
-														<div class="col-md-6">
-															<input type="text" class="form-control input-sm" id="updatedbyph" name="updatedbyph" disabled="disable" value="<?php if(isset($prdata)){echo $prdata->update_user; } ?>">
-														</div>
-													</div>
-													<div class="form-group row">
-														<label class="control-label col-md-3 input-sm">Updated Date</label>
-														<div class="col-md-6">
-     														<input class="form-control date-picker input-sm" size="50" type="text" name="updateddate" id="updateddate" value="<?php if(isset($prdata)){echo $prdata->updated_at; } ?>" disabled="disable"/>
-														</div>
-													</div>
+												<div class="col-md-5">
+													
 												</div>
-
-											</form>
-										</div>
-
-										<div class="row">
-											<div class="col-md-12">
-												<div class="portlet box">
-													<div class="portlet-body">
-														<div class="row">
-															<div class="col-sm-12 table-responsive">
-
-																<div class="table-responsive">
-																	<table class="table table-bordered table-fixedheader table-striped" id="tbl_batch" style="font-size:10px">
-																		<thead>
-																			<tr>
-																				<td style="width:5.14%"></td>
-																				<td style="width:5.14%">Detail ID</td>
-																				<td style="width:7.14%">Item/Part No.</td>
-																				<td style="width:11.14%">Item Description</td>
-																				<td style="width:7.14%">Location</td>
-																				<td style="width:7.14%">WHS100</td>
-																				<td style="width:7.14%">WHS102</td>
-																				<td style="width:7.14%">WHSNON</td>
-																				<td style="width:7.14%">WHSSM</td>
-																				<td style="width:7.14%">WHSNG</td>
-																				<td style="width:7.14%">Inventory Qty</td>
-																				<td style="width:7.14%">Actual Qty</td>
-																				<td style="width:7.14%">Variance</td>
-																				<td style="width:7.14%">Remarks</td>
-																			</tr>
-																		</thead>
-																		<tbody id="table_body" >
-	   																		<?php $ctr = 1; ?>
-	   																		<?php $var = 0; ?>
-	   																		<?php $act = 0; ?>
-	   																		<?php $cnt = 1; ?>
-																		     @if(isset($pi_batch_data))
-																		     @foreach($pi_batch_data as $piddata)
-																			<tr id="tr_batch_item{{$cnt}}">
-																				<td style="width:5.14%; padding-bottom: 0px;padding-top: 2px;padding-left: 4px;padding-right: 0px;">
-																					<a href="#" class="btn btn-primary input-sm" onclick="editBatch({{$cnt}})" id="editDetails">
-																						<i class="fa fa-edit"></i>
-																					</a>
-																				</td>
-																				<td style="width:5.14%" class="batch_item{{ $cnt }} inputBatchId" name="inputId">
-																					{{ $cnt }}
-																				</td>
-																				<td style="width:7.14%" class="batch_item{{ $cnt }} inputItemNo" name="inputItemNo">
-																					{{ $piddata->item }}
-																				</td>
-																				<td style="width:11.14%" class="batch_item{{ $cnt }} inputItem" name="inputItem">
-																					{{ $piddata->description }}
-																				</td>
-																				<td style="width:7.14%" class="batch_item{{ $cnt }} inputLocation" name="inputLocation">
-																					{{ $piddata->location }}
-																				</td>
-																				<td class="batch_item{{ $cnt }} inputwhs100" name="inputWhs100" style="width:7.14%;text-align: right;">
-																					{{ $piddata->whs100 }}
-																				</td>
-																				<td class="batch_item{{ $cnt }} inputwhs102" name="inputWhs102" style="width:7.14%;text-align: right;">
-																					{{ $piddata->whs102 }}
-																				</td>
-																				<td class="batch_item{{ $cnt }} inputwhsnon" name="inputWhsnon" style="width:7.14%;text-align: right;">
-																					{{ $piddata->whsnon }}
-																				</td>
-																				<td class="batch_item{{ $cnt }} inputwhssm" name="inputWhssm" style="width:7.14%;text-align: right;">
-																					{{ $piddata->whssm }}
-																				</td>
-																				<td class="batch_item{{ $cnt }} inputwhsng" name="inputWhsng" style="width:7.14%;text-align: right;">
-																					{{ $piddata->whsng }}
-																				</td>
-																				<td class="batch_item{{ $cnt }} inputInventoryQty" name="inputInventoryQty" style="width:7.14%;text-align: right;">
-																					{{ $piddata->inventory_qty }}
-																				</td>
-																				<td class="batch_item{{ $cnt }} inputActualQty" name="inputActualQty" style="width:7.14%;text-align: right;">
-																					{{ $piddata->actual_qty }}
-																				</td>
-																				<td class="batch_item{{ $cnt }} inputVariance" name="inputVariance" style="width:7.14%;text-align: right;">
-																					{{ $piddata->variance }}
-																				</td>
-																				<td style="width:7.14%" class="batch_item{{ $cnt }} inputRemarks" name="inputRemarks">
-																					{{ $piddata->remarks }}
-																				</td>
-																			</tr>
-																				<?php $var = $var + $piddata->variance; ?>
-																				<?php $act = $act + $piddata->actual_qty; ?>
-																				<?php $cnt++; ?>
-																		    @endforeach
-																		    @endif
-																		</tbody>
-																	</table>
-																</div>
-
-																<input type="hidden" name="total_act" id="total_act" value="{{ $act }}">
-																<input type="hidden" name="total_var" id="total_var" value="{{ $var }}">
-																
-															</div>
-														</div>
-
-													</div>
+											</div>
+											<div class="form-group row">
+												<label class="control-label col-md-3 input-sm">Inventory Date</label>
+												<div class="col-md-3" style="padding-right: 0px;">
+													<input class="form-control date-picker input-sm" size="16" type="text" id="inventorydate" disabled="disabled" readonly="true" value="<?php if(isset($prdata)){echo $prdata->inventory_date; } ?>"  <?php echo($state); ?>>
 												</div>
-
+												<div class="col-md-3" style="padding-left: 0px;">
+													<input id="inventorytime" name="inventorytime" class="form-control timepicker timepicker-no-seconds input-sm" disabled="disabled" readonly="true" size="16" type="text" value="<?php if(isset($prdata)){echo $prdata->inventory_time; } ?>" <?php echo($state); ?> >
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="control-label col-md-3 input-sm">Actual Date</label>
+												<div class="col-md-3" style="padding-right: 0px;">
+													<input class="form-control date-picker input-sm" size="16" type="text" id="actualdate" disabled="disabled" readonly="true" value="<?php if(isset($prdata)){echo $prdata->actual_date; } ?>"<?php if($action=='VIEW'){ echo 'disabled'; } ?>  <?php echo($state); ?>>
+												</div>
+												<div class="col-md-3" style="padding-left: 0px;">
+													<input id="actualtime" name="actualtime" class="form-control timepicker timepicker-no-seconds input-sm" disabled="disabled" readonly="true" size="16" type="text" value="<?php if(isset($prdata)){echo $prdata->actual_time; } ?>" <?php if($action=='VIEW'){ echo 'disabled'; } ?> <?php echo($state); ?> >
+												</div>
+												<div class="col-md-6">
+													<!-- <input class="form-control date-picker input-sm" size="16" type="text" id="actualdate" value="<?php if(isset($prdata)){echo $prdata->actual_date; } ?>"> -->
+												</div>
 											</div>
 										</div>
 
+										<div class="col-md-4">
+											<div class="form-group row">
+												<label class="control-label col-md-3 input-sm">Counted By</label>
+												<div class="col-md-6">
+													<input type="text" class="form-control input-sm" id="countedby" name="countedby" value="<?php if(isset($prdata)){echo $prdata->counted_by; } ?>"<?php if($action=='VIEW'){ echo 'disabled'; } ?>>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="control-label col-md-3 input-sm">Remarks</label>
+												<div class="col-md-6">
+													<textarea class="form-control input-sm" style="resize:none;" id="remarks" name="remarks" <?php if($action=='VIEW'){ echo 'disabled'; } ?> ><?php if(isset($prdata)){echo $prdata->remarks; } ?></textarea>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="control-label col-md-3 input-sm">Status</label>
+												<div class="col-md-6">
+													<input type="text" class="form-control input-sm" id="status" name="status" disabled="disable">
+												</div>
+											</div>
+										</div>
 
+										<div class="col-md-4">
+											<div class="form-group row">
+												<label class="control-label col-md-3 input-sm">Created By</label>
+												<div class="col-md-6">
+													<input type="text" class="form-control input-sm" id="createdbyph" name="createdbyph" disabled="disable" value="<?php if(isset($prdata)){echo $prdata->create_user; } ?>">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="control-label col-md-3 input-sm">Created Date.</label>
+												<div class="col-md-6">
+ 													<input class="form-control date-picker input-sm" size="50" type="text" name="createddate" id="createddate" value="<?php if(isset($prdata)){echo $prdata->created_at; } ?>" disabled="disable"/>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="control-label col-md-3 input-sm">Updated By</label>
+												<div class="col-md-6">
+													<input type="text" class="form-control input-sm" id="updatedbyph" name="updatedbyph" disabled="disable" value="<?php if(isset($prdata)){echo $prdata->update_user; } ?>">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="control-label col-md-3 input-sm">Updated Date</label>
+												<div class="col-md-6">
+														<input class="form-control date-picker input-sm" size="50" type="text" name="updateddate" id="updateddate" value="<?php if(isset($prdata)){echo $prdata->updated_at; } ?>" disabled="disable"/>
+												</div>
+											</div>
+										</div>
 
-										<div class="row">
-											<div class="col-md-12 text-center">
-											    <button type="button" style="font-size:12px; <?php if($action!='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: setcontrol('ADD'); " class="btn green input-sm" id="btn_add" <?php echo($state); ?> >
-											    <i class="fa fa-plus"></i> Add New
-											    </button>
-											  <button type="button" style="font-size:12px; <?php if($action=='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: saverecord(); " class="btn blue-madison input-sm" id="btn_save" <?php echo($state); ?> >
-											    <i class="fa fa-pencil"></i> Save
-											  </button>
-											  <button type="button" style="font-size:12px; <?php if(isset($prdata)){ if($prdata->status == 'Cancelled') { echo 'display:none;'; } } ?>  <?php if($action!='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: setcontrol('EDIT'); " class="btn blue-madison input-sm" id="btn_edit" <?php echo($state); ?> >
-											    <i class="fa fa-pencil"></i> Edit
-											  </button>
-											  <button type="button" style="font-size:12px; <?php if(isset($prdata)){ if($prdata->status == 'Cancelled') { echo 'display:none;'; } } ?> <?php if($action!='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: setcontrol('CNL'); " class="btn red input-sm" id="btn_cancel" <?php echo($state); ?> >
-											    <i class="fa fa-trash"></i> Cancel
-											  </button>
-											  <button type="button" style="font-size:12px; <?php if($action=='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: setcontrol('DIS'); " class="btn red-intense input-sm" id="btn_discard" <?php echo($state); ?> >
-											    <i class="fa fa-times"></i> Discard Changes
-											  </button>
-											  <button type="button" style="font-size:12px; <?php if($action!='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: searchData();" class="btn blue-steel input-sm" id="btn_search" >
-											    <i class="fa fa-search"></i> Search
-											  </button>
-											  <button type="submit" style="font-size:12px; <?php if(isset($prdata)){ if($prdata->status == 'Cancelled') { echo 'display:none;'; } } ?><?php if($action!='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: generatePiReport();" class="btn purple-plum input-sm" id="btn_print" <?php echo($state); ?>  <?php echo($state); ?>>
-											    <i class="fa fa-file-pdf-o"></i> Export to Pdf
-											  </button>
-											  <button type="button" onclick="javascript:generatePiExcelReport();" id="btn_report_excel" class="btn yellow-gold input-sm" >
-											  	<i class="fa fa-file-excel-o"></i> Export to Excel
-											  </button> 
-											  {{-- <a href="javascript:;" class="btn btn-sm btn-warning" id="inspect">Inspect</a> --}}
-											  <input type="hidden" name="brsense" id="brsense">
+									</form>
+								</div>
+
+								<div class="row">
+									<div class="col-md-12">
+										<div class="portlet box">
+											<div class="portlet-body">
+												<div class="row">
+													<div class="col-sm-12 table-responsive">
+
+														<div class="table-responsive">
+															<table class="table table-bordered table-fixedheader table-striped" id="tbl_batch" style="font-size:10px">
+																<thead>
+																	<tr>
+																		<td style="width:5.14%"></td>
+																		<td style="width:5.14%">Detail ID</td>
+																		<td style="width:7.14%">Item/Part No.</td>
+																		<td style="width:11.14%">Item Description</td>
+																		<td style="width:7.14%">Location</td>
+																		<td style="width:7.14%">WHS100</td>
+																		<td style="width:7.14%">WHS102</td>
+																		<td style="width:7.14%">WHSNON</td>
+																		<td style="width:7.14%">WHSSM</td>
+																		<td style="width:7.14%">WHSNG</td>
+																		<td style="width:7.14%">Inventory Qty</td>
+																		<td style="width:7.14%">Actual Qty</td>
+																		<td style="width:7.14%">Variance</td>
+																		<td style="width:7.14%">Remarks</td>
+																	</tr>
+																</thead>
+																<tbody id="table_body" >
+																		<?php $ctr = 1; ?>
+																		<?php $var = 0; ?>
+																		<?php $act = 0; ?>
+																		<?php $cnt = 1; ?>
+																     @if(isset($pi_batch_data))
+																     @foreach($pi_batch_data as $piddata)
+																	<tr id="tr_batch_item{{$cnt}}">
+																		<td style="width:5.14%; padding-bottom: 0px;padding-top: 2px;padding-left: 4px;padding-right: 0px;">
+																			<a href="#" class="btn btn-primary input-sm" onclick="editBatch({{$cnt}})" id="editDetails">
+																				<i class="fa fa-edit"></i>
+																			</a>
+																		</td>
+																		<td style="width:5.14%" class="batch_item{{ $cnt }} inputBatchId" name="inputId">
+																			{{ $cnt }}
+																		</td>
+																		<td style="width:7.14%" class="batch_item{{ $cnt }} inputItemNo" name="inputItemNo">
+																			{{ $piddata->item }}
+																		</td>
+																		<td style="width:11.14%" class="batch_item{{ $cnt }} inputItem" name="inputItem">
+																			{{ $piddata->description }}
+																		</td>
+																		<td style="width:7.14%" class="batch_item{{ $cnt }} inputLocation" name="inputLocation">
+																			{{ $piddata->location }}
+																		</td>
+																		<td class="batch_item{{ $cnt }} inputwhs100" name="inputWhs100" style="width:7.14%;text-align: right;">
+																			{{ $piddata->whs100 }}
+																		</td>
+																		<td class="batch_item{{ $cnt }} inputwhs102" name="inputWhs102" style="width:7.14%;text-align: right;">
+																			{{ $piddata->whs102 }}
+																		</td>
+																		<td class="batch_item{{ $cnt }} inputwhsnon" name="inputWhsnon" style="width:7.14%;text-align: right;">
+																			{{ $piddata->whsnon }}
+																		</td>
+																		<td class="batch_item{{ $cnt }} inputwhssm" name="inputWhssm" style="width:7.14%;text-align: right;">
+																			{{ $piddata->whssm }}
+																		</td>
+																		<td class="batch_item{{ $cnt }} inputwhsng" name="inputWhsng" style="width:7.14%;text-align: right;">
+																			{{ $piddata->whsng }}
+																		</td>
+																		<td class="batch_item{{ $cnt }} inputInventoryQty" name="inputInventoryQty" style="width:7.14%;text-align: right;">
+																			{{ $piddata->inventory_qty }}
+																		</td>
+																		<td class="batch_item{{ $cnt }} inputActualQty" name="inputActualQty" style="width:7.14%;text-align: right;">
+																			{{ $piddata->actual_qty }}
+																		</td>
+																		<td class="batch_item{{ $cnt }} inputVariance" name="inputVariance" style="width:7.14%;text-align: right;">
+																			{{ $piddata->variance }}
+																		</td>
+																		<td style="width:7.14%" class="batch_item{{ $cnt }} inputRemarks" name="inputRemarks">
+																			{{ $piddata->remarks }}
+																		</td>
+																	</tr>
+																		<?php $var = $var + $piddata->variance; ?>
+																		<?php $act = $act + $piddata->actual_qty; ?>
+																		<?php $cnt++; ?>
+																    @endforeach
+																    @endif
+																</tbody>
+															</table>
+														</div>
+
+														<input type="hidden" name="total_act" id="total_act" value="{{ $act }}">
+														<input type="hidden" name="total_var" id="total_var" value="{{ $var }}">
+														
+													</div>
+												</div>
+
 											</div>
 										</div>
 
@@ -367,18 +325,51 @@
 
 
 
+								<div class="row">
+									<div class="col-md-12 text-center">
+									    <button type="button" style="font-size:12px; <?php if($action!='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: setcontrol('ADD'); " class="btn green input-sm" id="btn_add" <?php echo($state); ?> >
+									    <i class="fa fa-plus"></i> Add New
+									    </button>
+									  <button type="button" style="font-size:12px; <?php if($action=='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: saverecord(); " class="btn blue-madison input-sm" id="btn_save" <?php echo($state); ?> >
+									    <i class="fa fa-pencil"></i> Save
+									  </button>
+									  <button type="button" style="font-size:12px; <?php if(isset($prdata)){ if($prdata->status == 'Cancelled') { echo 'display:none;'; } } ?>  <?php if($action!='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: setcontrol('EDIT'); " class="btn blue-madison input-sm" id="btn_edit" <?php echo($state); ?> >
+									    <i class="fa fa-pencil"></i> Edit
+									  </button>
+									  <button type="button" style="font-size:12px; <?php if(isset($prdata)){ if($prdata->status == 'Cancelled') { echo 'display:none;'; } } ?> <?php if($action!='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: setcontrol('CNL'); " class="btn red input-sm" id="btn_cancel" <?php echo($state); ?> >
+									    <i class="fa fa-trash"></i> Cancel
+									  </button>
+									  <button type="button" style="font-size:12px; <?php if($action=='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: setcontrol('DIS'); " class="btn red-intense input-sm" id="btn_discard" <?php echo($state); ?> >
+									    <i class="fa fa-times"></i> Discard Changes
+									  </button>
+									  <button type="button" style="font-size:12px; <?php if($action!='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: searchData();" class="btn blue-steel input-sm" id="btn_search" >
+									    <i class="fa fa-search"></i> Search
+									  </button>
+									  <button type="submit" style="font-size:12px; <?php if(isset($prdata)){ if($prdata->status == 'Cancelled') { echo 'display:none;'; } } ?><?php if($action!='VIEW'){ echo 'display:none;'; } ?>" onclick="javascript: generatePiReport();" class="btn purple-plum input-sm" id="btn_print" <?php echo($state); ?>  <?php echo($state); ?>>
+									    <i class="fa fa-file-pdf-o"></i> Export to Pdf
+									  </button>
+									  <button type="button" onclick="javascript:generatePiExcelReport();" id="btn_report_excel" class="btn yellow-gold input-sm" >
+									  	<i class="fa fa-file-excel-o"></i> Export to Excel
+									  </button> 
+									  {{-- <a href="javascript:;" class="btn btn-sm btn-warning" id="inspect">Inspect</a> --}}
+									  <input type="hidden" name="brsense" id="brsense">
+									</div>
+								</div>
+
 							</div>
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
+
+
+
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
+
+
 
 	<!-- AJAX LOADER -->
 	<div id="loading" class="modal fade" role="dialog" data-backdrop="static">

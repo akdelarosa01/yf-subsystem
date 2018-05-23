@@ -15,86 +15,79 @@
 				@endif
 			@endif
 		@endforeach
-	<div class="clearfix"></div>
 
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
+		
+	<div class="page-content">
 
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-12">
-						@include('includes.message-block')
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-12">
+				@include('includes.message-block')
 
-						<div class="portlet box blue">
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-gift"></i> Scheduling Support System (Data Update)
-								</div>
-							</div>
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-gift"></i> Scheduling Support System (Data Update)
+						</div>
+					</div>
 
-							<div class="portlet-body">
-								<div class="row">
-									<div class="col-md-12">
-										<form method="post" class="form-horizontal" accept-charset="UTF-8" enctype="multipart/form-data" action="{{ url('/mrp_and_r3answer') }}" id="formReadfile">
-											<div class="form-group">
-												<input type="hidden" name="_token" value="{{Session::token()}}"></input>
-												<label class="col-sm-4 control-label">Select MRP Data</label>
-												<div class="col-sm-5">
-													<input type="file" class="filestyle" data-buttonName="btn-primary" name="mrpdata" id="mrpdata" {{$readonly}} required>
-													<span class="help-block">(TS_MRP_yy-mm-dd.xls)</span>
-												</div>
+					<div class="portlet-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form method="post" class="form-horizontal" accept-charset="UTF-8" enctype="multipart/form-data" action="{{ url('/mrp_and_r3answer') }}" id="formReadfile">
+									<div class="form-group">
+										<input type="hidden" name="_token" value="{{Session::token()}}"></input>
+										<label class="col-sm-4 control-label">Select MRP Data</label>
+										<div class="col-sm-5">
+											<input type="file" class="filestyle" data-buttonName="btn-primary" name="mrpdata" id="mrpdata" {{$readonly}} required>
+											<span class="help-block">(TS_MRP_yy-mm-dd.xls)</span>
+										</div>
 
 
-												<label class="col-sm-4 control-label">Select R3 Answer Data</label>
-												<div class="col-sm-5">
-													<input type="file" class="filestyle" data-buttonName="btn-primary" name="r3answer" id="r3answer" {{$readonly}} required>
-													<span class="help-block">(yymmdd_hhmm_TS_ZYPF0090.txt)</span>
-													<button type="submit" class="btn yellow btn-sm pull-right"><i class="fa fa-edit"></i> Update</button>
-												</div>
-											</div>
-										</form>
+										<label class="col-sm-4 control-label">Select R3 Answer Data</label>
+										<div class="col-sm-5">
+											<input type="file" class="filestyle" data-buttonName="btn-primary" name="r3answer" id="r3answer" {{$readonly}} required>
+											<span class="help-block">(yymmdd_hhmm_TS_ZYPF0090.txt)</span>
+											<button type="submit" class="btn yellow btn-sm pull-right"><i class="fa fa-edit"></i> Update</button>
+										</div>
 									</div>
-								</div>
-								<hr/>
-								<div class="row">
-									<div class="col-md-12">
-										<form method="post" class="form-horizontal" accept-charset="UTF-8" enctype="multipart/form-data" action="{{ url('/partsanswer') }}" id="isogiform">
-											<div class="form-group">
-												{!! csrf_field() !!}
-												<label class="col-sm-4 control-label">Select Parts Answer Data</label>
-												<div class="col-sm-5">
-													<input type="file" class="filestyle" data-buttonName="btn-primary" name="partsanswerfile" id="partsanswerfile" {{$readonly}} required>
-													<span class="help-block">(yymmdd_hhmm_TS_ISOGI_ZYPF0120.txt)</span>
-													<button onclick="showLoading()" type="submit" class="btn yellow btn-sm pull-right"><i class="fa fa-edit"></i> Update</button>
-												</div>
-											</div>
-
-											<div class="form-group">
-												<label class="col-sm-4 control-label">File Date</label>
-												<div class="col-sm-5">
-													<input class="form-control form-control-inline input-medium " id = "dateFile" name = "dateFile" size="16" type="text" disabled />
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
+								</form>
 							</div>
 						</div>
+						<hr/>
+						<div class="row">
+							<div class="col-md-12">
+								<form method="post" class="form-horizontal" accept-charset="UTF-8" enctype="multipart/form-data" action="{{ url('/partsanswer') }}" id="isogiform">
+									<div class="form-group">
+										{!! csrf_field() !!}
+										<label class="col-sm-4 control-label">Select Parts Answer Data</label>
+										<div class="col-sm-5">
+											<input type="file" class="filestyle" data-buttonName="btn-primary" name="partsanswerfile" id="partsanswerfile" {{$readonly}} required>
+											<span class="help-block">(yymmdd_hhmm_TS_ISOGI_ZYPF0120.txt)</span>
+											<button onclick="showLoading()" type="submit" class="btn yellow btn-sm pull-right"><i class="fa fa-edit"></i> Update</button>
+										</div>
+									</div>
 
-
+									<div class="form-group">
+										<label class="col-sm-4 control-label">File Date</label>
+										<div class="col-sm-5">
+											<input class="form-control form-control-inline input-medium " id = "dateFile" name = "dateFile" size="16" type="text" disabled />
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+
+
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
+
+
+
 	<div id="loading" class="modal fade" role="dialog" data-backdrop="static">
 		<div class="modal-dialog modal-sm gray-gallery">
 			<div class="modal-content ">

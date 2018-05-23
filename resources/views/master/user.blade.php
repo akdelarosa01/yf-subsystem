@@ -7,134 +7,124 @@
 
 @section('content')
 	@include('includes.header')
-		<?php $state = ""; $readonly = ""; ?>
-		@foreach ($userProgramAccess as $access)
-			@if ($access->program_code == Config::get('constants.MODULE_CODE_USERS'))
-				@if ($access->read_write == "2")
-					<?php $state = "disabled"; $readonly = "readonly"; ?>
-				@endif
+	<?php $state = ""; $readonly = ""; ?>
+	@foreach ($userProgramAccess as $access)
+		@if ($access->program_code == Config::get('constants.MODULE_CODE_USERS'))
+			@if ($access->read_write == "2")
+				<?php $state = "disabled"; $readonly = "readonly"; ?>
 			@endif
-		@endforeach
-	<div class="clearfix"></div>
+		@endif
+	@endforeach
+	
+	<div class="page-content">
+		
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-12">
+				@include('includes.message-block')
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-users"></i> USER MASTER
+						</div>
+					</div>
+					<div class="portlet-body">
 
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
-				
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-12">
-						@include('includes.message-block')
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						<div class="portlet box blue">
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-users"></i> USER MASTER
-								</div>
+						{{-- <div class="row">
+							<div class="col-md-8">
+								<h3 class="pull-left">SEARCH</h3>
 							</div>
-							<div class="portlet-body">
+							<div class="col-md-4">
+								<a href="{{ url('/getexcel') }}" class="btn btn-warning pull-right"><i class="fa fa-users"></i> MRP USER</a>
+							</div>
+						</div> --}}
+						<div class="row">
+							
+							<div class="col-md-offset-1 col-md-10">
+								<table class="table table-striped table-bordered table-hover" id="sample_3">
 
-								{{-- <div class="row">
-									<div class="col-md-8">
-										<h3 class="pull-left">SEARCH</h3>
-									</div>
-									<div class="col-md-4">
-										<a href="{{ url('/getexcel') }}" class="btn btn-warning pull-right"><i class="fa fa-users"></i> MRP USER</a>
-									</div>
-								</div> --}}
-								<div class="row">
-									
-									<div class="col-md-offset-1 col-md-10">
-										<table class="table table-striped table-bordered table-hover" id="sample_3">
+									<thead>
+										<tr>
+											<td class="table-checkbox">
+												<input type="checkbox" class="group-checkable" data-set="#sample_3 .checkboxes"/>
+											</td>
+											<td>User ID</td>
+											<td>Last Name</td>
+											<td>First Name</td>
+											<td>Middle Name</td>
+											<td>Product Line</td>
+											<td>Last Date Logged In</td>
+											<td width="15%">Actions</td>
+										</tr>
+									</thead>
 
-											<thead>
-												<tr>
-													<td class="table-checkbox">
-														<input type="checkbox" class="group-checkable" data-set="#sample_3 .checkboxes"/>
-													</td>
-													<td>User ID</td>
-													<td>Last Name</td>
-													<td>First Name</td>
-													<td>Middle Name</td>
-													<td>Product Line</td>
-													<td>Last Date Logged In</td>
-													<td width="15%">Actions</td>
-												</tr>
-											</thead>
-
-											<tbody>
-												@foreach($users as $user)
-													<tr class="odd gradeX" data-id="{{ $user->id }}">
-														<td>
-															<input type="checkbox" class="checkboxes" id="check_id" name="check_id[]" value="{{ $user->id }}" data-userid="{{ $user->user_id }}" data-lname="{{ $user->lastname }}" data-fname="{{ $user->firstname }}" data-mname="{{ $user->middlename }}" data-pword="{{ $user->actual_password }}" data-locked="{{ $user->locked }}"/>
-															{!! csrf_field() !!}
-														</td>
-														
-														<td>
-															<a href="{{url('/usermaster/'.$user->id)}}">{{ $user->user_id }}</a>
-															<input type="hidden" name="user_id[]" value="{{ $user->user_id }}" />
-														</td>
-														<td>
-															{{ $user->lastname }}
-															<input type="hidden" name="lastname[]" value="{{ $user->lastname }}" />
-														</td>
-														<td>
-															{{ $user->firstname }}
-															<input type="hidden" name="firstname[]" value="{{ $user->firstname }}" />
-														</td>
-														<td>
-															{{ $user->middlename }}
-															<input type="hidden" name="middlename[]" value="{{ $user->middlename }}" />
-														</td>
-														<td>
-															{{ $user->productline }}
-															<input type="hidden" name="productline[]" value="{{ $user->productline }}" />
-														</td>
-														<td>
-															{{ $user->last_date_loggedin }}
-														</td>
-														<td>
-															@if (Auth::user()->user_id != $user->user_id)
-																<a href="{{ url('/usermaster/'.$user->id) }}" class="btn btn-sm blue" <?php echo($state);?>>
-																	<i class="fa fa-edit"></i>
-																</a>
-																<a href="javascript:;" class="btn btn-sm red btn_delete" data-id="{{$user->id}}" <?php echo($state);?>>
-																	<i class="fa fa-trash"></i>
-																</a>
-															@endif
-														</td>
-													</tr>
-												@endforeach
+									<tbody>
+										@foreach($users as $user)
+											<tr class="odd gradeX" data-id="{{ $user->id }}">
+												<td>
+													<input type="checkbox" class="checkboxes" id="check_id" name="check_id[]" value="{{ $user->id }}" data-userid="{{ $user->user_id }}" data-lname="{{ $user->lastname }}" data-fname="{{ $user->firstname }}" data-mname="{{ $user->middlename }}" data-pword="{{ $user->actual_password }}" data-locked="{{ $user->locked }}"/>
+													{!! csrf_field() !!}
+												</td>
 												
-											</tbody>
-										</table>
-									</div>
-									
-								</div>
+												<td>
+													<a href="{{url('/usermaster/'.$user->id)}}">{{ $user->user_id }}</a>
+													<input type="hidden" name="user_id[]" value="{{ $user->user_id }}" />
+												</td>
+												<td>
+													{{ $user->lastname }}
+													<input type="hidden" name="lastname[]" value="{{ $user->lastname }}" />
+												</td>
+												<td>
+													{{ $user->firstname }}
+													<input type="hidden" name="firstname[]" value="{{ $user->firstname }}" />
+												</td>
+												<td>
+													{{ $user->middlename }}
+													<input type="hidden" name="middlename[]" value="{{ $user->middlename }}" />
+												</td>
+												<td>
+													{{ $user->productline }}
+													<input type="hidden" name="productline[]" value="{{ $user->productline }}" />
+												</td>
+												<td>
+													{{ $user->last_date_loggedin }}
+												</td>
+												<td>
+													@if (Auth::user()->user_id != $user->user_id)
+														<a href="{{ url('/usermaster/'.$user->id) }}" class="btn btn-sm blue" <?php echo($state);?>>
+															<i class="fa fa-edit"></i>
+														</a>
+														<a href="javascript:;" class="btn btn-sm red btn_delete" data-id="{{$user->id}}" <?php echo($state);?>>
+															<i class="fa fa-trash"></i>
+														</a>
+													@endif
+												</td>
+											</tr>
+										@endforeach
+										
+									</tbody>
+								</table>
+							</div>
+							
+						</div>
 
-								<br/>
+						<br/>
 
-								<div class="row">
-									<div class="col-md-12 text-center">
-										<a href="{{ url('usermaster/create') }}" class="btn btn-success btn-sm" <?php echo($state); ?> id="btn_add" ><i class="fa fa-plus-square-o"></i> ADD</a>
-									</div>
-								</div>
-
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<a href="{{ url('usermaster/create') }}" class="btn btn-success btn-sm" <?php echo($state); ?> id="btn_add" ><i class="fa fa-plus-square-o"></i> ADD</a>
 							</div>
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
+
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
+
 	<div id="confirm" class="modal fade" role="dialog">
 		<div class="modal-dialog modal-sm gray-gallery">
 			<form role="form" action="" id="form_del" method="post">

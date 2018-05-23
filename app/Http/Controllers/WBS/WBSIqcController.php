@@ -60,7 +60,7 @@ class WBSIqcController extends Controller
     
     public function getWbsIqc(Request $request_data)
     {
-    	$common = new CommonController;
+        $common = new CommonController;
         if(!$common->getAccessRights(Config::get('constants.MODULE_CODE_IQCINS'), $userProgramAccess))
         {
             return redirect('/home');
@@ -68,7 +68,7 @@ class WBSIqcController extends Controller
         else
         {
 
-        	# Render WBS Page.
+            # Render WBS Page.
             return view('wbs.iqc',['userProgramAccess' => $userProgramAccess]);
         }
     }
@@ -168,12 +168,22 @@ class WBSIqcController extends Controller
         $details = DB::connection($this->wbs)->table('tbl_wbs_inventory')
                         ->where('id',$id)->first();
 
-        $app = DB::connection($this->wbs)->table('tbl_wbs_material_receiving')
-                        ->where('invoice_no',$details->invoice_no)->first();
+        $app = DB::connection($this->wbs)->table('tbl_wbs_material_receiving_batch')
+                    ->select(
+                            'app_date',
+                            'app_time',
+                            'wbs_mr_id'
+                    )
+                    ->where('id',$details->mat_batch_id)->first();
 
         if (count((array)$app) < 1) {
-            $app = DB::connection($this->wbs)->table('tbl_wbs_local_receiving')
-                        ->where('invoice_no',$details->invoice_no)->first();
+            $app = DB::connection($this->wbs)->table('tbl_wbs_local_receiving_batch')
+                        ->select(
+                                'app_date',
+                                'app_time',
+                                DB::raw('wbs_loc_id as wbs_mr_id')
+                        )
+                        ->where('id',$details->loc_batch_id)->first();
 
             DB::connection($this->wbs)->table('tbl_wbs_local_receiving_batch')
                     ->where('id',$details->loc_batch_id)
@@ -184,29 +194,29 @@ class WBSIqcController extends Controller
                     ]);
         }
 
-        DB::connection($this->mysql)->table('iqc_inspections')
-                    ->insert([
-                        'invoice_no' => $details->invoice_no,
-                        'partcode' => $details->item,
-                        'partname' => $details->item_desc,
-                        'supplier' => $details->supplier,
-                        'app_date' => $app->app_date,
-                        'app_time' => $app->app_time,
-                        'app_no' => $app->receive_no,
-                        'lot_no' => $details->lot_no,
-                        'lot_qty' => $details->qty,
-                        'time_ins_from' => $req->start_time,
-                        'inspector' => $req->inspector,
-                        'judgement' => $judgement,
-                        'created_at' => date('Y-m-d')
-                    ]);
-
         DB::connection($this->wbs)->table('tbl_wbs_material_receiving_batch')
             ->where('id',$details->mat_batch_id)
             ->update([
                 'iqc_status' => $req->statusup,
                 'iqc_result' => $req->iqcresup,
                 'for_kitting'=> $for_kit,
+            ]);
+
+        DB::connection($this->mysql)->table('iqc_inspections')
+            ->insert([
+                'invoice_no' => $details->invoice_no,
+                'partcode' => $details->item,
+                'partname' => $details->item_desc,
+                'supplier' => $details->supplier,
+                'app_date' => $app->app_date,
+                'app_time' => $app->app_time,
+                'app_no' => $app->wbs_mr_id,
+                'lot_no' => $details->lot_no,
+                'lot_qty' => $details->qty,
+                'time_ins_from' => $req->start_time,
+                'inspector' => $req->inspector,
+                'judgement' => $judgement,
+                'created_at' => date('Y-m-d')
             ]);
 
         $update = DB::connection($this->wbs)->table('tbl_wbs_inventory')
@@ -255,7 +265,7 @@ class WBSIqcController extends Controller
         $app_date = '';
         $app_time = '';
         $app_no = '';
-        $lot_qty = '';
+        $lot_qty = 0;
         $time_ins_from = '';
         $inspector = '';
         $lot = '';
@@ -293,6 +303,14 @@ class WBSIqcController extends Controller
                             'iqc_result' => $req->iqcresup,
                             'for_kitting'=> $for_kit,
                         ]);
+                } else {
+                    DB::connection($this->wbs)->table('tbl_wbs_material_receiving_batch')
+                        ->where('id',$iqc->mat_batch_id)
+                        ->update([
+                            'iqc_status' => $req->statusup,
+                            'iqc_result' => $req->iqcresup,
+                            'for_kitting'=> $for_kit,
+                        ]);
                 }
 
                 array_push($lot_no, $iqc->lot_no);
@@ -307,14 +325,6 @@ class WBSIqcController extends Controller
                 $lot_qty = $lot_qty + $iqc->qty;
                 $time_ins_from = $req->start_time;
                 $inspector = $req->inspector;
-
-                DB::connection($this->wbs)->table('tbl_wbs_material_receiving_batch')
-                    ->where('id',$iqc->mat_batch_id)
-                    ->update([
-                        'iqc_status' => $req->statusup,
-                        'iqc_result' => $req->iqcresup,
-                        'for_kitting'=> $for_kit,
-                    ]);
 
                 DB::connection($this->wbs)->table('tbl_wbs_inventory')
                     ->where('id',$id)
@@ -352,11 +362,11 @@ class WBSIqcController extends Controller
                             ->where('id',$id)->first();
 
                 $app = DB::connection($this->wbs)->table('tbl_wbs_material_receiving')
-                                ->where('invoice_no',$details->invoice_no)->first();
+                        ->where('invoice_no',$details->invoice_no)->first();
 
                 if (count((array)$app) < 1) {
                     $app = DB::connection($this->wbs)->table('tbl_wbs_local_receiving')
-                                ->where('invoice_no',$details->invoice_no)->first();
+                            ->where('invoice_no',$details->invoice_no)->first();
 
                     DB::connection($this->wbs)->table('tbl_wbs_local_receiving_batch')
                         ->where('id',$details->loc_batch_id)
@@ -365,34 +375,32 @@ class WBSIqcController extends Controller
                             'iqc_result' => $req->iqcresup,
                             'for_kitting'=> $for_kit,
                         ]);
-                }
-                
-                DB::connection($this->mysql)->table('iqc_inspections')
-                            ->insert([
-                                'invoice_no' => $details->invoice_no,
-                                'partcode' => $details->item,
-                                'partname' => $details->item_desc,
-                                'supplier' => $details->supplier,
-                                'app_date' => $app->app_date,
-                                'app_time' => $app->app_time,
-                                'app_no' => $app->receive_no,
-                                'lot_no' => $details->lot_no,
-                                'lot_qty' => $details->qty,
-                                'time_ins_from' => $req->start_time,
-                                'inspector' => $req->inspector,
-                                'judgement' => $judgement,
-                                'created_at' => date('Y-m-d')
-                            ]);
-                
-                DB::connection($this->wbs)->table('tbl_wbs_local_receiving_batch')
+                } else {
+                    DB::connection($this->wbs)->table('tbl_wbs_material_receiving_batch')
                         ->where('id',$details->mat_batch_id)
                         ->update([
                             'iqc_status' => $req->statusup,
                             'iqc_result' => $req->iqcresup,
                             'for_kitting'=> $for_kit,
                         ]);
-
-
+                }
+                
+                DB::connection($this->mysql)->table('iqc_inspections')
+                    ->insert([
+                        'invoice_no' => $details->invoice_no,
+                        'partcode' => $details->item,
+                        'partname' => $details->item_desc,
+                        'supplier' => $details->supplier,
+                        'app_date' => $app->app_date,
+                        'app_time' => $app->app_time,
+                        'app_no' => $app->receive_no,
+                        'lot_no' => $details->lot_no,
+                        'lot_qty' => $details->qty,
+                        'time_ins_from' => $req->start_time,
+                        'inspector' => $req->inspector,
+                        'judgement' => $judgement,
+                        'created_at' => date('Y-m-d')
+                    ]);
 
                 DB::connection($this->wbs)->table('tbl_wbs_inventory')
                     ->where('id',$id)

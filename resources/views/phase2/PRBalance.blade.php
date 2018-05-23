@@ -16,118 +16,108 @@
 		@endif
 	@endforeach
 
+	
+	<div class="page-content">
 
-	<div class="clearfix"></div>
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				@include('includes.message-block')
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-clipboard"></i>  PR BALANCE DIFFERENCE CHECK
+						</div>
+					</div>
+					<div class="portlet-body">
 
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
+						<div class="row">
+							<div class="col-md-10 col-md-offset-1">
+								<div class="portlet box blue-hoki">
+									<div class="portlet-body">
+										<div class="row">
+											<div class="col-md-12">
+												<form method="POST" action="{{ url('/prbfiles') }}" enctype="multipart/form-data" class="form-horizontal" id="prbfiles" >
+													{{ csrf_field() }}
 
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-10 col-md-offset-1">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						@include('includes.message-block')
-						<div class="portlet box blue">
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-clipboard"></i>  PR BALANCE DIFFERENCE CHECK
-								</div>
-							</div>
-							<div class="portlet-body">
+													<div class="form-group">
+														<label class="control-label col-md-3">INPUT DATA</label>
+														<div class="col-md-7">
+															<input type="file" class="filestyle" data-buttonName="btn-primary" name="inputdata" id="inputdata" {{$readonly}}>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="control-label col-md-3">OUTPUT DATA</label>
+														<div class="col-md-7">
+															<input type="text" class="form-control" disabled="disable" value="/public/PRBalance/{{Auth::user()->user_id}}/">
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-12">
 
-								<div class="row">
-									<div class="col-md-10 col-md-offset-1">
-										<div class="portlet box blue-hoki">
-											<div class="portlet-body">
-												<div class="row">
-													<div class="col-md-12">
-														<form method="POST" action="{{ url('/prbfiles') }}" enctype="multipart/form-data" class="form-horizontal" id="prbfiles" >
-															{{ csrf_field() }}
+															<div class="portlet box blue-hoki">
+																<div class="portlet-body">
 
-															<div class="form-group">
-																<label class="control-label col-md-3">INPUT DATA</label>
-																<div class="col-md-7">
-																	<input type="file" class="filestyle" data-buttonName="btn-primary" name="inputdata" id="inputdata" {{$readonly}}>
-																</div>
-															</div>
-															<div class="form-group">
-																<label class="control-label col-md-3">OUTPUT DATA</label>
-																<div class="col-md-7">
-																	<input type="text" class="form-control" disabled="disable" value="/public/PRBalance/{{Auth::user()->user_id}}/">
-																</div>
-															</div>
-															<div class="row">
-																<div class="col-sm-12">
-
-																	<div class="portlet box blue-hoki">
-																		<div class="portlet-body">
-
-																			<div class="row">
-																				<div class="col-xs-7 col-xs-offset-1">
-																					<h4>REFERENCE INVOICE DATA:</h4>
-																				</div>
-																				<div class="col-xs-3">
-																					<div class="form-group">
-																						<label for="inputlocked" class="control-label">
-																							<input type="checkbox" class="checkboxes" name="invoicechk" id="invoicechk" value="1" checked="check" />
-																							Disregard Invoice Data
-																						</label>
-																					</div>
-																				</div>
-																			</div>
-
-																			<div class="row">
-																				<div class="form-group">
-																					<label class="control-label col-md-3">INVOICE: </label>
-																					<div class="col-md-7">
-																						<input type="file" class="filestyle" data-buttonName="btn-primary" name="invoice" id="invoice" {{$readonly}} disabled="true">
-																						<span class="blue"></span>
-																					</div>
-																				</div>
-																			</div>
-
-																			<div class="row">
-																				<div class="col-xs-7 col-xs-offset-1">
-																					<span>If doesn't match the data,  please import Invoice data at "Over Deliver Checking.</span>
-																				</div>
-																				<div class="col-xs-3">
-																					<div class="form-group">
-																						<button type="submit" id="process" class="btn btn-md btn-warning" {{$state}}>
-																							<i class="fa fa-refresh"></i> Process
-																						</button>
-																					</div>
-																				</div>
+																	<div class="row">
+																		<div class="col-xs-7 col-xs-offset-1">
+																			<h4>REFERENCE INVOICE DATA:</h4>
+																		</div>
+																		<div class="col-xs-3">
+																			<div class="form-group">
+																				<label for="inputlocked" class="control-label">
+																					<input type="checkbox" class="checkboxes" name="invoicechk" id="invoicechk" value="1" checked="check" />
+																					Disregard Invoice Data
+																				</label>
 																			</div>
 																		</div>
 																	</div>
 
+																	<div class="row">
+																		<div class="form-group">
+																			<label class="control-label col-md-3">INVOICE: </label>
+																			<div class="col-md-7">
+																				<input type="file" class="filestyle" data-buttonName="btn-primary" name="invoice" id="invoice" {{$readonly}} disabled="true">
+																				<span class="blue"></span>
+																			</div>
+																		</div>
+																	</div>
+
+																	<div class="row">
+																		<div class="col-xs-7 col-xs-offset-1">
+																			<span>If doesn't match the data,  please import Invoice data at "Over Deliver Checking.</span>
+																		</div>
+																		<div class="col-xs-3">
+																			<div class="form-group">
+																				<button type="submit" id="process" class="btn btn-md btn-warning" {{$state}}>
+																					<i class="fa fa-refresh"></i> Process
+																				</button>
+																			</div>
+																		</div>
+																	</div>
 																</div>
 															</div>
-														</form>
+
+														</div>
 													</div>
-												</div>
+												</form>
 											</div>
 										</div>
 									</div>
-
 								</div>
-
 							</div>
+
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
+
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
+
+
 
 	<!-- AJAX LOADER -->
 		<div id="loading" class="modal fade" role="dialog" data-backdrop="static">

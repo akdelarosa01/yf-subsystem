@@ -30,15 +30,8 @@
 			@endif
 		@endif
 	@endforeach
-	
-	<div class="clearfix">
-	</div>
 
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
+	
 			<div class="page-content">
 				
 				<!-- BEGIN PAGE CONTENT-->
@@ -242,12 +235,5 @@
 				</div>
 				<!-- END PAGE CONTENT-->
 			</div>
-		</div>
-		<!-- END CONTENT -->
-
-	</div>
-	<!-- END CONTAINER -->
-
-
 @endsection
 

@@ -17,213 +17,202 @@
 		@endif
 	@endforeach
 
-	<div class="clearfix">
-	</div>
+	
+	<div class="page-content">
 
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
-
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-12">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						<div class="portlet box blue">
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-bar-chart-o"></i> Scheduling Support System (Answer Input Management)
-								</div>
-							</div>
-							<div class="portlet-body portlet-empty">
-								<div class="row">
-									<div class="col-md-12">
-										<h4>ANSWER INPUT MANAGEMENT</h4>
-									</div>
-								</div>
-
-								<div class="row">
-
-
-									<div class="col-md-6">
-										<label class="col-md-3 control-label">Order Date: </label>
-										<div class="col-md-9">
-											<input onchange="refreshRadioButton()" class="form-control form-control-inline input-sm date-picker" size="16" type="text" value="" name="to" id ="datepick"  />
-										</div>
-									</div>
-
-									<div class="col-md-6">
-										<label class="col-md-3 control-label">Date Options: </label>
-										<div class="input-group">
-											<div class="icheck-inline">
-												<label id = "r1">
-													<input type="radio" name="radio2" onclick="r1()">  This Date Only
-												</label>
-												<label id = "r2">
-													<input type="radio" name="radio2" onclick="r2()"> Include the Date Before
-												</label>
-											</div>
-										</div>
-									</div>
-
-
-								</div>
-
-
-								<br>
-
-								<div class="row">
-									<div class="col-md-6">
-										<div class="portlet box blue">
-											<div class="portlet-title">
-												<div class="caption">
-													Exceptions
-												</div>
-												<div class="tools">
-													<button id="btn_addproduct" class="btn green btn-xs" data-target="#stack1" onclick="clearText();" data-toggle="modal">
-														Add <i class="fa fa-plus"></i>
-													</button>
-												</div>
-											</div>
-											<div class="portlet-body portlet-empty">
-												<div class="row">
-													<div class="col-sm-12">
-														<p>Items: <span id="exceptionscount"></span></p>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-12">
-														<div style="height: 16%;" class="table-responsive scroller">
-															<table class="table table-striped table-bordered table-hover" style="font-size: 9px">
-																<thead>
-																	<tr>
-																		<td colspan="3">
-																			Product Name
-																		</td>
-																	</tr>
-																</thead>
-																<tbody id = "productbody">
-																	<tr>
-																		<!-- <td width="50px"></td>
-																		<td></td>
-																		<td width="50px"></td> -->
-																	</tr>
-																</tbody>
-															</table>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-md-6">
-										<p>Regulations of answer input</p>
-										<p>Should be input within 3 working days even though still 23:00.</p>
-										<p>Should be input within 4 working days for the PO which answered as 23:00</p>
-									</div>
-
-								</div>
-
-								<br>
-
-								<div class="row">
-
-									<div class="col-md-12">
-										<div style="height: 35%; overflow-y: scroll;" class="scroller">
-											<table class="table table-striped table-bordered table-hover" style="font-size: 9px;">
-												<thead>
-													<tr>
-														<td>
-															<b>ORDER DATE</b>
-														</td>
-														<td>
-															<b>PO</b>
-														</td>
-														<td>
-															<b>PCODE</b>
-														</td>
-														<td>
-															<b>PNAME</b>
-														</td>
-														<td>
-															<b>QTY</b>
-														</td>
-														<td>
-															<b>R3ANSWER</b>
-														</td>
-														<td>
-															<b>TIME</b>
-														</td>
-														<td>
-															<b>REMARKS</b>
-														</td>
-														<td>
-															<b>CUSTCODE</b>
-														</td>
-														<td>
-															<b>CUSTOMER</b>
-														</td>
-													</tr>
-												</thead>
-
-												<tbody id="table" >
-														<?php $cnt = 0;?>
-													@foreach ($data as $d)
-														<?php $cnt++; ?>
-														<tr>
-																<td> {{ $d->order_date }}</td>
-																<td> {{ $d->code }}</td>
-																<td> {{ $d->name }}</td>
-																<td> {{ $d->po }}</td>
-																<td> {{ $d->qty }}</td>
-																<td> {{ $d->r3answer }}</td>
-																<td> {{ $d->time }}</td>
-																<td> {{ $d->remarks }}</td>
-																<td> {{ $d->custcode }}</td>
-																<td> {{ $d->customer }}</td>
-
-														</tr>
-													@endforeach												
-												</tbody>
-											</table>
-										</div>
-										<span id="count"></span>
-
-										<div class="row">
-											<div class="col-md-12">
-												<form method="post" enctype="multipart/form-data"  action="{{ url('/postanswerinputmanagementexcel') }}" >
-												{!! csrf_field() !!}
-												<input type="hidden" name="hidorderdate" id = "hidorderdate">
-												<input type="hidden" name="hidexceptions" id = "hidexceptions">
-												<input type="hidden" name="hidradio" id = "hidradio">
-
-													<button id="print" class="btn blue btn-sm pull-right">
-														<i class="fa fa-print"></i> Output
-													</button>
-												</form>
-											</div>
-										</div>
-
-									</div>
-
-								</div>
-
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-bar-chart-o"></i> Scheduling Support System (Answer Input Management)
+						</div>
+					</div>
+					<div class="portlet-body portlet-empty">
+						<div class="row">
+							<div class="col-md-12">
+								<h4>ANSWER INPUT MANAGEMENT</h4>
 							</div>
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
-					</div>
-					<div class="col-md-2"></div>
-				</div>
-				<!-- END PAGE CONTENT-->
-			</div>
-		</div>
-		<!-- END CONTENT -->
 
+						<div class="row">
+
+
+							<div class="col-md-6">
+								<label class="col-md-3 control-label">Order Date: </label>
+								<div class="col-md-9">
+									<input onchange="refreshRadioButton()" class="form-control form-control-inline input-sm date-picker" size="16" type="text" value="" name="to" id ="datepick"  />
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<label class="col-md-3 control-label">Date Options: </label>
+								<div class="input-group">
+									<div class="icheck-inline">
+										<label id = "r1">
+											<input type="radio" name="radio2" onclick="r1()">  This Date Only
+										</label>
+										<label id = "r2">
+											<input type="radio" name="radio2" onclick="r2()"> Include the Date Before
+										</label>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+
+
+						<br>
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="portlet box blue">
+									<div class="portlet-title">
+										<div class="caption">
+											Exceptions
+										</div>
+										<div class="tools">
+											<button id="btn_addproduct" class="btn green btn-xs" data-target="#stack1" onclick="clearText();" data-toggle="modal">
+												Add <i class="fa fa-plus"></i>
+											</button>
+										</div>
+									</div>
+									<div class="portlet-body portlet-empty">
+										<div class="row">
+											<div class="col-sm-12">
+												<p>Items: <span id="exceptionscount"></span></p>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-12">
+												<div style="height: 16%;" class="table-responsive scroller">
+													<table class="table table-striped table-bordered table-hover" style="font-size: 9px">
+														<thead>
+															<tr>
+																<td colspan="3">
+																	Product Name
+																</td>
+															</tr>
+														</thead>
+														<tbody id = "productbody">
+															<tr>
+																<!-- <td width="50px"></td>
+																<td></td>
+																<td width="50px"></td> -->
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<p>Regulations of answer input</p>
+								<p>Should be input within 3 working days even though still 23:00.</p>
+								<p>Should be input within 4 working days for the PO which answered as 23:00</p>
+							</div>
+
+						</div>
+
+						<br>
+
+						<div class="row">
+
+							<div class="col-md-12">
+								<div style="height: 35%; overflow-y: scroll;" class="scroller">
+									<table class="table table-striped table-bordered table-hover" style="font-size: 9px;">
+										<thead>
+											<tr>
+												<td>
+													<b>ORDER DATE</b>
+												</td>
+												<td>
+													<b>PO</b>
+												</td>
+												<td>
+													<b>PCODE</b>
+												</td>
+												<td>
+													<b>PNAME</b>
+												</td>
+												<td>
+													<b>QTY</b>
+												</td>
+												<td>
+													<b>R3ANSWER</b>
+												</td>
+												<td>
+													<b>TIME</b>
+												</td>
+												<td>
+													<b>REMARKS</b>
+												</td>
+												<td>
+													<b>CUSTCODE</b>
+												</td>
+												<td>
+													<b>CUSTOMER</b>
+												</td>
+											</tr>
+										</thead>
+
+										<tbody id="table" >
+												<?php $cnt = 0;?>
+											@foreach ($data as $d)
+												<?php $cnt++; ?>
+												<tr>
+														<td> {{ $d->order_date }}</td>
+														<td> {{ $d->code }}</td>
+														<td> {{ $d->name }}</td>
+														<td> {{ $d->po }}</td>
+														<td> {{ $d->qty }}</td>
+														<td> {{ $d->r3answer }}</td>
+														<td> {{ $d->time }}</td>
+														<td> {{ $d->remarks }}</td>
+														<td> {{ $d->custcode }}</td>
+														<td> {{ $d->customer }}</td>
+
+												</tr>
+											@endforeach												
+										</tbody>
+									</table>
+								</div>
+								<span id="count"></span>
+
+								<div class="row">
+									<div class="col-md-12">
+										<form method="post" enctype="multipart/form-data"  action="{{ url('/postanswerinputmanagementexcel') }}" >
+										{!! csrf_field() !!}
+										<input type="hidden" name="hidorderdate" id = "hidorderdate">
+										<input type="hidden" name="hidexceptions" id = "hidexceptions">
+										<input type="hidden" name="hidradio" id = "hidradio">
+
+											<button id="print" class="btn blue btn-sm pull-right">
+												<i class="fa fa-print"></i> Output
+											</button>
+										</form>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+				<!-- END EXAMPLE TABLE PORTLET-->
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
+
 
 	<div id="loading" class="modal fade" role="dialog" data-backdrop="static">
 		<div class="modal-dialog modal-sm gray-gallery">

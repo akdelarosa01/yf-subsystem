@@ -16,137 +16,127 @@
 		@endif
 	@endforeach
 
+	
+	<div class="page-content">
 
-	<div class="clearfix"></div>
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-12">
 
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				@include('includes.message-block')
 
-				<!-- BEGIN PAGE CONTENT-->
 				<div class="row">
 					<div class="col-md-12">
+						<a href="{{ url('/inventoryquery') }}" class="btn btn-sm red pull-right">
+							<i class="fa fa-mail-reply"></i> Back
+						</a>
+					</div>
+				</div>
+				<br>
 
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						@include('includes.message-block')
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-cubes"></i>  TPICS STOCK QUERY BY BOM
+						</div>
+					</div>
+					<div class="portlet-body">
+
+						<!-- <div class="row">
+							<div class="col-md-10 col-md-offset-1">
+								<div class="portlet box blue-hoki">
+									<div class="portlet-body">
+										<div class="row">
+											<div class="col-md-12">
+												<form method="POST" action="{{url('/bybomsearchitems')}}" class="form-horizontal" id="searchfrm" >
+													{{ csrf_field() }}
+
+													<div class="form-group">
+														<label class="control-label col-md-2">PRODUCT NAME:</label>
+														<div class="col-md-9">
+															<select class="form-control select2me" id="prodname" name="prodname">
+															</select>
+														</div>
+
+													</div>
+
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div> -->
 
 						<div class="row">
 							<div class="col-md-12">
-								<a href="{{ url('/inventoryquery') }}" class="btn btn-sm red pull-right">
-									<i class="fa fa-mail-reply"></i> Back
-								</a>
-							</div>
-						</div>
-						<br>
+								<div class="portlet box blue-hoki">
+									<div class="portlet-body">
 
-						<div class="portlet box blue">
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-cubes"></i>  TPICS STOCK QUERY BY BOM
-								</div>
-							</div>
-							<div class="portlet-body">
-
-								<!-- <div class="row">
-									<div class="col-md-10 col-md-offset-1">
-										<div class="portlet box blue-hoki">
-											<div class="portlet-body">
-												<div class="row">
-													<div class="col-md-12">
-														<form method="POST" action="{{url('/bybomsearchitems')}}" class="form-horizontal" id="searchfrm" >
-															{{ csrf_field() }}
-
-															<div class="form-group">
-																<label class="control-label col-md-2">PRODUCT NAME:</label>
-																<div class="col-md-9">
-																	<select class="form-control select2me" id="prodname" name="prodname">
-																	</select>
-																</div>
-
-															</div>
-
-														</form>
-													</div>
-												</div>
+										<div class="row">
+											<div class="col-md-12">
+												<table class="table table-striped table-bordered table-hover table-responsive" style="font-size:9px;" id="tblStockQuery">
+													<thead>
+														<tr>
+															<td>PART CODE</td>
+															<td>PART NAME</td>
+															<td>USAGE</td>
+															<td>PRICE</td>
+															<td>VENDOR</td>
+															<td>ASSY100</td>
+															<td>WHS100</td>
+															<td>WHS102</td>
+															<td>WHS-NON</td>
+															<td>WHS-SM</td>
+															<td>StockTotal</td>
+															<td>TotalRequired</td>
+															<td>AvailableStock</td>
+															<td>PR_Balance</td>
+															<td>PRODUCT</td>
+															<td>PRODUCT NAME</td>
+														</tr>
+													</thead>
+													{{-- <tbody>
+														@foreach($boms as $bom)
+															<tr>
+																<td>{{$bom->code}}</td>
+																<td>{{$bom->name}}</td>
+																<td>{{$bom->usage}}</td>
+																<td>{{$bom->price}}</td>
+																<td>{{$bom->vendor}}</td>
+																<td>{{$bom->assy100}}</td>
+																<td>{{$bom->whs100}}</td>
+																<td>{{$bom->whs102}}</td>
+																<td>{{$bom->whsnon}}</td>
+																<td>{{$bom->whssm}}</td>
+																<td>{{$bom->stocktotal}}</td>
+																<td>{{$bom->requirement}}</td>
+																<td>{{$bom->available}}</td>
+																<td>{{$bom->prbalance}}</td>
+																<td>{{$bom->prodcode}}</td>
+																<td>{{$bom->prodname}}</td>
+															</tr>
+														@endforeach
+													</tbody> --}}
+												</table>
 											</div>
 										</div>
-									</div>
-								</div> -->
 
-								<div class="row">
-									<div class="col-md-12">
-										<div class="portlet box blue-hoki">
-											<div class="portlet-body">
-
-												<div class="row">
-													<div class="col-md-12">
-														<table class="table table-striped table-bordered table-hover table-responsive" style="font-size:9px;" id="tblStockQuery">
-															<thead>
-																<tr>
-																	<td>PART CODE</td>
-																	<td>PART NAME</td>
-																	<td>USAGE</td>
-																	<td>PRICE</td>
-																	<td>VENDOR</td>
-																	<td>ASSY100</td>
-																	<td>WHS100</td>
-																	<td>WHS102</td>
-																	<td>WHS-NON</td>
-																	<td>WHS-SM</td>
-																	<td>StockTotal</td>
-																	<td>TotalRequired</td>
-																	<td>AvailableStock</td>
-																	<td>PR_Balance</td>
-																	<td>PRODUCT</td>
-																	<td>PRODUCT NAME</td>
-																</tr>
-															</thead>
-															{{-- <tbody>
-																@foreach($boms as $bom)
-																	<tr>
-																		<td>{{$bom->code}}</td>
-																		<td>{{$bom->name}}</td>
-																		<td>{{$bom->usage}}</td>
-																		<td>{{$bom->price}}</td>
-																		<td>{{$bom->vendor}}</td>
-																		<td>{{$bom->assy100}}</td>
-																		<td>{{$bom->whs100}}</td>
-																		<td>{{$bom->whs102}}</td>
-																		<td>{{$bom->whsnon}}</td>
-																		<td>{{$bom->whssm}}</td>
-																		<td>{{$bom->stocktotal}}</td>
-																		<td>{{$bom->requirement}}</td>
-																		<td>{{$bom->available}}</td>
-																		<td>{{$bom->prbalance}}</td>
-																		<td>{{$bom->prodcode}}</td>
-																		<td>{{$bom->prodname}}</td>
-																	</tr>
-																@endforeach
-															</tbody> --}}
-														</table>
-													</div>
-												</div>
-
-											</div>
-										</div>
 									</div>
 								</div>
-
 							</div>
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
+
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
+
+
 @endsection
 @push('script')
 	<script type="text/javascript">

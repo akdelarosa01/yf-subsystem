@@ -1603,6 +1603,31 @@ Route::group(['middleware' => 'web'], function () {
                 'name' => 'upload-iqc'
             ]);
 
+            Route::get('/iqcgetworkweek', [
+                'uses' => 'QCDB\IQCInspectionController@getWorkWeek',
+                'name' => 'iqcgetworkweek'
+            ]);
+
+            Route::get('/iqc-get-shift', [
+                'uses' => 'QCDB\IQCInspectionController@getShift',
+                'name' => 'iqc-get-shift'
+            ]);
+
+            Route::post('/iqc-calculate-dppm', [
+                'uses' => 'QCDB\IQCGroupByController@CalculateDPPM',
+                'name' => 'iqc-calculate-dppm'
+            ]);
+
+            Route::get('/iqc-groupby-values', [
+                'uses' => 'QCDB\IQCGroupByController@GroupByValues',
+                'name' => 'iqc-groupby-values'
+            ]);
+
+            Route::get('/iqc-num-of-defects', [
+                'uses' => 'QCDB\IQCInspectionController@getNumOfDefectives',
+                'name' => 'iqc-num-of-defects'
+            ]);
+
 
 
 
@@ -1822,11 +1847,6 @@ Route::group(['middleware' => 'web'], function () {
                 'name' => 'oqc-groupby-values'
             ]);
 
-            Route::post('/oqc-calculate-dppm', [
-                'uses' => 'QCDB\OQCInspectionController@CalculateDPPM',
-                'name' => 'oqc-calculate-dppm'
-            ]);
-
             Route::get('/oqc-initiatedata', [
                 'uses' => 'QCDB\OQCInspectionController@initData',
                 'name' => 'oqc-initiatedata'
@@ -1840,6 +1860,27 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('/getprobeproduct', [
                 'uses' => 'QCDB\OQCInspectionController@getProbeProduct',
                 'name' => 'getprobeproduct'
+            ]);
+
+            Route::get('/get-sampling-plan', [
+                'uses' => 'QCDB\OQCInspectionController@SamplingPlan',
+                'name' => 'get-sampling-plan'
+            ]);
+
+            Route::get('/oqc-num-of-defects', [
+                'uses' => 'QCDB\OQCInspectionController@getNumOfDefectives',
+                'name' => 'oqc-num-of-defects'
+            ]);
+
+
+            Route::post('/oqc-calculate-dppm', [
+                'uses' => 'QCDB\OQCGroupByController@CalculateDPPM',
+                'name' => 'oqc-calculate-dppm'
+            ]);
+
+            Route::get('/oqc-shift', [
+                'uses' => 'QCDB\OQCInspectionController@getShift',
+                'name' => 'oqc-shift'
             ]);
 
 
@@ -1953,7 +1994,7 @@ Route::group(['middleware' => 'web'], function () {
             //     'uses' => 'QCDB\OQCInspectionController@getProbeProduct',
             //     'name' => 'getprobeproduct'
             // ]);
-            
+
 
 
 

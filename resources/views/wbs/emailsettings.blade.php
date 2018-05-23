@@ -17,7 +17,7 @@
 @extends('layouts.master')
 
 @section('title')
-WBS | Pricon Microelectronics, Inc.
+    WBS | Pricon Microelectronics, Inc.
 @endsection
 
 
@@ -33,68 +33,59 @@ WBS | Pricon Microelectronics, Inc.
         @endif
     @endforeach
 
-  <div class="clearfix"></div>
+    
+    <div class="page-content">
 
-    <!-- BEGIN CONTAINER -->
-    <div class="page-container">
-      @include('includes.sidebar')
-        <!-- BEGIN CONTENT -->
-        <div class="page-content-wrapper">
-            <div class="page-content">
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                @include('includes.message-block')
 
-                <!-- BEGIN PAGE CONTENT-->
-                <div class="row">
-                    <div class="col-md-offset-2 col-md-8">
-                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                        @include('includes.message-block')
-
-                        <div class="portlet box blue" >
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    <i class="fa fa-navicon"></i>  WBS Email Notification Recipients
-                                </div>
-                            </div>
-                            <div class="portlet-body">
-                                <div class="row">
-                                    <div class="col-md-offset-1 col-md-10">
-                                        
-                                    </div>
-                                </div>
-                                <br>
-								<div class="row">
-                                    <div class="col-md-offset-1 col-md-10">
-                                        <table id="inputtable" class="table table-bordered">
-                                            <tbody id="inputbody"></tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-offset-1 col-md-10">
-                                        <a href="javascript:;" id="add" class="btn input-sm btn-success pull-left">
-                                            <i class="fa fa-plus"></i>
-                                        </a>
-                                        <a href="javascript:;" id="remove" class="btn input-sm btn-danger pull-left">
-                                            <i class="fa fa-times"></i>
-                                        </a>
-                                        
-                                        <a href="javascript:;" id="btn_save" class="btn btn-primary input-sm pull-right">
-                                            <i class="fa fa-floppy-o"></i> Save
-                                        </a>
-                                    </div>
-                                </div>
+                <div class="portlet box blue" >
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-navicon"></i>  WBS Email Notification Recipients
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row">
+                            <div class="col-md-offset-1 col-md-10">
+                                
                             </div>
                         </div>
-                        <!-- END EXAMPLE TABLE PORTLET-->
-
+                        <br>
+						<div class="row">
+                            <div class="col-md-offset-1 col-md-10">
+                                <table id="inputtable" class="table table-bordered">
+                                    <tbody id="inputbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-offset-1 col-md-10">
+                                <a href="javascript:;" id="add" class="btn input-sm btn-success pull-left">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                                <a href="javascript:;" id="remove" class="btn input-sm btn-danger pull-left">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                                
+                                <a href="javascript:;" id="btn_save" class="btn btn-primary input-sm pull-right">
+                                    <i class="fa fa-floppy-o"></i> Save
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- END PAGE CONTENT-->
+                <!-- END EXAMPLE TABLE PORTLET-->
+
             </div>
         </div>
-        <!-- END CONTENT -->
-
+        <!-- END PAGE CONTENT-->
     </div>
-    <!-- END CONTAINER -->
+
+
 
     <div id="loading" class="modal fade" role="dialog" data-backdrop="static">
         <div class="modal-dialog modal-sm gray-gallery">

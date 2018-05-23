@@ -16,156 +16,146 @@
 		@endif
 	@endforeach
 
+    
+	<div class="page-content">
 
-	<div class="clearfix"></div>
-
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-        @include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
-
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-12">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						@include('includes.message-block')
-						<div class="portlet box grey-gallery" >
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-search"></i>  QC Database Molding
-								</div>
-							</div>
-							<div class="portlet-body">
-								<div class="row">
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                    							<div class="portlet-body">
-                                                    <div class="row">
-                                                        <form class="form-forizontal">
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label class="control-label col-sm-2">P.O. No.</label>
-                                                                    <div class="col-sm-7">
-                                                                        <input type="text" class="form-control input-sm" id="posearch" name="posearch">
-                                                                    </div>
-                                                                    <div class="col-sm-3">
-                                                                        <a href="javascript:;" class="btn blue input-sm" id="btn_posearch">
-                                                                            View P.O.
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				@include('includes.message-block')
+				<div class="portlet box grey-gallery" >
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-search"></i>  QC Database Molding
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+            							<div class="portlet-body">
+                                            <div class="row">
+                                                <form class="form-forizontal">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">P.O. No.</label>
+                                                            <div class="col-sm-7">
+                                                                <input type="text" class="form-control input-sm" id="posearch" name="posearch">
                                                             </div>
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label class="control-label col-sm-2">Date From</label>
-                                                                    <div class="col-sm-3">
-                                                                        <input type="text" class="form-control input-sm date-picker" id="from" name="from">
-                                                                    </div>
-                                                                    <label class="control-label col-sm-2">Date to</label>
-                                                                    <div class="col-sm-3">
-                                                                        <input type="text" class="form-control input-sm date-picker" id="to" name="to">
-                                                                    </div>
-                                                                    <div class="col-sm-2">
-                                                                        <a href="javascript:;" class="btn blue input-sm" id="btn_datesearch">
-                                                                            Go
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <br>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <div class="table-responsive">
-                                                                <table class="table table-hover table-bordered table-striped tabla-responsive" id="oqcdatatable">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <td style="width: 5%"></td>
-                                                                            <td style="width: 5%"></td>
-                                                                            <td>ID</td>
-                                                                            <td>Date Inspected</td>
-                                                                            <td>Shift</td>
-                                                                            <td>From</td>
-                                                                            <td>To</td>
-                                                                            <td>Submission#</td>
-                                                                            <td>Lot #</td>
-                                                                            <td>Lot Size</td><!-- lot qty-->
-                                                                            <td>Sample Size</td>
-                                                                            <td>No of Defectives</td>
-                                                                            <td>Mode of Defects</td>
-                                                                            <td>Qty</td>
-                                                                            <td>Judgement</td>
-                                                                            <td>PTCP/TNR #</td>
-                                                                            <td>Inspector</td>
-                                                                            <td>Remarks</td>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody id="oqctable">
-                                                                        
-                                                                    </tbody>
-                                                                </table>
-                                                                <input type="hidden" id="record_count">
+                                                            <div class="col-sm-3">
+                                                                <a href="javascript:;" class="btn blue input-sm" id="btn_posearch">
+                                                                    View P.O.
+                                                                </a>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Date From</label>
+                                                            <div class="col-sm-3">
+                                                                <input type="text" class="form-control input-sm date-picker" id="from" name="from">
+                                                            </div>
+                                                            <label class="control-label col-sm-2">Date to</label>
+                                                            <div class="col-sm-3">
+                                                                <input type="text" class="form-control input-sm date-picker" id="to" name="to">
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <a href="javascript:;" class="btn blue input-sm" id="btn_datesearch">
+                                                                    Go
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover table-bordered table-striped tabla-responsive" id="oqcdatatable">
+                                                            <thead>
+                                                                <tr>
+                                                                    <td style="width: 5%"></td>
+                                                                    <td style="width: 5%"></td>
+                                                                    <td>ID</td>
+                                                                    <td>Date Inspected</td>
+                                                                    <td>Shift</td>
+                                                                    <td>From</td>
+                                                                    <td>To</td>
+                                                                    <td>Submission#</td>
+                                                                    <td>Lot #</td>
+                                                                    <td>Lot Size</td><!-- lot qty-->
+                                                                    <td>Sample Size</td>
+                                                                    <td>No of Defectives</td>
+                                                                    <td>Mode of Defects</td>
+                                                                    <td>Qty</td>
+                                                                    <td>Judgement</td>
+                                                                    <td>PTCP/TNR #</td>
+                                                                    <td>Inspector</td>
+                                                                    <td>Remarks</td>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="oqctable">
+                                                                
+                                                            </tbody>
+                                                        </table>
+                                                        <input type="hidden" id="record_count">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
 
-										<div class="row">
-                                            <div class="col-md-12 text-center">
-                                                <a href="javascript:;" class="btn blue" id="btn_addnew">
-                                                    <i class="fa fa-plus"></i> Add New
-                                                </a>
-                                                <!-- <a href="javascript:;" class="btn grey-gallery" id="btn_groupby">
-                                                    <i class="fa fa-group"></i> Group By
-                                                </a> -->
-                                               <!--  <button type="button" class="btn grey-gallery" id="btn_groupby">
-                                                    <i class="fa fa-group"></i> Group By
-                                                </button> -->
-                                                {{-- <button type="button" class="btn red" id="btn_delete">
-                                                    <i class="fa fa-trash"></i> Delete
-                                                </button> --}}
-                                                <!-- <a href="javascript:;" class="btn purple" id="btn_search">
-                                                    <i class="fa fa-search"></i> Search
-                                                </a> -->
-												<a href="javascript:;" class="btn red" id="btn_pdf">
-                                                    <i class="fa fa-file-pdf-o"></i> Export to PDF
-                                                </a>
-                                                <a href="javascript:;" class="btn green" id="btn_excel">
-                                                    <i class="fa fa-file-excel-o"></i> Export to Excel
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <input class="form-control input-sm" type="hidden" value="" name="hd_report_status" id="hd_report_status"/>
+								<div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <a href="javascript:;" class="btn blue" id="btn_addnew">
+                                            <i class="fa fa-plus"></i> Add New
+                                        </a>
+                                        <!-- <a href="javascript:;" class="btn grey-gallery" id="btn_groupby">
+                                            <i class="fa fa-group"></i> Group By
+                                        </a> -->
+                                       <!--  <button type="button" class="btn grey-gallery" id="btn_groupby">
+                                            <i class="fa fa-group"></i> Group By
+                                        </button> -->
+                                        {{-- <button type="button" class="btn red" id="btn_delete">
+                                            <i class="fa fa-trash"></i> Delete
+                                        </button> --}}
+                                        <!-- <a href="javascript:;" class="btn purple" id="btn_search">
+                                            <i class="fa fa-search"></i> Search
+                                        </a> -->
+										<a href="javascript:;" class="btn red" id="btn_pdf">
+                                            <i class="fa fa-file-pdf-o"></i> Export to PDF
+                                        </a>
+                                        <a href="javascript:;" class="btn green" id="btn_excel">
+                                            <i class="fa fa-file-excel-o"></i> Export to Excel
+                                        </a>
+                                    </div>
+                                </div>
+                                <input class="form-control input-sm" type="hidden" value="" name="hd_report_status" id="hd_report_status"/>
 
-                                        <input type="hidden" class="form-control input-sm clear" id="hdg1_selected" name="hdg1_selected" readonly>
-                                        <input type="hidden" class="form-control input-sm clear" id="hdg2_selected" name="hdg2_selected" readonly>
-                                        <input type="hidden" class="form-control input-sm clear" id="hdg3_selected" name="hdg3_selected" readonly>
+                                <input type="hidden" class="form-control input-sm clear" id="hdg1_selected" name="hdg1_selected" readonly>
+                                <input type="hidden" class="form-control input-sm clear" id="hdg2_selected" name="hdg2_selected" readonly>
+                                <input type="hidden" class="form-control input-sm clear" id="hdg3_selected" name="hdg3_selected" readonly>
 
-                                        <input type="hidden" class="form-control input-sm clear" id="count_lotrejected" name="count_lotrejected" readonly>
-                                        <input type="hidden" class="form-control input-sm clear" id="count_Totallotrejected" name="count_Totallotrejected" readonly>
-                                        <input type="hidden" class="form-control input-sm clear" id="count_lot" name="count_lot" readonly>
-                                        <input type="hidden" class="form-control input-sm clear" id="lot_accepted_changed" name="lot_accepted_changed" readonly>
+                                <input type="hidden" class="form-control input-sm clear" id="count_lotrejected" name="count_lotrejected" readonly>
+                                <input type="hidden" class="form-control input-sm clear" id="count_Totallotrejected" name="count_Totallotrejected" readonly>
+                                <input type="hidden" class="form-control input-sm clear" id="count_lot" name="count_lot" readonly>
+                                <input type="hidden" class="form-control input-sm clear" id="lot_accepted_changed" name="lot_accepted_changed" readonly>
 
-									</div>
-								</div>
 							</div>
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
+
+
 
     <!-- ADD NEW MODAL -->
     <div id="AddNewModal" class="modal fade" role="dialog" data-backdrop="static">

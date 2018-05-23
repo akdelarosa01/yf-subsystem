@@ -17,91 +17,82 @@ YPICS | Pricon Microelectronics, Inc.
         @endif
     @endforeach
 
-  <div class="clearfix"></div>
+    
+    <div class="page-content">
 
-    <!-- BEGIN CONTAINER -->
-    <div class="page-container">
-      @include('includes.sidebar')
-        <!-- BEGIN CONTENT -->
-        <div class="page-content-wrapper">
-            <div class="page-content">
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                @include('includes.message-block')
 
-                <!-- BEGIN PAGE CONTENT-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                        @include('includes.message-block')
-
-                        <div class="portlet box blue" >
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    <i class="fa fa-navicon"></i>  YPICS Dispatch
-                                </div>
-                            </div>
-                            <div class="portlet-body">
-                                <div class="row">
-                                    <div class="col-md-offset-2 col-md-8">
-                                        <form class="form-horizontal" method="post" files="true" enctype="multipart/form-data" action="{{ url('/dispatch-readfile') }}" id="dispatch_form">
-                                            <div class="form-group">
-                                                {{ csrf_field() }}
-                                                <label class="control-label col-md-2">Dispatch File</label>
-                                                <div class="col-md-7">
-                                                    <input type="file" class="filestyle" data-buttonName="btn-primary" name="dispatch_file" id="dispatch_file" {{$readonly}}>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <button type="submit" class="btn btn-md green" {{$state}}>
-                                                        <i class="fa fa-upload"></i> Upload File
-                                                    </button> <!-- type="submit" -->
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-md-offset-5 col-md-2">
-                                                    <a href="{{ url('/dispatch-excel') }}" id="btn_download" class="btn blue">Download excel File</a>
-                                                </div>
-                                            </div>
-                                        </form>
+                <div class="portlet box blue" >
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-navicon"></i>  YPICS Dispatch
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row">
+                            <div class="col-md-offset-2 col-md-8">
+                                <form class="form-horizontal" method="post" files="true" enctype="multipart/form-data" action="{{ url('/dispatch-readfile') }}" id="dispatch_form">
+                                    <div class="form-group">
+                                        {{ csrf_field() }}
+                                        <label class="control-label col-md-2">Dispatch File</label>
+                                        <div class="col-md-7">
+                                            <input type="file" class="filestyle" data-buttonName="btn-primary" name="dispatch_file" id="dispatch_file" {{$readonly}}>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button type="submit" class="btn btn-md green" {{$state}}>
+                                                <i class="fa fa-upload"></i> Upload File
+                                            </button> <!-- type="submit" -->
+                                        </div>
                                     </div>
-                                        
-                                </div>
-
-                                <div class="row" id="dispatch-table">
-                                    <div class="col-md-12">
-                                        <table class="table table-striped" id="tbl_dispatch">
-                                            <thead>
-                                                <tr>
-                                                    <th></th>
-                                                    <th>PORDER</th>
-                                                    <th>CODE</th>
-                                                    <th>MOTO</th>
-                                                    <th>HOKAN</th>
-                                                    <th>SEIBAN</th>
-                                                    <th>BEDA</th>
-                                                    <th>KVOL</th>
-                                                    <th>NEED</th>
-                                                    <th>PICKDATE</th>
-                                                    <th>LOTNAME</th>
-                                                    <th>TSLIP_NUM</th>
-                                                    <th>NOTE</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tbl_dispatch_body"></tbody>
-                                        </table>
+                                    <div class="form-group row">
+                                        <div class="col-md-offset-5 col-md-2">
+                                            <a href="{{ url('/dispatch-excel') }}" id="btn_download" class="btn blue">Download excel File</a>
+                                        </div>
                                     </div>
-                                </div>      
+                                </form>
                             </div>
+                                
                         </div>
 
+                        <div class="row" id="dispatch-table">
+                            <div class="col-md-12">
+                                <table class="table table-striped" id="tbl_dispatch">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>PORDER</th>
+                                            <th>CODE</th>
+                                            <th>MOTO</th>
+                                            <th>HOKAN</th>
+                                            <th>SEIBAN</th>
+                                            <th>BEDA</th>
+                                            <th>KVOL</th>
+                                            <th>NEED</th>
+                                            <th>PICKDATE</th>
+                                            <th>LOTNAME</th>
+                                            <th>TSLIP_NUM</th>
+                                            <th>NOTE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbl_dispatch_body"></tbody>
+                                </table>
+                            </div>
+                        </div>      
                     </div>
                 </div>
 
-                
-                <!-- END PAGE CONTENT-->
             </div>
         </div>
-        <!-- END CONTENT -->
 
+        
+        <!-- END PAGE CONTENT-->
     </div>
-    <!-- END CONTAINER -->
+
+
 
     @include('includes.modals')
 

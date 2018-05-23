@@ -15,89 +15,82 @@
 		@endif
 	@endforeach
 
-	<div class="clearfix"></div>
 
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
+	
+	<div class="page-content">
 
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-sm-12">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						@include('includes.message-block')
-						<div class="portlet box blue" >
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-barcode"></i>  Packing List Settings
-								</div>
-							</div>
-							<div class="portlet-body">
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-sm-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				@include('includes.message-block')
+				<div class="portlet box blue" >
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-barcode"></i>  Packing List Settings
+						</div>
+					</div>
+					<div class="portlet-body">
 
-								<div class="row">
-									<div class="col-md-8 col-md-offset-2 col-sm-12 table-responsive" >
-										<table class="table table-striped table-bordered table-hover" id="sample_3">
-												<thead>
-													<tr>
-														<th class="table-checkbox" style="width: 5%">
-															<input type="checkbox" class="group-checkable checkAllitems" data-set="#sample_3 .checkboxes"/>
-														</th>
+						<div class="row">
+							<div class="col-md-8 col-md-offset-2 col-sm-12 table-responsive" >
+								<table class="table table-striped table-bordered table-hover" id="sample_3">
+										<thead>
+											<tr>
+												<th class="table-checkbox" style="width: 5%">
+													<input type="checkbox" class="group-checkable checkAllitems" data-set="#sample_3 .checkboxes"/>
+												</th>
 
-														<th></th>
-														<th>Assignment</th>
-														<th>User</th>
-														<th>Product</th>
-													</tr>
-												</thead>
+												<th></th>
+												<th>Assignment</th>
+												<th>User</th>
+												<th>Product</th>
+											</tr>
+										</thead>
 
-												<tbody id="tbldetails">
-													@foreach($tableData as $td)
-														<tr>
-															<td>
-																<input type="checkbox" class="checkboxes" data-id="{{$td->id}}">
-															</td>
-															<td style="width: 5%">
-																<a href="javascript:;" class="btn input-sm blue btn_edit" data-id="{{$td->id}}" data-assign="{{$td->assign}}" data-user="{{$td->user}}" data-prodline="{{$td->prodline}}">
-																	<i class="fa fa-edit"></i>
-																</a>
-															</td>
-															<td>{{$td->assign}}</td>
-															<td>{{$td->user}}</td>
-															<td>{{$td->prodline}}</td>
-														</tr>
-													@endforeach
-												</tbody>
-											</table>
-
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-md-12 text-center">
-										<a href="javascript:;" id="btn_add" class="btn btn-success btn-sm">
-											<i class="fa fa-plus-square-o"></i> Add
-										</a>
-										<a href="javascript:;" class="btn btn-danger btn-sm deleteAll-task" id="btn_delete">
-											<i class="fa fa-trash"></i> Delete
-										</a>
-									</div>
-								</div>
-
+										<tbody id="tbldetails">
+											@foreach($tableData as $td)
+												<tr>
+													<td>
+														<input type="checkbox" class="checkboxes" data-id="{{$td->id}}">
+													</td>
+													<td style="width: 5%">
+														<a href="javascript:;" class="btn input-sm blue btn_edit" data-id="{{$td->id}}" data-assign="{{$td->assign}}" data-user="{{$td->user}}" data-prodline="{{$td->prodline}}">
+															<i class="fa fa-edit"></i>
+														</a>
+													</td>
+													<td>{{$td->assign}}</td>
+													<td>{{$td->user}}</td>
+													<td>{{$td->prodline}}</td>
+												</tr>
+											@endforeach
+										</tbody>
+									</table>
 
 							</div>
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
+
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<a href="javascript:;" id="btn_add" class="btn btn-success btn-sm">
+									<i class="fa fa-plus-square-o"></i> Add
+								</a>
+								<a href="javascript:;" class="btn btn-danger btn-sm deleteAll-task" id="btn_delete">
+									<i class="fa fa-trash"></i> Delete
+								</a>
+							</div>
+						</div>
+
+
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
+
+
 
 	<!-- Add Modal -->
 	<div id="ControlModal" class="modal fade" role="dialog" data-backdrop="static">

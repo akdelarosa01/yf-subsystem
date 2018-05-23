@@ -66,7 +66,17 @@
 </head>
 
 <body class="page-md page-header-fixed page-quick-sidebar-over-content page-style-square page-container-bg-solid">{{-- page-md page-header-fixed page-quick-sidebar-over-content page-full-width --}}
-	@yield('content')
+	@include('includes.header')
+	<div class="clearfix"></div>
+
+	<div class="page-container">
+		@include('includes.sidebar')
+
+		<div class="page-content-wrapper">
+			@yield('content')
+		</div>
+
+	</div>
 
 	<!-- BEGIN FOOTER -->
 	{{-- <div class="page-footer">

@@ -14,90 +14,80 @@
 			@endif
 		@endif
 	@endforeach
+	
+	<div class="page-content">
 
-	<div class="clearfix"></div>
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-sm-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				@include('includes.message-block')
+				<div class="portlet box blue" >
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-dollar"></i>  Sold To Master
+						</div>
+					</div>
+					<div class="portlet-body">
+						<div class="row">
+							<div class="col-sm-8 col-sm-offset-2 table-responsive">										
+								<table class="table table-striped table-bordered table-hover" id="sample_3" style="font-size: 12px;">
+										<thead>
+											<tr>
+												<th class="table-checkbox" style="width: 5%">
+													<input type="checkbox" class="group-checkable checkAllitems" data-set="#sample_3 .checkboxes"/>
+												</th>
+												<th></th>
+												<th>Code</th>
+												<th>Company Name</th>
+												<th>Description</th>
+											</tr>
+										</thead>
 
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
-
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-sm-12">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						@include('includes.message-block')
-						<div class="portlet box blue" >
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-dollar"></i>  Sold To Master
-								</div>
-							</div>
-							<div class="portlet-body">
-								<div class="row">
-									<div class="col-sm-8 col-sm-offset-2 table-responsive">										
-										<table class="table table-striped table-bordered table-hover" id="sample_3" style="font-size: 12px;">
-												<thead>
-													<tr>
-														<th class="table-checkbox" style="width: 5%">
-															<input type="checkbox" class="group-checkable checkAllitems" data-set="#sample_3 .checkboxes"/>
-														</th>
-														<th></th>
-														<th>Code</th>
-														<th>Company Name</th>
-														<th>Description</th>
-													</tr>
-												</thead>
-
-												<tbody>
-													@foreach ($tableData as $dest)
-														<tr>
-															
-															<td style="width: 5%">
-									                           <input type="checkbox" class="form-control input-sm checkboxes" name="checkitem" id="checkitem" value="{{$dest->id}}"></input>
-								            				</td>
-								   															
-															<td style="width: 7%">
-									                           
-									                            <button type="button" name="edit-task" class="btn btn-sm btn-primary edit-task" value="{{$dest->id . '|' . $dest->code . '|' . $dest->companyname. '|' .$dest->description}}">
-								                						<i class="fa fa-edit"></i> 
-								            					</button>
-								            				</td>
-								            				<td>{{$dest->code}}</td>
-															<td>{{$dest->companyname}}</td>
-															<td><div style="white-space: pre-wrap;">{{$dest->description}}</div></td>
-														</tr>
-													@endforeach
-												</tbody>
-											</table>									
-									</div>
-								</div>
-
-								<div class="row" style="margin-top: 30px;">
-									<div class="col-sm-4 col-sm-offset-5">
-										<a href="#" id="add" class="btn btn-success input-sm">
-											<i class="fa fa-plus-square-o"></i> Add
-										</a>
-										<button type="submit" class="btn btn-danger input-sm deleteAll-task">
-											<i class="fa fa-trash"></i> Delete 
-										</button>
-									</div>
-								</div>
-
-
+										<tbody>
+											@foreach ($tableData as $dest)
+												<tr>
+													
+													<td style="width: 5%">
+							                           <input type="checkbox" class="form-control input-sm checkboxes" name="checkitem" id="checkitem" value="{{$dest->id}}"></input>
+						            				</td>
+						   															
+													<td style="width: 7%">
+							                           
+							                            <button type="button" name="edit-task" class="btn btn-sm btn-primary edit-task" value="{{$dest->id . '|' . $dest->code . '|' . $dest->companyname. '|' .$dest->description}}">
+						                						<i class="fa fa-edit"></i> 
+						            					</button>
+						            				</td>
+						            				<td>{{$dest->code}}</td>
+													<td>{{$dest->companyname}}</td>
+													<td><div style="white-space: pre-wrap;">{{$dest->description}}</div></td>
+												</tr>
+											@endforeach
+										</tbody>
+									</table>									
 							</div>
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
+
+						<div class="row" style="margin-top: 30px;">
+							<div class="col-sm-4 col-sm-offset-5">
+								<a href="#" id="add" class="btn btn-success input-sm">
+									<i class="fa fa-plus-square-o"></i> Add
+								</a>
+								<button type="submit" class="btn btn-danger input-sm deleteAll-task">
+									<i class="fa fa-trash"></i> Delete 
+								</button>
+							</div>
+						</div>
+
+
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
+
 
 	<!-- Add Modal -->
 	<div id="soldtoModal" class="modal fade" role="dialog" data-backdrop="static">

@@ -76,273 +76,266 @@
      @endforeach
 
 
-     <div class="clearfix"></div>
 
-     <!-- BEGIN CONTAINER -->
-     <div class="page-container">
-      @include('includes.sidebar')
-          <!-- BEGIN CONTENT -->
-          <div class="page-content-wrapper">
-               <div class="page-content">
+     
+     <div class="page-content">
 
-                    @include('includes.message-block')
-                    <div class="portlet box blue" >
-                         <div class="portlet-title">
-                              <div class="caption">
-                                   <i class="fa fa-navicon"></i>  WBS Material Receiving
+          @include('includes.message-block')
+          <div class="portlet box blue" >
+               <div class="portlet-title">
+                    <div class="caption">
+                         <i class="fa fa-navicon"></i>  WBS Material Receiving
+                    </div>
+               </div>
+               <div class="portlet-body">
+                    <div class="row">
+                         <div class="col-md-5">
+                              <div class="form-group row">
+                                   <label class="control-label col-md-3">Receiving No.</label>
+                                   <div class="col-md-9">
+                                        <div class="input-group">
+                                             <input type="text" class="form-control clear clearinv input-sm" id="receivingno" name="receivingno" />
+
+                                             <span class="input-group-btn">
+                                                  <a href="javascript:navigate('first');" id="btn_min" class="btn blue input-sm"><i class="fa fa-fast-backward"></i></a>
+                                                  <a href="javascript:navigate('prev');" id="btn_prv" class="btn blue input-sm"><i class="fa fa-backward"></i></a>
+                                                  <a href="javascript:navigate('next');" id="btn_nxt" class="btn blue input-sm"><i class="fa fa-forward"></i></a>
+                                                  <a href="javascript:navigate('last');" id="btn_max" class="btn blue input-sm"><i class="fa fa-fast-forward"></i></a>
+                                             </span>
+                                        </div>
+
+                                        
+                                   </div>
+                              </div>
+                              <div class="form-group row">
+                                   <label class="control-label col-md-3">Receiving Date.</label>
+                                   <div class="col-md-4">
+                                        <input class="form-control clear clearinv input-sm date-picker" size="16" type="text" name="receivingdate" id="receivingdate"/>
+                                   </div>
+                                   <div class="col-md-5">
+                                        <!-- <button type="button" class="btn btn-default">Previous</button> -->
+                                   </div>
+                              </div>
+                              <div class="form-group row">
+                                   <label class="control-label col-md-3">Invoice No.</label>
+                                   <div class="col-md-8">
+                                        <div class="input-group">
+                                             <input type="text" class="form-control clear input-sm" id="invoiceno" name="invoiceno" readonly/>
+                                             <input type="hidden" class="form-control clear clearinv input-sm" id="hdninvoiceno" name="hdninvoiceno"/>
+                                             <span class="input-group-btn">
+                                                  <button type="submit" class="btn green input-sm" id="btn_checkinv"><i class="fa fa-arrow-circle-down"></i></button>
+                                             </span>
+                                        </div>
+                                        
+                                   </div>
+                              </div>
+                              <div class="form-group row">
+                                   <label class="control-label col-md-3">Invoice Date</label>
+                                   <div class="col-md-4">
+                                        <input class="form-control clear clearinv input-sm date-picker" size="16" type="text" name="invoicedate" id="invoicedate" disabled="disable"/>
+                                   </div>
                               </div>
                          </div>
-                         <div class="portlet-body">
-                              <div class="row">
-                                   <div class="col-md-5">
-                                        <div class="form-group row">
-                                             <label class="control-label col-md-3">Receiving No.</label>
-                                             <div class="col-md-9">
-                                                  <div class="input-group">
-                                                       <input type="text" class="form-control clear clearinv input-sm" id="receivingno" name="receivingno" />
 
-                                                       <span class="input-group-btn">
-                                                            <a href="javascript:navigate('first');" id="btn_min" class="btn blue input-sm"><i class="fa fa-fast-backward"></i></a>
-                                                            <a href="javascript:navigate('prev');" id="btn_prv" class="btn blue input-sm"><i class="fa fa-backward"></i></a>
-                                                            <a href="javascript:navigate('next');" id="btn_nxt" class="btn blue input-sm"><i class="fa fa-forward"></i></a>
-                                                            <a href="javascript:navigate('last');" id="btn_max" class="btn blue input-sm"><i class="fa fa-fast-forward"></i></a>
-                                                       </span>
-                                                  </div>
-
-                                                  
-                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                             <label class="control-label col-md-3">Receiving Date.</label>
-                                             <div class="col-md-4">
-                                                  <input class="form-control clear clearinv input-sm date-picker" size="16" type="text" name="receivingdate" id="receivingdate"/>
-                                             </div>
-                                             <div class="col-md-5">
-                                                  <!-- <button type="button" class="btn btn-default">Previous</button> -->
-                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                             <label class="control-label col-md-3">Invoice No.</label>
-                                             <div class="col-md-8">
-                                                  <div class="input-group">
-                                                       <input type="text" class="form-control clear input-sm" id="invoiceno" name="invoiceno" readonly/>
-                                                       <input type="hidden" class="form-control clear clearinv input-sm" id="hdninvoiceno" name="hdninvoiceno"/>
-                                                       <span class="input-group-btn">
-                                                            <button type="submit" class="btn green input-sm" id="btn_checkinv"><i class="fa fa-arrow-circle-down"></i></button>
-                                                       </span>
-                                                  </div>
-                                                  
-                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                             <label class="control-label col-md-3">Invoice Date</label>
-                                             <div class="col-md-4">
-                                                  <input class="form-control clear clearinv input-sm date-picker" size="16" type="text" name="invoicedate" id="invoicedate" disabled="disable"/>
-                                             </div>
-                                        </div>
-                                   </div>
-
-                                   <div class="col-md-3">
-                                        <div class="form-group row">
-                                             <label class="control-label col-md-5">Pallet No.</label>
-                                             <div class="col-md-7">
-                                                  <input type="text" class="form-control clear clearinv input-sm" id="palletno" name="palletno" readonly/>
-                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                             <label class="control-label col-md-5">Total Qty.</label>
-                                             <div class="col-md-7">
-                                                  <input type="text" class="form-control clear clearinv input-sm" id="totalqty" name="totalqty" disabled="disable"/>
-                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                             <label class="control-label col-md-5">Total Variance</label>
-                                             <div class="col-md-7">
-                                                  <input type="text" class="form-control clear clearinv input-sm" id="totalvar" name="totalvar" disabled="disable"/>
-                                                  <input type="hidden" id="totalamt" name="totalamt"/>
-                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                             <label class="control-label col-md-5">Status</label>
-                                             <div class="col-md-7">
-                                                  <input type="text" class="form-control clear clearinv input-sm" id="status" name="status" disabled="disable"/>
-                                             </div>
-                                        </div>
-                                   </div>
-
-                                   <div class="col-md-4">
-                                        <div class="form-group row">
-                                             <label class="control-label col-md-4">Created By</label>
-                                             <div class="col-md-8">
-                                                  <input type="text" class="form-control clear clearinv input-sm" id="createdby" name="createdby" disabled="disable"/>
-                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                             <label class="control-label col-md-4">Created Date</label>
-                                             <div class="col-md-8">
-                                                  <input class="form-control clear clearinv input-sm date-picker" size="50" type="text" name="createddate" id="createddate" disabled="disable"/>
-                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                             <label class="control-label col-md-4">Updated By</label>
-                                             <div class="col-md-8">
-                                                  <input type="text" class="form-control clear clearinv input-sm" id="updatedby" name="updatedby" disabled="disable"/>
-                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                             <label class="control-label col-md-4">Updated Date</label>
-                                             <div class="col-md-8">
-                                                  <input class="form-control clear clearinv input-sm date-picker" size="50" type="text" name="updateddate" id="updateddate" disabled="disable"/>
-                                             </div>
-                                        </div>
+                         <div class="col-md-3">
+                              <div class="form-group row">
+                                   <label class="control-label col-md-5">Pallet No.</label>
+                                   <div class="col-md-7">
+                                        <input type="text" class="form-control clear clearinv input-sm" id="palletno" name="palletno" readonly/>
                                    </div>
                               </div>
-
-                              <div class="row">
-                                   <div class="col-md-offset-2 col-md-8">
-                                        <div class="row">
-                                             <div class="col-sm-offset-2 col-sm-8">
-                                                  <form class="form-horizontal" method="POST" enctype="multipart/form-data" id="uploadbatchfiles" action="{{ url('/wbsuploadbatchitems') }}">
-                                                       <div class="form-group">
-                                                            <label class="control-label col-sm-4">Upload Batch Items</label>
-                                                            <div class="col-sm-6">
-                                                                 {{ csrf_field() }}
-                                                                 <input type="file" class="filestyle" data-buttonName="btn-primary" name="batchfiles" id="batchfiles" {{$readonly}}>
-                                                                 {{-- batchfiles --}}
-                                                            </div>
-                                                            <div class="col-sm-2">
-                                                                 <button type="submit" id="btn_upload" class="btn btn-success" <?php echo($state); ?>>
-                                                                      <i class="fa fa-upload"></i> Upload
-                                                                 </button>
-                                                            </div>
-                                                       </div>
-                                                  </form>
-
-                                             </div>
-                                        </div>
-
+                              <div class="form-group row">
+                                   <label class="control-label col-md-5">Total Qty.</label>
+                                   <div class="col-md-7">
+                                        <input type="text" class="form-control clear clearinv input-sm" id="totalqty" name="totalqty" disabled="disable"/>
                                    </div>
                               </div>
-
-                              <div class="row">
-                                   <div class="col-md-12">
-                                        <div class="tabbable-custom">
-                                             <ul class="nav nav-tabs nav-tabs-lg" id="tabslist" role="tablist">
-                                                  <li class="active">
-                                                       <a href="#details" data-toggle="tab" data-toggle="tab" aria-expanded="true">Details</a>
-                                                  </li>
-                                                  <li>
-                                                       <a href="#summary" data-toggle="tab" data-toggle="tab" aria-expanded="true">Summary</a>
-                                                  </li>
-                                                  <li>
-                                                       <a href="#batch" data-toggle="tab" data-toggle="tab" aria-expanded="true">Batch Details</a>
-                                                  </li>
-                                             </ul>
-
-                                             <!-- Details Tab -->
-                                             <div class="tab-content" id="tab-subcontents">
-                                                  <div class="tab-pane fade in active" id="details">
-                                                       <div class="row">
-                                                            <div class="col-md-12">
-                                                                 <div class="table-responsive table-area" id="div_tbl_details" >
-
-                                                                 </div>
-                                                            </div>
-
-                                                       </div>
-                                                  </div>
-                                                  <!-- Summary Tab -->
-                                                  <div class="tab-pane fade" id="summary">
-                                                       <div class="row">
-                                                            <div class="col-md-12">
-                                                                 <div class="table-responsive" id="div_tbl_summary">
-
-                                                                 </div>
-                                                                 <!-- <p>Count: <span id="summarycount"></span></p> -->
-                                                            </div>
-                                                       </div>
-                                                  </div>
-                                                  <!-- Batch Details Tab -->
-                                                  <div class="tab-pane fade" id="batch">
-                                                       <div class="row">
-                                                            <div class="col-md-12">
-                                                                 <div class="table-responsive" id="div_tbl_batch">
-
-                                                                 </div>
-
-                                                            </div>
-                                                       </div>
-                                                       <div class="row">
-                                                            <div class="col-md-12 text-center">
-                                                                 <button type="button"  class="btn green input-sm" id="btn_add_batch" <?php echo($state); ?> >
-                                                                      <i class="fa fa-plus"></i> Add Batch Item
-                                                                 </button>
-                                                                 <button type="button"  class="btn red input-sm" id="btn_delete_batch">
-                                                                      <i class="fa fa-trash"></i> Delete
-                                                                 </button>
-                                                                 {{-- <button type="button"  class="btn blue input-sm" id="btn_all_batch">
-                                                                      <i class="glyphicon glyphicon-asterisk"></i> Receive All
-                                                                 </button> --}}
-                                                                 <input type="hidden" class="form-control input-sm" id="item_count" placeholder="Lower Limit" name="item_count"/>
-                                                            </div>
-                                                       </div>
-                                                  </div>
-                                             </div>
-
-                                        </div>
+                              <div class="form-group row">
+                                   <label class="control-label col-md-5">Total Variance</label>
+                                   <div class="col-md-7">
+                                        <input type="text" class="form-control clear clearinv input-sm" id="totalvar" name="totalvar" disabled="disable"/>
+                                        <input type="hidden" id="totalamt" name="totalamt"/>
                                    </div>
                               </div>
+                              <div class="form-group row">
+                                   <label class="control-label col-md-5">Status</label>
+                                   <div class="col-md-7">
+                                        <input type="text" class="form-control clear clearinv input-sm" id="status" name="status" disabled="disable"/>
+                                   </div>
+                              </div>
+                         </div>
 
-                              <!-- Action Buttons -->
-                              <div class="row">
-                                   <div class="col-md-12 text-center">
-                                        <button type="button" class="btn btn-success input-sm" id="btn_addnew" <?php echo($state); ?>>
-                                             <i class="fa fa-plus"></i> Add New
-                                        </button>
-                                        <button type="button" class="btn blue-madison input-sm" id="btn_save" <?php echo($state); ?> >
-                                             <i class="fa fa-pencil"></i> Save
-                                        </button>
-                                        <button type="button" class="btn blue-madison input-sm" id="btn_edit" >
-                                             <i class="fa fa-pencil"></i> Edit
-                                        </button>
-                                        <button type="button" class="btn red input-sm" id="btn_cancel" <?php echo($state); ?> >
-                                             <i class="fa fa-trash"></i> Cancel
-                                        </button>
-
-                                        <button type="button" class="btn red-intense input-sm" id="btn_discard" <?php echo($state); ?> >
-                                             <i class="fa fa-pencil"></i> Discard Changes
-                                        </button>
-
-                                        <button type="button" class="btn blue-steel input-sm" id="btn_search">
-                                             <i class="fa fa-search"></i> Search
-                                        </button>
-
-                                        <button type="button" class="btn red input-sm" id="btn_cancel_mr" <?php echo($state); ?> >
-                                             <i class="fa fa-trash"></i> Cancel Invoice
-                                        </button>
-
-                                        <button type="submit" class="btn purple-plum input-sm" id="btn_print">
-                                             <i class="fa fa-print"></i> Print
-                                        </button>
-
-                                        <button type="submit" class="btn blue input-sm" id="btn_print_iqc">
-                                             <i class="fa fa-print"></i> Apply to IQC
-                                        </button>
-
-                                        <button type="button" class="btn grey-gallery input-sm" id="btn_refresh">
-                                             <i class="fa fa-refresh"></i> Refresh Invoice
-                                        </button>
-                                        <input type="hidden" name="savestate" id="savestate">
+                         <div class="col-md-4">
+                              <div class="form-group row">
+                                   <label class="control-label col-md-4">Created By</label>
+                                   <div class="col-md-8">
+                                        <input type="text" class="form-control clear clearinv input-sm" id="createdby" name="createdby" disabled="disable"/>
+                                   </div>
+                              </div>
+                              <div class="form-group row">
+                                   <label class="control-label col-md-4">Created Date</label>
+                                   <div class="col-md-8">
+                                        <input class="form-control clear clearinv input-sm date-picker" size="50" type="text" name="createddate" id="createddate" disabled="disable"/>
+                                   </div>
+                              </div>
+                              <div class="form-group row">
+                                   <label class="control-label col-md-4">Updated By</label>
+                                   <div class="col-md-8">
+                                        <input type="text" class="form-control clear clearinv input-sm" id="updatedby" name="updatedby" disabled="disable"/>
+                                   </div>
+                              </div>
+                              <div class="form-group row">
+                                   <label class="control-label col-md-4">Updated Date</label>
+                                   <div class="col-md-8">
+                                        <input class="form-control clear clearinv input-sm date-picker" size="50" type="text" name="updateddate" id="updateddate" disabled="disable"/>
                                    </div>
                               </div>
                          </div>
                     </div>
+
+                    <div class="row">
+                         <div class="col-md-offset-2 col-md-8">
+                              <div class="row">
+                                   <div class="col-sm-offset-2 col-sm-8">
+                                        <form class="form-horizontal" method="POST" enctype="multipart/form-data" id="uploadbatchfiles" action="{{ url('/wbsuploadbatchitems') }}">
+                                             <div class="form-group">
+                                                  <label class="control-label col-sm-4">Upload Batch Items</label>
+                                                  <div class="col-sm-6">
+                                                       {{ csrf_field() }}
+                                                       <input type="file" class="filestyle" data-buttonName="btn-primary" name="batchfiles" id="batchfiles" {{$readonly}}>
+                                                       {{-- batchfiles --}}
+                                                  </div>
+                                                  <div class="col-sm-2">
+                                                       <button type="submit" id="btn_upload" class="btn btn-success" <?php echo($state); ?>>
+                                                            <i class="fa fa-upload"></i> Upload
+                                                       </button>
+                                                  </div>
+                                             </div>
+                                        </form>
+
+                                   </div>
+                              </div>
+
+                         </div>
+                    </div>
+
+                    <div class="row">
+                         <div class="col-md-12">
+                              <div class="tabbable-custom">
+                                   <ul class="nav nav-tabs nav-tabs-lg" id="tabslist" role="tablist">
+                                        <li class="active">
+                                             <a href="#details" data-toggle="tab" data-toggle="tab" aria-expanded="true">Details</a>
+                                        </li>
+                                        <li>
+                                             <a href="#summary" data-toggle="tab" data-toggle="tab" aria-expanded="true">Summary</a>
+                                        </li>
+                                        <li>
+                                             <a href="#batch" data-toggle="tab" data-toggle="tab" aria-expanded="true">Batch Details</a>
+                                        </li>
+                                   </ul>
+
+                                   <!-- Details Tab -->
+                                   <div class="tab-content" id="tab-subcontents">
+                                        <div class="tab-pane fade in active" id="details">
+                                             <div class="row">
+                                                  <div class="col-md-12">
+                                                       <div class="table-responsive table-area" id="div_tbl_details" >
+
+                                                       </div>
+                                                  </div>
+
+                                             </div>
+                                        </div>
+                                        <!-- Summary Tab -->
+                                        <div class="tab-pane fade" id="summary">
+                                             <div class="row">
+                                                  <div class="col-md-12">
+                                                       <div class="table-responsive" id="div_tbl_summary">
+
+                                                       </div>
+                                                       <!-- <p>Count: <span id="summarycount"></span></p> -->
+                                                  </div>
+                                             </div>
+                                        </div>
+                                        <!-- Batch Details Tab -->
+                                        <div class="tab-pane fade" id="batch">
+                                             <div class="row">
+                                                  <div class="col-md-12">
+                                                       <div class="table-responsive" id="div_tbl_batch">
+
+                                                       </div>
+
+                                                  </div>
+                                             </div>
+                                             <div class="row">
+                                                  <div class="col-md-12 text-center">
+                                                       <button type="button"  class="btn green input-sm" id="btn_add_batch" <?php echo($state); ?> >
+                                                            <i class="fa fa-plus"></i> Add Batch Item
+                                                       </button>
+                                                       <button type="button"  class="btn red input-sm" id="btn_delete_batch">
+                                                            <i class="fa fa-trash"></i> Delete
+                                                       </button>
+                                                       {{-- <button type="button"  class="btn blue input-sm" id="btn_all_batch">
+                                                            <i class="glyphicon glyphicon-asterisk"></i> Receive All
+                                                       </button> --}}
+                                                       <input type="hidden" class="form-control input-sm" id="item_count" placeholder="Lower Limit" name="item_count"/>
+                                                  </div>
+                                             </div>
+                                        </div>
+                                   </div>
+
+                              </div>
+                         </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="row">
+                         <div class="col-md-12 text-center">
+                              <button type="button" class="btn btn-success input-sm" id="btn_addnew" <?php echo($state); ?>>
+                                   <i class="fa fa-plus"></i> Add New
+                              </button>
+                              <button type="button" class="btn blue-madison input-sm" id="btn_save" <?php echo($state); ?> >
+                                   <i class="fa fa-pencil"></i> Save
+                              </button>
+                              <button type="button" class="btn blue-madison input-sm" id="btn_edit" >
+                                   <i class="fa fa-pencil"></i> Edit
+                              </button>
+                              <button type="button" class="btn red input-sm" id="btn_cancel" <?php echo($state); ?> >
+                                   <i class="fa fa-trash"></i> Cancel
+                              </button>
+
+                              <button type="button" class="btn red-intense input-sm" id="btn_discard" <?php echo($state); ?> >
+                                   <i class="fa fa-pencil"></i> Discard Changes
+                              </button>
+
+                              <button type="button" class="btn blue-steel input-sm" id="btn_search">
+                                   <i class="fa fa-search"></i> Search
+                              </button>
+
+                              <button type="button" class="btn red input-sm" id="btn_cancel_mr" <?php echo($state); ?> >
+                                   <i class="fa fa-trash"></i> Cancel Invoice
+                              </button>
+
+                              <button type="submit" class="btn purple-plum input-sm" id="btn_print">
+                                   <i class="fa fa-print"></i> Print
+                              </button>
+
+                              <button type="submit" class="btn blue input-sm" id="btn_print_iqc">
+                                   <i class="fa fa-print"></i> Apply to IQC
+                              </button>
+
+                              <button type="button" class="btn grey-gallery input-sm" id="btn_refresh">
+                                   <i class="fa fa-refresh"></i> Refresh Invoice
+                              </button>
+                              <input type="hidden" name="savestate" id="savestate">
+                         </div>
+                    </div>
                </div>
           </div>
-          <!-- END CONTENT -->
-
      </div>
-     <!-- END CONTAINER -->
+
+
+
 
      <!-- Add Batch Modal -->
      <div id="batchItemModal" class="modal fade" role="dialog" data-backdrop="static">

@@ -19,7 +19,7 @@
 @extends('layouts.master')
 
 @section('title')
-WBS | Pricon Microelectronics, Inc.
+    WBS | Pricon Microelectronics, Inc.
 @endsection
 
 
@@ -35,88 +35,79 @@ WBS | Pricon Microelectronics, Inc.
         @endif
     @endforeach
 
-  <div class="clearfix"></div>
 
-    <!-- BEGIN CONTAINER -->
-    <div class="page-container">
-      @include('includes.sidebar')
-        <!-- BEGIN CONTENT -->
-        <div class="page-content-wrapper">
-            <div class="page-content">
+    <div class="page-content">
 
-                <!-- BEGIN PAGE CONTENT-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                        @include('includes.message-block')
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                @include('includes.message-block')
 
-                        <div class="portlet box blue" >
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    <i class="fa fa-navicon"></i>  WBS IQC Inspection
-                                </div>
-                            </div>
-                            <div class="portlet-body">
-									<div class="row">
-	                                    <div class="col-md-12">
-	                                    	<div class="pull-right">
-	                                    		<a href="javascript:;" id="searchbtn" class="btn btn-sm blue input-sm">
-                                                    <i class="fa fa-search"></i> Search
-                                                </a>
-	                                    		      <a href="javascript:;" id="statusbtn" class="btn btn-sm btn-success input-sm" <?php echo($state); ?> >
-                                                    <i class="fa fa-ellipsis-v"></i> Update Status Bulk
-                                                </a>
-	                                    	</div>
-	                                    </div>
-	                                </div>
-		                                  <br/>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered table-striped" id="tbl_iqc" style="font-size:10px">
-                                                    <thead>
-                                                        <tr>
-                                                            <td class="table-checkbox">
-                                                                <input type="checkbox" id="chk_all" name="chk_all" class="group-checkable"/>
-                                                            </td>
-                                                            <td>Item/Part No.</td>
-                                                            <td>Item Description</td>
-                                                            <td>Supplier</td>
-                                                            <td>Quantity</td>
-                                                            <td>Lot No.</td>
-                                                            <td>Drawing No.</td>
-                                                            <td>Receving No.</td>
-                                                            <td>Invoice No.</td>
-                                                            <td>Applied By</td>
-                                                            <td>Date & Time Applied</td>
-                                                            <td>Inspected By</td>
-                                                            <td>Date & Time Inspected</td>
-                                                            <td>Status</td>
-                                                            <td>IQC Result</td>
-                                                            <td>Action</td>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="tbl_iqc_body"></tbody>
-                                                </table>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
+                <div class="portlet box blue" >
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-navicon"></i>  WBS IQC Inspection
                         </div>
-                        <!-- END EXAMPLE TABLE PORTLET-->
+                    </div>
+                    <div class="portlet-body">
+							<div class="row">
+                                <div class="col-md-12">
+                                	<div class="pull-right">
+                                		<a href="javascript:;" id="searchbtn" class="btn btn-sm blue input-sm">
+                                            <i class="fa fa-search"></i> Search
+                                        </a>
+                                		      <a href="javascript:;" id="statusbtn" class="btn btn-sm btn-success input-sm" <?php echo($state); ?> >
+                                            <i class="fa fa-ellipsis-v"></i> Update Status Bulk
+                                        </a>
+                                	</div>
+                                </div>
+                            </div>
+                                  <br/>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped" id="tbl_iqc" style="font-size:10px">
+                                            <thead>
+                                                <tr>
+                                                    <td class="table-checkbox">
+                                                        <input type="checkbox" id="chk_all" name="chk_all" class="group-checkable"/>
+                                                    </td>
+                                                    <td>Item/Part No.</td>
+                                                    <td>Item Description</td>
+                                                    <td>Supplier</td>
+                                                    <td>Quantity</td>
+                                                    <td>Lot No.</td>
+                                                    <td>Drawing No.</td>
+                                                    <td>Receving No.</td>
+                                                    <td>Invoice No.</td>
+                                                    <td>Applied By</td>
+                                                    <td>Date & Time Applied</td>
+                                                    <td>Inspected By</td>
+                                                    <td>Date & Time Inspected</td>
+                                                    <td>Status</td>
+                                                    <td>IQC Result</td>
+                                                    <td>Action</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbl_iqc_body"></tbody>
+                                        </table>
 
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-                <!-- END PAGE CONTENT-->
+                <!-- END EXAMPLE TABLE PORTLET-->
+
             </div>
         </div>
-        <!-- END CONTENT -->
-
+        <!-- END PAGE CONTENT-->
     </div>
-    <!-- END CONTAINER -->
+
+
 
     <div id="searchmodal" class="modal fade" role="dialog" data-backdrop="static">
         <div class="modal-dialog gray-gallery">

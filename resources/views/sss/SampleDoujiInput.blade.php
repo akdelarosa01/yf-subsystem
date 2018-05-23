@@ -16,132 +16,122 @@
 			@endif
 		@endif
 	@endforeach
+
 	
-	<div class="clearfix">
-	</div>
-
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
-				
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-12">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						<div class="portlet box blue">
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-bar-chart-o"></i> Scheduling Support System (sample DOUJI INPUT)
-								</div>
+	<div class="page-content">
+		
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-bar-chart-o"></i> Scheduling Support System (sample DOUJI INPUT)
+						</div>
+					</div>
+					<div class="portlet-body portlet-empty">
+						<dv class="row">
+							<div class="col-md-12">
+								<h5>SAMPLE DOUJI INPUT</h5>
 							</div>
-							<div class="portlet-body portlet-empty">
-								<dv class="row">
-									<div class="col-md-12">
-										<h5>SAMPLE DOUJI INPUT</h5>
-									</div>
-								</dv>
-								<br>
-								<div class="row">
-									<div class="portlet-body col-md-12">
-										
-										<div class="table-responsive scroller" data-rail-visible="1" style="height: 300px;">
-											<table class="table table-striped table-bordered table-hover">
-												<thead>
-													<tr>
-														<td>
-															<b>ORDER DATE</b>
-														</td>
-														<td>
-															<b>PO</b>
-														</td>
-														<td>
-															<b>DCODE</b>
-														</td>
-														<td>
-															<b>ORDERBAL</b>
-														</td>
-														<td>
-															<b>ORDERQTY</b>
-														</td>
-														<td>
-															<b>CUSTCODE</b>
-														</td>
-														<td>
-															<b>CUSTOMER</b>
-														</td>
-														<td>
-															<b>MCODE</b>
-														</td>
-														<td>
-															<b>MNAME</b>
-														</td>
-														<td>
-															<b>SUPPLIERCODE</b>
-														</td>
-
-														<td>
-															<b>SUPPLIERNAME</b>
-														</td>
-														<td>
-															<b>RE</b>
-														</td>
-														<td>
-															<b>STATUS</b>
-														</td>
-														
-													</tr>
-												</thead>
-
-												<tbody id="table" >
-														
-
-												</tbody>
-											</table>
-
-											<!-- <div class="row" id="loading" style="display: none">
-												<div class="col-sm-6"></div>
-												<div class="col-sm-6">
-													<img src="assets/global/img/loading-spinner-blue.gif" class="img-responsive">
-												</div>
-											</div> -->
-										</div>
-									</div>
-								</div>
-								<span id="count"></span>
+						</dv>
+						<br>
+						<div class="row">
+							<div class="portlet-body col-md-12">
 								
-								<br/>
-								<div class="row">
-									<div class="col-md-12">
-									
+								<div class="table-responsive scroller" data-rail-visible="1" style="height: 300px;">
+									<table class="table table-striped table-bordered table-hover">
+										<thead>
+											<tr>
+												<td>
+													<b>ORDER DATE</b>
+												</td>
+												<td>
+													<b>PO</b>
+												</td>
+												<td>
+													<b>DCODE</b>
+												</td>
+												<td>
+													<b>ORDERBAL</b>
+												</td>
+												<td>
+													<b>ORDERQTY</b>
+												</td>
+												<td>
+													<b>CUSTCODE</b>
+												</td>
+												<td>
+													<b>CUSTOMER</b>
+												</td>
+												<td>
+													<b>MCODE</b>
+												</td>
+												<td>
+													<b>MNAME</b>
+												</td>
+												<td>
+													<b>SUPPLIERCODE</b>
+												</td>
 
-										<form method="post" enctype="multipart/form-data"  action="{{ url('/doujiexportexcel') }}" >
-										{!! csrf_field() !!}
-										<button class="btn blue btn-sm pull-right">
-											<i class="fa fa-print"></i> Print
-										</button>
-										</form>
+												<td>
+													<b>SUPPLIERNAME</b>
+												</td>
+												<td>
+													<b>RE</b>
+												</td>
+												<td>
+													<b>STATUS</b>
+												</td>
+												
+											</tr>
+										</thead>
 
-										
-									</div>
+										<tbody id="table" >
+												
+
+										</tbody>
+									</table>
+
+									<!-- <div class="row" id="loading" style="display: none">
+										<div class="col-sm-6"></div>
+										<div class="col-sm-6">
+											<img src="assets/global/img/loading-spinner-blue.gif" class="img-responsive">
+										</div>
+									</div> -->
 								</div>
-
-
 							</div>
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
-					</div>
-					<div class="col-md-2"></div>
-				</div>
-				<!-- END PAGE CONTENT-->
-			</div>
-		</div>
-		<!-- END CONTENT -->
+						<span id="count"></span>
+						
+						<br/>
+						<div class="row">
+							<div class="col-md-12">
+							
 
+								<form method="post" enctype="multipart/form-data"  action="{{ url('/doujiexportexcel') }}" >
+								{!! csrf_field() !!}
+								<button class="btn blue btn-sm pull-right">
+									<i class="fa fa-print"></i> Print
+								</button>
+								</form>
+
+								
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+				<!-- END EXAMPLE TABLE PORTLET-->
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
+
+
 
 	<!-- AJAX LOADER -->
 	<div id="loading" class="modal fade" role="dialog" data-backdrop="static">

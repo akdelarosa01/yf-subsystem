@@ -25,114 +25,104 @@
 		@endif
 	@endforeach
 
+	
+	<div class="page-content">
 
-	<div class="clearfix"></div>
+		<!-- BEGIN PAGE CONTENT-->
+		<div class="row">
+			<div class="col-md-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				@include('includes.message-block')
+				<div class="portlet box blue" >
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="fa fa-file-text"></i>  YPICS Invoicing
+						</div>
+					</div>
+					<div class="portlet-body">
 
-	<!-- BEGIN CONTAINER -->
-	<div class="page-container">
-		@include('includes.sidebar')
-		<!-- BEGIN CONTENT -->
-		<div class="page-content-wrapper">
-			<div class="page-content">
+						<div class="row">
 
-				<!-- BEGIN PAGE CONTENT-->
-				<div class="row">
-					<div class="col-md-12">
-						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						@include('includes.message-block')
-						<div class="portlet box blue" >
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-file-text"></i>  YPICS Invoicing
-								</div>
-							</div>
-							<div class="portlet-body">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-								<div class="row">
+								<div class="tabbable-custom">
+                                    <ul class="nav nav-tabs nav-tabs-lg" id="tabslist" role="tablist">
+                                        <li class="active" id="pakinglist_tab">
+                                            <a href="#packinglist_pane" data-toggle="tab" data-toggle="tab" aria-expanded="true">Packing List</a>
+                                        </li>
+                                        <li id="invoice_tab">
+                                            <a href="#invoice_pane" data-toggle="tab" data-toggle="tab" aria-expanded="true">Invoices</a>
+                                        </li>
+                                    </ul>
 
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="tab-content" id="tab-subcontents">
+                                        <div class="tab-pane fade in active" id="packinglist_pane">
+                                        	<div class="row">
+	                                            <div class="col-sm-12 table-responsive">
+	                                                <table class="table table-bordered display nowrap" cellspacing="0" width="100%" id="tbl_packinglist">
+	                                                    <thead>
+	                                                        <tr>
+	                                                            <td></td>
+	                                                            <td>CTR #</td>
+																<td>Invoice Date</td>
+																<td>Remarks</td>
+																<td>Sold To</td>
+																<td>Ship To</td>
+																<td>Date Ship</td>
+																<td>Port of Destination</td>
+																<td>Shipping Instruction</td>
+																<td>Case Marks</td>
+																<td>Note</td>
+																<td>Status</td>
+	                                                        </tr>
+	                                                    </thead>
+	                                                    <tbody id="tbl_packinglist_body"></tbody>
+	                                                </table>
+	                                            </div>
+	                                        </div>
+                                        </div>
 
-										<div class="tabbable-custom">
-                                            <ul class="nav nav-tabs nav-tabs-lg" id="tabslist" role="tablist">
-                                                <li class="active" id="pakinglist_tab">
-                                                    <a href="#packinglist_pane" data-toggle="tab" data-toggle="tab" aria-expanded="true">Packing List</a>
-                                                </li>
-                                                <li id="invoice_tab">
-                                                    <a href="#invoice_pane" data-toggle="tab" data-toggle="tab" aria-expanded="true">Invoices</a>
-                                                </li>
-                                            </ul>
-
-                                            <div class="tab-content" id="tab-subcontents">
-                                                <div class="tab-pane fade in active" id="packinglist_pane">
-                                                	<div class="row">
-			                                            <div class="col-sm-12 table-responsive">
-			                                                <table class="table table-bordered display nowrap" cellspacing="0" width="100%" id="tbl_packinglist">
-			                                                    <thead>
-			                                                        <tr>
-			                                                            <td></td>
-			                                                            <td>CTR #</td>
-																		<td>Invoice Date</td>
-																		<td>Remarks</td>
-																		<td>Sold To</td>
-																		<td>Ship To</td>
-																		<td>Date Ship</td>
-																		<td>Port of Destination</td>
-																		<td>Shipping Instruction</td>
-																		<td>Case Marks</td>
-																		<td>Note</td>
-																		<td>Status</td>
-			                                                        </tr>
-			                                                    </thead>
-			                                                    <tbody id="tbl_packinglist_body"></tbody>
-			                                                </table>
-			                                            </div>
-			                                        </div>
-                                                </div>
-
-                                                <div class="tab-pane fade" id="invoice_pane">
-                                                	<div class="row">
-			                                            <div class="col-sm-12 table-responsive">
-			                                                <table class="table table-bordered display " id="tbl_invoice">
-			                                                    <thead>
-			                                                        <tr>
-			                                                            <td></td>
-			                                                            <td>Invoice No.</td>
-																		<td>Invoice Date</td>
-																		<td>Packing List</td>
-																		<td>Customer</td>
-																		<td>Description</td>
-																		<td>Quantity</td>
-																		<td>Amount</td>
-																		<td>Destination</td>
-			                                                        </tr>
-			                                                    </thead>
-			                                                    <tbody id="tbl_invoice_body"></tbody>
-			                                                </table>
-			                                            </div>
-			                                        </div>
-                                                </div>
-                                            </div>
+                                        <div class="tab-pane fade" id="invoice_pane">
+                                        	<div class="row">
+	                                            <div class="col-sm-12 table-responsive">
+	                                                <table class="table table-bordered display " id="tbl_invoice">
+	                                                    <thead>
+	                                                        <tr>
+	                                                            <td></td>
+	                                                            <td>Invoice No.</td>
+																<td>Invoice Date</td>
+																<td>Packing List</td>
+																<td>Customer</td>
+																<td>Description</td>
+																<td>Quantity</td>
+																<td>Amount</td>
+																<td>Destination</td>
+	                                                        </tr>
+	                                                    </thead>
+	                                                    <tbody id="tbl_invoice_body"></tbody>
+	                                                </table>
+	                                            </div>
+	                                        </div>
+                                        </div>
+                                    </div>
 
 
-                                        
-
-									</div>
-								</div>
-
-
+                                
 
 							</div>
 						</div>
-						<!-- END EXAMPLE TABLE PORTLET-->
+
+
+
 					</div>
 				</div>
-				<!-- END PAGE CONTENT-->
+				<!-- END EXAMPLE TABLE PORTLET-->
 			</div>
 		</div>
-		<!-- END CONTENT -->
-
+		<!-- END PAGE CONTENT-->
 	</div>
-	<!-- END CONTAINER -->
+
+
 
 	@include('includes.modals')
 @endsection

@@ -7,7 +7,6 @@
                         <tr>
                             <th colspan="2" class="text-right">
                                 {{ csrf_field() }}
-                                <button type="submit" class="btn btn-success" id="btn_savemodal">Save</button>
                                 <button type="button" data-dismiss="modal" class="btn btn-danger">Close</button>
                             </th>
                         </tr>
@@ -16,19 +15,19 @@
                                 <div class="form-group" id="assembly_line_div">
                                     <label class="control-label col-sm-3">Assembly Line</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control input-sm validate clear" name="assembly_line" id="assembly_line">
+                                        <select class="form-control enter input-sm validate clear" name="assembly_line" id="assembly_line">
                                             <option value=""></option>
                                         </select>
                                         <span class="help-block">
                                             <strong id="assembly_line_msg"></strong>
                                         </span>
-                                        <input type="hidden" class="form-control input-sm validate clear" id="inspection_id" name="inspection_id">
+                                        <input type="hidden" class="form-control enter input-sm validate clear" id="inspection_id" name="inspection_id">
                                     </div>
                                 </div>
                                 <div class="form-group" id="lot_no_div">
                                     <label class="control-label col-sm-3">Lot No.</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-sm validate clear" id="lot_no" name="lot_no">
+                                        <input type="text" class="form-control enter input-sm validate clear" id="lot_no" name="lot_no">
                                         <span class="help-block">
                                             <strong id="lot_no_msg"></strong>
                                         </span>
@@ -37,7 +36,7 @@
                                 <div class="form-group" id="app_date_div">
                                     <label class="control-label col-sm-3">Application Date</label>
                                     <div class="col-sm-9">
-                                        <input class="form-control input-sm validate clear" type="date" name="app_date" id="app_date" />
+                                        <input class="form-control enter input-sm validate clear" type="date" name="app_date" id="app_date" />
                                         <span class="help-block">
                                             <strong id="app_date_msg"></strong>
                                         </span>
@@ -46,7 +45,7 @@
                                 <div class="form-group" id="app_time_div">
                                     <label class="control-label col-sm-3">Application Time</label>
                                     <div class="col-sm-9">
-                                        <input type="text" data-format="hh:mm A" value="{{date('h:i A')}}" class="form-control input-sm validate clear" name="app_time" id="app_time"/>
+                                        <input type="text" class="form-control enter input-sm validate clear" name="app_time" id="app_time"/>
                                         <span class="help-block">
                                             <strong id="app_time_msg"></strong>
                                         </span>
@@ -55,7 +54,7 @@
                                 <div class="form-group" id="prod_category_div">
                                     <label class="control-label col-sm-3">Product Category</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control input-sm validate clear" name="prod_category" id="prod_category">
+                                        <select class="form-control enter input-sm validate clear" name="prod_category" id="prod_category">
                                             <option value=""></option>
                                             <option value="Automotive">Automotive</option>
                                             <option value="Non-Automotive">Non-Automotive</option>
@@ -85,7 +84,7 @@
                                     <label class="control-label col-sm-3">P.O. No.</label>
                                     <div class="col-sm-9">
                                         <div class="input-group">
-                                            <input type="text" class="form-control input-sm validate clear" id="po_no" name="po_no" maxlength="15">
+                                            <input type="text" class="form-control enter input-sm validate clear" id="po_no" name="po_no" maxlength="15">
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn input-sm green" id="btn_getpodetails">
                                                     <i class="fa fa-arrow-circle-down"></i>
@@ -100,8 +99,8 @@
                                 <div class="form-group" id="series_name_div">
                                     <label class="control-label col-sm-3">Device Name</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-sm validate clear" id="series_name" name="series_name">
-                                        <input type="hidden" class="form-control input-sm validate clear" id="series_code" name="series_code">
+                                        <input type="text" class="form-control enter input-sm validate clear" id="series_name" name="series_name">
+                                        <input type="hidden" class="form-control enter input-sm validate clear" id="series_code" name="series_code">
                                         <span class="help-block">
                                             <strong id="series_name_msg"></strong>
                                         </span>
@@ -110,8 +109,8 @@
                                 <div class="form-group" id="customer_div">
                                     <label class="control-label col-sm-3">Customer</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-sm validate clear" id="customer" name="customer">
-                                        <input type="hidden" class="form-control input-sm validate clear" id="customer_code" name="customer_code">
+                                        <input type="text" class="form-control enter input-sm validate clear" id="customer" name="customer">
+                                        <input type="hidden" class="form-control enter input-sm validate clear" id="customer_code" name="customer_code">
                                         <span class="help-block">
                                             <strong id="customer_msg"></strong>
                                         </span>
@@ -120,7 +119,7 @@
                                 <div class="form-group" id="po_qty_div">
                                     <label class="control-label col-sm-3">P.O. Qty</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-sm validate clear" id="po_qty" name="po_qty">
+                                        <input type="text" class="form-control enter input-sm validate clear" id="po_qty" name="po_qty">
                                         <span class="help-block">
                                             <strong id="po_qty_msg"></strong>
                                         </span>
@@ -129,7 +128,7 @@
                                 <div class="form-group" id="family_div">
                                     <label class="control-label col-sm-3">Family</label>
                                     <div class="col-sm-9">
-                                        <select class=" form-control input-sm validate clear" name="family" id="family">
+                                        <select class=" form-control enter input-sm validate clear" name="family" id="family">
                                             <option value=""></option>
                                         </select>
                                         <span class="help-block">
@@ -148,7 +147,7 @@
                                 <div class="form-group" id="type_of_inspection_div">
                                     <label class="control-label col-sm-3">Type of Inspection</label>
                                     <div class="col-sm-9">
-                                        <select class=" form-control input-sm validate clear" name="type_of_inspection" id="type_of_inspection">
+                                        <select class=" form-control enter input-sm validate clear" name="type_of_inspection" id="type_of_inspection">
                                             <option value=""></option>
                                         </select>
                                         <span class="help-block">
@@ -159,7 +158,7 @@
                                 <div class="form-group" id="severity_of_inspection_div">
                                     <label class="control-label col-sm-3">Severity of Inspection</label>
                                     <div class="col-sm-9">
-                                        <select class=" form-control input-sm validate clear" name="severity_of_inspection" id="severity_of_inspection">
+                                        <select class=" form-control enter input-sm validate clear" name="severity_of_inspection" id="severity_of_inspection">
                                             <option value=""></option>
                                         </select>
                                         <span class="help-block">
@@ -170,7 +169,7 @@
                                 <div class="form-group" id="inspection_lvl_div">
                                     <label class="control-label col-sm-3">Inspection Level</label>
                                     <div class="col-sm-9">
-                                        <select class=" form-control input-sm validate clear" name="inspection_lvl" id="inspection_lvl">
+                                        <select class=" form-control enter input-sm validate clear" name="inspection_lvl" id="inspection_lvl">
                                             <option value=""></option>
                                         </select>
                                         <span class="help-block">
@@ -184,7 +183,7 @@
                                 <div class="form-group" id="aql_div">
                                     <label class="control-label col-sm-3">AQL</label>
                                     <div class="col-sm-9">
-                                        <select class=" form-control input-sm validate clear" name="aql" id="aql">
+                                        <select class=" form-control enter input-sm validate clear" name="aql" id="aql">
                                             <option value=""></option>
                                         </select>
                                         <span class="help-block">
@@ -195,13 +194,13 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-3">Accept</label>
                                     <div class="col-sm-9">
-                                        <input type="number" min="0" max="1" class="form-control input-sm" id="accept" name="accept">
+                                        <input type="number" min="0" max="1" class="form-control enter input-sm" id="accept" name="accept">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-3">Reject</label>
                                     <div class="col-sm-9">
-                                        <input type="number" min="0" max="1" class="form-control input-sm" id="reject" name="reject">
+                                        <input type="number" min="0" max="1" class="form-control enter input-sm" id="reject" name="reject">
                                     </div>
                                 </div>
                             </td>
@@ -216,7 +215,7 @@
                                 <div class="form-group" id="date_inspected_div">
                                     <label class="control-label col-sm-3">Date Inspected</label>
                                     <div class="col-sm-9">
-                                        <input class="form-control input-sm validate" type="date" name="date_inspected" id="date_inspected" />
+                                        <input class="form-control enter input-sm validate" type="date" name="date_inspected" id="date_inspected" />
                                         <span class="help-block">
                                             <strong id="date_inspected_msg"></strong>
                                         </span>
@@ -235,14 +234,14 @@
                                 <div class="form-group" id="time_ins_div">
                                     <label class="control-label col-sm-3">Time Inspected</label>
                                     <div class="col-sm-4">
-                                        <input type="text" data-format="hh:mm A" class="form-control input-sm validate" name="time_ins_from" id="time_ins_from"/>
+                                        <input type="text" data-format="hh:mm A" class="form-control enter input-sm validate" name="time_ins_from" id="time_ins_from"/>
                                         <span class="help-block">
                                             <strong id="time_ins_msg"></strong>
                                         </span>
                                     </div>
                                     <div class="col-sm-1"></div>
                                     <div class="col-sm-4">
-                                        <input type="text" data-format="hh:mm A" class="form-control input-sm validate clear" name="time_ins_to" id="time_ins_to"/>
+                                        <input type="text" data-format="hh:mm A" class="form-control enter input-sm validate clear" name="time_ins_to" id="time_ins_to"/>
                                         <span class="help-block">
                                             <strong id="time_ins_msg"></strong>
                                         </span>
@@ -251,8 +250,10 @@
                                 <div class="form-group" id="shift_div">
                                     <label class="control-label col-sm-3">Shift</label>
                                     <div class="col-sm-9">
-                                        <select class=" form-control input-sm validate clear" name="shift" id="shift">
+                                        <select class=" form-control enter input-sm validate clear" name="shift" id="shift">
                                             <option value=""></option>
+                                            <option value="Shift A">Shift A</option>
+                                            <option value="Shift B">Shift B</option>
                                         </select>
                                         <span class="help-block">
                                             <strong id="shift_msg"></strong>
@@ -268,7 +269,7 @@
                                 <div class="form-group" id="submission_div">
                                     <label class="control-label col-sm-3">Submission</label>
                                     <div class="col-sm-9">
-                                        <select class=" form-control input-sm validate" name="submission" id="submission">
+                                        <select class=" form-control enter input-sm validate" name="submission" id="submission">
                                             <option value=""></option>
                                         </select>
                                         <span class="help-block">
@@ -279,7 +280,7 @@
                                 <div class="form-group" id="coc_req_div">
                                     <label class="control-label col-sm-3">COC Requirements</label>
                                     <div class="col-sm-9">
-                                        <select class=" form-control input-sm validate clear" name="coc_req" id="coc_req">
+                                        <select class=" form-control enter input-sm validate clear" name="coc_req" id="coc_req">
                                             <option value=""></option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
@@ -292,7 +293,7 @@
                                 <div class="form-group" id="judgement_div">
                                     <label class="control-label col-sm-3">Judgement</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-sm validate clear" id="judgement" name="judgement">
+                                        <input type="text" class="form-control enter input-sm validate clear" id="judgement" name="judgement">
                                         <span class="help-block">
                                             <strong id="judgement_div"></strong>
                                         </span>
@@ -304,7 +305,7 @@
                                 <div class="form-group" id="lot_qty_div">
                                     <label class="control-label col-sm-3">Lot Quantity</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-sm validate clear" id="lot_qty" name="lot_qty">
+                                        <input type="text" class="form-control enter input-sm validate clear" id="lot_qty" name="lot_qty">
                                         <span class="help-block">
                                             <strong id="lot_qty_msg"></strong>
                                         </span>
@@ -313,7 +314,7 @@
                                 <div class="form-group" id="sample_size_div">
                                     <label class="control-label col-sm-3">Sample Size</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-sm validate clear" id="sample_size" name="sample_size">
+                                        <input type="text" class="form-control enter input-sm validate clear" id="sample_size" name="sample_size">
                                         <span class="help-block">
                                             <strong id="sample_size_msg"></strong>
                                         </span>
@@ -322,7 +323,7 @@
                                 <div class="form-group" id="lot_inspected_div">
                                     <label class="control-label col-sm-3">Lot Inspected</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-sm validate clear" id="lot_inspected" name="lot_inspected">
+                                        <input type="text" class="form-control enter input-sm validate clear" id="lot_inspected" name="lot_inspected">
                                         <span class="help-block">
                                             <strong id="lot_inspected_msg"></strong>
                                         </span>
@@ -331,7 +332,7 @@
                                 <div class="form-group" id="lot_accepted_div">
                                     <label class="control-label col-sm-3">Lot Accepted</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-sm validate clear" id="lot_accepted" name="lot_accepted">
+                                        <input type="text" class="form-control enter input-sm validate clear" id="lot_accepted" name="lot_accepted">
                                         <span class="help-block">
                                             <strong id="lot_accepted_msg"></strong>
                                         </span>
@@ -346,7 +347,7 @@
                                 <div class="form-group" id="remarks_div">
                                     <label class="control-label col-sm-3">Remarks</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control input-sm validate clear" id="remarks" name="remarks">
+                                        <input type="text" class="form-control enter input-sm validate clear" id="remarks" name="remarks">
                                         <input type="hidden" id="inspection_save_status" name="inspection_save_status">
                                     </div>
                                 </div>
@@ -359,6 +360,12 @@
                                     </div>
                                 </div>
                             </td>
+                        </tr>
+                        <tr>
+                            <th colspan="2" class="text-right">
+                                <button type="submit" class="btn btn-success" id="btn_savemodal">Save</button>
+                                <button type="button" data-dismiss="modal" class="btn btn-danger">Close</button>
+                            </th>
                         </tr>
                     </table>
                 </div>
@@ -373,7 +380,7 @@
             <div class="modal-header">
                 <h4 class="modal-title">Mode of Defect</h4>
             </div>
-            
+
             <div class="modal-body">
                 <form class="form-horizontal" method="POST" action="{{ url('/oqc-save-mod') }}" id="frm_mode_of_defects">
                     {{ csrf_field() }}
@@ -395,12 +402,13 @@
                                 <label class="control-label col-sm-3">Quantity</label>
                                 <div class="col-sm-9">
                                     <input type="text" name="mod_qty" id="mod_qty" class="form-control input-sm validateModeOfDefects clear_mod">
-                                    <input type="hidden" id="mode_save_status" name="mode_save_status" class="clear_mod">
-                                    <input type="hidden" id="mod_po" name="mod_po" class="clear_mod">
-                                    <input type="hidden" id="mod_device" name="mod_device" class="clear_mod">
-                                    <input type="hidden" id="mod_lotno" name="mod_lotno" class="clear_mod">
-                                    <input type="hidden" id="mod_submission" name="mod_submission" class="clear_mod">
-                                    <input type="hidden" id="mod_id" name="mod_id" class="clear_mod">
+                                    <input type="hidden" id="mode_save_status" name="mode_save_status" class="">
+                                    <input type="hidden" id="mod_po" name="mod_po" class="">
+                                    <input type="hidden" id="mod_device" name="mod_device" class="">
+                                    <input type="hidden" id="mod_lotno" name="mod_lotno" class="">
+                                    <input type="hidden" id="mod_submission" name="mod_submission" class="">
+                                    <input type="hidden" id="mod_id" name="mod_id" class="">
+                                    <input type="hidden" id="ins_id" name="ins_id" class="">
                                     <span class="help-block">
                                         <strong id="mod_qty_msg"></strong>
                                     </span>
@@ -438,7 +446,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-danger">Close</button>
             </div>
@@ -582,8 +590,8 @@
                                         <option value="date_inspected">Date Inspected</option>
                                         <option value="time_ins_from">Inspection Time</option>
                                         <option value="fy">FY#</option>
-                                        <option value="ww">WW#</option>  
-                                        <option value="assembly_line">Assembly Line</option>  
+                                        <option value="ww">WW#</option>
+                                        <option value="assembly_line">Assembly Line</option>
                                         <option value="submission">Submission</option>
                                         <option value="prod_category">Category</option>
                                         <option value="customer">Customer Name</option>
@@ -621,8 +629,8 @@
                                         <option value="date_inspected">Date Inspected</option>
                                         <option value="time_ins_from">Inspection Time</option>
                                         <option value="fy">FY#</option>
-                                        <option value="ww">WW#</option>  
-                                        <option value="assembly_line">Assembly Line</option>  
+                                        <option value="ww">WW#</option>
+                                        <option value="assembly_line">Assembly Line</option>
                                         <option value="submission">Submission</option>
                                         <option value="prod_category">Category</option>
                                         <option value="customer">Customer Name</option>
@@ -660,8 +668,8 @@
                                         <option value="date_inspected">Date Inspected</option>
                                         <option value="time_ins_from">Inspection Time</option>
                                         <option value="fy">FY#</option>
-                                        <option value="ww">WW#</option>  
-                                        <option value="assembly_line">Assembly Line</option>  
+                                        <option value="ww">WW#</option>
+                                        <option value="assembly_line">Assembly Line</option>
                                         <option value="submission">Submission</option>
                                         <option value="prod_category">Category</option>
                                         <option value="customer">Customer Name</option>
@@ -687,54 +695,8 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-hover table-bordered table-striped" id="tbl_DPPM">
-                                    <thead>
-                                        <tr>
-                                            <td></td>
-                                            <td>Total Inspected</td>
-                                            <td>Total Accept</td>
-                                            <td>Total Reject</td>
-                                            <td>Total Sample Size</td>
-                                            <td>Total NG</td>
-                                            <td>Total LAR</td>
-                                            <td>Total LRR</td>
-                                            <td>Total DPPM</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tbl_DPPM_body"></tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>  
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-hover table-bordered table-striped" id="tbl_DPPM_details">
-                                    <thead>
-                                        <tr>
-                                            <td></td>
-                                            <td>Inspected</td>
-                                            <td>Accept</td>
-                                            <td>Reject</td>
-                                            <td>Sample Size</td>
-                                            <td>NG</td>
-                                            <td>LAR</td>
-                                            <td>LRR</td>
-                                            <td>DPPM</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tbl_DPPM_details_body"></tbody>
-                                </table>
-                            </div>
-                        </div> 
-                    </div>
                 </div>
-                
+
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success">Calculate</button>
                     <button type="button" data-dismiss="modal" class="btn btn-danger">Close</button>
@@ -750,7 +712,7 @@
             <div class="modal-header">
                 <h4 class="modal-title">Select Items</h4>
             </div>
-            
+
             <div class="modal-body">
                 <div class="row">
                     <form class="form-horizontal">
@@ -764,7 +726,7 @@
                         </div>
                     </form>
                 </div>
-                
+
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-danger">Close</button>
