@@ -3318,3 +3318,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/dispatch-excel', 'YPICS\YPICSDispatchController@downloadExcelFile');
     Route::get('/dispatch-checkdata', 'YPICS\YPICSDispatchController@checkData');
     Route::get('/dispatch-datatable', 'YPICS\YPICSDispatchController@getDispatchData');
+
+    // WBS Inventory
+    Route::get('/wbs-inventory', 'WBS\WBSInventoryController@index');
+    Route::get('/wbs-inventory-list', 'WBS\WBSInventoryController@list');
+    Route::post('/wbs-inventory-delete', 'WBS\WBSInventoryController@deleteselected');
+    Route::post('/wbs-inventory-save', 'WBS\WBSInventoryController@savedata');
