@@ -47,7 +47,7 @@ class WBSInventoryController extends Controller
         }
     }
 
-    public function list()
+    public function inventory_list()
     {
         $inv = DB::connection($this->mysql)->table('tbl_wbs_inventory')
                     ->orderBy('received_date')
@@ -66,6 +66,7 @@ class WBSInventoryController extends Controller
                         'judgement',
                         'create_user',
                         'received_date',
+                        'exp_date',
                         'update_user',
                         'updated_at',
                         'mat_batch_id',

@@ -64,6 +64,7 @@
                                             <td>IQC Status</td>
                                             <td>Received By</td>
                                             <td>Received Date</td>
+                                            <td>Exp. Date</td>
                                             <td>Updated By</td>
                                             <td>Last Update</td>
 											<td></td>

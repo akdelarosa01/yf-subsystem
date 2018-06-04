@@ -13,6 +13,7 @@ var dataColumn = [
 	{ data: 'iqc_status', name: 'iqc_status' },
 	{ data: 'create_user', name: 'create_user' },
 	{ data: 'received_date', name: 'received_date' },
+	{ data: 'exp_date', name: 'exp_date' },
 	{ data: 'update_user', name: 'update_user' },
 	{ data: 'updated_at', name: 'updated_at' },
 	{ data: 'action', name: 'action',orderable: false, searchable: false },
