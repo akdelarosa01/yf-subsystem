@@ -335,7 +335,7 @@ class WBSMaterialReceivingController extends Controller
                                 'box_qty' => str_replace(',','', $batchdata->box_qty[$key]),
                                 'lot_no' => $batchdata->lot_no[$key],
                                 'supplier' => strtoupper($batchdata->supplier[$key]),
-                                'exp_date' => $this->convertExpDate($batchdata->exp_date[$key]),
+                                'exp_date' => ($batchdata->exp_date[$key] == '')? 'N/A': $this->convertExpDate($batchdata->exp_date[$key]),
                                 'update_user' => Auth::user()->user_id,
                                 'updated_at' => date('Y-m-d h:i:s a')
                             ]);
@@ -348,7 +348,7 @@ class WBSMaterialReceivingController extends Controller
                                 'box_qty' => str_replace(',','',$batchdata->box_qty[$key]),
                                 'lot_no' => $batchdata->lot_no[$key],
                                 'supplier' => strtoupper($batchdata->supplier[$key]),
-                                'exp_date' => $this->convertExpDate($batchdata->exp_date[$key]),
+                                'exp_date' => ($batchdata->exp_date[$key] == '')? 'N/A': $this->convertExpDate($batchdata->exp_date[$key]),
                                 'update_user' => Auth::user()->user_id,
                                 'updated_at' => date('Y-m-d h:i:s a')
                             ]);
@@ -381,7 +381,7 @@ class WBSMaterialReceivingController extends Controller
                                             'lot_no' => $batchdata->lot_no[$key],
                                             'location' => $batchdata->location[$key],
                                             'supplier' => strtoupper($batchdata->supplier[$key]),
-                                            'exp_date' => $this->convertExpDate($batchdata->exp_date[$key]),
+                                            'exp_date' => ($batchdata->exp_date[$key] == '')? 'N/A': $this->convertExpDate($batchdata->exp_date[$key]),
                                             'drawing_num' => $this->getDrawingNum($item),
                                             'iqc_status' => $check,
                                             'is_printed' => $printed,
@@ -406,7 +406,7 @@ class WBSMaterialReceivingController extends Controller
                             'lot_no' => $batchdata->lot_no[$key],
                             'location' => $batchdata->location[$key],
                             'supplier' => strtoupper($batchdata->supplier[$key]),
-                            'exp_date' => $this->convertExpDate($batchdata->exp_date[$key]),
+                            'exp_date' => ($batchdata->exp_date[$key] == '')? 'N/A': $this->convertExpDate($batchdata->exp_date[$key]),
                             'drawing_num' => $this->getDrawingNum($item),
                             'iqc_status' => $check,
                             'is_printed' => $printed,
@@ -1303,7 +1303,7 @@ class WBSMaterialReceivingController extends Controller
                             $sheet->cell('C'.$row, $iqc->supplier);
                             $sheet->cell('D'.$row, $iqc->qty);
                             $sheet->cell('E'.$row, $iqc->lot_no);
-                            $sheet->cell('F'.$row, $iqc->drawing_num);
+                            $sheet->cell('F'.$row, ($iqc->drawing_num == '' || $iqc->drawing_num == null)? $this->getDrawingNum($iqc->item): $iqc->drawing_num);
                             $sheet->cell('G'.$row, $iqc->judgement);
                             $row++;
                         }
