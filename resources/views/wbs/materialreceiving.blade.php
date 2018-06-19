@@ -878,7 +878,7 @@
                     $('#td_batch_boxqty'+bid).html(boxqty+'<input type="hidden" name="box_qty_batch[]" id="in_batch_boxqty'+bid+'" value="'+boxqty+'">');
                     $('#td_batch_lot'+bid).html(lot+'<input type="hidden" name="lot_no_batch[]" id="in_batch_lot'+bid+'" value="'+lot+'">');
                     $('#td_batch_supplier'+bid).html(supplier+'<input type="hidden" name="supplier_batch[]" id="in_batch_supplier'+bid+'" value="'+supplier+'">');
-                    $('#td_batch_exp_date'+bid).html(exp_date+'<input type="hidden" name="edit_date_batch[]" id="in_batch_edit_date'+bid+'" value="'+exp_date+'">');
+                    $('#td_batch_exp_date'+bid).html(exp_date+'<input type="hidden" name="exp_date_batch[]" id="in_batch_edit_date'+bid+'" value="'+exp_date+'">');
 
                     $('#in_batch_qty'+bid).val(qty);
                     $('#in_batch_box'+bid).val(box);
