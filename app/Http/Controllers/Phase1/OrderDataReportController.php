@@ -157,7 +157,7 @@ class OrderDataReportController extends Controller
             break;
         }
 
-        $inputdate = $this->getOrderDataReportDetails($database);
+        $inputdate = date("ymd");//$this->getOrderDataReportDetails($database);
 
         # if incorrect DB connection, get the table structure only without data.
         if($nodata)
