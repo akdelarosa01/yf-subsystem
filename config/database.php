@@ -312,6 +312,20 @@ return [
             'engine' => null,
         ],
 
+        'mysql_barcode_yf' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST', '192.168.3.235'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'pricon_yf'),
+            'username' => env('DB_USERNAME', 'pricon'),
+            'password' => env('DB_PASSWORD', 'password'),
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+            'strict' => false,
+            'engine' => null,
+        ],
+
         'sqlsrvcn' => [
             'driver' => 'sqlsrv',
             'host' => env('DB_HOST', '192.168.200.52'),
@@ -344,11 +358,11 @@ return [
 
         'sqlsrvyf' => [
             'driver' => 'sqlsrv',
-            'host' => env('DB_HOST', '192.168.200.52'),
+            'host' => env('DB_HOST', '192.168.3.247'),
             'port' => env('DB_PORT', '1433'),
             'database' => env('DB_DATABASE', 'yf_v4'),
             'username' => env('DB_USERNAME', 'sa'),
-            'password' => env('DB_PASSWORD', 'P@55w0rd'),
+            'password' => env('DB_PASSWORD', 'Pr1c0N'),
             'prefix' => '',
         ],
 
