@@ -156,8 +156,7 @@ class OrderDataReportController extends Controller
             $schema = Config::get('constants.DB_SCHEMA_CN');
             break;
         }
-
-        $inputdate = date("ymd")//$this->getOrderDataReportDetails($database);
+        $inputdate = date("ymd");//$this->getOrderDataReportDetails($database);
 
         # if incorrect DB connection, get the table structure only without data.
         if($nodata)
