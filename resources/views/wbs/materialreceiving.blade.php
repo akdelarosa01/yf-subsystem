@@ -2234,7 +2234,7 @@
               var item_code = $('#in_item_'+item).val();
               var item_id = $('#in_id_'+item).val();
 
-              if (item == '' || qty == '' || box == '' || box_qty == '' || lot_no == '' || supplier == '' || exp_date == '') {
+              if (item == '' || qty == '' || box == '' || box_qty == '' || lot_no == '' || supplier == '') {
                    failedMsg('Please fill out all the inputs.');
               } else {
                    if ($('#add_notForIqc').val() == 1) {
