@@ -4,58 +4,8 @@
 	WBS | Pricon Microelectronics, Inc.
 @endsection
 
-@push('css')
-	<style type="text/css">
-        table.table-fixedheader {
-            width: 100%;
-        }
-        table.table-fixedheader, table.table-fixedheader>thead, table.table-fixedheader>tbody, table.table-fixedheader>thead>tr, table.table-fixedheader>tbody>tr, table.table-fixedheader>thead>tr>td, table.table-fixedheader>tbody>td {
-            display: block;
-        }
-        table.table-fixedheader>thead>tr:after, table.table-fixedheader>tbody>tr:after {
-            content:' ';
-            display: block;
-            visibility: hidden;
-            clear: both;
-        }
-        table.table-fixedheader>tbody {
-            overflow-y: scroll;
-            height: 200px;
-        }
-        table.table-fixedheader>thead {
-            overflow-y: scroll;
-        }
-        table.table-fixedheader>thead::-webkit-scrollbar {
-            background-color: inherit;
-        }
-
-        table.table-fixedheader>thead>tr>td:after, table.table-fixedheader>tbody>tr>td:after {
-            content:' ';
-            display: table-cell;
-            visibility: hidden;
-            clear: both;
-        }
-
-        table.table-fixedheader>thead tr td, table.table-fixedheader>tbody tr td {
-            float: left;
-            word-wrap:break-word;
-            height: 40px;
-        }
-
-        table.table-fifo>tbody {
-            overflow-y: scroll;
-            height: 375px;
-        }
-       /* #hd_barcode {
-        	position: absolute;
-		    z-index: -1;
-        }*/
-    </style>
-@endpush
-
 @section('content')
 
-	@include('includes.header')
 	<?php $state = ""; $readonly = ""; ?>
 	@foreach ($userProgramAccess as $access)
 		@if ($access->program_code == Config::get('constants.MODULE_CODE_PRDMATRET'))  <!-- Please update "2001" depending on the corresponding program_code -->
@@ -64,8 +14,6 @@
 			@endif
 		@endif
 	@endforeach
-
-
     
 	<div class="page-content">
 
@@ -167,7 +115,7 @@
                     				<div class="portlet-body">
                     					<div class="row">
                     						<div class="col-md-12">
-	                                			<table class="table table-bordered table-hover table-striped table-fixedheader" id="tbl_details" style="font-size: 10px;margin-top: 20px;">
+	                                			<table class="table table-bordered table-hover table-striped" id="tbl_details" style="font-size: 10px;margin-top: 20px;">
 	                                    			<thead>
 	                                    				<tr>
                                                             <td class="table-checkbox" width="4.09%">
@@ -222,7 +170,7 @@
 									<i class="fa fa-search"></i> Search
 								</button>
 								<button type="button" class="btn btn-sm green-jungle" id="btn_excel">
-									<i class="fa fa-file-excel-o"></i> Export To Excel
+									<i class="fa fa-file-excel-o"></i> Summary Report
 								</button>
 
 							</div>
@@ -236,95 +184,7 @@
 		<!-- END PAGE CONTENT-->
 	</div>
 
-
-
-    <div id="DetailsModal" class="modal fade" role="dialog" data-backdrop="static">
-        <div class="modal-dialog gray-gallery">
-            <div class="modal-content ">
-                <div class="modal-header">
-                    <h4 class="modal-title">Edit Details</h4>
-                </div>
-                <form method="POST" action="{{url('/editdetailpmr')}}" class="form-horizontal" id="editpodetailfrm">
-                    {{ csrf_field() }}
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3">Issuance No.</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control input-sm" id="issuance_no">
-                                        <input type="hidden" class="form-control input-sm" id="detail_id">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                        			<label for="" class="control-label col-sm-3">Item Code</label>
-                        			<div class="col-sm-9">
-                        				<input type="text" class="form-control input-sm" id="item" name="item" readonly>
-                        			</div>
-                        		</div>
-
-                        		<div class="form-group">
-                                    <label class="control-label col-sm-3">Item Name</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control input-sm" id="item_desc" name="item_desc" readonly>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3">Issued Qty.</label>
-                                    <div class="col-sm-9">
-                                    	<input type="text" class="form-control input-sm" id="issued_qty" readonly>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3">Required Qty.</label>
-                                    <div class="col-sm-9">
-                                    	<input type="text" class="form-control input-sm" id="required_qty" readonly>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3">Return Qty.</label>
-                                    <div class="col-sm-9">
-                                    	<input type="text" class="form-control input-sm" id="return_qty" readonly>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3">Actual Returned Qty.</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control input-sm" id="actual_returned_qty">
-                                    </div>
-                                </div>
-                                
-                        		<div class="form-group">
-                        			<label for="" class="control-label col-sm-3">Lot no</label>
-                        			<div class="col-sm-9">
-                        				<input type="text" class="form-control input-sm" id="lot_no" name="lot_no" readonly>
-                        			</div>
-                        		</div>
-
-                        		<div class="form-group">
-                        			<label for="" class="control-label col-sm-3">Remarks</label>
-                        			<div class="col-sm-9">
-                        				<input type="text" class="form-control input-sm" id="detail_remarks" name="detail_remarks">
-                        			</div>
-                        		</div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="btn_save_details" class="btn btn-success">Save</button>
-                        <button type="button" data-dismiss="modal" class="btn btn-danger">Close</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
+    @include('includes.productreturn-modal')
     @include('includes.modals')
 
 @endsection
@@ -338,6 +198,7 @@
         var getItemDetailsURL = "{{ url('/get-item-details') }}";
         var barcodeURL = "{{ url('/wbsreturn-brprint?id=') }}";
         var deleteDetailsURL = "{{ url('/delete-item-return') }}";
+        var excelURL = "{{ url('/excel-return') }}";
 	</script>
     <script src="{{ asset(config('constants.PUBLIC_PATH').'assets/global/scripts/common.js') }}" type="text/javascript"></script>
     <script src="{{ asset(config('constants.PUBLIC_PATH').'assets/global/scripts/productionmaterialreturn.js') }}" type="text/javascript"></script>
