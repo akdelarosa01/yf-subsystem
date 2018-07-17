@@ -77,6 +77,13 @@
                                         <a href="{{ url($url) }}"><i class="{{ $icon }}" ></i> {{ $access->program_name }}</a>
                                     </li>
                                     @endif
+                                @elseif ($access->program_code == "2007")
+                                    <?php $url = "/invoicing-markup"; $icon = "fa fa-line-chart"; ?>
+                                    @if ($access->read_write != "0")
+                                    <li>
+                                        <a href="{{ url($url) }}"><i class="{{ $icon }}" ></i> {{ $access->program_name }}</a>
+                                    </li>
+                                    @endif
                                 @endif
                             @endforeach
                         </ul>
@@ -306,7 +313,7 @@
                                     </li>
                                     @endif
                                 @elseif ($access->program_code == "3025")
-                                    <?php $url = "/wbswhsmatissuance"; $icon = "fa fa-cubes"; ?>
+                                    <?php $url = "/whs-issuance"; $icon = "fa fa-cubes"; ?>
                                     @if ($access->read_write != "0")
                                     <li>
                                         <a href="{{ url($url) }}"><i class="{{ $icon }}" ></i> {{ $access->program_name }}</a>
@@ -346,6 +353,13 @@
                             @foreach ($userProgramAccess as $access)
                                 @if ($access->program_code == "3029")
                                     <?php $url = "/iqcinspection"; $icon = "fa fa-search";?>
+                                    @if ($access->read_write != "0")
+                                    <li>
+                                        <a href="{{ url($url) }}"><i class="{{ $icon }}" ></i> {{ $access->program_name }}</a>
+                                    </li>
+                                    @endif
+                                @elseif ($access->program_code == "3038")
+                                    <?php $url = "/iqc-matrix"; $icon = "fa fa-cogs"; ?>
                                     @if ($access->read_write != "0")
                                     <li>
                                         <a href="{{ url($url) }}"><i class="{{ $icon }}" ></i> {{ $access->program_name }}</a>

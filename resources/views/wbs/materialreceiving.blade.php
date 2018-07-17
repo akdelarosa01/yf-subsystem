@@ -674,7 +674,15 @@
 
 
 @push('script')
+{{-- var token = "{{ Session::token() }}";
+          var refreshInvoice = "{{ url('/wbsmr-refresh') }}";
+          var cancelInvoiceURL = '{{url("/wbsmrcanvelinvoice")}}';
+          var deleteBatchItemURL = '{{url("/wbsmrdeletebatch")}}';
+          var getMRdataURL = '{{url("/wbsmrnumber")}}';
+          var wbsSaveURL = '{{url("/wbsmrsave")}}';
+          var checkIfNotForIQCURL = "{{url('/wbsmrcheckifnotforiqc')}}"; --}}
      <script type="text/javascript">
+
           $(function() {
                tblDetails();
                tblSummary();
