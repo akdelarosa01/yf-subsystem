@@ -255,7 +255,7 @@ class  CommonController extends Controller
 
         try
         {
-            $result = DB::connection($this->common)->table('tbl_mdropdowns')->where('category', '='
+            $result = DB::connection($this->mysql)->table('tbl_mdropdowns')->where('category', '='
                 , DB::raw("(SELECT id FROM tbl_mdropdown_category WHERE LOWER(REPLACE(category, ' ', ''))='". $name ."')"))
                 ->select('description as id', 'description as text')
                 ->get();
@@ -274,7 +274,7 @@ class  CommonController extends Controller
 
         try
         {
-            $result = DB::connection($this->common)->table('tbl_mdropdowns')->where('category', '='
+            $result = DB::connection($this->mysql)->table('tbl_mdropdowns')->where('category', '='
                 , DB::raw("(SELECT id FROM tbl_mdropdown_category WHERE LOWER(REPLACE(category, ' ', ''))='". $name ."')"))->get();
         }
         catch (Exception $e)

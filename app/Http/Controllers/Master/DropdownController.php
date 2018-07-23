@@ -47,9 +47,9 @@ class DropdownController extends Controller
                 $selected_category = '1';
             }
 
-            $category = DB::connection($this->common)
+            $category = DB::connection($this->mysql)
                         ->table('tbl_mdropdown_category')->orderBy('category')->get();
-            $dropdownlist = DB::connection($this->common)
+            $dropdownlist = DB::connection($this->mysql)
                         ->table('tbl_mdropdowns')->where('category', '=', $selected_category)->get();
 
             return view('master.Dropdown', 
@@ -77,7 +77,7 @@ class DropdownController extends Controller
             $msg_type ='message';
 
 
-            $dataexist = DB::connection($this->common)->table($master)->where('description', $description)->where('category', $category)->get();
+            $dataexist = DB::connection($this->mysql)->table($master)->where('description', $description)->where('category', $category)->get();
 
             if($dataexist)
             {
@@ -88,7 +88,7 @@ class DropdownController extends Controller
             {
                 if($action == 'ADD')
                 {
-                    $result = DB::connection($this->common)->table($master)
+                    $result = DB::connection($this->mysql)->table($master)
                     ->insert([
                         'description' => $description,
                         'category' => $category
@@ -96,7 +96,7 @@ class DropdownController extends Controller
                 }
                 else if($action == 'EDIT')
                 {
-                    $result = DB::connection($this->common)->table($master)
+                    $result = DB::connection($this->mysql)->table($master)
                     ->where('id', '=', $id)
                     ->update([
                         'description' => $description
@@ -136,7 +136,7 @@ public function postDeleteDropdown(Request $request)
     {
         if($traycount > 0)
         {
-            $result = DB::connection($this->common)->table($master)->where('category', '=', $category)->wherein('id',$tray)->delete();
+            $result = DB::connection($this->mysql)->table($master)->where('category', '=', $category)->wherein('id',$tray)->delete();
 
             if ($result) {
                 $msg = "Successfully deleted selected records.";
@@ -172,7 +172,7 @@ public function postAddDropdownCategory(Request $request_data)
             $msg_type ='message';
 
 
-            $dataexist = DB::connection($this->common)->table($master)->where('category', $category)->get();
+            $dataexist = DB::connection($this->mysql)->table($master)->where('category', $category)->get();
 
             if($dataexist)
             {
@@ -184,7 +184,7 @@ public function postAddDropdownCategory(Request $request_data)
 
                 if($action == 'ADD')
                 {
-                    $result = DB::connection($this->common)->table($master)
+                    $result = DB::connection($this->mysql)->table($master)
                         ->insert([
                             'category' => $category
                             ]);
@@ -192,7 +192,7 @@ public function postAddDropdownCategory(Request $request_data)
                 }
                 else if($action == 'EDIT')
                 {
-                    $result = DB::connection($this->common)->table($master)
+                    $result = DB::connection($this->mysql)->table($master)
                         ->where('id', '=', $masterid)
                         ->update([
                             'category' => $category
@@ -230,8 +230,8 @@ public function postDelDropdownCategory(Request $request_data)
     {
         $catid = $request_data['catid'];
 
-        $result = DB::connection($this->common)->table('tbl_mdropdowns')->where('category', '=', $catid)->delete();
-        $result = DB::connection($this->common)->table('tbl_mdropdown_category')->where('id', '=', $catid)->delete();
+        $result = DB::connection($this->mysql)->table('tbl_mdropdowns')->where('category', '=', $catid)->delete();
+        $result = DB::connection($this->mysql)->table('tbl_mdropdown_category')->where('id', '=', $catid)->delete();
                 if ($result)
                 {
                     $msg = "Successfully deleted.";
