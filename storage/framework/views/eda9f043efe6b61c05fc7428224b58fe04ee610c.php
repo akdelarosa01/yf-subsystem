@@ -13,12 +13,12 @@
 								<label class="control-label col-sm-3">Classification</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control input-sm clear" id="classification" name="classification" >
-									{{-- <select class="form-control input-sm clear" id="classification" name="classification">
+									<?php /* <select class="form-control input-sm clear" id="classification" name="classification">
 										<option value=""></option>
 										<option value="Visual Inspection">Visual Inspection (Temporary Invoice)</option>
 										<option value="Pkg. & Raw Material">Packaging & Raw Material</option>
 										<option value="Material Qualification">Material Qualification</option>
-									</select> --}}
+									</select> */ ?>
 								</div>
 							</div>
 							<div class="form-group">
@@ -26,7 +26,7 @@
 								<div class="col-sm-9">
 									<input type="text" class="form-control required input-sm clear" id="invoice_no" name="invoice_no">
 									<input type="hidden" class="form-control input-sm clear" id="iqc_result_id" name="iqc_result_id">
-									{{-- <input type="hidden" class="form-control input-sm clear" id="classification" name="classification" value="Visual Inspection"> --}}
+									<?php /* <input type="hidden" class="form-control input-sm clear" id="classification" name="classification" value="Visual Inspection"> */ ?>
 									<div id="er_invoice_no" style="color: #f24848; font-weight: 900"></div>
 								</div>
 							</div>
@@ -78,13 +78,13 @@
 							<div class="form-group">
 								<label class="control-label col-sm-3">Application Date</label>
 								<div class="col-sm-9">
-									<input class="form-control input-sm clear" type="text" name="app_date" id="app_date" value="{{date('m/d/Y')}}"/>
+									<input class="form-control input-sm clear" type="text" name="app_date" id="app_date" value="<?php echo e(date('m/d/Y')); ?>"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-sm-3">Application Time</label>
 								<div class="col-sm-9">
-									<input type="text" data-format="h:m A" class="form-control input-sm clear" name="app_time" id="app_time" value="{{date('h:i A')}}">
+									<input type="text" data-format="h:m A" class="form-control input-sm clear" name="app_time" id="app_time" value="<?php echo e(date('h:i A')); ?>">
 								</div>
 							</div>
 							<div class="form-group">
@@ -207,12 +207,12 @@
 							<div class="form-group">
 								<label class="control-label col-sm-3">Time Inspected</label>
 								<div class="col-sm-4">
-									<input type="text" class="form-control required input-sm actual timepicker" name="time_ins_from" id="time_ins_from"/> {{-- timepicker timepicker-no-seconds --}}
+									<input type="text" class="form-control required input-sm actual timepicker" name="time_ins_from" id="time_ins_from"/> <?php /* timepicker timepicker-no-seconds */ ?>
 									<div id="er_time_ins_from"></div>
 								</div>
 								<div class="col-sm-1"></div>
 								<div class="col-sm-4">
-									<input type="text" class="form-control required input-sm actual timepicker" name="time_ins_to" id="time_ins_to"/> {{-- timepicker timepicker-no-seconds --}}
+									<input type="text" class="form-control required input-sm actual timepicker" name="time_ins_to" id="time_ins_to"/> <?php /* timepicker timepicker-no-seconds */ ?>
 									<div id="er_time_ins_to"></div>
 								</div>
 							</div>
@@ -230,7 +230,7 @@
 							<div class="form-group">
 								<label class="control-label col-sm-3">Inspector</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control required input-sm actual" id="inspector" name="inspector" value="{{ Auth::user()->user_id }}">
+									<input type="text" class="form-control required input-sm actual" id="inspector" name="inspector" value="<?php echo e(Auth::user()->user_id); ?>">
 									<div id="er_inspector"></div>
 								</div>
 							</div>
@@ -330,12 +330,12 @@
 								<label class="control-label col-sm-3">Classification</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control input-sm clear" id="classification_man" name="classification_man" >
-									{{-- <select class="form-control input-sm clear" id="classification_man" name="classification_man">
+									<?php /* <select class="form-control input-sm clear" id="classification_man" name="classification_man">
 										<option value=""></option>
 										<option value="Visual Inspection">Visual Inspection (Temporary Invoice)</option>
 										<option value="Pkg. & Raw Material">Packaging & Raw Material</option>
 										<option value="Material Qualification">Material Qualification</option>
-									</select> --}}
+									</select> */ ?>
 								</div>
 							</div>
 							<div class="form-group">
@@ -384,13 +384,13 @@
 							<div class="form-group">
 								<label class="control-label col-sm-3">Application Date</label>
 								<div class="col-sm-9">
-									<input class="form-control input-sm clear" type="text" name="app_date_man" id="app_date_man" value="{{date('m/d/Y')}}"/>
+									<input class="form-control input-sm clear" type="text" name="app_date_man" id="app_date_man" value="<?php echo e(date('m/d/Y')); ?>"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-sm-3">Application Time</label>
 								<div class="col-sm-9">
-									<input type="text" data-format="h:m A" class="form-control input-sm clear" name="app_time_man" id="app_time_man" value="{{date('H:i A')}}">
+									<input type="text" data-format="h:m A" class="form-control input-sm clear" name="app_time_man" id="app_time_man" value="<?php echo e(date('H:i A')); ?>">
 								</div>
 							</div>
 							<div class="form-group">
@@ -513,12 +513,12 @@
 							<div class="form-group">
 								<label class="control-label col-sm-3">Time Inspected</label>
 								<div class="col-sm-4">
-									<input type="text" data-format="hh:mm A" class="form-control input-sm actual" name="time_ins_from_man" id="time_ins_from_man" value="{{date('h:i A')}}"/> {{-- timepicker timepicker-no-seconds --}}
+									<input type="text" data-format="hh:mm A" class="form-control input-sm actual" name="time_ins_from_man" id="time_ins_from_man" value="<?php echo e(date('h:i A')); ?>"/> <?php /* timepicker timepicker-no-seconds */ ?>
 									<div id="er_time_ins_from"></div>
 								</div>
 								<div class="col-sm-1"></div>
 								<div class="col-sm-4">
-									<input type="text" data-format="hh:mm A" class="form-control input-sm actual" name="time_ins_to_man" id="time_ins_to_man"  value="{{date('h:i A')}}"/> {{-- timepicker timepicker-no-seconds --}}
+									<input type="text" data-format="hh:mm A" class="form-control input-sm actual" name="time_ins_to_man" id="time_ins_to_man"  value="<?php echo e(date('h:i A')); ?>"/> <?php /* timepicker timepicker-no-seconds */ ?>
 									<div id="er_time_ins_to"></div>
 								</div>
 							</div>
@@ -532,7 +532,7 @@
 							<div class="form-group">
 								<label class="control-label col-sm-3">Inspector</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control input-sm actual" id="inspector_man" name="inspector_man" value="{{ Auth::user()->user_id }}">
+									<input type="text" class="form-control input-sm actual" id="inspector_man" name="inspector_man" value="<?php echo e(Auth::user()->user_id); ?>">
 									<div id="er_inspector"></div>
 								</div>
 							</div>
@@ -697,14 +697,14 @@
 							<div class="form-group">
 								<label class="control-label col-sm-3">Application Date</label>
 								<div class="col-sm-9">
-									<input class="form-control input-sm clear date-picker" type="text" value="{{date('m/d/Y')}}" name="app_date_rq" id="app_date_rq" readonly />
+									<input class="form-control input-sm clear date-picker" type="text" value="<?php echo e(date('m/d/Y')); ?>" name="app_date_rq" id="app_date_rq" readonly />
 
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-sm-3">Application Time</label>
 								<div class="col-sm-9">
-									<input type="text" data-format="hh:mm A" class="form-control input-sm clear clockface_1" value="{{date('h:i A')}}" name="app_time_rq" id="app_time_rq" readonly />
+									<input type="text" data-format="hh:mm A" class="form-control input-sm clear clockface_1" value="<?php echo e(date('h:i A')); ?>" name="app_time_rq" id="app_time_rq" readonly />
 
 								</div>
 							</div>
@@ -1072,11 +1072,12 @@
             <div class="modal-header">
                 <h4 class="modal-title">Group Items By:</h4>
             </div>
-            <form method="POST" action="{{ url('/iqc-calculate-dppm') }}" id="frm_DPPM">
+            <form method="POST" action="<?php echo e(url('/iqc-calculate-dppm')); ?>" id="frm_DPPM">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            {!! csrf_field() !!}
+                            <?php echo csrf_field(); ?>
+
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon">Date from</span>
@@ -1328,22 +1329,22 @@
 			<div class="modal-header">
 				<h4 class="modal-title">Upload Data File</h4>
 			</div>
-			<form class="form-horizontal" method="POST" enctype="multipart/form-data" id="frm_upload" action="{{ url('/upload-iqc') }}">
+			<form class="form-horizontal" method="POST" enctype="multipart/form-data" id="frm_upload" action="<?php echo e(url('/upload-iqc')); ?>">
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
 								<label class="control-label col-md-3">Inspection Data</label>
 								<div class="col-md-9">
-									<input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
-									<input type="file" class="filestyle" data-buttonName="btn-primary" name="inspection_data" id="inspection_data" {{$readonly}}>
+									<input type="hidden" name="_token" id="csrf-token" value="<?php echo e(Session::token()); ?>" />
+									<input type="file" class="filestyle" data-buttonName="btn-primary" name="inspection_data" id="inspection_data" <?php echo e($readonly); ?>>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="control-label col-md-3">Mode of Defects</label>
 								<div class="col-md-9">
-									<input type="file" class="filestyle" data-buttonName="btn-primary" name="inspection_mod" id="inspection_mod" {{$readonly}}>
+									<input type="file" class="filestyle" data-buttonName="btn-primary" name="inspection_mod" id="inspection_mod" <?php echo e($readonly); ?>>
 								</div>
 							</div>
 
@@ -1352,14 +1353,14 @@
 							<div class="form-group">
 								<label class="control-label col-md-3">Re-qualification Data</label>
 								<div class="col-md-9">
-									<input type="file" class="filestyle" data-buttonName="btn-primary" name="requali_data" id="requali_data" {{$readonly}}>
+									<input type="file" class="filestyle" data-buttonName="btn-primary" name="requali_data" id="requali_data" <?php echo e($readonly); ?>>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="control-label col-md-3">Mode of Defects</label>
 								<div class="col-md-9">
-									<input type="file" class="filestyle" data-buttonName="btn-primary" name="requali_mod" id="requali_mod" {{$readonly}}>
+									<input type="file" class="filestyle" data-buttonName="btn-primary" name="requali_mod" id="requali_mod" <?php echo e($readonly); ?>>
 								</div>
 							</div>
 						</div>

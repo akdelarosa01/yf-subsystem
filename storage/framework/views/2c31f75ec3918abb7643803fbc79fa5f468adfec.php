@@ -1,22 +1,20 @@
-@extends('layouts.master')
-
-@section('title')
+<?php $__env->startSection('title'); ?>
 	QC Database | Pricon Microelectronics, Inc.
-@endsection
-@push('css')
-	<link href="{{ asset(Config::get('constants.PUBLIC_PATH').'assets/global/css/table-fixedheader.css')}}" rel="stylesheet" type="text/css"/>
-@endpush
-@section('content')
+<?php $__env->stopSection(); ?>
+<?php $__env->startPush('css'); ?>
+	<link href="<?php echo e(asset(Config::get('constants.PUBLIC_PATH').'assets/global/css/table-fixedheader.css')); ?>" rel="stylesheet" type="text/css"/>
+<?php $__env->stopPush(); ?>
+<?php $__env->startSection('content'); ?>
 
-	@include('includes.header')
+	<?php echo $__env->make('includes.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 	<?php $state = ""; $readonly = ""; ?>
-	@foreach ($userProgramAccess as $access)
-		@if ($access->program_code == Config::get('constants.MODULE_CODE_QCDB'))  <!-- Please update "2001" depending on the corresponding program_code -->
-			@if ($access->read_write == "2")
+	<?php foreach($userProgramAccess as $access): ?>
+		<?php if($access->program_code == Config::get('constants.MODULE_CODE_QCDB')): ?>  <!-- Please update "2001" depending on the corresponding program_code -->
+			<?php if($access->read_write == "2"): ?>
 			<?php $state = "disabled"; $readonly = "readonly"; ?>
-			@endif
-		@endif
-	@endforeach
+			<?php endif; ?>
+		<?php endif; ?>
+	<?php endforeach; ?>
 	<div class="page-content">
 
 		<div class="row">
@@ -174,15 +172,15 @@
         </div>
 	</div>
 
-	@include('includes.iqc_inspection_modal')
-	@include('includes.modals')
-@endsection
+	<?php echo $__env->make('includes.iqc_inspection_modal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<?php echo $__env->make('includes.modals', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php $__env->stopSection(); ?>
 
-@push('script')
-<script src="{{ asset(config('constants.PUBLIC_PATH').'assets/global/scripts/common.js') }}" type="text/javascript"></script>
+<?php $__env->startPush('script'); ?>
+<script src="<?php echo e(asset(config('constants.PUBLIC_PATH').'assets/global/scripts/common.js')); ?>" type="text/javascript"></script>
 <script type="text/javascript">
     $(function() {
-		getIQCInspection("{{url('/iqcdbgetiqcdata')}}");
+		getIQCInspection("<?php echo e(url('/iqcdbgetiqcdata')); ?>");
 		getOnGoing();
 
 		$('.timepicker').timepicker({
@@ -714,18 +712,18 @@
 
 		// EXPORTS
 		$('#btn_pdf').on('click', function() {
-			window.location.href= "{{ url('/iqcprintreport?') }}";
+			window.location.href= "<?php echo e(url('/iqcprintreport?')); ?>";
 		});
 
 		$('#btn_excel').on('click', function() {
-			window.location.href= "{{ url('/iqcprintreportexcel')  }}";
+			window.location.href= "<?php echo e(url('/iqcprintreportexcel')); ?>";
 		});
 
 		$('#btn_searchHistory').on('click', function() {
 			var tblhistorybody = '';
 			$('#tblhistorybody').html('');
-			var url = "{{url('/iqcdbgethistory')}}";
-			var token = "{{Session::token()}}";
+			var url = "<?php echo e(url('/iqcdbgethistory')); ?>";
+			var token = "<?php echo e(Session::token()); ?>";
 			var data = {
 				_token:token,
 				item: $('#hs_partcode').val(),
@@ -943,7 +941,7 @@
         $('#on-going-inspection').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{url('/iqcdbgetongoing')}}",
+            ajax: "<?php echo e(url('/iqcdbgetongoing')); ?>",
             columns: [
                 {data: function(data){
                         return '<input type="checkbox" class="ongiong_checkitems" value="'+data.id+'"/>';
@@ -994,8 +992,8 @@
 		$('#loading').modal('show');
 
 		if (requiredFields(':input.required') == true) {
-			var url = "{{url('/iqcsaveinspection')}}";
-			var token = "{{Session::token()}}";
+			var url = "<?php echo e(url('/iqcsaveinspection')); ?>";
+			var token = "<?php echo e(Session::token()); ?>";
 			var partcode = $('#partcode').val();
 			var batching = 0;
 
@@ -1057,7 +1055,7 @@
 					msg(data.msg,'success');
 					//clear();
 					// $('#IQCresultModal').modal('hide');
-					getIQCInspection("{{url('/iqcdbgetiqcdata')}}");
+					getIQCInspection("<?php echo e(url('/iqcdbgetiqcdata')); ?>");
 					getOnGoing();
 				}
 			}).fail( function(data,textStatus,jqXHR) {
@@ -1081,8 +1079,8 @@
 	}
 
 	function samplingPlan() {
-		var url = "{{url('/iqcsamplingplan')}}";
-		var token = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqcsamplingplan')); ?>";
+		var token = "<?php echo e(Session::token()); ?>";
 		var data = {
 			_token: token,
 			soi: $('#severity_of_inspection').val(),
@@ -1109,8 +1107,8 @@
 	}
 
 	function getDropdowns() {
-		var url = "{{url('/iqcgetdropdowns')}}";
-		var token = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqcgetdropdowns')); ?>";
+		var token = "<?php echo e(Session::token()); ?>";
 		var data = {
 			_token: token
 		};
@@ -1180,8 +1178,8 @@
     }
 
     function getItems() {
-         var url = "{{url('/iqcdbgetitems')}}";
-         var token = "{{ Session::token() }}";
+         var url = "<?php echo e(url('/iqcdbgetitems')); ?>";
+         var token = "<?php echo e(Session::token()); ?>";
          var data = {
               _token: token,
               invoiceno: $('#invoice_no').val()
@@ -1222,8 +1220,8 @@
 			partcode = $('#partcodelbl').val();
 		}
     	
-        var url = "{{url('/iqcdbgetitemdetails')}}";
-        var token = "{{ Session::token() }}";
+        var url = "<?php echo e(url('/iqcdbgetitemdetails')); ?>";
+        var token = "<?php echo e(Session::token()); ?>";
         var data = {
              _token: token,
              invoiceno: $('#invoice_no').val(),
@@ -1265,8 +1263,8 @@
 		// 	partcode = $('#partcodelbl').val();
 		// }
     	
-        var url = "{{url('/iqcdbgetitemdetails')}}";
-        var token = "{{ Session::token() }}";
+        var url = "<?php echo e(url('/iqcdbgetitemdetails')); ?>";
+        var token = "<?php echo e(Session::token()); ?>";
         var data = {
              _token: token,
              invoiceno: $('#invoice_no').val(),
@@ -1291,8 +1289,8 @@
     }
 
 	function calculateLotQty(lotno) {
-		var url = "{{url('/iqccalculatelotqty')}}";
-		var token = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqccalculatelotqty')); ?>";
+		var token = "<?php echo e(Session::token()); ?>";
 		var data = {
 			_token:token,
 			invoiceno: $('#invoice_no').val(),
@@ -1312,8 +1310,8 @@
 	}
 
 	function saveModeOfDefectsInspection() {
-		var url = "{{url('/iqcdbsavemodeofdefects')}}";
-		var token  = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqcdbsavemodeofdefects')); ?>";
+		var token  = "<?php echo e(Session::token()); ?>";
 		var data = {
 			_token: token,
 			invoiceno: $('#invoice_no').val(),
@@ -1387,8 +1385,8 @@
 	function iqcdbgetmodeofdefectsinspection() {
 		$('#tblformodinspection').html('');
 		var tblformodinspection = '';
-		var url = "{{url('/iqcdbgetmodeofdefectsinspection')}}";
-		var token  = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqcdbgetmodeofdefectsinspection')); ?>";
+		var token  = "<?php echo e(Session::token()); ?>";
 		var data = {
 			_token: token,
 			invoiceno: $('#invoice_no').val(),
@@ -1441,8 +1439,8 @@
 
 	//search button
 	function getPartcodeSearch() {
-		var url = "{{url('/iqcdbgetitemsearch')}}";
-		var token = "{{ Session::token() }}";
+		var url = "<?php echo e(url('/iqcdbgetitemsearch')); ?>";
+		var token = "<?php echo e(Session::token()); ?>";
 		var data = {
 			 _token: token,
 		};
@@ -1468,8 +1466,8 @@
 	function searchItemInspection() {
 		var tblforiqcinspection = '';
 		$('#tblforiqcinspection').html('');
-		var url = "{{url('/iqcdbsearchinspection')}}";
-		var token = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqcdbsearchinspection')); ?>";
+		var token = "<?php echo e(Session::token()); ?>";
 		var data = {
 			_token: token,
 			item: $('#search_partcode').val(),
@@ -1491,8 +1489,8 @@
 
 	//REQUALIFICATION
 	function getItemsRequalification() {
-		var url = "{{url('/iqcdbgetitemrequali')}}";
-		var token = "{{ Session::token() }}";
+		var url = "<?php echo e(url('/iqcdbgetitemrequali')); ?>";
+		var token = "<?php echo e(Session::token()); ?>";
 		var data = {
 			 _token: token,
 		};
@@ -1516,8 +1514,8 @@
 	}
 
 	function getAppNo() {
-		var url = "{{url('/iqcdbgetappnorequali')}}";
-		var token = "{{ Session::token() }}";
+		var url = "<?php echo e(url('/iqcdbgetappnorequali')); ?>";
+		var token = "<?php echo e(Session::token()); ?>";
 		var data = {
 			 _token: token,
 			 item: $('#partcode_rq').val()
@@ -1542,8 +1540,8 @@
 	}
 
 	function getDetailsRequalification() {
-		var url = "{{url('/iqcdbgetdetailsrequali')}}";
-		var token = "{{ Session::token() }}";
+		var url = "<?php echo e(url('/iqcdbgetdetailsrequali')); ?>";
+		var token = "<?php echo e(Session::token()); ?>";
 		var data = {
 			 _token: token,
 			 item: $('#partcode_rq').val(),
@@ -1575,8 +1573,8 @@
 	}
 
 	function calculateLotQtyRequalification(lotno) {
-		var url = "{{url('/iqccalculatelotqtyrequali')}}";
-		var token = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqccalculatelotqtyrequali')); ?>";
+		var token = "<?php echo e(Session::token()); ?>";
 		var data = {
 			_token:token,
 			app_no: $('#app_no_rq').val(),
@@ -1597,8 +1595,8 @@
 	}
 
 	function getVisualInspectionRequalification() {
-		var url = "{{url('/iqcdbvisualinspectionrequali')}}";
-		var token = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqcdbvisualinspectionrequali')); ?>";
+		var token = "<?php echo e(Session::token()); ?>";
 		var data = {
 			_token:token,
 			app_no: $('#app_no_rq').val(),
@@ -1643,8 +1641,8 @@
 	}
 
 	function getDropdownsRequali() {
-		var url = "{{url('/iqcgetdropdownsrequali')}}";
-		var token = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqcgetdropdownsrequali')); ?>";
+		var token = "<?php echo e(Session::token()); ?>";
 		var data = {
 			_token: token
 		};
@@ -1679,8 +1677,8 @@
 	function saveRequalification() {
 		$('#loading').modal('show');
 		if (requiredFields(':input.requiredRequali') == true) {
-			var url = "{{url('/iqcsaverequali')}}";
-			var token = "{{Session::token()}}";
+			var url = "<?php echo e(url('/iqcsaverequali')); ?>";
+			var token = "<?php echo e(Session::token()); ?>";
 			var data = {
 				_token: token,
 				save_status: $('#save_status_rq').val(),
@@ -1733,8 +1731,8 @@
 	function getRequalification(row) {
 		var rq_inspection_body = '';
 		$('#rq_inspection_body').html('');
-		var url = "{{url('/iqcdbgetrequalidata')}}";
-		var token = "{{ Session::token() }}";
+		var url = "<?php echo e(url('/iqcdbgetrequalidata')); ?>";
+		var token = "<?php echo e(Session::token()); ?>";
 		var data = {
 			 _token: token,
 			 row: row
@@ -1800,8 +1798,8 @@
 	function iqcdbgetmodeofdefectsRequali() {
 		$('#tblformodinspection').html('');
 		var tblformodinspection = '';
-		var url = "{{url('/iqcdbgetmodeofdefectsrequali')}}";
-		var token  = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqcdbgetmodeofdefectsrequali')); ?>";
+		var token  = "<?php echo e(Session::token()); ?>";
 		var data = {
 			_token: token,
 			item: $('#partcode_rq').val(),
@@ -1845,8 +1843,8 @@
 	}
 
 	function saveModeOfDefectsRequali() {
-		var url = "{{url('/iqcdbsavemodeofdefectsrq')}}";
-		var token  = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqcdbsavemodeofdefectsrq')); ?>";
+		var token  = "<?php echo e(Session::token()); ?>";
 		var data = {
 			_token: token,
 			item: $('#partcode_rq').val(),
@@ -1875,8 +1873,8 @@
 
 	// GROUP BY
 	function getGroupbyContents(field,content) {
-		var url = "{{url('iqcdbgroupbygetcontent')}}";
-		var token = "{{Session::token()}}";
+		var url = "<?php echo e(url('iqcdbgroupbygetcontent')); ?>";
+		var token = "<?php echo e(Session::token()); ?>";
 		var data = {
 			_token: token,
 			field: $(field).val(),
@@ -1904,8 +1902,8 @@
 		tblforlarlrrdppm = '';
 		$('#tblforiqcinspection').html('');
 		$('#tblforlarlrrdppm').html('');
-		var url = "{{url('/iqcdbgroupbytable')}}";
-		var token = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqcdbgroupbytable')); ?>";
+		var token = "<?php echo e(Session::token()); ?>";
 		var data = {
 			_token: token,
 			field1: field1,
@@ -1932,8 +1930,8 @@
 	function getInspectionBydate(gfrom,gto) {
 		tblforiqcinspection = '';
 		$('#tblforiqcinspection').html('');
-		var url = "{{url('/iqcdbinspectionbydate')}}";
-		var token = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqcdbinspectionbydate')); ?>";
+		var token = "<?php echo e(Session::token()); ?>";
 		var data = {
 			from: gfrom,
 			to: gto,
@@ -1944,7 +1942,7 @@
 			type: "GET",
 			data: data
 		}).done(function(data,textStatus,jqXHR) {
-			// getIQCInspection("{{url('/iqcdbgetiqcdata')}}");
+			// getIQCInspection("<?php echo e(url('/iqcdbgetiqcdata')); ?>");
 			getIQCdataTable(data,tblforiqcinspection);
 		}).fail(function(data,textStatus,jqXHR) {
 			msg("There's some error while processing.",'failed');
@@ -1992,8 +1990,8 @@
 	}
 
 	function deleteInspection() {
-		var url = "{{url('/iqcdbdeleteinspection')}}";
-		var token  = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqcdbdeleteinspection')); ?>";
+		var token  = "<?php echo e(Session::token()); ?>";
 		var data = {
 			id: getAllChecked('.iqc_checkitems'),
 			_token: token
@@ -2010,15 +2008,15 @@
 			} else {
 				msg(data.msg,'failed');
 			}
-			getIQCInspection("{{url('/iqcdbgetiqcdata')}}");
+			getIQCInspection("<?php echo e(url('/iqcdbgetiqcdata')); ?>");
 		}).fail( function(data,textStatus,jqXHR) {
 			msg("There's some error while processing.",'failed');
 		});
 	}
 
 	function deleteRequali() {
-		var url = "{{url('/iqcdbdeleterequali')}}";
-		var token  = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqcdbdeleterequali')); ?>";
+		var token  = "<?php echo e(Session::token()); ?>";
 		var data = {
 			id: getAllChecked('.checitemrq'),
 			_token: token
@@ -2042,8 +2040,8 @@
 	}
 
 	function deleteModRQ() {
-		var url = "{{url('/iqcdbdeletemodeofdefectsrequali')}}";
-		var token  = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqcdbdeletemodeofdefectsrequali')); ?>";
+		var token  = "<?php echo e(Session::token()); ?>";
 		var data = {
 			id: getAllChecked('.modrq_checkitem'),
 			_token: token
@@ -2067,8 +2065,8 @@
 	}
 
 	function deleteModIns() {
-		var url = "{{url('/iqcdbdeletemodeofdefects')}}";
-		var token  = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqcdbdeletemodeofdefects')); ?>";
+		var token  = "<?php echo e(Session::token()); ?>";
 		var data = {
 			id: getAllChecked('.modinspection_checkitem'),
 			_token: token
@@ -2092,8 +2090,8 @@
 	}
 
 	function deleteOnGoing() {
-		var url = "{{url('/iqcdbdeleteongoing')}}";
-		var token  = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqcdbdeleteongoing')); ?>";
+		var token  = "<?php echo e(Session::token()); ?>";
 		var data = {
 			id: getAllChecked('.ongiong_checkitems'),
 			_token: token
@@ -2134,8 +2132,8 @@
 	}
 
 	function samplingPlan_man() {
-		var url = "{{url('/iqcsamplingplan')}}";
-		var token = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqcsamplingplan')); ?>";
+		var token = "<?php echo e(Session::token()); ?>";
 		var data = {
 			_token: token,
 			soi: $('#severity_of_inspection_man').val(),
@@ -2163,8 +2161,8 @@
 	}
 
 	function getDropdowns_man() {
-		var url = "{{url('/iqcgetdropdowns')}}";
-		var token = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqcgetdropdowns')); ?>";
+		var token = "<?php echo e(Session::token()); ?>";
 		var data = {
 			_token: token
 		};
@@ -2258,8 +2256,8 @@
 		$('#loading').modal('show');
 
 		//if (requiredFields(':input.required') == true) {
-			var url = "{{url('/iqcsaveinspection')}}";
-			var token = "{{Session::token()}}";
+			var url = "<?php echo e(url('/iqcsaveinspection')); ?>";
+			var token = "<?php echo e(Session::token()); ?>";
 			var data = {
 				_token: token,
 				save_status: $('#save_status_man').val(),
@@ -2309,7 +2307,7 @@
 					msg(data.msg,'success');
 					clear();
 					// $('#ManualModal').modal('hide');
-					getIQCInspection("{{url('/iqcdbgetiqcdata')}}");
+					getIQCInspection("<?php echo e(url('/iqcdbgetiqcdata')); ?>");
 					getOnGoing();
 				}
 			}).fail( function(data,textStatus,jqXHR) {
@@ -2323,8 +2321,8 @@
 	}
 
 	function getIQCworkWeek() {
-		var url = "{{url('/iqcgetworkweek')}}";
-		var token = "{{Session::token()}}";
+		var url = "<?php echo e(url('/iqcgetworkweek')); ?>";
+		var token = "<?php echo e(Session::token()); ?>";
 		var data = {
 			_token: token
 		};
@@ -2342,13 +2340,13 @@
 
 	function getShift(from,to,el) {
 		var data = {
-			_token: "{{ Session::token() }}",
+			_token: "<?php echo e(Session::token()); ?>",
 			from: from,
 			to: to
 		};
 
 		$.ajax({
-			url: "{{ url('/iqc-get-shift') }}",
+			url: "<?php echo e(url('/iqc-get-shift')); ?>",
 			type: 'GET',
 			dataType: 'JSON',
 			data: data
@@ -2363,16 +2361,18 @@
 </script>
 
 <script type="text/javascript">
-	var token = "{{ Session::token() }}";
-	var GroupByURL = "{{ url('/iqc-groupby-values') }}";
-	var GetSingleGroupByURL = "{{ url('/iqc-groupby-dppmgroup1') }}";
-    var GetdoubleGroupByURL = "{{ url('/iqc-groupby-dppmgroup2') }}";
-    var GettripleGroupByURL = "{{ url('/iqc-groupby-dppmgroup3') }}";
-    var GetdoubleGroupByURLdetails = "{{ url('/iqc-groupby-dppmgroup2_Details') }}";
-    var GettripleGroupByURLdetails = "{{ url('/iqc-groupby-dppmgroup3_Details') }}";
-    var pdfURL = "{{ url('/iqcprintreport?') }}";
-    var excelURL = "{{ url('/iqcprintreportexcel')  }}";
+	var token = "<?php echo e(Session::token()); ?>";
+	var GroupByURL = "<?php echo e(url('/iqc-groupby-values')); ?>";
+	var GetSingleGroupByURL = "<?php echo e(url('/iqc-groupby-dppmgroup1')); ?>";
+    var GetdoubleGroupByURL = "<?php echo e(url('/iqc-groupby-dppmgroup2')); ?>";
+    var GettripleGroupByURL = "<?php echo e(url('/iqc-groupby-dppmgroup3')); ?>";
+    var GetdoubleGroupByURLdetails = "<?php echo e(url('/iqc-groupby-dppmgroup2_Details')); ?>";
+    var GettripleGroupByURLdetails = "<?php echo e(url('/iqc-groupby-dppmgroup3_Details')); ?>";
+    var pdfURL = "<?php echo e(url('/iqcprintreport?')); ?>";
+    var excelURL = "<?php echo e(url('/iqcprintreportexcel')); ?>";
 </script>
 
-<script src="{{ asset(config('constants.PUBLIC_PATH').'assets/global/scripts/iqc_inspection_groupby.js') }}" type="text/javascript"></script>
-@endpush
+<script src="<?php echo e(asset(config('constants.PUBLIC_PATH').'assets/global/scripts/iqc_inspection_groupby.js')); ?>" type="text/javascript"></script>
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

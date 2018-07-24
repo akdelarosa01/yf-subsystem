@@ -1381,6 +1381,7 @@ Route::group(['middleware' => 'web'], function () {
                 'name' => 'iqc-calculate-dppm'
             ]);
 
+
             Route::get('/iqc-groupby-values', [
                 'uses' => 'QCDB\IQCGroupByController@GroupByValues',
                 'name' => 'iqc-groupby-values'
@@ -1393,160 +1394,30 @@ Route::group(['middleware' => 'web'], function () {
 
 
 
+            Route::get('/iqc-groupby-dppmgroup1', [
+                'uses' => 'QCDB\IQCGroupByController@dppmgroup1',
+                'name' => 'iqc-groupby-dppmgroup1'
+            ]);
 
-            // Route::get('/iqcinspectiondata', [
-            //     'uses' => 'QCDB\IQCInspectionController@getIQCInspectionData',
-            //     'name' => 'iqcinspectiondata'
-            // ]);
-            //
-            // Route::get('/iqcprintreport', [
-            //     'uses' => 'QCDB\IQCInspectionController@getIQCreport',
-            //     'name' => 'iqcprintreport'
-            // ]);
-            // Route::get('/iqcprintreportexcel', [
-            //     'uses' => 'QCDB\IQCInspectionController@getIQCreportexcel',
-            //     'name' => 'iqcprintreportexcel'
-            // ]);
-            //
-            // Route::get('/getinvoicedetails', [
-            //     'uses' => 'QCDB\IQCInspectionController@getInvoiceDetails',
-            //     'name' => 'getinvoicedetails'
-            // ]);
-            // Route::get('/editinspectiongetpartcode', [
-            //     'uses' => 'QCDB\IQCInspectionController@editinspectiongetpartcode',
-            //     'name' => 'editinspectiongetpartcode'
-            // ]);
-            // Route::get('/getpartcode', [
-            //     'uses' => 'QCDB\IQCInspectionController@getpartcode',
-            //     'name' => 'getpartcode'
-            // ]);
-            // Route::get('/getpartcodeLOTSUM', [
-            //     'uses' => 'QCDB\IQCInspectionController@getpartcodeLOTSUM',
-            //     'name' => 'getpartcodeLOTSUM'
-            // ]);
-            // Route::get('/getpartcode_rqLOTSUM', [
-            //     'uses' => 'QCDB\IQCInspectionController@getpartcode_rqLOTSUM',
-            //     'name' => 'getpartcode_rqLOTSUM'
-            // ]);
-            // Route::get('/getpartcode_rq', [
-            //     'uses' => 'QCDB\IQCInspectionController@getpartcode_rq',
-            //     'name' => 'getpartcode_rq'
-            // ]);
-            // Route::post('/iqcdbsave', [
-            //     'uses' => 'QCDB\IQCInspectionController@iqcdbsave',
-            //     'name' => 'iqcdbsave'
-            // ]);
-            // Route::get('/iqcdbdelete', [
-            //     'uses' => 'QCDB\IQCInspectionController@iqcdbdelete',
-            //     'name' => 'iqcdbdelete'
-            // ]);
-            // Route::post('/cliqcdbsave', [
-            //     'uses' => 'QCDB\IQCInspectionController@cliqcdbsave',
-            //     'name' => 'cliqcdbsave'
-            // ]);
-            //
-            // Route::post('/rqiqcdbsave', [
-            //     'uses' => 'QCDB\IQCInspectionController@rqiqcdbsave',
-            //     'name' => 'rqiqcdbsave'
-            // ]);
-            // Route::get('/rqiqcdbedit', [
-            //     'uses' => 'QCDB\IQCInspectionController@rqiqcdbedit',
-            //     'name' => 'rqiqcdbedit'
-            // ]);
-            // Route::get('/cliqcdbedit', [
-            //     'uses' => 'QCDB\IQCInspectionController@cliqcdbedit',
-            //     'name' => 'cliqcdbedit'
-            // ]);
-            // Route::get('/rqiqcdbdelete', [
-            //     'uses' => 'QCDB\IQCInspectionController@rqiqcdbdelete',
-            //     'name' => 'rqiqcdbdelete'
-            // ]);
-            // Route::post('/iqc_mod_ins', [
-            //     'uses' => 'QCDB\IQCInspectionController@iqc_mod_ins_save',
-            //     'name' => 'iqc_mod_ins'
-            // ]);
-            // Route::post('/iqc_mod_cl', [
-            //     'uses' => 'QCDB\IQCInspectionController@iqc_mod_cl_save',
-            //     'name' => 'iqc_mod_cl'
-            // ]);
-            // Route::post('/iqc_mod_rq', [
-            //     'uses' => 'QCDB\IQCInspectionController@iqc_mod_rq_save',
-            //     'name' => 'iqc_mod_rq'
-            // ]);
-            // Route::get('/iqc_mod_edit_ins', [
-            //     'uses' => 'QCDB\IQCInspectionController@iqc_mod_edit_ins',
-            //     'name' => 'iqc_mod_edit_ins'
-            // ]);
-            // Route::get('/iqc_mod_edit_cl', [
-            //     'uses' => 'QCDB\IQCInspectionController@iqc_mod_edit_cl',
-            //     'name' => 'iqc_mod_edit_cl'
-            // ]);
-            // Route::get('/iqc_mod_edit_rq', [
-            //     'uses' => 'QCDB\IQCInspectionController@iqc_mod_edit_rq',
-            //     'name' => 'iqc_mod_edit_rq'
-            // ]);
-            // Route::get('/iqc_mod_delete_ins', [
-            //     'uses' => 'QCDB\IQCInspectionController@iqc_mod_delete_ins',
-            //     'name' => 'iqc_mod_delete_ins'
-            // ]);
-            // Route::get('/iqc_mod_delete_cl', [
-            //     'uses' => 'QCDB\IQCInspectionController@iqc_mod_delete_cl',
-            //     'name' => 'iqc_mod_delete_cl'
-            // ]);
-            // Route::get('/iqc_mod_delete_rq', [
-            //     'uses' => 'QCDB\IQCInspectionController@iqc_mod_delete_rq',
-            //     'name' => 'iqc_mod_delete_rq'
-            // ]);
-            // Route::post('/iqcdbgroupby', [
-            //     'uses' => 'QCDB\IQCInspectionController@iqcdbgroupby',
-            //     'name' => 'iqcdbgroupby'
-            // ]);
-            // Route::post('/iqcdbselectgroupby1', [
-            //     'uses' => 'QCDB\IQCInspectionController@iqcdbselectgroupby1',
-            //     'name' => 'iqcdbselectgroupby1'
-            // ]);
-            // Route::get('/get_no_of_defectives_ins', [
-            //     'uses' => 'QCDB\IQCInspectionController@get_no_of_defectives_ins',
-            //     'name' => 'get_no_of_defectives_ins'
-            // ]);
-            // Route::get('/get_no_of_defectives_cl', [
-            //     'uses' => 'QCDB\IQCInspectionController@get_no_of_defectives_cl',
-            //     'name' => 'get_no_of_defectives_cl'
-            // ]);
-            // Route::get('/get_no_of_defectives_rq', [
-            //     'uses' => 'QCDB\IQCInspectionController@get_no_of_defectives_rq',
-            //     'name' => 'get_no_of_defectives_rq'
-            // ]);
-            // Route::get('/displaymodins', [
-            //     'uses' => 'QCDB\IQCInspectionController@displaymodins',
-            //     'name' => 'displaymodins'
-            // ]);
-            // Route::get('/displaymodcl', [
-            //     'uses' => 'QCDB\IQCInspectionController@displaymodcl',
-            //     'name' => 'displaymodcl'
-            // ]);
-            // Route::get('/displaymodrq', [
-            //     'uses' => 'QCDB\IQCInspectionController@displaymodrq',
-            //     'name' => 'displaymodrq'
-            // ]);
-            // Route::get('/get_iqcpercentage', [
-            //     'uses' => 'QCDB\IQCInspectionController@get_iqcpercentage',
-            //     'name' => 'get_iqcpercentage'
-            // ]);
-            //
-            // Route::get('/searchby', [
-            //     'uses' => 'QCDB\IQCInspectionController@searchby',
-            //     'name' => 'searchby'
-            // ]);
-            // Route::get('/getlarlrrdppm', [
-            //     'uses' => 'QCDB\IQCInspectionController@getlarlrrdppm',
-            //     'name' => 'getlarlrrdppm'
-            // ]);
-            //
-            // Route::get('/getrejected', [
-            //     'uses' => 'QCDB\IQCInspectionController@getrejected',
-            //     'name' => 'getrejected'
-            // ]);
+            Route::get('/iqc-groupby-dppmgroup2', [
+                'uses' => 'QCDB\IQCGroupByController@dppmgroup2',
+                'name' => 'iqc-groupby-dppmgroup2'
+            ]);
+
+            Route::get('/iqc-groupby-dppmgroup3', [
+                'uses' => 'QCDB\IQCGroupByController@dppmgroup3',
+                'name' => 'iqc-groupby-dppmgroup3'
+            ]);
+
+            Route::get('/iqc-groupby-dppmgroup2_Details', [
+                'uses' => 'QCDB\IQCGroupByController@dppmgroup2_Details',
+                'name' => 'iqc-groupby-dppmgroup2_Details'
+            ]);
+
+            Route::get('/iqc-groupby-dppmgroup3_Details', [
+                'uses' => 'QCDB\IQCGroupByController@dppmgroup3_Details',
+                'name' => 'iqc-groupby-dppmgroup3_Details'
+            ]);
 
 
         /* OQC Inspection */
@@ -1610,6 +1481,9 @@ Route::group(['middleware' => 'web'], function () {
                 'name' => 'oqc-groupby-values'
             ]);
 
+
+            
+
             Route::get('/oqc-initiatedata', [
                 'uses' => 'QCDB\OQCInspectionController@initData',
                 'name' => 'oqc-initiatedata'
@@ -1646,124 +1520,42 @@ Route::group(['middleware' => 'web'], function () {
                 'name' => 'oqc-shift'
             ]);
 
+            Route::get('/oqc-groupby-excel', [
+                'uses' => 'QCDB\OQCGroupByController@GrpByExcelReport',
+                'name' => 'oqc-groupby-excel'
+            ]);
 
+            Route::get('/oqc-groupby-pdf', [
+                'uses' => 'QCDB\OQCGroupByController@GrpByPDFReport',
+                'name' => 'oqc-groupby-pdf'
+            ]);
 
+            Route::get('/oqc-groupby-dppmgroup1', [
+                'uses' => 'QCDB\OQCGroupByController@dppmgroup1',
+                'name' => 'oqc-groupby-dppmgroup1'
+            ]);
 
+            Route::get('/oqc-groupby-dppmgroup2', [
+                'uses' => 'QCDB\OQCGroupByController@dppmgroup2',
+                'name' => 'oqc-groupby-dppmgroup2'
+            ]);
 
+            Route::get('/oqc-groupby-dppmgroup3', [
+                'uses' => 'QCDB\OQCGroupByController@dppmgroup3',
+                'name' => 'oqc-groupby-dppmgroup3'
+            ]);
 
-            // Route::get('/oqcinspection', [
-            //     'uses' => 'QCDB\OQCInspectionController@getOQCInspection',
-            //     'name' => 'oqcinspection'
-            // ]);
+            Route::get('/oqc-groupby-dppmgroup2_Details', [
+                'uses' => 'QCDB\OQCGroupByController@dppmgroup2_Details',
+                'name' => 'oqc-groupby-dppmgroup2_Details'
+            ]);
 
-            // Route::get('/oqcinspectiondata', [
-            //     'uses' => 'QCDB\OQCInspectionController@getOQCInspectionData',
-            //     'name' => 'oqcinspectiondata'
-            // ]);
-            // Route::post('/oqcdbsave', [
-            //     'uses' => 'QCDB\OQCInspectionController@oqcsave',
-            //     'name' => 'oqcdbsave'
-            // ]);
-            //  Route::get('/oqcdbdelete', [
-            //     'uses' => 'QCDB\OQCInspectionController@oqcdbdelete',
-            //     'name' => 'oqcdbdelete'
-            // ]);
-            // Route::post('/oqcmodinspectionsave', [
-            //     'uses' => 'QCDB\OQCInspectionController@oqcmodinspectionsave',
-            //     'name' => 'oqcmodinspectionsave'
-            // ]);
-            // Route::get('/oqcmodinspectionedit', [
-            //     'uses' => 'QCDB\OQCInspectionController@oqcmodinspectionedit',
-            //     'name' => 'oqcmodinspectionedit'
-            // ]);
-            // Route::get('/oqcmodinspectiondelete', [
-            //     'uses' => 'QCDB\OQCInspectionController@oqcmodinspectiondelete',
-            //     'name' => 'oqcmodinspectiondelete'
-            // ]);
-            // Route::get('/getYPICSrecords', [
-            //     'uses' => 'QCDB\OQCInspectionController@getYPICSrecords',
-            //     'name' => 'getYPICSrecords'
-            // ]);
-            // Route::get('/get_no_of_defectives', [
-            //     'uses' => 'QCDB\OQCInspectionController@get_no_of_defectives',
-            //     'name' => 'get_no_of_defectives'
-            // ]);
-            // Route::get('/oqcsearchby', [
-            //     'uses' => 'QCDB\OQCInspectionController@searchby',
-            //     'name' => 'oqcsearchby'
-            // ]);
-            // Route::get('/oqcprintreport', [
-            //     'uses' => 'QCDB\OQCInspectionController@getOQCreport',
-            //     'name' => 'oqcprintreport'
-            // ]);
-            // Route::get('/oqcinsprintreportexcel', [
-            //     'uses' => 'QCDB\OQCInspectionController@getOQCreportexcel',
-            //     'name' => 'oqcinsprintreportexcel'
-            // ]);
-            // Route::get('/getFamily', [
-            //     'uses' => 'QCDB\OQCInspectionController@getFamily',
-            //     'name' => 'getFamily'
-            // ]);
-            //  Route::get('/displayoqcmod', [
-            //     'uses' => 'QCDB\OQCInspectionController@displayoqcmod',
-            //     'name' => 'displayoqcmod'
-            // ]);
-            // Route::post('/oqcdbgroupby', [
-            //     'uses' =>'QCDB\OQCInspectionController@oqcdbgroupby',
-            //     'name' => 'oqcdbgroupby'
-            // ]);
-            // Route::post('/oqcdbselectgroupby1', [
-            //     'uses' => 'QCDB\OQCInspectionController@oqcdbselectgroupby1',
-            //     'name' => 'oqcdbselectgroupby1'
-            // ]);
-            // Route::get('/getoqclarlrrdppm', [
-            //     'uses' => 'QCDB\OQCInspectionController@getlarlrrdppm',
-            //     'name' => 'getoqclarlrrdppm'
-            // ]);
-            // Route::get('/getoqctotallarlrrdppm', [
-            //     'uses' => 'QCDB\OQCInspectionController@totallarlrrdppm',
-            //     'name' => 'getoqctotallarlrrdppm'
-            // ]);
-            // Route::get('/getmodoqc', [
-            //     'uses' => 'QCDB\OQCInspectionController@getmodoqc',
-            //     'name' => 'getmodoqc'
-            // ]);
-            // Route::get('/countdefects', [
-            //     'uses' => 'QCDB\OQCInspectionController@countdefects',
-            //     'name' => 'countdefects'
-            // ]);
-            // Route::get('/getmodcount', [
-            //     'uses' => 'QCDB\OQCInspectionController@getmodcount',
-            //     'name' => 'getmodcount'
-            // ]);
-
-            // Route::get('/getmodcounts', [
-            //     'uses' => 'QCDB\OQCInspectionController@getmodcounts',
-            //     'name' => 'getmodcounts'
-            // ]);
-            // Route::get('/getrows', [
-            //     'uses' => 'QCDB\OQCInspectionController@getrows',
-            //     'name' => 'getrows'
-            // ]);
-            // Route::get('/time', [
-            //     'uses' => 'QCDB\OQCInspectionController@time',
-            //     'name' => 'time'
-            // ]);
-            // Route::get('/countlotno', [
-            //     'uses' => 'QCDB\OQCInspectionController@countlotno',
-            //     'name' => 'countlotno'
-            // ]);
-            // Route::get('/getprobeproduct', [
-            //     'uses' => 'QCDB\OQCInspectionController@getProbeProduct',
-            //     'name' => 'getprobeproduct'
-            // ]);
-
-
-
-
+            Route::get('/oqc-groupby-dppmgroup3_Details', [
+                'uses' => 'QCDB\OQCGroupByController@dppmgroup3_Details',
+                'name' => 'oqc-groupby-dppmgroup3_Details'
+            ]);
 
             
-
         /* FGS */
             Route::get('/fgs', [
                 'uses' => 'QCDB\FGSController@getFGS',

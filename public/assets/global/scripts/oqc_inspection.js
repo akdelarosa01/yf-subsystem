@@ -65,6 +65,8 @@ $( function() {
 		}).done(function(data, textStatus, xhr) {
 			msg(data.msg,data.status);
 			getDatatable('tbl_oqc',oqcDataTableURL,dataColumn,[],0);
+			clearControls();
+			$('#btn_savemodal').prop('disabled', true);
 		}).fail(function(data, textStatus, xhr) {
 			var errors = data.responseJSON;
 			InspectionErrors(errors);
@@ -244,6 +246,7 @@ function clearControls() {
 	$('#accept').val(0);
 	$('#reject').val(1);
 	$('#lot_inspected').val(1);
+	$('#inspector').val(author);
 	$('#shift').val('Shift A');
 }
 
@@ -559,6 +562,8 @@ function NewInspection() {
 	clearControls();
 	$('#btn_savemodal').prop('disabled', false);
 	$('#inspection_save_status').val('ADD');
+	getWorkWeek();
+	getFiscalYear();
 	$('#inspection_modal').modal('show');
 }
 
@@ -887,6 +892,11 @@ function samplingPLan() {
 		data: data,
 	}).done(function(data, textStatus, jqXHR) {
 		console.log(data);
+
+		if (data.ins_lvl != undefined) {
+			$('#inspection_lvl').val(data.ins_lvl);
+		}
+
 		$('#accept').val(data.accept);
 		$('#reject').val(data.reject);
 		$('#sample_size').val(data.size);
