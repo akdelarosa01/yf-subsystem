@@ -44,8 +44,8 @@ class WBSProdMatReturnController extends Controller
         else
         {
 
-	        return view('wbs.productionmaterialreturn',['userProgramAccess' => $userProgramAccess]);
-	    }
+            return view('wbs.productionmaterialreturn',['userProgramAccess' => $userProgramAccess]);
+        }
     }
 
     public function getData(Request $req)
@@ -63,10 +63,14 @@ class WBSProdMatReturnController extends Controller
                                 , 'update_user'
                                 , DB::raw("DATE_FORMAT(updated_at, '%m/%d/%Y %h:%i %p') as updated_at"))
                             ->where('controlno',$req->controlno)
+                            ->where('deleted',0)
                             ->first();
 
             if ($this->com->checkIfExistObject($info) > 0) {
-                $details = DB::connection($this->mysql)->table('tbl_wbs_material_return_details')->where('controlno',$info->controlno)->get();
+                $details = DB::connection($this->mysql)->table('tbl_wbs_material_return_details')
+                                ->where('controlno',$info->controlno)
+                                ->where('deleted',0)
+                                ->get();
 
                 return $data = [
                                 'info' => $info,
@@ -112,6 +116,7 @@ class WBSProdMatReturnController extends Controller
         $data = [];
         $nxt = DB::connection($this->mysql)->table('tbl_wbs_material_return')
                         ->where('controlno',$controlno)
+                        ->where('deleted',0)
                         ->select('id')->first();
         if ($this->com->checkIfExistObject($nxt) > 0) {
             $nxtid = $nxt->id + 1;
@@ -120,7 +125,10 @@ class WBSProdMatReturnController extends Controller
 
             if ($this->com->checkIfExistObject($info) > 0) {
 
-                $details = DB::connection($this->mysql)->table('tbl_wbs_material_return_details')->where('controlno',$info->controlno)->get();
+                $details = DB::connection($this->mysql)->table('tbl_wbs_material_return_details')
+                                ->where('controlno',$info->controlno)
+                                ->where('deleted',0)
+                                ->get();
 
                 return $data = [
                             'info' => $info,
@@ -144,6 +152,7 @@ class WBSProdMatReturnController extends Controller
         $data = [];
         $nxt = DB::connection($this->mysql)->table('tbl_wbs_material_return')
                         ->where('controlno',$controlno)
+                        ->where('deleted',0)
                         ->select('id')->first();
 
         if ($this->com->checkIfExistObject($nxt) > 0) {
@@ -153,7 +162,10 @@ class WBSProdMatReturnController extends Controller
 
             if ($this->com->checkIfExistObject($info) > 0) {
 
-                $details = DB::connection($this->mysql)->table('tbl_wbs_material_return_details')->where('controlno',$info->controlno)->get();
+                $details = DB::connection($this->mysql)->table('tbl_wbs_material_return_details')
+                                ->where('controlno',$info->controlno)
+                                ->where('deleted',0)
+                                ->get();
 
                 return $data = [
                             'info' => $info,
@@ -175,6 +187,7 @@ class WBSProdMatReturnController extends Controller
     {
         $data = [];
         $info =  DB::connection($this->mysql)->table('tbl_wbs_material_return')
+                        ->where('deleted',0)
                         ->select('id'
                             , 'controlno'
                             , 'po'
@@ -189,7 +202,10 @@ class WBSProdMatReturnController extends Controller
                         ->first();
         if ($this->com->checkIfExistObject($info) > 0) {
 
-            $details = DB::connection($this->mysql)->table('tbl_wbs_material_return_details')->where('controlno',$info->controlno)->get();
+            $details = DB::connection($this->mysql)->table('tbl_wbs_material_return_details')
+                            ->where('controlno',$info->controlno)
+                            ->where('deleted',0)
+                            ->get();
 
             $data = [
                     'info' => $info,
@@ -204,6 +220,7 @@ class WBSProdMatReturnController extends Controller
     {
         $data = [];
         $info = DB::connection($this->mysql)->table('tbl_wbs_material_return')
+                        ->where('deleted',0)
                         ->select('id'
                             , 'controlno'
                             , 'po'
@@ -218,7 +235,10 @@ class WBSProdMatReturnController extends Controller
                         ->first();
         if ($this->com->checkIfExistObject($info) > 0) {
 
-            $details = DB::connection($this->mysql)->table('tbl_wbs_material_return_details')->where('controlno',$info->controlno)->get();
+            $details = DB::connection($this->mysql)->table('tbl_wbs_material_return_details')
+                            ->where('controlno',$info->controlno)
+                            ->where('deleted',0)
+                            ->get();
 
             $data = [
                     'info' => $info,
@@ -231,6 +251,7 @@ class WBSProdMatReturnController extends Controller
     private function getReturnInfoByID($id)
     {
         return DB::connection($this->mysql)->table('tbl_wbs_material_return')
+                    ->where('deleted',0)
                     ->select('id'
                             , 'controlno'
                             , 'po'
@@ -247,7 +268,7 @@ class WBSProdMatReturnController extends Controller
 
     public function postSaveMatReturn(Request $req)
     {
-    	$data = [
+        $data = [
             'msg' => "Saving failed.",
             'status' => 'failed'
         ];
@@ -767,7 +788,8 @@ class WBSProdMatReturnController extends Controller
                             DB::raw('d.actual_returned_qty as actual_returned_qty'),
                             DB::raw('d.remarks as remarks'),
                             DB::raw('r.returned_by as returned_by'),
-                            DB::raw('r.date_returned as date_returned'))
+                            DB::raw('r.date_returned as date_returned'),
+                            DB::raw('d.deleted as deleted'))
                     ->whereRaw(" 1=1 "
                         . $from_cond)
                     ->get();
@@ -777,22 +799,22 @@ class WBSProdMatReturnController extends Controller
             $excel->sheet('Report', function($sheet) use($data,$com_info)
             {
                 $sheet->setHeight(1, 15);
-                $sheet->mergeCells('A1:L1');
-                $sheet->cells('A1:L1', function($cells) {
+                $sheet->mergeCells('A1:M1');
+                $sheet->cells('A1:M1', function($cells) {
                     $cells->setAlignment('center');
                 });
                 $sheet->cell('A1',$com_info['name']);
 
                 $sheet->setHeight(2, 15);
-                $sheet->mergeCells('A2:L2');
-                $sheet->cells('A2:L2', function($cells) {
+                $sheet->mergeCells('A2:M2');
+                $sheet->cells('A2:M2', function($cells) {
                     $cells->setAlignment('center');
                 });
                 $sheet->cell('A2',$com_info['address']);
 
                 $sheet->setHeight(4, 20);
-                $sheet->mergeCells('A4:L4');
-                $sheet->cells('A4:L4', function($cells) {
+                $sheet->mergeCells('A4:M4');
+                $sheet->cells('A4:M4', function($cells) {
                     $cells->setAlignment('center');
                     $cells->setFont([
                         'family'     => 'Calibri',
@@ -804,7 +826,7 @@ class WBSProdMatReturnController extends Controller
                 $sheet->cell('A4',"PRODUCTION MATERIAL RETURN");
 
                 $sheet->setHeight(6, 15);
-                $sheet->cells('A6:L6', function($cells) {
+                $sheet->cells('A6:M6', function($cells) {
                     $cells->setFont([
                         'family'     => 'Calibri',
                         'size'       => '11',
@@ -825,6 +847,7 @@ class WBSProdMatReturnController extends Controller
                 $sheet->cell('J6', "Pair No.");
                 $sheet->cell('K6', "Remarks");
                 $sheet->cell('L6', "Returned By");
+                $sheet->cell('M6', "Status");
 
                 $row = 7;
 
@@ -842,10 +865,11 @@ class WBSProdMatReturnController extends Controller
                     $sheet->cell('J'.$row, $this->getPairNo($mk->issuanceno));
                     $sheet->cell('K'.$row, $mk->remarks);
                     $sheet->cell('L'.$row, $mk->returned_by);
+                    $sheet->cell('M'.$row, ($mk->deleted > 0)? 'Deleted' : '');
                     $row++;
                 }
 
-                $sheet->cells('A6:L'.$row, function($cells) {
+                $sheet->cells('A6:M'.$row, function($cells) {
                     $cells->setBorder('solid', 'solid', 'solid', 'solid');
                 });
             });
@@ -863,5 +887,39 @@ class WBSProdMatReturnController extends Controller
         }
 
         return '';
+    }
+
+    public function deleteControlNo(Request $req)
+    {
+        $data = [
+            'msg' => 'Deleting failed.',
+            'status' => 'failed'
+        ];
+
+        $mr = DB::connection($this->mysql)->table('tbl_wbs_material_return')
+                ->where('controlno',$req->controlno)->update(['deleted' => 1]);
+
+        if ($mr) {
+            $details = DB::connection($this->mysql)->table('tbl_wbs_material_return_details')
+                        ->where('controlno',$req->controlno)
+                        ->get();
+
+            foreach ($details as $key => $get) {
+                $this->deductToInventory($get->item,$get->lot_no,$req->qty[$key]);
+            }
+
+            $mrd = DB::connection($this->mysql)->table('tbl_wbs_material_return_details')
+                        ->where('controlno',$req->controlno)
+                        ->update(['deleted' => 1]);
+
+            if ($mrd) {
+                $data = [
+                    'msg' => 'Successfully deleted.',
+                    'status' => 'success'
+                ];
+            }
+        }
+
+        return response()->json($data);
     }
 }

@@ -100,11 +100,21 @@ $(function() {
 	});
 
 	$('#btn_delete_details').on('click', function() {
+		$('#delete_id').val('details');
+		$('#delete_modal').modal('show');
+	});
+
+	$('#btn_delete_control').on('click', function() {
+		$('#delete_id').val('control');
 		$('#delete_modal').modal('show');
 	});
 
 	$('#btn_confirm_delete').on('click', function() {
-		delete_items('.checkboxes',deleteDetailsURL);
+		if ($('#delete_id').val() == 'details') {
+			delete_items('.checkboxes',deleteDetailsURL);
+		} else {
+			delete_control();
+		}
 	});
 
 	$('#btn_search').on('click', function() {
@@ -253,6 +263,7 @@ function viewState() {
 
 	$('#btn_add_details').hide();
 	$('#btn_delete_details').hide();
+	$('#btn_delete_control').hide();
 }
 
 function addState() {
@@ -271,6 +282,7 @@ function addState() {
 
 	$('#btn_add_details').hide();
 	$('#btn_delete_details').hide();
+	$('#btn_delete_control').hide();
 
     $('#ret_info_id').val('');
     $('#controlno').val("");
@@ -303,6 +315,7 @@ function editState() {
 
 	$('#btn_add_details').show();
 	$('#btn_delete_details').show();
+	$('#btn_delete_control').show();
 }
 
 function printBRcode(id) {
@@ -352,9 +365,32 @@ function delete_now(url,data) {
 		msg(data.msg,data.status);
 		getMaterialReturnData('',$('#controlno').val());
 	}).fail(function(data,textStatus,jqXHR) {
+		$('#delete_modal').modal('hide');
 		msg("There's an error occurred while processing.",'error');
 	});
 }
+
+function delete_control() {
+	var data = {
+		_token: token,
+		controlno: $('#controlno').val()
+	};
+
+	$.ajax({
+		url: deleteControlNoURL,
+		type: 'POST',
+		dataType: 'JSON',
+		data: data,
+	}).done(function(data,textStatus,jqXHR) {
+		$('#delete_modal').modal('hide');
+		msg(data.msg,data.status);
+		getMaterialReturnData();
+	}).fail(function(data,textStatus,jqXHR) {
+		$('#delete_modal').modal('hide');
+		msg("There's an error occurred while processing.",'error');
+	});
+}
+
 
 function makeReturnTable(arr) {
 	$('#tbl_details').dataTable().fnClearTable();

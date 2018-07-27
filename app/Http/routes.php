@@ -763,6 +763,11 @@ Route::group(['middleware' => 'web'], function () {
                 'name' => 'excel-return'
             ]);
 
+            Route::post('/delete-control-return', [
+                'uses' => 'WBS\WBSProdMatReturnController@deleteControlNo',
+                'name' => 'delete-control-return'
+            ]);
+
         /* WBS Report */
             Route::get('/wbsreports', [
                 'uses' => 'WBS\WBSReportController@getWBSReport',
