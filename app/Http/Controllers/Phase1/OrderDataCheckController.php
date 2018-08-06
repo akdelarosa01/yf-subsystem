@@ -3992,6 +3992,7 @@ class OrderDataCheckController extends Controller
                             LEFT JOIN XPRTS b on k.OYACODE = b.CODE AND k.CODE = b.KCODE
                             WHERE (( (k.IDATE=N'' OR k.IDATE is null)  OR (k.IDATE<>N'--Remote-' OR k.IDATE is null))
                             AND (k.KVOL>k.TJITU) AND ((k.PSUMI in ('P','T','M','W','H') AND ((k.PSUMI<>N'N' OR k.PSUMI is null))) OR se.GKU=1 ))
+                            AND k.INPUTDATE like '".date('ymd')."%'
                             GROUP BY h.NAME,
                                     ho.NAME,
                                     cb.BNAME,
@@ -4353,33 +4354,44 @@ class OrderDataCheckController extends Controller
                                     ->where('ypics_qty',$moms->ypics_qty)
                                     ->where('vendor',$moms->vendor)
                                     ->first();
-                        $dif1 = '';
+                                    
+                        $dif1 = 0;
+                        $dif2 = 0;
+                        $withdrawalqty = ($this->withdrawalQty($data->po,$data->kcode) == '')?$data->withdrawal_qty : $this->withdrawalQty($data->po,$data->kcode);
 
-                        if ($data->diff1==0) {
-                            $dif1 = '0.0';
-                        } else {
-                            $dif1 = $data->diff1;
-                        }
-
-                        if ($data->diff1 == 'N/A') {
+                        if ($data->qty == 'N/A') {
                             $dif1 = 'N/A';
-                        } else {
-                            $dif1 = $data->diff1;
                         }
 
-                        $dif2 = '';
-
-                        if ($data->diff2==0) {
-                            $dif2 = '0.0';
-                        } else {
-                            $dif2 = $data->diff2;
-                        }
-
-                        if ($data->diff2 == 'N/A') {
+                        if ($withdrawalqty == 'N/A') {
                             $dif2 = 'N/A';
-                        } else {
-                            $dif2 = $data->diff2;
                         }
+
+                        // if ($data->diff1==0) {
+                        //     $dif1 = '0.0';
+                        // } else {
+                        //     $dif1 = $data->diff1;
+                        // }
+
+                        // if ($data->diff1 == 'N/A') {
+                        //     $dif1 = 'N/A';
+                        // } else {
+                        //     $dif1 = $data->diff1;
+                        // }
+
+                        // $dif2 = '';
+
+                        // if ($data->diff2==0) {
+                        //     $dif2 = '0.0';
+                        // } else {
+                        //     $dif2 = $data->diff2;
+                        // }
+
+                        // if ($data->diff2 == 'N/A') {
+                        //     $dif2 = 'N/A';
+                        // } else {
+                        //     $dif2 = $data->diff2;
+                        // }
 
                         $sheet->cell('A'.$row, $data->po); //ypics
                         $sheet->cell('B'.$row, $data->code); //ypics
