@@ -308,7 +308,7 @@
 		    }
 		    .table-bordered td,
 		    .table-bordered th {
-		        border: 1px solid #333!important
+		        border: 1px solid #ddd!important
 		    }
 		}
 
@@ -2827,7 +2827,7 @@
 		    /*padding: 8px;
 		    line-height: 1.42857143;*/
 		    vertical-align: top;
-		    /*border-top: 1px solid #ddd*/
+		    border-top: 1px solid #ddd
 		}
 
 		.table>thead>tr>th {
@@ -2862,7 +2862,7 @@
 		}
 
 		.table-bordered {
-		    border: 1px solid #333
+		    border: 1px solid #ddd
 		}
 
 		.table-bordered>tbody>tr>td,
@@ -2871,7 +2871,7 @@
 		.table-bordered>tfoot>tr>th,
 		.table-bordered>thead>tr>td,
 		.table-bordered>thead>tr>th {
-		    border: 1px solid #333
+		    border: 1px solid #ddd
 		}
 
 		.table-bordered>thead>tr>td,
@@ -7845,182 +7845,284 @@
 		    }
 		}
     </style>
-    <style>
-        .header, .footer {
-            width: 100%;
-            text-align: center;
-            position: fixed;
-        }
-        .header {
-            top: 0px;
-        }
-        .footer {
-            bottom: 0px;
-        }
-        .pagenum:before {
-            content: counter(page);
-        }
-        .fontArial {
-            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-        }
-        thead{display: table-header-group;}
-		tfoot {display: table-row-group;}
-		tr {page-break-inside: avoid;}
-    </style>
     <style type="text/css">
-	    .page
-	    {
-	    	overflow: hidden;
-	        page-break-after: always;
-	        page-break-inside: avoid;
-	    }
-	</style>
+    	.tdDetails {
+            height:10px;
+        }
+        .list {
+            height:500px;
+            max-height:500px;
+            /*border:1px solid;*/
+        }
+        .transactiondetails {
+            margin-left: 76%;
+            width: 25%;
+            margin-top: 5px;
+        }
+        .zerorated {
+            margin-left: 88%;
+        }
+        .nodesign {
+            list-style-type:none;
+        } 
+        .li {
+            margin-bottom: 5px;
+        }
+        .liDetails {
+            margin-bottom: 10px;
+        }
+        .addresses {
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+        
+        .font18 {
+            font-size:16px;
+            font-weight: 900;
+        }
+        /*.font16 {
+            font-size:18px;
+            font-weight: bold;
+        }*/
+        .font16 {
+            font-size:14px;
+            font-weight: bold;
+        }
+        .soldtodiv {
+            float:left;
+            width:50%;
+            display:inline;
+            height:150px;
+        }
+        .shiptodiv {
+            float:left;
+            width:50%;
+            display:inline;
+            height:150px;
+        }
+        .soldtop{
+            margin-left:10%;
+            width:90%;
+        }
+        .shiptop{
+            margin-left:10%;
+            width:90%;
+        }
+        .detailsdiv1 {
+            float:left;
+            width:43%;
+            display:inline;
+            margin-bottom:20px;
+            margin-left:25px;
+        }
+        .detailsdiv2 {
+            float:left;
+            width:22%;
+            display:inline;
+            margin-bottom:20px;
+            margin-left:25px;
+        }
+        .marksno {
+            float:left;
+            width:33%;
+            display:inline;
+            margin-bottom:20px;
+            margin-left:27px;
+
+        }
+        .detailsdetails {
+            margin-left:45px;
+        }
+        .detailsdetails1 {
+            margin-left:50px;
+        }
+        .detailsdetails2 {
+            margin-left:28px;
+        }
+        .detailsmarksno {
+            margin-top:25px;
+            margin-left:73%;
+        }
+        .text-center {
+            text-align:center;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .leftmargintd {
+            padding-left:20px;
+        }
+        .leftmargintdqty {
+            padding-left:20px;
+        }
+        .table-borderless td, .table-borderless th{
+            border: none !important;
+        }
+    </style>
 </head>
-
-<body>
-	<?php
-		if(count($header) > 0) {
-			foreach ($header as $key => $x) {
-	?>
-		    	<div class="container page">
-		    		<div class="row">
-					    <table class="fontArial" border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
-					        <tbody>
-					            <tr>
-					                <td align="center">
-					                <h4><?php echo e($company_info['name']); ?></h4>
-					                <p style="line-height: 1.8px; font-size:12px; "><?php echo e($company_info['address']); ?></p>
-					                <p style="line-height: 1.8px; font-size:12px; "> <?php echo e($company_info['tel1'] . ' ' . $company_info['tel2']); ?></p>
-					                <h2><ins>IQC INSPECTION SUMMARY</ins></h2>
-					                </td>
-					            </tr>
-					        </tbody>
-					    </table>
-		    		</div>
-
-		    		<div class="row">
-		    			<div class="col-xs-12">
-		    				<table class="table" style="font-size: 10px">
-		    					<tr>
-		                            <th class="align-left">Invoice No.</td>
-		                            <td><?php echo e($x->invoice_no); ?></td>
-
-		                            <th class="align-left">Application No.</td>
-		                            <td><?php echo e($x->app_no); ?></td>
-
-		                            <th class="align-left">Severity of Inspection</td>
-		                            <td><?php echo e($x->severity_of_inspection); ?></td>
-
-		                            <th class="align-left">AQL</td>
-		                            <td><?php echo e($x->aql); ?></td>
-		                            
-		                        </tr>
-		                        <tr>
-		                            <th class="align-left">Family</td>
-		                            <td class="align-left"><?php echo e($x->family); ?></td>
-
-		                            <th class="align-left">Application Date</td>
-		                            <td><?php echo e($x->app_date); ?></td>
-
-		                            <th class="align-left">Inspection Level</td>
-		                            <td><?php echo e($x->inspection_lvl); ?></td>
-
-		                            <th class="align-left">Ac</td>
-		                            <td><?php echo e($x->accept); ?></td>
-		                        </tr>
-		                        <tr>
-		                            <th class="align-left">Supplier</td>
-		                            <td><?php echo e($x->supplier); ?></td>
-
-		                            <th class="align-left">Aplication Time</td>
-		                            <td><?php echo e($x->app_time); ?></td>
-
-		                            <th class="align-left">Type of Inspection</td>
-		                            <td><?php echo e($x->type_of_inspection); ?></td>
-
-		                            <th class="align-left">Re</td>
-		                            <td><?php echo e($x->reject); ?></td>
-		                            
-		                        </tr>
-		    				</table>
-		    			</div>
-		    		</div>
-		    		<br>
-
-		    		<div class="row">
-		    			<div class="col-xs-12">
-		    				<table class="table table-striped table-bordered table-condensed" style="font-size:10px">
-		    					<thead>
-		                            <tr>
-		                            	<td>FY - WW</td>
-										<td>Part Code</td>
-										<td>Part Name</td>
-										<td>Lot No.</td>
-										<td>Lot Qty</td>
-										<td>Date Inspected</td>
-										<td>Shift</td>
-										<td>From</td>
-										<td>To</td>
-										<td>Inspector</td>
-										<td>Submission</td>
-										<td>Judgement</td>
-										<td>Lot Inspected</td>
-										<td>Lot Accepted</td>
-										<td>Sample Size</td>
-										<td>No. of Defects</td>
-										<td>Remarks</td>
-		                            </tr>
-		                        </thead>
-		                        <tbody>
-		                        	<?php foreach($details as $qc): ?>
-		                        		<?php
-			                        		if ($qc->invoice_no == $x->invoice_no) {
-		                        		?>
-			                        		<tr>
-			                        			<td><?php echo e($qc->fy.' - '.$qc->ww); ?></td>
-												<td><?php echo e($qc->partcode); ?></td>
-												<td><?php echo e($qc->partname); ?></td>
-												<td><?php echo e($qc->lot_no); ?></td>
-												<td><?php echo e($qc->lot_qty); ?></td>
-												<td><?php echo e($qc->date_inspected); ?></td>
-												<td><?php echo e($qc->shift); ?></td>
-												<td><?php echo e($qc->time_ins_from); ?></td>
-												<td><?php echo e($qc->time_ins_to); ?></td>
-												<td><?php echo e($qc->inspector); ?></td>
-												<td><?php echo e($qc->submission); ?></td>
-												<td><?php echo e($qc->judgement); ?></td>
-												<td><?php echo e($qc->lot_inspected); ?></td>
-												<td><?php echo e($qc->lot_accepted); ?></td>
-												<td><?php echo e($qc->sample_size); ?></td>
-												<td><?php echo e($qc->no_of_defects); ?></td>
-												<td><?php echo e($qc->remarks); ?></td>
-							                </tr>
-						                <?php
-						                	}
-						                ?>
-		                        	<?php endforeach; ?>
-		                        </tbody>
-		    				</table>
-		    			</div>
-		    		</div>
-		    		<br>
-
-		    		<div class="row">
-		    			<div class="col-xs-12">
-		    				<table class="table" style="font-size:10px">
-		                        <tbody>
-		                        	<tr>
-				                        <td>Date: <?php echo e($date); ?></td>
-				                    </tr>
-		                        </tbody>
-		    				</table>
-		    			</div>
-		    		</div>
-		    	</div>
-    <?php
-			}
-		}
-	?>
     
-	</body>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="transactiondetails">
+			        <ul class="nodesign">
+			            <li class="li transaction"><b class="font18"><?php echo e($details1->transaction_no); ?></b></li>
+			            <li class="li revision"><b class="font16"><?php echo e($details1->revision_no); ?></b></li>
+			            <li class="li pickupdate"><b class="font16"><?php echo e($details1->pickup_date); ?></b></li>
+			            <li class="li invoicedate"><b class="font16"><?php echo e($details1->invoice_date); ?></b></li>
+			        </ul>
+			    </div>
+			</div>
+		</div>
+	</div>
+    
+    <br>
+    <div style="height:60px;"></div>
+
+    <div class="container">
+    	<div class="row">
+    		<div class="col-xs-12">
+    			<div class="addresses">
+			        <div class="soldtodiv">
+			            <p class="soldtop font16"><?php echo nl2br($details1->soldto_address);?></p>
+			        </div>
+			        <div class="shiptodiv">
+			            <p class="shiptop font16"><?php echo nl2br($details1->shipto_address);?></p>
+			        </div>
+			    </div>
+    		</div>
+    	</div>
+    </div>
+
+    <div class="container" style="margin-top: 10px">
+    	<div class="row">
+    		<div class="col-xs-12">
+			    <div class="details detailsdiv1 font16" >
+			        <ul class="nodesign detailsdetails1 font16">
+			            <li class="liDetails"><?php echo e($details1->shippedfrom); ?></li>
+			            <li class="liDetails"><?php echo e($details1->shipto); ?></li>
+			            <li style="margin-bottom: 14px"><?php echo e($details1->carrier); ?></li>
+			            <li class="liDetails"><?php echo e($details1->freight); ?></li>
+			            <li class="liDetails"><?php echo e($details1->gross_weight); ?></li>
+			            <li class="liDetails"><?php echo e($details1->terms_of_payment); ?></li>
+			        </ul>
+			    </div>
+			    <div class="details detailsdiv2 font16" >
+			        <ul class="nodesign font16 detailsdetails2">
+			            <li class="liDetails"><?php echo e($details1->via); ?></li>
+			            <li class="liDetails"><?php echo e($details1->awb_no); ?></li>
+			            <li style="margin-bottom: 14px"><?php echo e($details1->sailing_on); ?></li>
+			            <li class="liDetails"><?php echo e($details1->country_origin); ?></li>
+			            <li class="liDetails"><?php echo e($details1->no_of_packaging); ?></li>
+			        </ul>
+			    </div>
+			    <div class="detailsmarksno font16">
+			        <?php echo nl2br($details1->case_marks);?>
+			    </div>
+			</div>
+		</div>
+	</div>
+
+    <div class="container list" style="margin-bottom:50px;margin-left:15px">
+    	<div class="row">
+    		<div class="col-xs-12">
+    			<table class="table table-borderless" style="margin-top:35px;">
+		            <thead>
+		                <tr>
+		                    <td colspan="6" class="font18 text-center"><?php echo e($details1->products); ?></td>
+		                </tr>
+		            </thead>
+		            <tbody style="font-size:13px">
+
+		                <?php
+
+		                    $draftship = "";
+		                    $unitprice = 0.0000;
+		                    $amount = 0.0000;
+		                    $percent = 0;
+		                    $tot_amt = 0;
+		                    foreach ($details2 as $key => $dt) {
+		                        $draftship = $dt->draft_shipment;
+		                        if ($dt->draft_shipment == "") {
+		                            $draftship = $dt->item_code;
+		                        }
+		                        
+		                        $amount = str_replace(',', '', $dt->unitprice) * $dt->quantity;
+		                        $tot_amt += number_format($amount,2,'.','');
+
+		                ?>
+		                        <tr>
+		                            <th width="15%" class="tdDetails text-center"><?php echo e($dt->po_no); ?></th>
+
+		                            <th width="33%" class="tdDetails"><?php echo e($dt->description); ?></th>
+
+		                            <th width="14%" class="tdDetails"><?php echo e($draftship); ?></th>
+
+		                            <th width="11%" class="leftmargintdqty tdDetails"><?php echo e(number_format($dt->quantity)); ?></th>
+
+		                            <th width="13%" class="leftmargintd tdDetails"><small>USD</small> <?php echo e($dt->unitprice); ?></th>
+
+		                            <th width="14%" class=" tdDetails"><small>USD</small> <?php echo e(number_format($amount,2)); ?></th>
+		                        </tr>
+		                <?php
+		                    }
+
+		                ?>
+		                <tr>
+		                    <td colspan="2" tdDetails><h3>Control # <?php echo e($details1->packinglist_ctrl); ?></h3></td>
+
+		                    <td><b>TOTAL &nbsp &nbsp</b></td>
+
+		                    <td style="border-top: 3px solid !important"><b><?php echo e(number_format($details3->tot_qty)); ?> <small>pcs</small></b></td>
+
+		                    <td class="text-center" ></td>
+
+		                    <td style="border-top: 3px solid !important" class="tdDetails"><b><small> USD</small> <?php echo e(number_format($tot_amt,2)); ?></b></td>
+		                </tr>
+		                <tr>
+		                    <td colspan="3" class="tdDetails"><b>NOTE / HIGHLIGHT:</b>
+		                        </br>
+		                        <b><?php echo e($details1->note_hightlight); ?></b>
+		                    <td>
+		                    <td colspan="3"></td>
+		                </tr>
+		            </tbody>
+		        </table>
+    		</div>
+    	</div>
+    </div>
+
+    <div class="container">
+    	<div class="row">
+    		<div class="col-xs-12">
+    			<div class="zerorated font16" style="margin-bottom:45px;">ZERO RATED</div>
+    		</div>
+    	</div>
+    </div>
+
+    <div class="container">
+    	<div class="row">
+    		<div class="col-xs-12">
+			    <div class="font16">
+			        <table width="100%" class="font16">
+			            <tbody>
+			                <tr>
+			                    <td width="30px"></td>
+
+			                    <td width="80px"></td>
+
+			                    <td width="40px" class="text-center"><?php echo e($dt->prepared_by); ?></td>
+
+			                    <td width="40px" class="text-center">J. FABABIER</td>
+
+			                    <td width="40px" class="text-center">G.C. VELARDE</td>
+			                </tr>
+			            </tbody>
+			        </table>
+			    </div>
+			</div>
+		</div>
+	</div>
+</body>
 </html>

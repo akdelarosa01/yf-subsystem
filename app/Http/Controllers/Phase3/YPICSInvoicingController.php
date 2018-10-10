@@ -195,7 +195,7 @@ class YPICSInvoicingController extends Controller
                                     'awb_no',
                                     'remarks',
                                     'note_hightlight')
-                            ->where('packinglist_ctrl',$ctrl)
+                            ->where('packinglist_id',$packdetails[0]->packing_id)
                             ->groupBY('po_no','description','draft_shipment','prepared_by')
                             ->get();
 

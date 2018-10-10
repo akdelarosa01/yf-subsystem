@@ -322,9 +322,23 @@ class WBSIqcController extends Controller
                 $partcode = $iqc->item;
                 $partname = $iqc->item_desc;
                 $supplier = $iqc->supplier;
-                $app_date = $app->app_date;
-                $app_time = $app->app_time;
-                $app_no = $app->receive_no;
+
+                $app_date = '';
+                $app_time = '';
+                $app_no = '';
+
+                if (isset($app)) {
+                    $app_date = $app->app_date;
+                    $app_time = $app->app_time;
+                    $app_no = $app->receive_no;
+                } else {
+                    $app = DB::connection($this->wbs)->table('tbl_wbs_inventory')
+                        ->where('invoice_no',$iqc->invoice_no)->first();
+                    $app_date = $app->app_date;
+                    $app_time = $app->app_time;
+                    $app_no = $app->wbs_mr_id;
+                }
+                
                 $lot_qty = $lot_qty + $iqc->qty;
                 $time_ins_from = $req->start_time;
                 $inspector = $req->inspector;

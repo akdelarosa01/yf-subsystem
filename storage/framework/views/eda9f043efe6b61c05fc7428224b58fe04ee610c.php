@@ -237,7 +237,12 @@
 							<div class="form-group">
 								<label class="control-label col-sm-3">Submission</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control required input-sm clearselect show-tick actual" name="submission" id="submission">
+									<select class="form-control required input-sm clear actual" name="submission" id="submission">
+										<option value=""></option>
+										<option value="1st">1st</option>
+										<option value="2nd">2nd</option>
+									</select>
+									<?php /* <input type="text" class="form-control required input-sm clearselect show-tick actual" name="submission" id="submission"> */ ?>
 									<div id="er_submission"></div>
 								</div>
 							</div>
@@ -269,7 +274,7 @@
 							<div class="form-group">
 								<label class="control-label col-sm-3">Sample Size</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control input-sm clear actual" id="sample_size" name="sample_size" readonly>
+									<input type="text" class="form-control input-sm clear actual" id="sample_size" name="sample_size">
 									<div id="er_sample_size"></div>
 								</div>
 							</div>
