@@ -330,19 +330,33 @@ class YPICSInvoicingController extends Controller
     {
         $ctrl = $req->ctrl_no;
         $box = $req->box_no;
-        $packdetails = DB::connection($this->mysql)->table('ypics_invoicingdetails')
-                            ->where('packinglist_ctrl',$ctrl)
-                            ->where('item_no',$box)
-                            ->get();
-        return $packdetails;
+
+        $packinglist = DB::connection($this->mysql)
+                            ->table('tbl_packing_list')
+                            ->select('id')
+                            ->where('control_no',$ctrl)->first();
+        if (count((array)$packinglist) > 0) {
+            $packdetails = DB::connection($this->mysql)->table('ypics_invoicingdetails')
+                                ->where('packinglist_id',$packinglist->id)
+                                ->where('item_no',$box)
+                                ->get();
+            return $packdetails;
+        }
     }
 
     public function getInitDetails(Request $req)
     {
         $ctrl = $req->ctrl_no;
-        $packdetails = DB::connection($this->mysql)->table('ypics_invoicingdetails as d')
+
+        $packinglist = DB::connection($this->mysql)
+                            ->table('tbl_packing_list')
+                            ->select('id')
+                            ->where('control_no',$ctrl)->first();
+
+        if (count((array)$packinglist) > 0) {
+            $packdetails = DB::connection($this->mysql)->table('ypics_invoicingdetails as d')
                             ->leftJoin('ypics_invoicings as i','d.packinglist_ctrl','=','i.packinglist_ctrl')
-                            ->where('d.packinglist_ctrl',$ctrl)
+                            ->where('d.packinglist_id',$packinglist->id)
                             ->select(DB::raw('d.sold_to_id as sold_to_id'),
                                     DB::raw('IF(i.soldto_address <> "",i.soldto_address,d.soldto_address) as soldto_address'),
                                     DB::raw('IF(i.shipto_address <> "",i.shipto_address,d.shipto_address) as shipto_address'),
@@ -373,7 +387,10 @@ class YPICSInvoicingController extends Controller
                                     DB::raw('IF(i.invoice_date <> "",i.invoice_date,d.invoice_date) as invoice_date'))
                             ->groupBy('i.packinglist_ctrl')
                             ->get();
-        return $packdetails;
+            return $packdetails;
+        }
+
+        
     }
 
     public function carrier(Request $req)
@@ -582,6 +599,11 @@ class YPICSInvoicingController extends Controller
     {
         $check = DB::connection($this->mysql)->table('ypics_invoicingdetails')->where('packinglist_ctrl',$ctrl)->count();
         if ($check > 0) {
+            $packinglist = DB::connection($this->mysql)
+                            ->table('tbl_packing_list')
+                            ->select('id')
+                            ->where('control_no',$ctrl)->first();
+
             $details1 = DB::connection($this->mysql)->table('ypics_invoicings as i')
                             ->leftJoin('ypics_invoicingdetails as d','i.packinglist_ctrl','=','d.packinglist_ctrl')
                             ->select(
@@ -606,7 +628,7 @@ class YPICSInvoicingController extends Controller
                                     DB::raw('IF(i.products <> "",i.products,d.products) as products'),
                                     DB::raw('IF(i.note_hightlight <> "",i.note_hightlight,d.note_hightlight) as note_hightlight'),
                                     DB::raw('i.packinglist_ctrl as packinglist_ctrl'))
-                            ->where('i.packinglist_ctrl',$ctrl)
+                            ->where('d.packinglist_id',$packinglist->id)
                             ->groupBy('i.packinglist_ctrl')
                             ->first();
 
@@ -623,11 +645,11 @@ class YPICSInvoicingController extends Controller
                                     DB::raw('FORMAT(unitprice,4) AS unitprice'),
                                     DB::raw('SUM(amount) as amount'),
                                     'prepared_by')
-                            ->where('packinglist_ctrl',$ctrl)
+                            ->where('packinglist_id',$packinglist->id)
                             ->groupBY('po_no','description','draft_shipment','prepared_by')
                             ->get();
             $details3 = DB::connection($this->mysql)->table('ypics_invoicingdetails')
-                            ->where('packinglist_ctrl',$ctrl)
+                            ->where('packinglist_id',$packinglist->id)
                             ->select(DB::raw("SUM(quantity) as tot_qty"),DB::raw("SUM(amount) as tot_amt"))
                             ->groupBy('packinglist_ctrl')
                             ->first();
