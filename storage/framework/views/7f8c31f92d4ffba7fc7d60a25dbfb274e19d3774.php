@@ -13,29 +13,29 @@
 *******************************************************************************/
 ?>
 
-@extends('layouts.master')
 
-@section('title')
+
+<?php $__env->startSection('title'); ?>
 	WBS Inventory | Pricon Microelectronics, Inc.
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 	<?php $state = ""; $readonly = ""; ?>
-	@foreach ($userProgramAccess as $access)
-		@if ($access->program_code == Config::get('constants.MODULE_WBS_INV'))
-			@if ($access->read_write == "2")
+	<?php foreach($userProgramAccess as $access): ?>
+		<?php if($access->program_code == Config::get('constants.MODULE_WBS_INV')): ?>
+			<?php if($access->read_write == "2"): ?>
 				<?php $state = "disabled"; $readonly = "readonly"; ?>
-			@endif
-		@endif
-	@endforeach
+			<?php endif; ?>
+		<?php endif; ?>
+	<?php endforeach; ?>
 
 
 	<div class="page-content">
         <div class="row">
             <div class="col-md-12">
                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                @include('includes.message-block')
+                <?php echo $__env->make('includes.message-block', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
                 <div class="portlet box blue" >
                     <div class="portlet-title">
@@ -77,19 +77,19 @@
 
                         <div class="row">
                         	<div class="col-md-12 text-center">
-                        		{{-- <button class="btn btn-sm green" id="btn_add">
+                        		<?php /* <button class="btn btn-sm green" id="btn_add">
                         			<i class="fa fa-plus"></i> Add
-                        		</button> --}}
+                        		</button> */ ?>
 
-                        		<button class="btn btn-sm red" id="btn_delete" {{ $state }}>
+                        		<button class="btn btn-sm red" id="btn_delete" <?php echo e($state); ?>>
                         			<i class="fa fa-trash"></i> Delete
                         		</button>
 
-                                <button class="btn btn-sm blue" id="btn_clean" {{ $state }}>
+                                <button class="btn btn-sm blue" id="btn_clean" <?php echo e($state); ?>>
                                     <i class="fa fa-refresh"></i> Clean Data
                                 </button>
 
-                                <a href="{{url('/iqc-matrix-excel')}}" class="btn btn-sm grey-gallery">
+                                <a href="<?php echo e(url('/iqc-matrix-excel')); ?>" class="btn btn-sm grey-gallery">
                                     <i class="fa fa-file-excel-o"></i> Export to Excel
                                 </a>
                         	</div>
@@ -102,19 +102,21 @@
         </div>
     </div>
 
-	@include('includes.wbsinventory_modal')
-	@include('includes.modals')
+	<?php echo $__env->make('includes.wbsinventory_modal', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<?php echo $__env->make('includes.modals', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('script')
+<?php $__env->startPush('script'); ?>
 	<script>
-		var token = '{{ Session::token() }}';
-        var inventoryListURL = "{{ url('/wbs-inventory-list') }}";
-        var deleteselected = "{{ url('/wbs-inventory-delete') }}";
-        var cleanDataURL = "{{ url('/wbs-inventory-clean') }}";
+		var token = '<?php echo e(Session::token()); ?>';
+        var inventoryListURL = "<?php echo e(url('/wbs-inventory-list')); ?>";
+        var deleteselected = "<?php echo e(url('/wbs-inventory-delete')); ?>";
+        var cleanDataURL = "<?php echo e(url('/wbs-inventory-clean')); ?>";
 	</script>
-	<script src="{{ asset(Config::get('constants.PUBLIC_PATH').'assets/global/scripts/common.js') }}" type="text/javascript"></script>
-	<script src="{{ asset(Config::get('constants.PUBLIC_PATH').'assets/global/scripts/wbsinventory.js') }}" type="text/javascript"></script>
-@endpush
+	<script src="<?php echo e(asset(Config::get('constants.PUBLIC_PATH').'assets/global/scripts/common.js')); ?>" type="text/javascript"></script>
+	<script src="<?php echo e(asset(Config::get('constants.PUBLIC_PATH').'assets/global/scripts/wbsinventory.js')); ?>" type="text/javascript"></script>
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
