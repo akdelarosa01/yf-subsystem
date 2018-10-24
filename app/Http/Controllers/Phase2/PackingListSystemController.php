@@ -1041,7 +1041,7 @@ class PackingListSystemController extends Controller
                 $output = DB::connection($this->mssql)->table('XSLIP AS D')
                     // ->leftjoin('XHIKI AS HK', 'HK.PORDER', '=', 'D.PORDER')
                     ->leftjoin('XHEAD AS H', 'H.CODE', '=', 'D.CODE')
-                    ->leftJoin('XTANK AS B', 'B.CODE', '=', 'H.CODE')
+                    ->join('XTANK AS B', 'B.CODE', '=', 'H.CODE')
                     ->where('D.CODE', 'like', $porder.'%')
                     ->groupBy('D.CODE'
                             , 'H.NAME'
@@ -1062,7 +1062,7 @@ class PackingListSystemController extends Controller
                             , 'B.SPRICE')
                     ->select(DB::raw('D.CODE AS PORDER')
                             , DB::raw('D.NAME')
-                            , DB::raw("'BU2' as CODE")
+                            , DB::raw("'YF' as CODE")
                             , DB::raw('ISNULL(B.SPRICE,0.0000)'))
                     ->get();
             }
