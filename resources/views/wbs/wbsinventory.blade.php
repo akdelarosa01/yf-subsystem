@@ -85,6 +85,10 @@
                         			<i class="fa fa-trash"></i> Delete
                         		</button>
 
+                                <button class="btn btn-sm blue" id="btn_clean" {{ $state }}>
+                                    <i class="fa fa-refresh"></i> Clean Data
+                                </button>
+
                                 <a href="{{url('/iqc-matrix-excel')}}" class="btn btn-sm grey-gallery">
                                     <i class="fa fa-file-excel-o"></i> Export to Excel
                                 </a>
@@ -109,6 +113,7 @@
 		var token = '{{ Session::token() }}';
         var inventoryListURL = "{{ url('/wbs-inventory-list') }}";
         var deleteselected = "{{ url('/wbs-inventory-delete') }}";
+        var cleanDataURL = "{{ url('/wbs-inventory-clean') }}";
 	</script>
 	<script src="{{ asset(Config::get('constants.PUBLIC_PATH').'assets/global/scripts/common.js') }}" type="text/javascript"></script>
 	<script src="{{ asset(Config::get('constants.PUBLIC_PATH').'assets/global/scripts/wbsinventory.js') }}" type="text/javascript"></script>

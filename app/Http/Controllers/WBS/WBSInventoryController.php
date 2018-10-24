@@ -50,7 +50,7 @@ class WBSInventoryController extends Controller
     public function inventory_list()
     {
         $inv = DB::connection($this->mysql)->table('tbl_wbs_inventory')
-                    ->orderBy('received_date')
+                    ->orderBy('id','desc')
                     ->select([
                         'id',
                         'wbs_mr_id',
@@ -122,7 +122,7 @@ class WBSInventoryController extends Controller
         foreach ($req->id as $key => $id) {
             $deleted = DB::connection($this->mysql)->table('tbl_wbs_inventory')
                         ->where('id',$id)
-                        ->delete();
+                        ->update(['deleted' => 1]);
 
             if ($deleted) {
                 $data = [
@@ -203,5 +203,66 @@ class WBSInventoryController extends Controller
         $result ="Updated";
         }
         return response()->json($result);
+    }
+
+    public function cleanData()
+    {
+        $mats = DB::connection($this->mysql)->table('tbl_wbs_material_receiving')
+                    ->select('receive_no','receive_date')->get();
+
+        foreach ($mats as $key => $mat) {
+            DB::connection($this->mysql)->table('tbl_wbs_inventory')
+                ->where('wbs_mr_id',$mat->receive_no)
+                ->update(['received_date' => $mat->receive_date]);
+        }
+
+        foreach ($mats as $key => $mat) {
+            DB::connection($this->mysql)->table('tbl_wbs_material_receiving_batch')
+                ->where('wbs_mr_id',$mat->receive_no)
+                ->update(['received_date' => $mat->receive_date]);
+        }
+
+        $locs = DB::connection($this->mysql)->table('tbl_wbs_local_receiving')
+                    ->select('receive_no','receive_date')->get();
+
+        foreach ($locs as $key => $loc) {
+            DB::connection($this->mysql)->table('tbl_wbs_inventory')
+                ->where('wbs_mr_id',$loc->receive_no)
+                ->update(['received_date' => $loc->receive_date]);
+        }
+
+        foreach ($locs as $key => $loc) {
+            DB::connection($this->mysql)->table('tbl_wbs_local_receiving_batch')
+                ->where('wbs_loc_id',$loc->receive_no)
+                ->update(['received_date' => $loc->receive_date]);
+        }
+
+        $check = DB::connection($this->mysql)->table('tbl_wbs_inventory')
+                    ->where('received_date','0000-00-00')
+                    ->select('item','lot_no','received_date','exp_date')
+                    ->count();
+
+        if ($check < 1) {
+            $inv = DB::connection($this->mysql)->table('tbl_wbs_inventory')
+                        ->select('item','lot_no','received_date','exp_date')
+                        ->groupBy('item','lot_no','received_date','exp_date')
+                        ->get();
+
+            foreach ($inv as $key => $in) {
+                DB::connection($this->mysql)
+                    ->select(
+                        DB::raw(
+                            "CALL RecalculateInventory(
+                            '".$in->item."',
+                            '".$in->lot_no."')"
+                        )
+                    );
+            }
+        }
+
+
+        // return $inv;
+
+        
     }
 }

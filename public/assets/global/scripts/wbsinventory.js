@@ -32,6 +32,7 @@ $( function() {
 	});
 
 	$("#btn_delete").on('click', removeByID);
+
 	$("#frm_markup").on('submit', function(e){
 		var a = $(this).serialize();
 		e.preventDefault();
@@ -64,6 +65,7 @@ $( function() {
 		
 	});
 
+	$('#btn_clean').on('click', cleanData);
 });
 
 
@@ -89,5 +91,26 @@ function removeByID(){
     }).fail(function(xhr,textStatus) {
      	console.log("error");
     });
+}
+
+function cleanData() {
+	$('#loading').modal('show');
+	$.ajax({
+		url: cleanDataURL,
+		type: 'GET',
+		dataType: 'JSON',
+		data: {_token: token},
+	}).done(function(data, textStatus,xhr) {
+
+		console.log(data);
+		// getDatatable('tbl_inventory',inventoryListURL,dataColumn,[],0);
+		// if (textStatus == 'success') {
+		// 	msg('Data was successfully cleaned.',textStatus);
+		// }
+	}).fail(function(xhr,textStatus,errorThrown) {
+		msg(errorThrown,textStatus);
+	}).always(function() {
+		$('#loading').modal('hide');
+	});
 }
 

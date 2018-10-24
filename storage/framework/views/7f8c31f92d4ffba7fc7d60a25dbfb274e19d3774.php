@@ -85,6 +85,9 @@
                         			<i class="fa fa-trash"></i> Delete
                         		</button>
 
+                                <button class="btn btn-sm blue" id="btn_clean" <?php echo e($state); ?>>
+                                    <i class="fa fa-refresh"></i> Clean Data
+                                </button>
                                 <a href="<?php echo e(url('/iqc-matrix-excel')); ?>" class="btn btn-sm grey-gallery">
                                     <i class="fa fa-file-excel-o"></i> Export to Excel
                                 </a>
@@ -109,6 +112,7 @@
 		var token = '<?php echo e(Session::token()); ?>';
         var inventoryListURL = "<?php echo e(url('/wbs-inventory-list')); ?>";
         var deleteselected = "<?php echo e(url('/wbs-inventory-delete')); ?>";
+        var cleanDataURL = "<?php echo e(url('/wbs-inventory-clean')); ?>";
 	</script>
 	<script src="<?php echo e(asset(Config::get('constants.PUBLIC_PATH').'assets/global/scripts/common.js')); ?>" type="text/javascript"></script>
 	<script src="<?php echo e(asset(Config::get('constants.PUBLIC_PATH').'assets/global/scripts/wbsinventory.js')); ?>" type="text/javascript"></script>
