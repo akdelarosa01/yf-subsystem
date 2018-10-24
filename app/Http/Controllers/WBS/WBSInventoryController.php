@@ -51,6 +51,7 @@ class WBSInventoryController extends Controller
     {
         $inv = DB::connection($this->mysql)->table('tbl_wbs_inventory')
                     ->orderBy('id','desc')
+                    ->where('deleted',1)
                     ->select([
                         'id',
                         'wbs_mr_id',
