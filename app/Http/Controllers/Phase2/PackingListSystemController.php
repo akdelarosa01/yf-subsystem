@@ -1053,6 +1053,25 @@ class PackingListSystemController extends Controller
                             , DB::raw('SUM(D.KVOL) as KVOL'))
                     ->get();
             }
+
+            if (count((array)$output) == 0) {
+                $output = DB::connection($this->mssql)->table('XSLIP AS D')
+                    ->leftjoin('XHEAD AS H', 'H.CODE', '=', 'D.CODE')
+                    ->leftjoin('XBAIK AS B', 'B.CODE', '=', 'H.CODE')
+                    ->where('D.CODE', 'like', $porder.'%')
+                    ->groupBy('D.CODE'
+                            , 'H.NAME'
+                            , 'B.PRICE')
+                    ->select(DB::raw('D.CODE AS PORDER')
+                            , DB::raw('H.NAME')
+                            , DB::raw("'YF' as CODE")
+                            , DB::raw('ISNULL(B.PRICE,0.0000)')
+                            , DB::raw('SUM(D.KVOL) as KVOL'))
+                    ->get();
+            }
+
+
+
             if (count((array)$output) == 0) {
                 $output = DB::connection($this->mssql)->table('XHEAD AS D')
                     ->leftJoin('XTANK AS B', 'B.CODE', '=', 'D.CODE')
