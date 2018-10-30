@@ -235,7 +235,7 @@
 								<button type="button" onclick="javascript:getLocalMaterialData();" class="btn btn-sm red" id="btn_back">
 									<i class="fa fa-times"></i> Back
 								</button>
-                                <button type="submit" class="btn grey-gallery input-sm" id="btn_print_iqc">
+                                <button type="button" class="btn grey-gallery input-sm" id="btn_print_iqc">
                                     <i class="fa fa-print"></i> Apply to IQC
                                 </button>
 								<button type="button" class="btn btn-sm green-jungle" id="btn_excel">

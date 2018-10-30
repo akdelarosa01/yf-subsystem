@@ -1,3 +1,4 @@
+var count_batch = 0;
 $(function() {
 	getLocalMaterialData('',$('#loc_info_id').val());
 	checkAllCheckboxesInTable('.group-checkable','.checkboxes');
@@ -270,11 +271,14 @@ $(function() {
 
     $('#btn_print_iqc').on('click', function() {
 		if ($('#controlno').val() == '' || $('#invoice_no').val() == '') {
-			failedMsg("Please provide some values for Invoice Number or Material Receiving Number.");
+			msg("Please provide some values for Invoice Number or Material Receiving Number.",'failed');
 		} else {
-			var url = LocalIQCURL+'?receivingno='+$('#controlno').val()+'&&_token='+token;
-
-			window.location.href= url;
+			if (count_batch > 0) {
+	    		var url = LocalIQCURL+'?receivingno='+$('#controlno').val()+'&&_token='+token;
+	    		window.location.href= url;
+	    	} else {
+	    		msg("Please batch Invoice Items first.",'failed');
+	    	}
 		}
 	});
 
@@ -384,7 +388,8 @@ function LocalBatch(data) {
 	                            '</td>'+
 	                        '</tr>';
 	        $('#tbl_batch_body').append(tbl_batch_body);
-	        cnt++
+	        cnt++;
+	        count_batch++;
 		});
 	} else {
 		tbl_batch_body = '<tr>'+
