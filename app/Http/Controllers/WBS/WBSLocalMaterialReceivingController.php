@@ -1340,9 +1340,9 @@ class WBSLocalMaterialReceivingController extends Controller
                     });
                 })->download('xls');
             } else {
-                // $message = "Please batch Invoice Items first.";
-                // return redirect('/wbslocmat')->with(['err_message' => $message]);
-                return $req->receivingno;
+                $message = "Please batch Invoice Items first.";
+                return redirect('/wbslocmat')->with(['err_message' => $message]);
+                // return $req->receivingno;
             }
         }
     }
