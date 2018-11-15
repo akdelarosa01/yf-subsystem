@@ -1125,12 +1125,12 @@ class WBSLocalMaterialReceivingController extends Controller
             }
         } else {
             $recdate = '';
-            if (strpos($req->txndate, '-') !== false) {
-                $recdate = str_replace('-', '', $req->txndate);
+            if (strpos($req->receivingdate, '-') !== false) {
+                $recdate = str_replace('-', '', $req->receivingdate);
             }
 
-            if (strpos($req->txndate, '/') !== false) {
-                $recdate = str_replace('/', '', $req->txndate);
+            if (strpos($req->receivingdate, '/') !== false) {
+                $recdate = str_replace('/', '', $req->receivingdate);
             }
             
             $receivingdate = substr($recdate, 2);
