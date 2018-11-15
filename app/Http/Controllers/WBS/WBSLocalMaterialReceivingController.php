@@ -1070,13 +1070,14 @@ class WBSLocalMaterialReceivingController extends Controller
 
             if ($this->checkIfExistObject($mr_data) > 0) {
                 foreach ($mr_data as $key => $mr) {
-                    $recdate = str_replace('-', '', $mr->receive_date);
+                    $receive_date = $this->convertDate($req->receive_date,'Y-m-d');
+                    $recdate = str_replace('-', '', $receive_date);
                     $receivingdate = substr($recdate, 2);
                     DB::connection($this->barcode) //Config::get('constants.DB_SQLSRV_BARCODE')
                         ->table('barcode_print')
                         ->insert(['printdate' => date('Y-m-d H:i:s')
                             ,'txnno'     => $mr->invoice_no
-                            ,'txndate'   => $recdate
+                            ,'txndate'   => $receive_date
                             ,'itemno'    => $mr->item
                             ,'itemdesc'  => $mr->item_desc
                             ,'qty'       => $mr->qty
@@ -1124,13 +1125,10 @@ class WBSLocalMaterialReceivingController extends Controller
                     ];
             }
         } else {
+            $receive_date = $this->convertDate($req->receivingdate,'Y-m-d');
             $recdate = '';
-            if (strpos($req->receivingdate, '-') !== false) {
-                $recdate = str_replace('-', '', $req->receivingdate);
-            }
-
-            if (strpos($req->receivingdate, '/') !== false) {
-                $recdate = str_replace('/', '', $req->receivingdate);
+            if (strpos($receive_date, '-') !== false) {
+                $recdate = str_replace('-', '', $receive_date);
             }
             
             $receivingdate = substr($recdate, 2);
@@ -1139,7 +1137,7 @@ class WBSLocalMaterialReceivingController extends Controller
                     ->table('barcode_print')
                     ->insert(['printdate' => date('Y-m-d H:i:s')
                         ,'txnno'     => $req->txnno
-                        ,'txndate'   => $recdate
+                        ,'txndate'   => $this->convertDate($req->txndate,'Y-m-d')
                         ,'itemno'    => $req->itemno
                         ,'itemdesc'  => $req->itemdesc
                         ,'qty'       => $req->qty
