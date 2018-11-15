@@ -1124,14 +1124,14 @@ class WBSLocalMaterialReceivingController extends Controller
                     ];
             }
         } else {
-            $recdate = str_replace('-', '', $req->receivingdate);
+            $recdate = str_replace('/', '', $req->receivingdate);
             $receivingdate = substr($recdate, 2);
 
             $br = DB::connection($this->barcode)
                     ->table('barcode_print')
                     ->insert(['printdate' => date('Y-m-d H:i:s')
                         ,'txnno'     => $req->txnno
-                        ,'txndate'   => $req->txndate
+                        ,'txndate'   => $recdate
                         ,'itemno'    => $req->itemno
                         ,'itemdesc'  => $req->itemdesc
                         ,'qty'       => $req->qty
