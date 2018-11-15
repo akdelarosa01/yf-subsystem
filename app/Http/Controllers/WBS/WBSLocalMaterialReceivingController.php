@@ -1139,7 +1139,7 @@ class WBSLocalMaterialReceivingController extends Controller
                     ->table('barcode_print')
                     ->insert(['printdate' => date('Y-m-d H:i:s')
                         ,'txnno'     => $req->txnno
-                        ,'txndate'   => $req->txndate
+                        ,'txndate'   => $recdate
                         ,'itemno'    => $req->itemno
                         ,'itemdesc'  => $req->itemdesc
                         ,'qty'       => $req->qty
