@@ -559,7 +559,14 @@ class IQCInspectionController extends Controller
 
     private function insertHistory($lots,$req)
     {
-        $array_lots = explode(',',$lots);
+        $array_lots;
+        
+        if (is_array($lots)) {
+            $array_lots = $lots;
+        } else {
+            $array_lots = explode(',',$lots);
+        }
+        
 
         foreach ($array_lots as $key => $lot) {
             $lot_qty = $this->getLotQty($req->invoice_no,$req->partcode,$lot);
