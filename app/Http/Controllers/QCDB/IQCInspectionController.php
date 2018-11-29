@@ -300,10 +300,10 @@ class IQCInspectionController extends Controller
         if ($req->save_status == 'ADD') {
             if ($req->is_batching > 0) {
                 $this->insertToInspectionBatching($req,$req->lot_no);
-                $this->insertHistory($req->lot_no,$req);
+                //$this->insertHistory($req->lot_no,$req);
             } else {
                 $this->insertToInspection($req,$req->lot_no);
-                $this->insertHistory($req->lot_no,$req);
+                //$this->insertHistory($req->lot_no,$req);
             }
 
             $query = true;
@@ -312,10 +312,10 @@ class IQCInspectionController extends Controller
             if (is_string($req->lot_no)) {
                 $lots = explode(',',$req->lot_no);
                 $this->updateInspection($req,$lots);
-                $this->insertHistory($lots,$req);
+                //$this->insertHistory($lots,$req);
             } else {
                 $this->updateInspection($req,$req->lot_no);
-                $this->insertHistory($req->lot_no,$req);
+                //$this->insertHistory($req->lot_no,$req);
             }
             // if ($this->checkInspection($req) > 0) {
             //     if ($req->batching > 0) {
@@ -658,8 +658,6 @@ class IQCInspectionController extends Controller
 
     public function getInvoiceItemDetails(Request $req)
     {
-        $db = '';
-        $lot = '';
         $checker = DB::connection($this->wbs)->table('tbl_wbs_inventory')
                 ->where('invoice_no',$req->invoiceno)
                 ->where('item',$req->item)->count();
@@ -678,9 +676,16 @@ class IQCInspectionController extends Controller
             $lot = DB::connection($this->wbs)->table('tbl_wbs_inventory')
                     ->where('invoice_no',$req->invoiceno)
                     ->where('item',$req->item)
-                    ->where('not_for_iqc',0)
+                    // ->where('not_for_iqc',0)
                     ->select('lot_no as id','lot_no as text')
                     ->get();
+
+            if ($this->checkIfExistObject($db) > 0 && $this->checkIfExistObject($lot) > 0) {
+                return $data = [
+                    'lot' => $lot,
+                    'details' => $db
+                ];
+            }
         } // else {
         //     $db = DB::connection($this->wbs)->table('tbl_wbs_local_receiving_batch as b')
         //             ->join('tbl_wbs_local_receiving as m','m.receive_no','=','b.wbs_loc_id')
