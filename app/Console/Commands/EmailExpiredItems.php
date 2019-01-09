@@ -51,7 +51,7 @@ class EmailExpiredItems extends Command
     private function email($connection,$mssql,$filename)
     {
         $data = [];
-        $dtnxtmonth = Carbon::now()->addMonths(1); // get date nxt month
+        $dtnxtmonth = Carbon::now()->subMonths(1); // get date nxt month
 
         $now = Carbon::now(); //get date now
 
@@ -61,74 +61,82 @@ class EmailExpiredItems extends Command
                             'qty',
                             'lot_no',
                             'location',
-                            'received_date')
+                            'received_date',
+                            'exp_date'
+                        )
                     ->where('qty','<>', 0.0000)
                     ->orderBy('received_date','desc')
                     ->get();
 
         foreach ($getdate as $key => $inv) {
-            if ($inv->received_date == null) {
+            if ($inv->exp_date == null) {
                 \Log::info('No expiring items: '.date('Y-m-d g:i:s a'));
             } else {
-                $received = Carbon::createFromFormat('Y-m-d', $inv->received_date); // convert received date format
+                $validate = ['NA','na','Na','nA','N/A','n/a','N/a','n/A'];
+                if (in_array($inv->exp_date, $validate)) {
+                    # code...
+                } else {
+                    $expired = Carbon::createFromFormat('Y-m-d', $inv->exp_date); // convert received date format
 
-                $class = DB::connection($mssql)
-                            ->table('XITEM')
-                            ->select('BUNR as bunr')
-                            ->where('CODE',$inv->item)
-                            ->where('BUMO', 'LIKE', 'PURH%')
-                            ->where('BUNR', '<>',  '')
-                            ->orderBy('BUNR')
-                            ->first();
+                    $class = DB::connection($mssql)
+                                ->table('XITEM')
+                                ->select('BUNR as bunr')
+                                ->where('CODE',$inv->item)
+                                ->where('BUMO', 'LIKE', 'PURH%')
+                                ->where('BUNR', '<>',  '')
+                                ->orderBy('BUNR')
+                                ->first();
 
-                if ($this->checkIfExistObject($class) > 0) {
-                    if ($class->bunr == 'CONTACT' || $class->bunr == 'CT With MOQ') {
-                        $exp_date = $received->addMonths(6);
-                        $expdate = substr($exp_date,0,10);
-                        $nxtmonth = substr($dtnxtmonth,0,10);
-                        $check = $now->diffInMonths($exp_date); //
+                    if ($this->checkIfExistObject($class) > 0) {
+                        if ($class->bunr == 'CONTACT' || $class->bunr == 'CT With MOQ') {
+                            $exp_date = $expired;
+                            $expdate = substr($exp_date,0,10);
+                            $nxtmonth = substr($dtnxtmonth,0,10);
+                            $check = $now->diffInMonths($exp_date); //
 
-                        if ($check == 1 && $expdate == $nxtmonth) { // 
-                            $data[$key]['item'] = $inv->item;
-                            $data[$key]['item_desc'] = $inv->item_desc;
-                            $data[$key]['qty'] = $inv->qty;
-                            $data[$key]['lot_no'] = $inv->lot_no;
-                            $data[$key]['location'] = $inv->location;
-                            $data[$key]['received_date'] = $inv->received_date;
-                            $data[$key]['exp_date'] = $expdate;
+                            if ($check == 1 && $expdate == $nxtmonth) { // 
+                                $data[$key]['item'] = $inv->item;
+                                $data[$key]['item_desc'] = $inv->item_desc;
+                                $data[$key]['qty'] = $inv->qty;
+                                $data[$key]['lot_no'] = $inv->lot_no;
+                                $data[$key]['location'] = $inv->location;
+                                $data[$key]['received_date'] = $inv->received_date;
+                                $data[$key]['exp_date'] = $exp_date;
+                            }
+                        } else {
+                            $exp_date = $expired;//$received->subMonths(24);
+                            $expdate = substr($exp_date,0,10);
+                            $nxtmonth = substr($dtnxtmonth,0,10);
+                            $check = $now->diffInMonths($exp_date); //
+
+                            if ($check == 1 && $expdate == $nxtmonth) { // && $expdate == $nxtmonth
+                                $data[$key]['item'] = $inv->item;
+                                $data[$key]['item_desc'] = $inv->item_desc;
+                                $data[$key]['qty'] = $inv->qty;
+                                $data[$key]['lot_no'] = $inv->lot_no;
+                                $data[$key]['location'] = $inv->location;
+                                $data[$key]['received_date'] = $inv->received_date;
+                                $data[$key]['exp_date'] = $exp_date;
+                            }
                         }
                     } else {
-                        $exp_date = $received->addMonths(24);
-                        $expdate = substr($exp_date,0,10);
-                        $nxtmonth = substr($dtnxtmonth,0,10);
-                        $check = $now->diffInMonths($exp_date); //
+                        $exp_date = $expired;//$received->subMonths(24);
+                            $expdate = substr($exp_date,0,10);
+                            $nxtmonth = substr($dtnxtmonth,0,10);
+                            $check = $now->diffInMonths($exp_date); //
 
-                        if ($check == 1 && $expdate == $nxtmonth) { // && $expdate == $nxtmonth
-                            $data[$key]['item'] = $inv->item;
-                            $data[$key]['item_desc'] = $inv->item_desc;
-                            $data[$key]['qty'] = $inv->qty;
-                            $data[$key]['lot_no'] = $inv->lot_no;
-                            $data[$key]['location'] = $inv->location;
-                            $data[$key]['received_date'] = $inv->received_date;
-                            $data[$key]['exp_date'] = $expdate;
-                        }
+                            if ($check == 1 && $expdate == $nxtmonth) { // 
+                                $data[$key]['item'] = $inv->item;
+                                $data[$key]['item_desc'] = $inv->item_desc;
+                                $data[$key]['qty'] = $inv->qty;
+                                $data[$key]['lot_no'] = $inv->lot_no;
+                                $data[$key]['location'] = $inv->location;
+                                $data[$key]['received_date'] = $inv->received_date;
+                                $data[$key]['exp_date'] = $exp_date;
+                            }
                     }
-                } else {
-                    $exp_date = $received->addMonths(24);
-                        $expdate = substr($exp_date,0,10);
-                        $nxtmonth = substr($dtnxtmonth,0,10);
-                        $check = $now->diffInMonths($exp_date); //
-
-                        if ($check == 1 && $expdate == $nxtmonth) { // 
-                            $data[$key]['item'] = $inv->item;
-                            $data[$key]['item_desc'] = $inv->item_desc;
-                            $data[$key]['qty'] = $inv->qty;
-                            $data[$key]['lot_no'] = $inv->lot_no;
-                            $data[$key]['location'] = $inv->location;
-                            $data[$key]['received_date'] = $inv->received_date;
-                            $data[$key]['exp_date'] = $expdate;
-                        }
                 }
+                    
             }
             
         }
