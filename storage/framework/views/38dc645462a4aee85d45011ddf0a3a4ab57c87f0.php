@@ -13,29 +13,42 @@
 	</style>
 </head>
 <body>
-	<h3 class="title">Items that will expire within a month</h3>
-	<table class="tg">
-		<tr>
-			<th class="tg-amwm">Item</th>
-			<th class="tg-amwm">Description</th>
-			<th class="tg-amwm">Quantity<br></th>
-			<th class="tg-amwm">Lot No<br></th>
-			<th class="tg-amwm">Location<br></th>
-			<th class="tg-amwm">Date Received<br></th>
-			<th class="tg-amwm">Expiration Date<br></th>
-		</tr>
-		<?php foreach($data as $key => $inv): ?>
-			<tr>
-				<td class="tg-6k2t"><?php echo e($inv['item']); ?></td>
-				<td class="tg-6k2t"><?php echo e($inv['item_desc']); ?></td>
-				<td class="tg-6k2t"><?php echo e($inv['qty']); ?></td>
-				<td class="tg-6k2t"><?php echo e($inv['lot_no']); ?></td>
-				<td class="tg-6k2t"><?php echo e($inv['location']); ?></td>
-				<td class="tg-6k2t"><?php echo e($inv['received_date']); ?></td>
-				<td class="tg-6k2t"><?php echo e($inv['exp_date']); ?></td>
-			</tr>
-		<?php endforeach; ?>
-	</table>
+	<h3 class="title">YF Items that will expire within a month</h3>
+
+	<?php
+
+		if (count((array)$data) > 0) {
+	?>
+			<table class="tg">
+				<tr>
+					<th class="tg-amwm">Item</th>
+					<th class="tg-amwm">Description</th>
+					<th class="tg-amwm">Quantity<br></th>
+					<th class="tg-amwm">Lot No<br></th>
+					<th class="tg-amwm">Location<br></th>
+					<th class="tg-amwm">Date Received<br></th>
+					<th class="tg-amwm">Expiration Date<br></th>
+				</tr>
+				<?php foreach($data as $key => $inv): ?>
+					<tr>
+						<td class="tg-6k2t"><?php echo e($inv['item']); ?></td>
+						<td class="tg-6k2t"><?php echo e($inv['item_desc']); ?></td>
+						<td class="tg-6k2t"><?php echo e($inv['qty']); ?></td>
+						<td class="tg-6k2t"><?php echo e($inv['lot_no']); ?></td>
+						<td class="tg-6k2t"><?php echo e($inv['location']); ?></td>
+						<td class="tg-6k2t"><?php echo e($inv['received_date']); ?></td>
+						<td class="tg-6k2t"><?php echo e($inv['exp_date']); ?></td>
+					</tr>
+				<?php endforeach; ?>
+			</table>
+	<?php
+		} else {
+	?>
+			<p>No items subject for expiration next month.</p>
+	<?php
+		}
+	?>
+	
 
 </body>
 </html>

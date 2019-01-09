@@ -14,28 +14,41 @@
 </head>
 <body>
 	<h3 class="title">YF Items that will expire within a month</h3>
-	<table class="tg">
-		<tr>
-			<th class="tg-amwm">Item</th>
-			<th class="tg-amwm">Description</th>
-			<th class="tg-amwm">Quantity<br></th>
-			<th class="tg-amwm">Lot No<br></th>
-			<th class="tg-amwm">Location<br></th>
-			<th class="tg-amwm">Date Received<br></th>
-			<th class="tg-amwm">Expiration Date<br></th>
-		</tr>
-		@foreach ($data as $key => $inv)
-			<tr>
-				<td class="tg-6k2t">{{ $inv['item'] }}</td>
-				<td class="tg-6k2t">{{ $inv['item_desc'] }}</td>
-				<td class="tg-6k2t">{{ $inv['qty'] }}</td>
-				<td class="tg-6k2t">{{ $inv['lot_no'] }}</td>
-				<td class="tg-6k2t">{{ $inv['location'] }}</td>
-				<td class="tg-6k2t">{{ $inv['received_date'] }}</td>
-				<td class="tg-6k2t">{{ $inv['exp_date'] }}</td>
-			</tr>
-		@endforeach
-	</table>
+
+	<?php
+
+		if (count((array)$data) > 0) {
+	?>
+			<table class="tg">
+				<tr>
+					<th class="tg-amwm">Item</th>
+					<th class="tg-amwm">Description</th>
+					<th class="tg-amwm">Quantity<br></th>
+					<th class="tg-amwm">Lot No<br></th>
+					<th class="tg-amwm">Location<br></th>
+					<th class="tg-amwm">Date Received<br></th>
+					<th class="tg-amwm">Expiration Date<br></th>
+				</tr>
+				@foreach ($data as $key => $inv)
+					<tr>
+						<td class="tg-6k2t">{{ $inv['item'] }}</td>
+						<td class="tg-6k2t">{{ $inv['item_desc'] }}</td>
+						<td class="tg-6k2t">{{ $inv['qty'] }}</td>
+						<td class="tg-6k2t">{{ $inv['lot_no'] }}</td>
+						<td class="tg-6k2t">{{ $inv['location'] }}</td>
+						<td class="tg-6k2t">{{ $inv['received_date'] }}</td>
+						<td class="tg-6k2t">{{ $inv['exp_date'] }}</td>
+					</tr>
+				@endforeach
+			</table>
+	<?php
+		} else {
+	?>
+			<p>No items subject for expiration next month.</p>
+	<?php
+		}
+	?>
+	
 
 </body>
 </html>

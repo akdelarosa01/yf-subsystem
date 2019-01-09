@@ -156,7 +156,12 @@ class EmailExpiredItems extends Command
             }
 
             if (empty($data)) {
-                \Log::info('No expiring items: '.date('Y-m-d g:i:s a'));
+                Mail::send('email.mail', ['data'=>$data], function ($mail) use ($recipients) {
+                    $mail->to($recipients)
+                        ->from('pmi.subsystem@gmail.com')
+                        ->subject('WBS: Items will expire in a month (YF)');
+                });
+                \Log::info('send at '.date('Y-m-d g:i:s a'));
             } else {
                 $dt = Carbon::now();
                 $pathToFile = storage_path().'/email_attachements/'.$dt->format('Y-m-d').'/'.$filename.$dt->format('Y-m-d').'.txt';
