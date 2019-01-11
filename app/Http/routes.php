@@ -2885,3 +2885,4 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/wbs-inventory-delete', 'WBS\WBSInventoryController@deleteselected');
     Route::post('/wbs-inventory-save', 'WBS\WBSInventoryController@savedata');
     Route::get('/wbs-inventory-clean', 'WBS\WBSInventoryController@cleanData');
+    Route::get('/wbs-inventory-excel', 'WBS\WBSInventoryController@inventory_excel');

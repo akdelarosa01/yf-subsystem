@@ -88,7 +88,8 @@
                                 <button class="btn btn-sm blue" id="btn_clean" <?php echo e($state); ?>>
                                     <i class="fa fa-refresh"></i> Clean Data
                                 </button>
-                                <a href="<?php echo e(url('/iqc-matrix-excel')); ?>" class="btn btn-sm grey-gallery">
+
+                                <a href="<?php echo e(url('/wbs-inventory-excel')); ?>" class="btn btn-sm grey-gallery">
                                     <i class="fa fa-file-excel-o"></i> Export to Excel
                                 </a>
                         	</div>

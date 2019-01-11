@@ -13,7 +13,6 @@ var dataColumn = [
 	{ data: 'iqc_status', name: 'iqc_status' },
 	{ data: 'create_user', name: 'create_user' },
 	{ data: 'received_date', name: 'received_date' },
-	{ data: 'exp_date', name: 'exp_date' },
 	{ data: 'update_user', name: 'update_user' },
 	{ data: 'updated_at', name: 'updated_at' },
 	{ data: 'action', name: 'action',orderable: false, searchable: false },
@@ -33,7 +32,7 @@ $( function() {
 
 	$("#btn_delete").on('click', removeByID);
 
-	$("#frm_markup").on('submit', function(e){
+	$("#frm_inventory").on('submit', function(e){
 		var a = $(this).serialize();
 		e.preventDefault();
 		$.ajax({
@@ -55,7 +54,7 @@ $( function() {
 	$('#tbl_inventory_body').on('click', '.btn_edit', function(e) {
 		e.preventDefault();
 		$('#id').val($(this).attr('data-id'));
-		$('#item_code').val($(this).attr('data-item'));
+		$('#item').val($(this).attr('data-item'));
 		$('#item_desc').val($(this).attr('data-item_desc'));
 		$('#lot_no').val($(this).attr('data-lot_no'));
 		$('#qty').val($(this).attr('data-qty'));
@@ -65,7 +64,6 @@ $( function() {
 		
 	});
 
-	$('#btn_clean').on('click', cleanData);
 });
 
 
@@ -91,26 +89,5 @@ function removeByID(){
     }).fail(function(xhr,textStatus) {
      	console.log("error");
     });
-}
-
-function cleanData() {
-	$('#loading').modal('show');
-	$.ajax({
-		url: cleanDataURL,
-		type: 'GET',
-		dataType: 'JSON',
-		data: {_token: token},
-	}).done(function(data, textStatus,xhr) {
-
-		console.log(data);
-		// getDatatable('tbl_inventory',inventoryListURL,dataColumn,[],0);
-		// if (textStatus == 'success') {
-		// 	msg('Data was successfully cleaned.',textStatus);
-		// }
-	}).fail(function(xhr,textStatus,errorThrown) {
-		msg(errorThrown,textStatus);
-	}).always(function() {
-		$('#loading').modal('hide');
-	});
 }
 
