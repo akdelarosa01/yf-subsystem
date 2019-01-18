@@ -192,6 +192,7 @@ class WBSProductionMaterialRequestController extends Controller
 
     public function save(Request $req)
     {
+    	//return $req->all();
     	$data = [
     		'msg' => 'Saving failed.',
     		'status' => 'failed'

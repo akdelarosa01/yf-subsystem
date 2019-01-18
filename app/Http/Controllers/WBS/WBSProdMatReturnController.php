@@ -44,8 +44,8 @@ class WBSProdMatReturnController extends Controller
         else
         {
 
-            return view('wbs.productionmaterialreturn',['userProgramAccess' => $userProgramAccess]);
-        }
+	        return view('wbs.productionmaterialreturn',['userProgramAccess' => $userProgramAccess]);
+	    }
     }
 
     public function getData(Request $req)
@@ -268,7 +268,7 @@ class WBSProdMatReturnController extends Controller
 
     public function postSaveMatReturn(Request $req)
     {
-        $data = [
+    	$data = [
             'msg' => "Saving failed.",
             'status' => 'failed'
         ];
@@ -458,9 +458,9 @@ class WBSProdMatReturnController extends Controller
     {
         $checkInv = DB::connection($this->mysql)->table('tbl_wbs_inventory')
                         ->select('id','qty')
+                        ->where('deleted',0)
                         ->where('item',$item)
                         ->where('lot_no',$lot_no)
-                        ->where('deleted',0)
                         ->orderBy('received_date','desc')
                         ->first();
 
@@ -482,8 +482,8 @@ class WBSProdMatReturnController extends Controller
         } else {
             $checkInv = DB::connection($this->mysql)->table('tbl_wbs_inventory')
                             ->select('id','qty','lot_no')
-                            ->where('item',$item)
                             ->where('deleted',0)
+                            ->where('item',$item)
                             ->orderBy('received_date','desc')
                             ->first();
             if ($checkInv->qty > 0) {
@@ -516,9 +516,9 @@ class WBSProdMatReturnController extends Controller
     {
         $checkInv = DB::connection($this->mysql)->table('tbl_wbs_inventory')
                         ->select('id','qty')
+                        ->where('deleted',0)
                         ->where('item',$item)
                         ->where('lot_no',$lot_no)
-                        ->where('deleted',0)
                         ->orderBy('received_date','desc')
                         ->first();
 
@@ -599,7 +599,7 @@ class WBSProdMatReturnController extends Controller
         $content .= 'PP310,766:AN7'."\r\n";
         $content .= 'DIR2'."\r\n";
         $content .= 'FT "Swiss 721 BT"'."\r\n";
-        $content .= 'FONTSIZE 10'."\r\n";
+        $content .= 'FONTSIZE 8'."\r\n";
         $content .= 'PP60,776:FT "Swiss 721 Bold BT",20,0,78'."\r\n";
         $content .= 'PP270,500:FT "Swiss 721 BT"'."\r\n";
         $content .= 'FONTSIZE 8'."\r\n";
@@ -613,18 +613,18 @@ class WBSProdMatReturnController extends Controller
         $content .= 'PP180,540:BARSET "CODE128",2,1,3,30'."\r\n";
         $content .= 'PB "'.$data->lot_no.'"'."\r\n";
         $content .= 'PP145,380:FT "Swiss 721 BT"'."\r\n";
-        $content .= 'FONTSIZE 6'."\r\n";
+        $content .= 'FONTSIZE 8'."\r\n";
         $content .= 'PT "'.$data->lot_no.'"'."\r\n";
         $content .= 'PP125,500:FT "Swiss 721 BT"'."\r\n";
-        $content .= 'FONTSIZE 10'."\r\n";
+        $content .= 'FONTSIZE 8'."\r\n";
         $content .= 'PT "'.$data->item_desc.'"'."\r\n";
         $content .= 'PP125,190:FT "Swiss 721 BT"'."\r\n";
-        $content .= 'FONTSIZE 10'."\r\n";
+        $content .= 'FONTSIZE 8'."\r\n";
         $content .= 'PT "QTY: '.$data->actual_returned_qty.'"'."\r\n";
         $content .= 'PP80,540:BARSET "CODE128",2,1,3,30'."\r\n";
         $content .= 'PB "'.$data->item.'"'."\r\n";
         $content .= 'PP50,440:FT "Swiss 721 BT"'."\r\n";
-        $content .= 'FONTSIZE 6'."\r\n";
+        $content .= 'FONTSIZE 8'."\r\n";
         $content .= 'PT "'.$data->item.'"'."\r\n";
         $content .= 'PP75,190:FT "Swiss 721 BT"'."\r\n";
         $content .= 'FONTSIZE 6'."\r\n";
@@ -793,6 +793,7 @@ class WBSProdMatReturnController extends Controller
                             DB::raw('d.remarks as remarks'),
                             DB::raw('r.returned_by as returned_by'),
                             DB::raw('r.date_returned as date_returned'),
+                            DB::raw('r.created_at as created_at'),
                             DB::raw('d.deleted as deleted'))
                     ->whereRaw(" 1=1 "
                         . $from_cond)
@@ -803,22 +804,22 @@ class WBSProdMatReturnController extends Controller
             $excel->sheet('Report', function($sheet) use($data,$com_info)
             {
                 $sheet->setHeight(1, 15);
-                $sheet->mergeCells('A1:M1');
-                $sheet->cells('A1:M1', function($cells) {
+                $sheet->mergeCells('A1:P1');
+                $sheet->cells('A1:P1', function($cells) {
                     $cells->setAlignment('center');
                 });
                 $sheet->cell('A1',$com_info['name']);
 
                 $sheet->setHeight(2, 15);
-                $sheet->mergeCells('A2:M2');
-                $sheet->cells('A2:M2', function($cells) {
+                $sheet->mergeCells('A2:P2');
+                $sheet->cells('A2:P2', function($cells) {
                     $cells->setAlignment('center');
                 });
                 $sheet->cell('A2',$com_info['address']);
 
                 $sheet->setHeight(4, 20);
-                $sheet->mergeCells('A4:M4');
-                $sheet->cells('A4:M4', function($cells) {
+                $sheet->mergeCells('A4:P4');
+                $sheet->cells('A4:P4', function($cells) {
                     $cells->setAlignment('center');
                     $cells->setFont([
                         'family'     => 'Calibri',
@@ -830,7 +831,7 @@ class WBSProdMatReturnController extends Controller
                 $sheet->cell('A4',"PRODUCTION MATERIAL RETURN");
 
                 $sheet->setHeight(6, 15);
-                $sheet->cells('A6:M6', function($cells) {
+                $sheet->cells('A6:P6', function($cells) {
                     $cells->setFont([
                         'family'     => 'Calibri',
                         'size'       => '11',
@@ -851,7 +852,10 @@ class WBSProdMatReturnController extends Controller
                 $sheet->cell('J6', "Pair No.");
                 $sheet->cell('K6', "Remarks");
                 $sheet->cell('L6', "Returned By");
-                $sheet->cell('M6', "Status");
+                $sheet->cell('M6', "Date Returned");
+                $sheet->cell('N6', "Control No.");
+                $sheet->cell('O6', "Date Created");
+                $sheet->cell('P6', "Status");
 
                 $row = 7;
 
@@ -869,11 +873,14 @@ class WBSProdMatReturnController extends Controller
                     $sheet->cell('J'.$row, $this->getPairNo($mk->issuanceno));
                     $sheet->cell('K'.$row, $mk->remarks);
                     $sheet->cell('L'.$row, $mk->returned_by);
-                    $sheet->cell('M'.$row, ($mk->deleted > 0)? 'Deleted' : '');
+                    $sheet->cell('M'.$row, $mk->date_returned);
+                    $sheet->cell('N'.$row, $mk->controlno);
+                    $sheet->cell('O'.$row, $mk->created_at);
+                    $sheet->cell('P'.$row, ($mk->deleted > 0)? 'Deleted' : '');
                     $row++;
                 }
 
-                $sheet->cells('A6:M'.$row, function($cells) {
+                $sheet->cells('A6:P'.$row, function($cells) {
                     $cells->setBorder('solid', 'solid', 'solid', 'solid');
                 });
             });
