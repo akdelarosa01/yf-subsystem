@@ -196,10 +196,27 @@ class WBSWhsIssuanceController extends Controller
 						DB::raw("SUM(servedqty) as total_served_qty")
 					)->first();
 
+		$served_qty_per_items = DB::connection($this->mysql)->table('tbl_request_detail')
+				                    ->where('transno',$req->transno)
+				                    ->select(
+				                    	DB::raw("code as item"),
+										DB::raw("SUM(servedqty) as served_qty")
+									)
+									->groupBy('code')
+									->get();
+
+		$served_qtys = [];
+		foreach ($served_qty_per_items as $key => $served) {
+			array_push($served_qtys, [
+				$served->item => $served->served_qty
+			]);
+		}
+
 	    return $data = [
 	    	'details' => $details,
 	    	'totals' => $totals,
 	    	'status' => $status,
+	    	'served' => $served_qty_per_items,
 	    	'id' => $id
 	    ];
     }
@@ -281,8 +298,8 @@ class WBSWhsIssuanceController extends Controller
 					'total_req_qty' => $req->total_req_qty,
 					'create_user' => Auth::user()->user_id,
 					'update_user' => Auth::user()->user_id,
-					'created_at' => date('Y-m-d h:i:s'),
-					'updated_at' => date('Y-m-d h:i:s'),
+					'created_at' => date('Y-m-d'),
+					'updated_at' => date('Y-m-d'),
 				]);
 
 			DB::connection($this->mysql)->table('tbl_request_summary')
@@ -300,22 +317,9 @@ class WBSWhsIssuanceController extends Controller
     			->where('issuance_no',$req->issuance_no)->delete();
 
     		foreach ($req->detail_id as $key => $detail_id) {
-    			$status = $this->getDetailStatus($req->issuance_no,$req->req_no,$req->pmr_detail_id[$key]);
-    			if ($status == 'Serving') {
-    				DB::connection($this->mysql)->table('tbl_request_detail')
-						// ->where('whstransno',$req->issuance_no)
-						// ->where('transno',$req->req_no)
-						->where('id',$req->pmr_detail_id[$key])
-						->increment('servedqty', $req->issued_qty_t[$key],[
-							'lot_no' => $req->lot_no[$key],
-							'last_served_by' => Auth::user()->user_id,
-							'last_served_date' => date('Y-m-d h:i:s')
-						]);
-
-					DB::connection($this->mysql)->table('tbl_wbs_inventory')
-						->where('id',$req->inv_id[$key])
-						->decrement('qty',$req->issued_qty_t[$key]);
-    			}
+    			DB::connection($this->mysql)->table('tbl_wbs_inventory')
+					->where('id',$req->inv_id[$key])
+					->decrement('qty',$req->issued_qty_t[$key]);
     			
 
 				$status = $this->getDetailStatus($req->issuance_no,$req->req_no,$req->pmr_detail_id[$key]);
@@ -343,13 +347,47 @@ class WBSWhsIssuanceController extends Controller
 				
 			}
 
+			$issued_details = DB::connection($this->mysql)->table('tbl_wbs_warehouse_mat_issuance_details')
+								->where('request_no',$req->req_no)
+								->select('issuance_no',
+										'request_no',
+										'pmr_detail_id',
+										'item',
+										'item_desc',
+										'request_qty',
+										'issued_qty_o',
+										DB::raw('SUM(issued_qty_t) as issued_qty_t'))
+								->groupBy('issuance_no',
+										'request_no',
+										'pmr_detail_id',
+										'item',
+										'item_desc',
+										'request_qty',
+										'issued_qty_o')
+								->get();
+
+			foreach ($issued_details as $key => $dt) {
+				$status = $this->getDetailStatus($req->issuance_no,$req->req_no,$dt->pmr_detail_id);
+
+    			if ($status == 'Serving') {
+    				DB::connection($this->mysql)->table('tbl_request_detail')
+						->where('id',$dt->pmr_detail_id)
+						->update([
+							'servedqty' => $dt->issued_qty_t,
+							'lot_no' => 'N/A',
+							'last_served_by' => Auth::user()->user_id,
+							'last_served_date' => date('Y-m-d h:i:s')
+						]);
+    			}
+			}
+
 			$sum_status = $this->getSummaryStatus($req->issuance_no,$req->req_no);
 
     		DB::connection($this->mysql)->table('tbl_wbs_warehouse_mat_issuance')
 				->update([
 					'status' => $sum_status,
 					'update_user' => Auth::user()->user_id,
-					'updated_at' => date('Y-m-d h:i:s'),
+					'updated_at' => date('Y-m-d'),
 				]);
 
 			DB::connection($this->mysql)->table('tbl_request_summary')
@@ -447,15 +485,31 @@ class WBSWhsIssuanceController extends Controller
 									'issued_qty_o',
 									'issued_qty_t',
 									'lot_no',
+									'create_user',
+									'update_user',
 									DB::raw("IFNULL(location,'') as location"),
 									DB::raw("DATE_FORMAT(created_at, '%m/%d/%Y %h:%i %p') as created_at"),
 									DB::raw("DATE_FORMAT(updated_at, '%m/%d/%Y %h:%i %p') as updated_at"),
 									DB::raw("DATE_FORMAT(issued_date, '%m/%d/%Y') as issued_date"))
                                	->get();
+                $served_qty_per_items = DB::connection($this->mysql)->table('tbl_wbs_warehouse_mat_issuance_details')
+											->where('issuance_no',$summary->issuance_no)
+											->select('item',
+													DB::raw('SUM(issued_qty_t) as served_qty'))
+											->groupBy('item')
+											->get();
+
+				$served_qtys = [];
+				foreach ($served_qty_per_items as $key => $served) {
+					array_push($served_qtys, [
+						$served->item => $served->served_qty
+					]);
+				}
 
 	            return $data = [
                                 'summary' => $summary,
 			                	'details' => $details,
+			                	'served_qty_per_item' => $served_qty_per_items,
 			                	'total_req_qty' => $summary->total_req_qty,
 			                	'total_served_qty' => $request[0]->total_served_qty,
 			                	'total_bal_qty' => $total_bal_qty,
@@ -543,11 +597,27 @@ class WBSWhsIssuanceController extends Controller
 								'issued_qty_o',
 								'issued_qty_t',
 								'lot_no',
+								'create_user',
+								'update_user',
 								DB::raw("IFNULL(location,'') as location"),
 								DB::raw("DATE_FORMAT(created_at, '%m/%d/%Y %h:%i %p') as created_at"),
 								DB::raw("DATE_FORMAT(updated_at, '%m/%d/%Y %h:%i %p') as updated_at"),
 								DB::raw("DATE_FORMAT(issued_date, '%m/%d/%Y') as issued_date"))
                            	->get();
+
+            $served_qty_per_items = DB::connection($this->mysql)->table('tbl_wbs_warehouse_mat_issuance_details')
+								->where('issuance_no',$summary->issuance_no)
+								->select('item',
+										DB::raw('SUM(issued_qty_t) as served_qty'))
+								->groupBy('item')
+								->get();
+
+			$served_qtys = [];
+			foreach ($served_qty_per_items as $key => $served) {
+				array_push($served_qtys, [
+					$served->item => $served->served_qty
+				]);
+			}
 
             return $data = [
                             'summary' => $summary,
@@ -555,6 +625,7 @@ class WBSWhsIssuanceController extends Controller
 		                	'total_req_qty' => $summary->total_req_qty,
 			                'total_served_qty' => $request[0]->total_served_qty,
 		                	'total_bal_qty' => $total_bal_qty,
+		                	'served_qty_per_item' => $served_qty_per_items,
 		                	'request' => $request
 		                ];
 		}
@@ -605,11 +676,27 @@ class WBSWhsIssuanceController extends Controller
 									'issued_qty_o',
 									'issued_qty_t',
 									'lot_no',
+									'create_user',
+									'update_user',
 									DB::raw("IFNULL(location,'') as location"),
 									DB::raw("DATE_FORMAT(created_at, '%m/%d/%Y %h:%i %p') as created_at"),
 									DB::raw("DATE_FORMAT(updated_at, '%m/%d/%Y %h:%i %p') as updated_at"),
 									DB::raw("DATE_FORMAT(issued_date, '%m/%d/%Y') as issued_date"))
                                	->get();
+
+                $served_qty_per_items = DB::connection($this->mysql)->table('tbl_wbs_warehouse_mat_issuance_details')
+								->where('issuance_no',$summary->issuance_no)
+								->select('item',
+										DB::raw('SUM(issued_qty_t) as served_qty'))
+								->groupBy('item')
+								->get();
+
+				$served_qtys = [];
+				foreach ($served_qty_per_items as $key => $served) {
+					array_push($served_qtys, [
+						$served->item => $served->served_qty
+					]);
+				}
 
 	            return $data = [
                                 'summary' => $summary,
@@ -617,6 +704,7 @@ class WBSWhsIssuanceController extends Controller
 			                	'total_req_qty' => $summary->total_req_qty,
 			                	'total_served_qty' => $request[0]->total_served_qty,
 			                	'total_bal_qty' => $total_bal_qty,
+			                	'served_qty_per_item' => $served_qty_per_items,
 			                	'request' => $request
 			                ];
             } else {
@@ -675,11 +763,27 @@ class WBSWhsIssuanceController extends Controller
 									'issued_qty_o',
 									'issued_qty_t',
 									'lot_no',
+									'create_user',
+									'update_user',
 									DB::raw("IFNULL(location,'') as location"),
 									DB::raw("DATE_FORMAT(created_at, '%m/%d/%Y %h:%i %p') as created_at"),
 									DB::raw("DATE_FORMAT(updated_at, '%m/%d/%Y %h:%i %p') as updated_at"),
 									DB::raw("DATE_FORMAT(issued_date, '%m/%d/%Y') as issued_date"))
                                	->get();
+
+                $served_qty_per_items = DB::connection($this->mysql)->table('tbl_wbs_warehouse_mat_issuance_details')
+								->where('issuance_no',$summary->issuance_no)
+								->select('item',
+										DB::raw('SUM(issued_qty_t) as served_qty'))
+								->groupBy('item')
+								->get();
+
+				$served_qtys = [];
+				foreach ($served_qty_per_items as $key => $served) {
+					array_push($served_qtys, [
+						$served->item => $served->served_qty
+					]);
+				}
 
 	            return $data = [
                                 'summary' => $summary,
@@ -687,6 +791,7 @@ class WBSWhsIssuanceController extends Controller
 			                	'total_req_qty' => $summary->total_req_qty,
 			                	'total_served_qty' => $request[0]->total_served_qty,
 			                	'total_bal_qty' => $total_bal_qty,
+			                	'served_qty_per_item' => $served_qty_per_items,
 			                	'request' => $request
 			                ];
             } else {
@@ -743,11 +848,27 @@ class WBSWhsIssuanceController extends Controller
 							'issued_qty_o',
 							'issued_qty_t',
 							'lot_no',
+							'create_user',
+							'update_user',
 							DB::raw("IFNULL(location,'') as location"),
 							DB::raw("DATE_FORMAT(created_at, '%m/%d/%Y %h:%i %p') as created_at"),
 							DB::raw("DATE_FORMAT(updated_at, '%m/%d/%Y %h:%i %p') as updated_at"),
 							DB::raw("DATE_FORMAT(issued_date, '%m/%d/%Y') as issued_date"))
                        	->get();
+
+            $served_qty_per_items = DB::connection($this->mysql)->table('tbl_wbs_warehouse_mat_issuance_details')
+									->where('issuance_no',$summary->issuance_no)
+									->select('item',
+											DB::raw('SUM(issued_qty_t) as served_qty'))
+									->groupBy('item')
+									->get();
+
+			$served_qtys = [];
+			foreach ($served_qty_per_items as $key => $served) {
+				array_push($served_qtys, [
+					$served->item => $served->served_qty
+				]);
+			}
 
             return $data = [
                             'summary' => $summary,
@@ -755,6 +876,7 @@ class WBSWhsIssuanceController extends Controller
 		                	'total_req_qty' => $summary->total_req_qty,
 			                'total_served_qty' => $request[0]->total_served_qty,
 		                	'total_bal_qty' => $total_bal_qty,
+		                	'served_qty_per_item' => $served_qty_per_items,
 		                	'request' => $request
 		                ];
         }
@@ -1068,18 +1190,14 @@ class WBSWhsIssuanceController extends Controller
         $content .= 'PP310,766:AN7'."\r\n";
         $content .= 'DIR2'."\r\n";
         $content .= 'FT "Swiss 721 BT"'."\r\n";
-
         $content .= 'FONTSIZE 10'."\r\n";
         $content .= 'PP60,776:FT "Swiss 721 Bold BT",20,0,78'."\r\n";
         $content .= 'PP290,450:FT "Swiss 721 BT"'."\r\n";
-
         $content .= 'FONTSIZE 8'."\r\n";
-        $content .= 'PT ""'."\r\n";
+        $content .= 'PT "'.$req->create_user.'"'."\r\n";
         $content .= 'PP290,200:FT "Swiss 721 BT"'."\r\n";
-
         $content .= 'FONTSIZE 8'."\r\n";
         $content .= 'PT "'.$req->created_at.'"'."\r\n";
-
         $content .= 'PP260,480:BARSET "CODE128",2,1,3,30'."\r\n";
         $content .= 'PB "'.$req->issuance_no.'"'."\r\n";
         $content .= 'PP220,350:FT "Swiss 721 BT"'."\r\n";
@@ -1096,7 +1214,7 @@ class WBSWhsIssuanceController extends Controller
         $content .= 'PT "pc(s)"'."\r\n";
         $content .= 'PP160,400:FT "Swiss 721 BT"'."\r\n";
         $content .= 'FONTSIZE 6'."\r\n";
-        $content .= 'PT "LOT:"'."\r\n";
+        $content .= 'PT ""'."\r\n";
         $content .= 'PP160,480:BARSET "CODE128",2,1,3,30'."\r\n";
         $content .= 'PB "'.$req->lot_no.'"'."\r\n";
         $content .= 'PP120,350:FT "Swiss 721 BT"'."\r\n";
