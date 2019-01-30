@@ -6,9 +6,10 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h3 class="modal-title">ADD\EDIT Item</h3>
 			</div>
-			<form class="form-horizontal" role="form" method="POST" action="{{ url('/wbs-inventory-save') }}" id="frm_inventory">
+			<form class="form-horizontal" role="form" method="POST" action="<?php echo e(url('/wbs-inventory-save')); ?>" id="frm_inventory">
 				<div class="modal-body">
-					{!! csrf_field() !!}
+					<?php echo csrf_field(); ?>
+
 					<input type="hidden" id="id" name="id">
 
 					<div class="form-group" id="item_code_div">
@@ -95,7 +96,7 @@
 					
 				</div>
 				<div class="modal-footer">
-						{{-- <button type="submit" class="btn btn-success" {{ $state }}><i class="fa fa-save"></i> Save</button> --}}
+						<?php /* <button type="submit" class="btn btn-success" <?php echo e($state); ?>><i class="fa fa-save"></i> Save</button> */ ?>
 						<button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
  						<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
 				</div>
