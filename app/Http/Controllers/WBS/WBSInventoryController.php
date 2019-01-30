@@ -68,6 +68,7 @@ class WBSInventoryController extends Controller
                         'judgement',
                         'create_user',
                         'received_date',
+                        'exp_date',
                         'update_user',
                         'updated_at',
                         'mat_batch_id',
@@ -107,6 +108,8 @@ class WBSInventoryController extends Controller
                                     data-not_for_iqc="'.$data->not_for_iqc.'"
                                     data-iqc_status="'.$data->iqc_status.'"
                                     data-judgement="'.$data->judgement.'"
+                                    data-received_date="'.$data->received_date.'"
+                                    data-exp_date="'.$data->exp_date.'"
                                     data-mat_batch_id="'.$data->mat_batch_id.'"
                                     data-loc_batch_id="'.$data->loc_batch_id.'">
                                         <i class="fa fa-edit"></i>
@@ -154,6 +157,7 @@ class WBSInventoryController extends Controller
                         'location' => $req->location,
                         'supplier' => $req->supplier,
                         'iqc_status' => $req->status,
+                        'exp_date' => $this->com->convertDate($req->exp_date,"Y-m-d"),
                         'update_user' => Auth::user()->user_id,
                         'updated_at' => date('Y-m-d h:i:s'),
                     ]);
@@ -179,7 +183,8 @@ class WBSInventoryController extends Controller
                                 'location',
                                 'supplier',
                                 'iqc_status',
-                                'received_date'
+                                'received_date',
+                                'exp_date'
                             )->get();
 
         // return dd($data);

@@ -71,6 +71,16 @@
 						</div>
 					</div>
 
+					<div class="form-group" id="exp_date_div">
+						<label for="inputcode" class="col-md-3 control-label">Exp. Date</label>
+						<div class="col-md-9">
+							<input type="text" class="form-control date-picker validate" id="exp_date" name="exp_date">
+							<span class="help-block">
+                                <strong id="exp_date_msg"></strong>
+                            </span>
+						</div>
+					</div>
+
 					<div class="form-group">
 						<label for="inputcode" class="col-md-3 control-label"></label>
 						<div class="col-md-9">
