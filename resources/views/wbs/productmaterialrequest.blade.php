@@ -139,7 +139,7 @@
             						<td>Item/Part No.</td>
             						<td>Item Description</td>
             						<td>Classification</td>
-            						<td>Issued Qty.(Kitting)</td>
+            						<!--<td>Issued Qty.(Kitting)</td> -->
             						<td>Request Qty.</td>
             						<td>Served Qty.</td>
             						<td>Requested By</td>

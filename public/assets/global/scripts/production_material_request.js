@@ -400,22 +400,22 @@ function makeSelectPOtable(arr) {
 
             { data: function(x) {
                 return x.name+"<input type='hidden' name='name[]' value='"+x.name+"'>";
-            }},
+            }}
 
-            { data: function(x) {
+            /*{ data: function(x) {
                 return x.issuedqty+"<input type='hidden' name='issuedqty[]' value='"+x.issuedqty+"'>";
             }},
 
             { data: function(x) {
                 return x.lot_no+"<input type='hidden' name='lot_no[]' value='"+x.lot_no+"'>";
-            }},
+            }},*/
         ],
         columnDefs: [
         	{ "width": "5%", "targets": 0 },
         	{ "width": "20%", "targets": 1 },
-        	{ "width": "35%", "targets": 2 },
-        	{ "width": "20%", "targets": 3 },
-        	{ "width": "20%", "targets": 4 }
+        	{ "width": "75%", "targets": 2 },
+        	/*{ "width": "20%", "targets": 3 },
+        	{ "width": "20%", "targets": 4 }*/
         ]
     });
 }
@@ -466,9 +466,9 @@ function makeRequestDetailsTable(arr) {
                 		"<input type='hidden' name='req_lot_no[]' value='"+x.lot_no+"'>";
             }},
 
-            { data: function(x) {
+            /*{ data: function(x) {
                 return x.issuedqty+"<input type='hidden' name='req_issuedqty[]' value='"+x.issuedqty+"'>";
-            }},
+            }},*/
 
             { data: function(x) {
                 return x.requestqty+"<input type='hidden' name='req_requestqty[]' class='reqd_details' value='"+x.requestqty+"'>";
