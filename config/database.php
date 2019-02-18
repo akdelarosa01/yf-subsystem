@@ -324,7 +324,7 @@ return [
 
         'sqlsrvbu' => [
             'driver' => 'sqlsrv',
-            'host' => env('DB_HOST', '192.168.200.52'),
+            'host' => env('DB_HOST', '192.168.200.33'),
             'port' => env('DB_PORT', '1433'),
             'database' => env('DB_DATABASE', 'bu2_v4'),
             'username' => env('DB_USERNAME', 'sa'),
@@ -334,7 +334,7 @@ return [
 
         'sqlsrvts' => [
             'driver' => 'sqlsrv',
-            'host' => env('DB_HOST', '192.168.200.52'),
+            'host' => env('DB_HOST', '192.168.200.33'),
             'port' => env('DB_PORT', '1433'),
             'database' => env('DB_DATABASE', 'bu2_v4'),
             'username' => env('DB_USERNAME', 'sa'),
@@ -344,7 +344,7 @@ return [
 
         'sqlsrvyf' => [
             'driver' => 'sqlsrv',
-            'host' => env('DB_HOST', '192.168.200.52'),
+            'host' => env('DB_HOST', '192.168.200.33'),
             'port' => env('DB_PORT', '1433'),
             'database' => env('DB_DATABASE', 'yf_v4'),
             'username' => env('DB_USERNAME', 'sa'),
@@ -355,7 +355,7 @@ return [
 
         'sqlsrvpps' => [
             'driver' => 'sqlsrv',
-            'host' => env('DB_HOST', '192.168.200.52'),
+            'host' => env('DB_HOST', '192.168.200.33'),
             'port' => env('DB_PORT', '1433'),
             'database' => env('DB_DATABASE', 'bu2_v4'),
             'username' => env('DB_USERNAME', 'sa'),
@@ -365,7 +365,7 @@ return [
 
         'sqlsrvmold' => [
             'driver' => 'sqlsrv',
-            'host' => env('DB_HOST', '192.168.200.52'),
+            'host' => env('DB_HOST', '192.168.200.33'),
             'port' => env('DB_PORT', '1433'),
             'database' => env('DB_DATABASE', 'bu2_v4'),
             'username' => env('DB_USERNAME', 'sa'),

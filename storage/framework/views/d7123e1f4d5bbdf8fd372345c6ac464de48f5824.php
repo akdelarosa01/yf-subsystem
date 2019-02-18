@@ -16,9 +16,9 @@
                                     <input type="checkbox" class="check_all_po_detail">
                                 </th>
                                 <th width="20%">Code</th>
-                                <th width="35%">Description</th>
-                                <th width="20%">Issued QTY</th>
-                                <th width="20%">Lot No.</th>
+                                <th width="75%">Description</th>
+                                <!-- <th width="20%">Issued QTY</th>
+                                <th width="20%">Lot No.</th> -->
                             </tr>
                         </thead>
                         <tbody id="tbl_po_details_body"></tbody>
@@ -71,12 +71,12 @@
                                     <select class="form-control input-sm" id="edit_classification" name="edit_classification"></select>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label class="control-label col-sm-3">Issued Qty. (Kitting)</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control input-sm" id="edit_issuedqty" readonly>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label class="control-label col-sm-3">Request Qty.</label>
                                 <div class="col-sm-9">
