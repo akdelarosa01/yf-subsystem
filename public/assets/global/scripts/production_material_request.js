@@ -92,8 +92,6 @@ $( function() {
 						id: x.id,
 						code: x.code,
 						name: x.name,
-						issuedqty: x.issuedqty,
-						lot_no: x.lot_no
 					});
 				});
 

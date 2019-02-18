@@ -105,7 +105,10 @@ class WBSProductionMaterialRequestController extends Controller
 	            $this->checkIfInSakiAndKit($val);
 	        }
 
-	        $data = DB::connection($this->mysql)->table('temp_wbs_prodmatrequest')->get();
+	        $data = DB::connection($this->mysql)->table('temp_wbs_prodmatrequest')
+	        			->select('id','code','name')
+	        			->groupBy('code','name')
+	        			->get();
 	        return $data;
         }
         return [];
