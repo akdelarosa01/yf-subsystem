@@ -48,7 +48,7 @@ return [
 
         'common' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '192.168.200.50'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'pmi_common'),
             'username' => env('DB_USERNAME', 'root'),
@@ -62,7 +62,7 @@ return [
 
         'mysqlts' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '192.168.200.50'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'pmi_ts'),
             'username' => env('DB_USERNAME', 'root'),
@@ -76,7 +76,7 @@ return [
 
         'mysqlcn' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '192.168.200.50'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'pmi_cn'),
             'username' => env('DB_USERNAME', 'root'),
@@ -90,7 +90,7 @@ return [
 
         'mysqlyf' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '192.168.200.50'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'pmi_yf'),
             'username' => env('DB_USERNAME', 'root'),
@@ -104,7 +104,7 @@ return [
 
         'mysqlpps' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '192.168.200.50'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'pmi_ts'),
             'username' => env('DB_USERNAME', 'root'),
@@ -118,7 +118,7 @@ return [
 
         'mysqlmold' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '192.168.200.50'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'pmi_ts'),
             'username' => env('DB_USERNAME', 'root'),
@@ -132,7 +132,7 @@ return [
 
         'mysqlstockqueryts' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '192.168.200.50'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'pmi_stockquery_ts'),
             'username' => env('DB_USERNAME', 'root'),
@@ -146,7 +146,7 @@ return [
 
         'mysqlstockquerycn' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '192.168.200.50'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'pmi_stockquery_cn'),
             'username' => env('DB_USERNAME', 'root'),
@@ -160,7 +160,7 @@ return [
 
         'mysqlstockqueryyf' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '192.168.200.50'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'pmi_stockquery_yf'),
             'username' => env('DB_USERNAME', 'root'),
@@ -174,7 +174,7 @@ return [
 
         'mysqlwbsts' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '192.168.200.50'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'pmi_wbs_ts'),
             'username' => env('DB_USERNAME', 'root'),
@@ -188,7 +188,7 @@ return [
 
         'mysqlwbscn' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '192.168.200.50'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'pmi_wbs_cn'),
             'username' => env('DB_USERNAME', 'root'),
@@ -202,7 +202,7 @@ return [
 
         'mysqlwbsyf' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '192.168.200.50'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'pmi_wbs_yf'),
             'username' => env('DB_USERNAME', 'root'),
@@ -216,7 +216,7 @@ return [
 
         'mysqltrafficts' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '192.168.200.50'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'pmi_traffic_ts'),
             'username' => env('DB_USERNAME', 'root'),
@@ -230,7 +230,7 @@ return [
 
         'mysqltrafficcn' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '192.168.200.50'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'pmi_traffic_cn'),
             'username' => env('DB_USERNAME', 'root'),
@@ -244,7 +244,7 @@ return [
 
         'mysqltrafficyf' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '192.168.200.50'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'pmi_traffic_yf'),
             'username' => env('DB_USERNAME', 'root'),
@@ -258,7 +258,7 @@ return [
 
         'mysqlmrpts' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '192.168.200.50'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'pmi_mrp_ts'),
             'username' => env('DB_USERNAME', 'root'),
@@ -272,7 +272,7 @@ return [
 
         'mysqlsssts' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '192.168.200.50'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'pmi_sss_ts'),
             'username' => env('DB_USERNAME', 'root'),
@@ -298,7 +298,7 @@ return [
             'engine' => null,
         ],
 
-        'mysql_barcode_cn' => [
+        'mysql_barcode_yf' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST', '192.168.3.235'),
             'port' => env('DB_PORT', '3306'),
@@ -314,7 +314,7 @@ return [
 
         'sqlsrvcn' => [
             'driver' => 'sqlsrv',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '192.168.200.52'),
             'port' => env('DB_PORT', '1433'),
             'database' => env('DB_DATABASE', 'cn_v4'),
             'username' => env('DB_USERNAME', 'sa'),
