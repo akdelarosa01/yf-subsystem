@@ -64,7 +64,7 @@ class EmailExpiredItems extends Command
                             'received_date',
                             'exp_date'
                         )
-                    ->where('qty','<>', 0.0000)
+                    ->where('qty','<', 1)
                     ->where('exp_date','=',DB::raw("DATE_ADD(CURDATE(), INTERVAL 1 MONTH)"))
                     ->orderBy('received_date','desc')
                     ->get();
