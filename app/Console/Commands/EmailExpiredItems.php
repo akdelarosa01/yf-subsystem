@@ -55,19 +55,19 @@ class EmailExpiredItems extends Command
 
         $now = Carbon::now(); //get date now
 
-        $getdate = DB::connection($connection)->table('tbl_wbs_inventory')
-                    ->select('item',
-                            'item_desc',
-                            'qty',
-                            'lot_no',
-                            'location',
-                            'received_date',
-                            'exp_date'
-                        )
-                    ->where('qty','>', 0)
-                    ->where('exp_date','=',DB::raw("DATE_ADD(CURDATE(), INTERVAL 1 MONTH)"))
-                    ->orderBy('received_date','desc')
-                    ->get();
+        $getdate = DB::connection($connection)
+                    ->select("SELECT item,
+                                item_desc,
+                                qty,
+                                lot_no,
+                                location,
+                                received_date,
+                                exp_date
+                            FROM tbl_wbs_inventory
+                            WHERE qty > 0
+                            AND exp_date between date_sub(DATE_ADD(current_date(), INTERVAL 1 month), interval 5 day) and DATE_ADD(current_date(), INTERVAL 1 month)
+                            and exp_date not in ('N/A','n/a','NA','na')
+                            order by exp_date desc");
         foreach ($getdate as $key => $inv) {
                     $data[$key]['item'] = $inv->item;
                     $data[$key]['item_desc'] = $inv->item_desc;
