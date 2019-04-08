@@ -45,7 +45,6 @@ class EmailExpiredItems extends Command
     public function handle()
     {
         $this->email('mysqlwbsyf','sqlsrvyf','Items_to_Expire_YF');
-        //$this->email('mysqlcn','Items_to_Expire_CN');
     }
 
     private function email($connection,$mssql,$filename)
@@ -135,7 +134,6 @@ class EmailExpiredItems extends Command
         $myfile = fopen($path."/".$filename.$date.".txt", "w") or die("Unable to open file!");
         fwrite($myfile, $content);
         fclose($myfile);
-
     }
 
     private function checkIfExistObject($object)
